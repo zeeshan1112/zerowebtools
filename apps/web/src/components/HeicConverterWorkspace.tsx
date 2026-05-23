@@ -63,6 +63,28 @@ export default function HeicConverterWorkspace() {
   const filesRef = useRef<ImageFile[]>([]);
   filesRef.current = files;
 
+  // Sync targetFormat and quality from localStorage post-hydration
+  useEffect(() => {
+    try {
+      const savedFormat = localStorage.getItem("zeelancebox_heic_format");
+      if (savedFormat === "image/jpeg" || savedFormat === "image/png") {
+        setTargetFormat(savedFormat);
+      }
+      const savedQuality = localStorage.getItem("zeelancebox_heic_quality");
+      if (savedQuality) {
+        setQuality(Number(savedQuality));
+      }
+    } catch (_) {}
+  }, []);
+
+  // Save changes to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("zeelancebox_heic_format", targetFormat);
+      localStorage.setItem("zeelancebox_heic_quality", String(quality));
+    } catch (_) {}
+  }, [targetFormat, quality]);
+
   // Warm up CDN connection
   useEffect(() => {
     const link = document.createElement("link");

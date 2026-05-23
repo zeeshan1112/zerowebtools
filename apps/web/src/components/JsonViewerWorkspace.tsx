@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { parseJsonToTree, searchTree, type JsonTreeNode, type JsonParseResult } from "@hub/tools-core";
 
@@ -153,6 +153,24 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
   const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["root"]));
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Initial client-side sync from localStorage to avoid SSR mismatches
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("zeelancebox_json_raw");
+      if (saved) setRaw(saved);
+    } catch (_) {}
+  }, []);
+
+  // Debounced auto-saving loop
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem("zeelancebox_json_raw", raw);
+      } catch (_) {}
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [raw]);
 
   const result: JsonParseResult = useMemo(() => parseJsonToTree(raw), [raw]);
 

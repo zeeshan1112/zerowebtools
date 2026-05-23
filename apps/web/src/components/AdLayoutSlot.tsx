@@ -16,17 +16,17 @@ const AD_DIMENSIONS: Record<
   leaderboard: {
     width: "728px",
     height: "90px",
-    label: "Advertisement",
+    label: "Sponsored Extension",
   },
   rectangle: {
     width: "300px",
     height: "250px",
-    label: "Advertisement",
+    label: "Developer Spotlight",
   },
   anchor: {
     width: "100%",
     height: "90px",
-    label: "Advertisement",
+    label: "Sponsored Extension",
   },
 };
 
