@@ -36,7 +36,7 @@ function Header() {
             href="/"
             className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
           >
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-accent to-emerald-400 flex items-center justify-center shadow-sm">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-sm">
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="text-white">
                 <path d="M3 2h8v2H3V2zm0 4h5v2H3V6zm0 4h8v2H3v-2z" fill="currentColor" />
               </svg>

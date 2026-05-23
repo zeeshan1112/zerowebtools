@@ -87,22 +87,22 @@ function CodeNodeInspector() {
   }, [jsonText]);
 
   return (
-    <div className="bg-[#121214] dark:bg-[#18181b] p-5 rounded-2xl border border-border/80 shadow-xl max-w-lg w-full mx-auto select-none font-mono flex flex-col h-[280px]">
+    <div className="bg-[#0f0f11] dark:bg-[#09090b] p-5 rounded-2xl border border-border/60 shadow-xl w-full select-none font-mono flex flex-col h-[320px]">
       <div className="flex items-center justify-between border-b border-border/30 pb-2.5 shrink-0">
-        <span className="text-[10px] font-bold text-accent uppercase tracking-wider flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Code Node Sandbox
+        <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-wider flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+          Code Node Console
         </span>
-        <span className="text-[9px] font-bold text-ink-muted bg-surface px-2 py-0.5 rounded border border-border/30">Local-only</span>
+        <span className="text-[9px] font-bold text-ink-muted bg-[#121214] dark:bg-[#18181b] px-2 py-0.5 rounded border border-border/30">Local-only</span>
       </div>
 
-      <div className="flex-grow grid grid-cols-2 gap-4 mt-4 min-h-0">
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 min-h-0">
         {/* Left: Code Editor Textarea */}
         <div className="flex flex-col h-full min-h-0">
           <textarea
             value={jsonText}
             onChange={(e) => setJsonText(e.target.value)}
-            className="w-full flex-grow p-2.5 rounded-xl border border-border bg-[#09090b] text-[11px] font-mono focus:outline-none focus:ring-2 focus:ring-accent/15 focus:border-accent transition-all text-emerald-400 resize-none overflow-y-auto"
+            className="w-full flex-grow p-2.5 rounded-xl border border-border bg-[#050507] dark:bg-[#040405] text-[11px] font-mono focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 transition-all text-violet-400 dark:text-violet-300 resize-none overflow-y-auto"
             spellCheck={false}
           />
           {error && (
@@ -113,11 +113,17 @@ function CodeNodeInspector() {
         </div>
 
         {/* Right: SVG Node Tree Graph */}
-        <div className="border border-border rounded-xl bg-surface-elevated/40 flex items-center justify-center relative overflow-hidden h-full">
+        <div className="border border-border/60 rounded-xl bg-[#050507] dark:bg-[#040405] flex items-center justify-center relative overflow-hidden h-full">
           <svg className="w-full h-full" viewBox="0 0 200 180">
+            <defs>
+              <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#6366f1" />
+              </linearGradient>
+            </defs>
+            
             {/* Draw connections */}
             {nodes.length > 1 && nodes.slice(1).map((node, idx) => {
-              // Connect node 0 (root) to other nodes
               const startX = 100;
               const startY = 35;
               const endX = nodes.length === 2 ? 100 : idx === 0 ? 45 : 155;
@@ -130,9 +136,10 @@ function CodeNodeInspector() {
                   y1={startY}
                   x2={endX}
                   y2={endY}
-                  stroke="var(--border)"
-                  strokeWidth="1.5"
-                  strokeDasharray="2 2"
+                  stroke="url(#line-gradient)"
+                  strokeWidth="2"
+                  strokeDasharray="2 3"
+                  className="animate-pulse"
                 />
               );
             })}
@@ -150,8 +157,8 @@ function CodeNodeInspector() {
                     cy={y}
                     r={isRoot ? 22 : 18}
                     fill="var(--surface-elevated)"
-                    stroke={isRoot ? "var(--ink)" : "var(--border)"}
-                    strokeWidth="1.5"
+                    stroke="url(#line-gradient)"
+                    strokeWidth="2"
                   />
                   <text
                     x={x}
@@ -254,47 +261,67 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative pb-28">
-      
-      {/* Pristine Swiss Hero */}
-      <section className="relative pt-16 pb-16 border-b border-border/40 select-none">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+       {/* Centered Premium Vercel-style Hero */}
+      <section className="relative pt-24 pb-20 border-b border-border/40 select-none overflow-hidden bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.04)_0%,transparent_60%)]">
+        
+        {/* Soft violet radial light glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-violet-500/8 to-indigo-500/8 blur-[100px] rounded-full pointer-events-none" />
+
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+          <div className="text-center space-y-8 max-w-4xl mx-auto">
             
-            {/* Left Copy */}
-            <div className="lg:col-span-7 space-y-8">
-              <div className="text-[10px] font-bold text-ink-muted uppercase tracking-wider select-none">
-                Local browser nodes • {totalLive} engines compiled
-              </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-violet-500/20 bg-violet-500/5 text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+              Secure local nodes • {totalLive} engines compiled
+            </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-ink text-balance">
-                Utilities, refined.
-              </h1>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05] text-ink text-balance">
+              Secure Local Workspaces for <span className="bg-gradient-to-r from-violet-600 to-indigo-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-indigo-400">Modern Builders.</span>
+            </h1>
 
-              <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[48ch]">
-                Stark, browser-compiled developer utilities and file processors built for builders who value absolute security. Zero network telemetry.
-              </p>
+            <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance">
+              Stark, browser-compiled developer utilities and document processors built for professionals who value absolute privacy. Zero network telemetry.
+            </p>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 pt-2">
-                <a
-                  href="#workspace-directory"
-                  className="px-6 py-3 bg-ink hover:bg-zinc-800 dark:hover:bg-zinc-200 dark:bg-f4f4f5 text-surface text-xs font-bold tracking-wider uppercase border border-ink transition-all active:scale-[0.98] cursor-pointer"
-                >
-                  Launch Workspaces
-                </a>
-                <a
-                  href="#workspace-directory"
-                  onClick={() => setActiveTab("dev")}
-                  className="px-6 py-3 bg-transparent hover:bg-surface-elevated text-ink-secondary hover:text-ink text-xs font-bold tracking-wider uppercase border border-border transition-all active:scale-[0.98] cursor-pointer"
-                >
-                  Formatter suites
-                </a>
+            {/* Quick-Launcher Command Center Centerpiece */}
+            <div className="pt-2 flex flex-col items-center justify-center">
+              <button
+                onClick={() => {
+                  const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
+                  window.dispatchEvent(event);
+                }}
+                className="w-full max-w-md px-4 py-3 bg-surface-elevated/70 backdrop-blur border border-border/80 hover:border-violet-500/40 rounded-xl flex items-center justify-between text-xs cursor-pointer shadow-md transition-all duration-300 active:scale-[0.99] group select-none text-left"
+              >
+                <div className="flex items-center gap-2.5">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-violet-500 shrink-0">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>
+                  <span className="text-ink-muted font-bold group-hover:text-ink transition-colors duration-150">Search workspaces...</span>
+                </div>
+                <div className="flex items-center gap-1 opacity-70">
+                  <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">⌘</kbd>
+                  <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">K</kbd>
+                </div>
+              </button>
+              
+              {/* Micro workspace tags shortcut below search */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
+                <span>SUITES:</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("pdf")} className="hover:text-violet-500 transition-colors">PDF Pro</a>
+                <span>•</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("dev")} className="hover:text-violet-500 transition-colors">Developers</a>
+                <span>•</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("financial")} className="hover:text-violet-500 transition-colors">Growth & Finance</a>
+                <span>•</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("converters")} className="hover:text-violet-500 transition-colors">Creative</a>
               </div>
             </div>
 
-            {/* Right: Dynamic Code Node Sandbox */}
-            <div className="lg:col-span-5 flex justify-center">
-              <CodeNodeInspector />
+            {/* Centered Wide Visual Console Preview Box */}
+            <div className="pt-8 w-full max-w-4xl mx-auto">
+              <div className="border border-border/60 bg-[#09090b]/45 backdrop-blur-md rounded-2xl shadow-2xl p-2 relative overflow-hidden group hover:border-violet-500/25 transition-all duration-300">
+                <CodeNodeInspector />
+              </div>
             </div>
 
           </div>
@@ -366,13 +393,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Directory Ad slot */}
-        <div className="py-2 border-y border-border/40 flex justify-center select-none">
-          <div className="flex flex-col items-center">
-            <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider mb-2">SPONSORED PLATFORM EXTENSION</span>
-            <AdLayoutSlot type="leaderboard" className="my-0" />
-          </div>
-        </div>
+
 
         {/* Saved Workspaces Dashboard */}
         {bookmarkedTools.length > 0 && (

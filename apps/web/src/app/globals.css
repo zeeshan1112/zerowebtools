@@ -29,10 +29,10 @@
   --border: #e4e4e7;
   --border-subtle: #f4f4f5;
 
-  --accent: #09090b;
-  --accent-hover: #27272a;
-  --accent-light: #f4f4f5;
-  --accent-surface: #fafafa;
+  --accent: #6366f1; /* Premium Violet-Indigo */
+  --accent-hover: #4f46e5;
+  --accent-light: #e0e7ff;
+  --accent-surface: #f5f3ff;
   
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
@@ -50,10 +50,10 @@ html.dark {
   --border: #27272a;
   --border-subtle: #1c1c1e;
 
-  --accent: #f4f4f5;
-  --accent-hover: #e4e4e7;
-  --accent-light: #27272a;
-  --accent-surface: #121214;
+  --accent: #a78bfa; /* Violet 400 */
+  --accent-hover: #c4b5fd;
+  --accent-light: #2e1065;
+  --accent-surface: #12101e;
 }
 
 @layer base {
