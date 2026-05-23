@@ -111,11 +111,7 @@ export default function Sidebar() {
           href="/"
           className="flex items-center gap-2.5 group active:scale-[0.98] transition-transform duration-200 truncate w-full"
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-sm shrink-0">
-            <svg width="15" height="15" viewBox="0 0 14 14" fill="none" className="text-white">
-              <path d="M3 2h8v2H3V2zm0 4h5v2H3V6zm0 4h8v2H3v-2z" fill="currentColor" />
-            </svg>
-          </div>
+          <img src="/logo.png" alt="ZeelanceBox" className="w-8 h-8 rounded-xl shadow-sm shrink-0 object-contain" />
           <AnimatePresence mode="wait">
             {isExpanded && (
               <motion.span

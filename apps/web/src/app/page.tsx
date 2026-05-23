@@ -51,145 +51,7 @@ const staggerItem = {
   },
 } as const;
 
-// Dynamic Code Node Inspector Sandbox Component
-interface NodeConfig {
-  id: string;
-  label: string;
-}
 
-function CodeNodeInspector() {
-  const [jsonText, setJsonText] = useState<string>(
-    JSON.stringify(
-      [
-        { id: "A", label: "PDF Suite" },
-        { id: "B", label: "Merge tool" },
-        { id: "C", label: "AES Protect" },
-      ],
-      null,
-      2
-    )
-  );
-  const [nodes, setNodes] = useState<NodeConfig[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    try {
-      const parsed = JSON.parse(jsonText);
-      if (Array.isArray(parsed) && parsed.every(n => typeof n === "object" && n.id && n.label)) {
-        setNodes(parsed);
-        setError(null);
-      } else {
-        setError("JSON must be an array of { id, label } objects");
-      }
-    } catch (err: any) {
-      setError(err.message || "Invalid JSON syntax");
-    }
-  }, [jsonText]);
-
-  return (
-    <div className="bg-[#0f0f11] dark:bg-[#09090b] p-5 rounded-2xl border border-border/60 shadow-xl w-full select-none font-mono flex flex-col h-[320px]">
-      <div className="flex items-center justify-between border-b border-border/30 pb-2.5 shrink-0">
-        <span className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-wider flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
-          Code Node Console
-        </span>
-        <span className="text-[9px] font-bold text-ink-muted bg-[#121214] dark:bg-[#18181b] px-2 py-0.5 rounded border border-border/30">Local-only</span>
-      </div>
-
-      <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 min-h-0">
-        {/* Left: Code Editor Textarea */}
-        <div className="flex flex-col h-full min-h-0">
-          <textarea
-            value={jsonText}
-            onChange={(e) => setJsonText(e.target.value)}
-            className="w-full flex-grow p-2.5 rounded-xl border border-border bg-[#050507] dark:bg-[#040405] text-[11px] font-mono focus:outline-none focus:ring-2 focus:ring-violet-500/15 focus:border-violet-500 transition-all text-violet-400 dark:text-violet-300 resize-none overflow-y-auto"
-            spellCheck={false}
-          />
-          {error && (
-            <span className="text-[9px] text-red-500 mt-1 truncate block font-bold leading-tight uppercase">
-              {error.split("\n")[0]}
-            </span>
-          )}
-        </div>
-
-        {/* Right: SVG Node Tree Graph */}
-        <div className="border border-border/60 rounded-xl bg-[#050507] dark:bg-[#040405] flex items-center justify-center relative overflow-hidden h-full">
-          <svg className="w-full h-full" viewBox="0 0 200 180">
-            <defs>
-              <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="100%" stopColor="#6366f1" />
-              </linearGradient>
-            </defs>
-            
-            {/* Draw connections */}
-            {nodes.length > 1 && nodes.slice(1).map((node, idx) => {
-              const startX = 100;
-              const startY = 35;
-              const endX = nodes.length === 2 ? 100 : idx === 0 ? 45 : 155;
-              const endY = 125;
-              
-              return (
-                <line
-                  key={node.id}
-                  x1={startX}
-                  y1={startY}
-                  x2={endX}
-                  y2={endY}
-                  stroke="url(#line-gradient)"
-                  strokeWidth="2"
-                  strokeDasharray="2 3"
-                  className="animate-pulse"
-                />
-              );
-            })}
-
-            {/* Render Nodes */}
-            {nodes.map((node, idx) => {
-              const isRoot = idx === 0;
-              const x = isRoot ? 100 : nodes.length === 2 ? 100 : idx === 1 ? 45 : 155;
-              const y = isRoot ? 35 : 125;
-              
-              return (
-                <g key={node.id} className="transition-all duration-300">
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r={isRoot ? 22 : 18}
-                    fill="var(--surface-elevated)"
-                    stroke="url(#line-gradient)"
-                    strokeWidth="2"
-                  />
-                  <text
-                    x={x}
-                    y={y + 3}
-                    textAnchor="middle"
-                    fill="var(--ink)"
-                    fontSize={isRoot ? "8" : "7"}
-                    fontWeight="bold"
-                    fontFamily="monospace"
-                  >
-                    {node.id}
-                  </text>
-                  <text
-                    x={x}
-                    y={y + (isRoot ? 32 : 28)}
-                    textAnchor="middle"
-                    fill="var(--ink-secondary)"
-                    fontSize="7"
-                    fontFamily="monospace"
-                  >
-                    {node.label.slice(0, 10)}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function HomePage() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
@@ -261,42 +123,50 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative pb-28">
-       {/* Centered Premium Vercel-style Hero */}
-      <section className="relative pt-24 pb-20 border-b border-border/40 select-none overflow-hidden bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.04)_0%,transparent_60%)]">
+       {/* Immersive Full-Screen Premium Hero with Covered Background Image Glow */}
+      <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-16 pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
         
-        {/* Soft violet radial light glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-violet-500/8 to-indigo-500/8 blur-[100px] rounded-full pointer-events-none" />
+        {/* Full-bleed Immersive Abstract Background Glow */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.22] dark:opacity-[0.42]">
+          <img 
+            src="/hero-bg.png" 
+            alt="ZeelanceBox Immersive Glow" 
+            className="w-full h-full object-cover filter blur-[0.5px] scale-105" 
+          />
+          {/* Gradient mask to blend nicely with the page content below */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface/40 to-surface z-10" />
+        </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
             
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-violet-500/20 bg-violet-500/5 text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
-              Secure local nodes • {totalLive} engines compiled
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/25 bg-accent/5 text-[10px] font-bold text-accent uppercase tracking-wider select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              100% Private • {totalLive} free online tools compiled
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05] text-ink text-balance">
-              Secure Local Workspaces for <span className="bg-gradient-to-r from-violet-600 to-indigo-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-indigo-400">Modern Builders.</span>
+              Simple, Private Web Tools <span className="text-accent">Right in Your Browser.</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance">
-              Stark, browser-compiled developer utilities and document processors built for professionals who value absolute privacy. Zero network telemetry.
+            <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance font-medium">
+              Free, fast, and completely secure tools to edit PDFs, convert formats, check MRR growth, and resize images. All calculations run entirely locally on your device so your files never leave your computer.
             </p>
 
             {/* Quick-Launcher Command Center Centerpiece */}
-            <div className="pt-2 flex flex-col items-center justify-center">
+            <div className="pt-2 flex flex-col items-center justify-center gap-6">
               <button
                 onClick={() => {
                   const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
                   window.dispatchEvent(event);
                 }}
-                className="w-full max-w-md px-4 py-3 bg-surface-elevated/70 backdrop-blur border border-border/80 hover:border-violet-500/40 rounded-xl flex items-center justify-between text-xs cursor-pointer shadow-md transition-all duration-300 active:scale-[0.99] group select-none text-left"
+                className="w-full max-w-md px-4 py-3.5 bg-surface-elevated/85 backdrop-blur border border-border/80 hover:border-accent/40 rounded-xl flex items-center justify-between text-xs cursor-pointer shadow-md transition-all duration-300 active:scale-[0.99] group select-none text-left"
               >
                 <div className="flex items-center gap-2.5">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-violet-500 shrink-0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-accent shrink-0">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
-                  <span className="text-ink-muted font-bold group-hover:text-ink transition-colors duration-150">Search workspaces...</span>
+                  <span className="text-ink-muted font-bold group-hover:text-ink transition-colors duration-150">Search for a tool (e.g. merge pdf)...</span>
                 </div>
                 <div className="flex items-center gap-1 opacity-70">
                   <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">⌘</kbd>
@@ -304,23 +174,38 @@ export default function HomePage() {
                 </div>
               </button>
               
-              {/* Micro workspace tags shortcut below search */}
-              <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
-                <span>SUITES:</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("pdf")} className="hover:text-violet-500 transition-colors">PDF Pro</a>
-                <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("dev")} className="hover:text-violet-500 transition-colors">Developers</a>
-                <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("financial")} className="hover:text-violet-500 transition-colors">Growth & Finance</a>
-                <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("converters")} className="hover:text-violet-500 transition-colors">Creative</a>
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <button
+                  onClick={() => {
+                    document.getElementById("workspace-directory")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="px-6 py-3.5 rounded-xl border border-border/80 bg-surface-elevated/40 backdrop-blur-md hover:bg-surface-elevated/80 text-ink hover:text-accent font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:border-accent/30 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group"
+                >
+                  Explore All Tools
+                  <svg 
+                    width="12" 
+                    height="12" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="3" 
+                    className="text-ink-muted group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </button>
               </div>
-            </div>
 
-            {/* Centered Wide Visual Console Preview Box */}
-            <div className="pt-8 w-full max-w-4xl mx-auto">
-              <div className="border border-border/60 bg-[#09090b]/45 backdrop-blur-md rounded-2xl shadow-2xl p-2 relative overflow-hidden group hover:border-violet-500/25 transition-all duration-300">
-                <CodeNodeInspector />
+              {/* Micro workspace tags shortcut below search */}
+              <div className="flex flex-wrap items-center justify-center gap-2 text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
+                <span>SUITES:</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors">PDF Editors</a>
+                <span>•</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("dev")} className="hover:text-accent transition-colors">Code Converters</a>
+                <span>•</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("financial")} className="hover:text-accent transition-colors">Finance Formulas</a>
+                <span>•</span>
+                <a href="#workspace-directory" onClick={() => setActiveTab("converters")} className="hover:text-accent transition-colors">Image Utilities</a>
               </div>
             </div>
 
