@@ -17,6 +17,7 @@
     "node": ">=18.17.0"
   },
   "dependencies": {
+    "@pdfsmaller/pdf-encrypt-lite": "^1.0.2",
     "heic-to": "^1.4.3",
     "heic2any": "^0.0.4",
     "jszip": "^3.10.1",

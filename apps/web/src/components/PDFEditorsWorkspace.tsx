@@ -22,13 +22,13 @@ export function ProtectPDFWorkspace() {
     if (!file || !password) { setError("Enter a password"); return; }
     setProcessing(true); setError(null);
     try {
-      const doc = await loadPDFDoc(file);
-      (doc as any).encrypt({
-        userPassword: password,
-        ownerPassword: password,
-        permissions: { printing: "highResolution" as any, modifying: false, copying: true, annotating: false, fillingForms: true, contentAccessibility: true, documentAssembly: false },
-      });
-      const blob = await savePDFDoc(doc);
+      // Dynamic import to keep initial bundle size lightweight
+      const { encryptPDF } = await import("@pdfsmaller/pdf-encrypt-lite");
+      
+      const arrayBuffer = await file.arrayBuffer();
+      const encryptedBytes = await encryptPDF(new Uint8Array(arrayBuffer), password);
+      
+      const blob = new Blob([encryptedBytes as any], { type: "application/pdf" });
       downloadBlob(blob, getFilename("pdf-protect", file.name));
     } catch (e: any) { setError(e.message || "Encryption failed"); }
     setProcessing(false);

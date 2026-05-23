@@ -1,47 +1,149 @@
 "use client";
 
 import React, { useState, useCallback, useRef } from "react";
-import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename } from "@/lib/pdf-utils";
+import { downloadBlob, formatBytes, getFilename, compressPDF } from "@/lib/pdf-utils";
 
 export default function CompressPDFWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [before, setBefore] = useState(0);
   const [after, setAfter] = useState<number | null>(null);
+  const [level, setLevel] = useState<"recommended" | "extreme" | "lossless">("recommended");
+  const [progress, setProgress] = useState<{ current: number; total: number } | null>(null);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const ref = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback(async (f: File) => {
-    setFile(f); setBefore(f.size); setAfter(null); setError(null);
+    setFile(f); setBefore(f.size); setAfter(null); setProgress(null); setError(null);
   }, []);
 
   const compress = useCallback(async () => {
     if (!file) return;
-    setProcessing(true); setError(null);
+    setProcessing(true); setError(null); setProgress(null);
     try {
-      const doc = await loadPDFDoc(file);
-      const blob = await savePDFDoc(doc);
+      const blob = await compressPDF(file, level, (current, total) => {
+        setProgress({ current, total });
+      });
       setAfter(blob.size);
       downloadBlob(blob, getFilename("pdf-compress", file.name));
     } catch (e: any) { setError(e.message || "Compression failed"); }
     setProcessing(false);
-  }, [file]);
+  }, [file, level]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <DropZone ref={ref} onFile={handleFile} label="Drop a PDF to compress" accept=".pdf" />
       {file && (
-        <div className="space-y-3">
-          <div className="flex items-center gap-4 text-sm"><span className="font-medium text-ink">{file.name}</span><span className="text-ink-muted">{formatBytes(before)}</span></div>
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 text-sm border-b border-border pb-3">
+            <span className="font-semibold text-ink">{file.name}</span>
+            <span className="text-ink-muted text-xs font-mono">{formatBytes(before)}</span>
+          </div>
+
+          <div className="space-y-3">
+            <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">Compression Level</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <button
+                type="button"
+                onClick={() => setLevel("recommended")}
+                className={`text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-between text-ink ${
+                  level === "recommended"
+                    ? "border-accent bg-accent-surface"
+                    : "border-border hover:border-zinc-300 bg-surface-elevated"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-semibold text-sm font-mono">RECOMMENDED</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-accent text-white font-medium tracking-wide font-mono">BEST VALUE</span>
+                  </div>
+                  <p className="text-xs text-ink-muted leading-relaxed">
+                    Balanced quality & resolution (150 DPI). Reduces scanned files up to 90%. Best for standard uses.
+                  </p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setLevel("extreme")}
+                className={`text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-between text-ink ${
+                  level === "extreme"
+                    ? "border-accent bg-accent-surface"
+                    : "border-border hover:border-zinc-300 bg-surface-elevated"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-semibold text-sm font-mono">EXTREME</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-medium tracking-wide font-mono">SMALLEST</span>
+                  </div>
+                  <p className="text-xs text-ink-muted leading-relaxed">
+                    Maximum compression (100 DPI) at lower image quality. Perfect for strict portal size limits.
+                  </p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setLevel("lossless")}
+                className={`text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-between text-ink ${
+                  level === "lossless"
+                    ? "border-accent bg-accent-surface"
+                    : "border-border hover:border-zinc-300 bg-surface-elevated"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-semibold text-sm font-mono">LOSSLESS</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-medium tracking-wide font-mono">HIGH QUALITY</span>
+                  </div>
+                  <p className="text-xs text-ink-muted leading-relaxed">
+                    Cleans PDF structures & removes metadata. Preserves original visual quality, vectors, & selectable text.
+                  </p>
+                </div>
+              </button>
+            </div>
+          </div>
+
           {after !== null && (
-            <div className="rounded-xl bg-accent-surface p-4 space-y-2">
-              <div className="flex items-center justify-between text-sm"><span>Before</span><span>{formatBytes(before)}</span></div>
-              <div className="flex items-center justify-between text-sm"><span>After</span><span className="font-semibold text-accent">{formatBytes(after)}</span></div>
-              <div className="flex items-center justify-between text-sm"><span>Saved</span><span className="font-semibold">{formatBytes(before - after)} ({((1 - after / before) * 100).toFixed(0)}%)</span></div>
+            <div className="rounded-xl border border-dashed border-border bg-surface-elevated p-5 space-y-3">
+              <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider border-b border-border pb-2 font-mono">Compression Metrics</div>
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-[10px] font-mono text-ink-muted uppercase">Original Size</div>
+                  <div className="text-sm font-semibold text-ink mt-0.5 font-mono">{formatBytes(before)}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono text-ink-muted uppercase">Compressed Size</div>
+                  <div className="text-sm font-semibold text-accent mt-0.5 font-mono">{formatBytes(after)}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono text-ink-muted uppercase">Saved Space</div>
+                  <div className="text-sm font-semibold text-ink mt-0.5 font-mono">
+                    {formatBytes(before - after)} ({((1 - after / before) * 100).toFixed(0)}%)
+                  </div>
+                </div>
+              </div>
             </div>
           )}
-          {error && <p className="text-xs text-red-500">{error}</p>}
-          <button onClick={compress} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Compressing..." : "Compress PDF"}</button>
+
+          {error && <p className="text-xs text-red-500 font-mono">{error}</p>}
+          
+          <button
+            onClick={compress}
+            disabled={processing}
+            className="rounded-lg bg-accent text-white px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 w-full md:w-auto font-mono uppercase tracking-wider"
+          >
+            {processing ? (
+              progress ? (
+                `Compressing page ${progress.current} of ${progress.total}...`
+              ) : (
+                "Compressing..."
+              )
+            ) : (
+              "Compress PDF"
+            )}
+          </button>
         </div>
       )}
     </div>

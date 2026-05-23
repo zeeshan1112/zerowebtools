@@ -145,4 +145,81 @@ export function getFilename(tool: string, original?: string): string {
   return map[tool] ?? "output.pdf";
 }
 
+export async function compressPDF(
+  file: File,
+  level: "lossless" | "recommended" | "extreme",
+  onProgress?: (current: number, total: number) => void
+): Promise<Blob> {
+  if (level === "lossless") {
+    const doc = await loadPDFDoc(file);
+    const bytes = await doc.save({
+      useObjectStreams: true,
+    });
+    return new Blob([bytes as any], { type: "application/pdf" });
+  }
+
+  const pdfjs = await import("pdfjs-dist");
+  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjs.getDocument({
+    data: arrayBuffer,
+    cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/cmaps/",
+    cMapPacked: true,
+    standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/standard_fonts/",
+  }).promise;
+
+  const totalPages = pdf.numPages;
+  const outDoc = await PDFDocument.create();
+
+  const targetScale = level === "recommended" ? 1.5 : 1.0;
+  const targetQuality = level === "recommended" ? 0.7 : 0.45;
+
+  for (let i = 0; i < totalPages; i++) {
+    if (onProgress) onProgress(i + 1, totalPages);
+
+    const page = await pdf.getPage(i + 1);
+    const originalViewport = page.getViewport({ scale: 1.0 });
+    const originalWidth = originalViewport.width;
+    const originalHeight = originalViewport.height;
+
+    const viewport = page.getViewport({ scale: targetScale });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d")!;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    await page.render({ canvasContext: ctx as any, viewport } as any).promise;
+
+    const blob = await new Promise<Blob>((resolve) => {
+      canvas.toBlob((b) => resolve(b!), "image/jpeg", targetQuality);
+    });
+
+    const imgBytes = await blob.arrayBuffer();
+    const img = await outDoc.embedJpg(imgBytes);
+
+    const newPage = outDoc.addPage([originalWidth, originalHeight]);
+    newPage.drawImage(img, {
+      x: 0,
+      y: 0,
+      width: originalWidth,
+      height: originalHeight,
+    });
+
+    // Reset canvas dimensions to free memory immediately
+    canvas.width = 0;
+    canvas.height = 0;
+  }
+
+  const bytes = await outDoc.save({
+    useObjectStreams: true,
+  });
+
+  return new Blob([bytes as any], { type: "application/pdf" });
+}
+
 export { PDFDocument, StandardFonts, rgb, PageSizes };
