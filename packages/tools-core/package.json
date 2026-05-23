@@ -1,0 +1,30 @@
+{
+  "name": "@hub/tools-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./jsonFormatter": {
+      "import": "./dist/jsonFormatter.js",
+      "types": "./dist/jsonFormatter.d.ts"
+    },
+    "./caseConverter": {
+      "import": "./dist/caseConverter.js",
+      "types": "./dist/caseConverter.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
