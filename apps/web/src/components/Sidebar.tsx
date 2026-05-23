@@ -103,7 +103,7 @@ export default function Sidebar() {
       transition={{ type: "spring", stiffness: 220, damping: 24 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="absolute top-0 left-0 h-screen bg-surface-elevated/75 backdrop-blur-xl border-r border-border/40 shadow-xl z-30 select-none overflow-hidden flex flex-col"
+      className="absolute top-0 left-0 h-screen bg-surface-elevated/75 backdrop-blur-xl border-r border-border/40 shadow-xl z-50 select-none overflow-hidden flex flex-col"
     >
       {/* Brand Header */}
       <div className="flex items-center gap-3 h-16 px-4 border-b border-border/40 shrink-0">
@@ -238,26 +238,28 @@ export default function Sidebar() {
 
       {/* Footer collapsing button triggers */}
       <div className="border-t border-border/40 p-3 shrink-0 flex flex-col gap-2 bg-surface-elevated/40">
-        <div className="flex items-center justify-between gap-2 px-1">
+        <div className={`flex items-center px-1 transition-all duration-300 ${isExpanded ? "justify-between gap-2 w-full" : "justify-center w-full"}`}>
           <ThemeToggle />
           
-          <button
-            onClick={togglePinned}
-            className={`p-2 rounded-xl border hover:bg-surface hover:text-accent shadow-sm active:scale-95 transition-all duration-200 cursor-pointer w-9 h-9 flex items-center justify-center ${
-              pinned ? "border-accent text-accent bg-accent-surface" : "border-border text-ink"
-            }`}
-            title={pinned ? "Unpin Sidebar (Float on hover)" : "Pin Sidebar (Keep open)"}
-          >
-            {pinned ? (
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-accent shrink-0">
-                <path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/>
-              </svg>
-            ) : (
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-ink shrink-0">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 4V12L6 14v2h12v-2l-2-2V4M12 16v6M7 4h10" />
-              </svg>
-            )}
-          </button>
+          {isExpanded && (
+            <button
+              onClick={togglePinned}
+              className={`p-2 rounded-xl border hover:bg-surface hover:text-accent shadow-sm active:scale-95 transition-all duration-200 cursor-pointer w-9 h-9 flex items-center justify-center ${
+                pinned ? "border-accent text-accent bg-accent-surface" : "border-border text-ink"
+              }`}
+              title={pinned ? "Unpin Sidebar (Float on hover)" : "Pin Sidebar (Keep open)"}
+            >
+              {pinned ? (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-accent shrink-0">
+                  <path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/>
+                </svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-ink shrink-0">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 4V12L6 14v2h12v-2l-2-2V4M12 16v6M7 4h10" />
+                </svg>
+              )}
+            </button>
+          )}
         </div>
         
         {isExpanded && (
