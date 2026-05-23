@@ -57,7 +57,7 @@ export default function CompressPDFWorkspace() {
                     <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 01</span>
                     <span className="text-[9px] px-2 py-0.5 rounded bg-accent text-white font-semibold font-mono tracking-wider">BEST VALUE</span>
                   </div>
-                  <span className="font-bold text-sm font-mono tracking-wide text-ink block mb-1.5">BALANCED COMPRESSION</span>
+                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">Balanced Compression</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
                     Balanced quality & resolution (150 DPI). Reduces scanned files up to 90%. Best for standard uses.
                   </p>
@@ -78,7 +78,7 @@ export default function CompressPDFWorkspace() {
                     <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 02</span>
                     <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-semibold font-mono tracking-wider">SMALLEST</span>
                   </div>
-                  <span className="font-bold text-sm font-mono tracking-wide text-ink block mb-1.5">EXTREME COMPRESSION</span>
+                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">Extreme Compression</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
                     Maximum compression (100 DPI) at lower image quality. Perfect for strict portal size limits.
                   </p>
@@ -99,7 +99,7 @@ export default function CompressPDFWorkspace() {
                     <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 03</span>
                     <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-semibold font-mono tracking-wider">LOSSLESS</span>
                   </div>
-                  <span className="font-bold text-sm font-mono tracking-wide text-ink block mb-1.5">STREAM OPTIMIZATION</span>
+                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">Lossless Optimization</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
                     Cleans PDF structures & removes metadata. Preserves original visual quality, vectors, & selectable text.
                   </p>

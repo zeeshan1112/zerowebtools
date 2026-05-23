@@ -1,7 +1,8 @@
 import { PDFDocument, PDFImage, StandardFonts, rgb, PageSizes } from "pdf-lib";
 
 async function initPDFJSWorker(pdfjs: any) {
-  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
+  pdfjs.GlobalWorkerOptions.wasmUrl = "/wasm/";
 }
 
 export async function loadPDFDoc(file: File, password?: string): Promise<PDFDocument> {
@@ -50,6 +51,7 @@ export async function renderPDFPageToJPG(
     cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/cmaps/",
     cMapPacked: true,
     standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/standard_fonts/",
+    wasmUrl: typeof window !== "undefined" ? window.location.origin + "/wasm/" : undefined,
   }).promise;
   const page = await pdf.getPage(pageIndex + 1);
   let viewport = page.getViewport({ scale });
@@ -96,6 +98,7 @@ export async function renderAllPDFPages(file: File | Blob, scale = 1.5): Promise
     cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/cmaps/",
     cMapPacked: true,
     standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/standard_fonts/",
+    wasmUrl: typeof window !== "undefined" ? window.location.origin + "/wasm/" : undefined,
   }).promise;
   const pages: string[] = [];
 
@@ -174,6 +177,7 @@ export async function compressPDF(
     cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/cmaps/",
     cMapPacked: true,
     standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/standard_fonts/",
+    wasmUrl: typeof window !== "undefined" ? window.location.origin + "/wasm/" : undefined,
   }).promise;
 
   const totalPages = pdf.numPages;
