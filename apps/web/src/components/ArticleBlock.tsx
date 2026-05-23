@@ -145,7 +145,7 @@ export default function ArticleBlock({ title, sections }: ArticleBlockProps) {
       {/* Dwell-Time-Optimized BrainRank Feedback Widget */}
       <div className="mt-12 pt-8 border-t border-border/40 flex flex-col items-center text-center space-y-4">
         <div className="space-y-1">
-          <h4 className="text-sm font-semibold text-ink">Was this online calculator helpful?</h4>
+          <h4 className="text-sm font-semibold text-ink">Was this utility tool helpful?</h4>
           <p className="text-xs text-ink-muted">Your anonymous feedback helps us refine our tools and resources.</p>
         </div>
 
