@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
-
+import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-cards";
 import { getToolIcon } from "@/lib/icons";
 
 // Pristine technical workflow tags
@@ -225,20 +225,35 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-dashed border-border/70 dark:border-border/40 bg-surface select-none overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-dashed divide-border/70 dark:divide-border/40">
             {spotlightTools.map((tool) => {
               const isBookmarked = bookmarks.includes(tool.id);
               const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
+              const pattern = genRandomPattern(4);
               
               return (
                 <Link
                   key={tool.id}
                   href={`/tools/${tool.id}`}
-                  className="group relative block border p-6 transition-all duration-200 active:scale-[0.98] border-border bg-surface hover:border-ink hover:bg-surface-elevated/20 cursor-pointer shadow-sm"
+                  className="group relative block p-6 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden"
                 >
+                  {/* Premium Abstract Grid Overlay */}
+                  <div className="pointer-events-none absolute top-0 left-1/2 -mt-2 -ml-20 h-full w-full [mask-image:linear-gradient(white,transparent)] z-0">
+                    <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
+                      <GridPattern
+                        width={20}
+                        height={20}
+                        x="-12"
+                        y="4"
+                        squares={pattern}
+                        className="fill-ink/5 stroke-border/40 absolute inset-0 h-full w-full mix-blend-overlay"
+                      />
+                    </div>
+                  </div>
+
                   <button
                     onClick={(e) => toggleBookmark(tool.id, e)}
-                    className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer ${
+                    className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer z-20 ${
                       isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
                     }`}
                     aria-label="Toggle Bookmark"
@@ -246,7 +261,7 @@ export default function HomePage() {
                     {isBookmarked ? "★" : "☆"}
                   </button>
 
-                  <div className="space-y-3">
+                  <div className="space-y-4 relative z-10">
                     <div className="flex items-start gap-2.5">
                       {/* Monochromatic SVG Title Icons */}
                       {getToolIcon(tool.id)}
@@ -376,28 +391,43 @@ export default function HomePage() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, margin: "-10px" }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-dashed border-border/70 dark:border-border/40 bg-surface select-none overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-dashed divide-border/70 dark:divide-border/40"
                   >
                     {category.tools.map((tool) => {
                       const isLive = tool.status === "live";
                       const isBookmarked = bookmarks.includes(tool.id);
                       const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
+                      const pattern = genRandomPattern(4);
                       
                       return (
-                        <motion.div variants={staggerItem} key={tool.id}>
+                        <motion.div variants={staggerItem} key={tool.id} className="h-full">
                           <Link
                             href={isLive ? `/tools/${tool.id}` : "#"}
-                            className={`group relative block border p-6 transition-all duration-200 active:scale-[0.98] h-full ${
+                            className={`group relative block p-6 h-full overflow-hidden ${
                               isLive
-                                ? "border-border bg-surface hover:border-ink hover:bg-surface-elevated/20 cursor-pointer shadow-sm"
-                                : "border-border/20 bg-surface-elevated/40 pointer-events-none opacity-50"
+                                ? "transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer"
+                                : "bg-surface-elevated/25 pointer-events-none opacity-50"
                             }`}
                           >
+                            {/* Premium Abstract Grid Overlay */}
+                            <div className={`pointer-events-none absolute top-0 left-1/2 -mt-2 -ml-20 h-full w-full [mask-image:linear-gradient(white,transparent)] z-0 ${!isLive && "opacity-40"}`}>
+                              <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
+                                <GridPattern
+                                  width={20}
+                                  height={20}
+                                  x="-12"
+                                  y="4"
+                                  squares={isLive ? pattern : undefined}
+                                  className="fill-ink/5 stroke-border/40 absolute inset-0 h-full w-full mix-blend-overlay"
+                                />
+                              </div>
+                            </div>
+
                             {/* Star trigger */}
                             {isLive && (
                               <button
                                 onClick={(e) => toggleBookmark(tool.id, e)}
-                                className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer ${
+                                className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer z-20 ${
                                   isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
                                 }`}
                                 aria-label="Toggle Bookmark"
@@ -406,7 +436,7 @@ export default function HomePage() {
                               </button>
                             )}
 
-                            <div className="pr-4 select-none space-y-3">
+                            <div className="relative z-10 select-none space-y-4">
                               <div className="flex items-start gap-2.5">
                                 {/* Title vector glyph */}
                                 {getToolIcon(tool.id)}
@@ -420,7 +450,7 @@ export default function HomePage() {
                             </div>
 
                             {isLive ? (
-                              <div className="mt-4 flex items-center justify-between text-[10px] select-none border-t border-border/20 pt-2">
+                              <div className="mt-4 flex items-center justify-between text-[10px] select-none border-t border-border/20 pt-2 relative z-10">
                                 <span className="text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
                                   {tagLabel}
                                 </span>
@@ -432,8 +462,8 @@ export default function HomePage() {
                                 </div>
                               </div>
                             ) : (
-                              <div className="mt-4 flex items-center gap-1 select-none">
-                                <span className="w-1.5 h-1.5 rounded-full bg-zinc-200 dark:bg-zinc-800 animate-pulse" />
+                              <div className="mt-4 flex items-center gap-1 select-none relative z-10">
+                                <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 dark:bg-zinc-800 animate-pulse" />
                                 <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider">COMING</span>
                               </div>
                             )}
