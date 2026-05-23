@@ -41,6 +41,23 @@ No files, raw bytes, or user data are ever uploaded, processed, or cached on any
 *   **MRR/ARR Growth Modeler**: Interactive recurring revenue modeler for SaaS builders to forecast growth paths.
 *   **SaaS Valuation Calculator**: Input key metrics to assess SaaS enterprise values instantly.
 
+## 📦 Monorepo Workspace Architecture
+
+**ZeroWebTools** is architected as a modular monorepo using **npm workspaces**, ensuring strict separation of concerns, high modularity, and reusable tooling libraries:
+
+```
+zerowebtools/
+├── apps/
+│   └── web/                # Next.js 15 Web Application (Page Routing, Workspace Views, Styling)
+└── packages/
+    └── tools-core/         # Core library workspace (growth mathematics, converters, core utilities)
+```
+
+### Workspace Operations:
+*   **Development Dev-Server**: `npm run dev:web` (boots the `apps/web` dynamic local Next.js client)
+*   **Production UI Build**: `npm run build:web` (compiles and statically exports UI pages)
+*   **Compile Core Packages**: `npm run build:tools-core` (builds the `@hub/tools-core` packages workspace dependencies)
+
 ---
 
 ## ⚡ Tech Stack
