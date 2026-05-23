@@ -46,7 +46,7 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 };
 
 export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [recents, setRecents] = useState<string[]>([]);
   const pathname = usePathname();
