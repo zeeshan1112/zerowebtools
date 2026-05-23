@@ -126,16 +126,14 @@ export default function HomePage() {
        {/* Immersive Full-Screen Premium Hero with Covered Background Image Glow */}
       <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-16 pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
         
-        {/* Full-bleed Immersive Abstract Background Glow */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-[0.22] dark:opacity-[0.42]">
-          <img 
-            src="/hero-bg.png" 
-            alt="ZeelanceBox Immersive Glow" 
-            className="w-full h-full object-cover filter blur-[0.5px] scale-105" 
-          />
-          {/* Gradient mask to blend nicely with the page content below */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface/40 to-surface z-10" />
-        </div>
+        {/* Clean, High-End Pure-CSS Monochromatic Dot Grid */}
+        <div 
+          className="absolute inset-0 z-0 opacity-[0.04] dark:opacity-[0.08] pointer-events-none" 
+          style={{ 
+            backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", 
+            backgroundSize: "24px 24px" 
+          }} 
+        />
 
         <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
           <div className="text-center space-y-8 max-w-4xl mx-auto">

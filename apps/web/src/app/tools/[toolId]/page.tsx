@@ -356,7 +356,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
   }
 
   return (
-    <div className="min-h-screen pt-6">
+    <div className="min-h-screen pt-10 pb-20">
       {/* Schema Injection */}
       <script
         type="application/ld-json"
@@ -404,7 +404,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           {/* LEFT: Interactive Workspace & SEO text */}
           <div className="lg:col-span-8 space-y-10">
             <section className="p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-accent to-emerald-400" />
+              <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
               {WorkspaceComponent && <WorkspaceComponent />}
             </section>
 

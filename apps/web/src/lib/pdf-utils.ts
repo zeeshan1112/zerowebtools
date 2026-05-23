@@ -27,24 +27,97 @@ export function formatBytes(bytes: number): string {
   return `${(bytes / 1048576).toFixed(2)} MB`;
 }
 
+/** Render a single PDF page to a Blob at the given scale (1 = 72dpi). */
 export async function renderPDFPageToJPG(
   file: File,
   pageIndex: number,
   quality = 0.9,
+  scale = 2,
 ): Promise<Blob> {
   const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.449/build/pdf.worker.min.mjs`;
+  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
 
   const arrayBuffer = await file.arrayBuffer();
-  const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
+  const pdf = await pdfjs.getDocument({
+    data: arrayBuffer,
+    cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/cmaps/",
+    cMapPacked: true,
+    standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/standard_fonts/",
+  }).promise;
   const page = await pdf.getPage(pageIndex + 1);
-  const viewport = page.getViewport({ scale: 2 });
+  let viewport = page.getViewport({ scale });
 
-  const canvas = new OffscreenCanvas(viewport.width, viewport.height);
+  // Safeguard: Limit max dimension to 1200px to prevent canvas OOM / empty rendering
+  const maxDim = 1200;
+  if (viewport.width > maxDim || viewport.height > maxDim) {
+    const factor = maxDim / Math.max(viewport.width, viewport.height);
+    viewport = page.getViewport({ scale: scale * factor });
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = viewport.width;
+  canvas.height = viewport.height;
   const ctx = canvas.getContext("2d")!;
+
+  // Paint solid white background to ensure transparent pages/images render properly when saved as JPEG
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   await page.render({ canvasContext: ctx as any, viewport } as any).promise;
 
-  return canvas.convertToBlob({ type: "image/jpeg", quality });
+  return new Promise((resolve) => canvas.toBlob((b) => resolve(b!), "image/jpeg", quality));
+}
+
+/** Render page 1 of a PDF as a small thumbnail data URL. */
+export async function renderPDFThumbnail(file: File): Promise<string> {
+  try {
+    const blob = await renderPDFPageToJPG(file, 0, 0.8, 0.6);
+    return URL.createObjectURL(blob);
+  } catch {
+    return ""; // Silently fail — thumbnail is cosmetic
+  }
+}
+
+/** Render ALL pages of a PDF as an array of data URLs for preview. */
+export async function renderAllPDFPages(file: File | Blob, scale = 1.5): Promise<string[]> {
+  const pdfjs = await import("pdfjs-dist");
+  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjs.getDocument({
+    data: arrayBuffer,
+    cMapUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/cmaps/",
+    cMapPacked: true,
+    standardFontDataUrl: "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/standard_fonts/",
+  }).promise;
+  const pages: string[] = [];
+
+  for (let i = 0; i < pdf.numPages; i++) {
+    const page = await pdf.getPage(i + 1);
+    let viewport = page.getViewport({ scale });
+
+    // Safeguard: Limit max dimension to 1200px to prevent canvas OOM / empty rendering
+    const maxDim = 1200;
+    if (viewport.width > maxDim || viewport.height > maxDim) {
+      const factor = maxDim / Math.max(viewport.width, viewport.height);
+      viewport = page.getViewport({ scale: scale * factor });
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d")!;
+
+    // Paint solid white background to ensure transparent pages/images render properly when saved as JPEG
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    await page.render({ canvasContext: ctx as any, viewport } as any).promise;
+    const blob = await new Promise<Blob>((resolve) => canvas.toBlob((b) => resolve(b!), "image/jpeg", 0.9));
+    pages.push(URL.createObjectURL(blob));
+  }
+
+  return pages;
 }
 
 export async function loadImageToPDF(doc: PDFDocument, file: File): Promise<PDFImage> {

@@ -3,6 +3,7 @@ import Script from "next/script";
 import Link from "next/link";
 import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
 import CommandCenter from "@/components/CommandCenter";
+import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
 
@@ -28,7 +29,7 @@ const ADSENSE_CLIENT_ID = "ca-pub-XXXXXXXXXXXXXXXX";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 bg-surface/70 backdrop-blur-md border-b border-border/40 shrink-0 select-none transition-all duration-200">
+    <header className="relative z-40 bg-surface border-b border-border/40 shrink-0 select-none">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo only visible on mobile (since sidebar is hidden on mobile) */}
@@ -97,11 +98,14 @@ export default function RootLayout({
       <body className="bg-surface text-ink font-sans min-h-screen flex transition-colors duration-200">
         {/* outer wrapper to reserve space on desktop and prevent layout jumping */}
         <SidebarSpaceReserver />
+        <ScrollToTop />
         
         {/* Main Application Container */}
-        <div className="flex-1 flex flex-col h-screen overflow-y-auto">
+        <div className="flex-1 flex flex-col h-screen overflow-hidden">
           <Header />
-          <main className="flex-grow">{children}</main>
+          <div className="flex-1 overflow-y-auto page-scroll-container">
+            <main className="flex-grow">{children}</main>
+          </div>
         </div>
 
         <Script
