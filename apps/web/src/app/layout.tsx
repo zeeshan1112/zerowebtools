@@ -8,9 +8,9 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "ZeroWebTools - Free Online Calculators & Professional Web Tools",
+  title: "ZeroWebTools - Free Online Professional Web Tools & Utilities",
   description:
-    "ZeroWebTools provides free online calculators and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
+    "ZeroWebTools provides free professional utility and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
   metadataBase: new URL("https://zerowebtools.com"),
   icons: {
     icon: "/logo.png",
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "ZeroWebTools",
-    title: "ZeroWebTools - Free Online Calculators & Web Tools",
-    description: "Free, premium online tools and calculators that run 100% client-side for absolute privacy.",
+    title: "ZeroWebTools - Free Online Professional Web Tools",
+    description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
   },
   robots: {
     index: true,

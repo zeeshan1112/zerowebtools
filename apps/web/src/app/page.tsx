@@ -164,7 +164,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance font-medium">
-              Free, fast, and completely secure tools to edit PDFs, convert formats, check MRR growth, and resize images. All calculations run entirely locally on your device so your files never leave your computer.
+              Free, fast, and completely secure tools to edit PDFs, convert formats, check MRR growth, and resize images. All tool computations run entirely locally on your device so your files never leave your computer.
             </p>
 
             {/* Quick-Launcher Command Center Centerpiece */}
@@ -297,41 +297,59 @@ export default function HomePage() {
 
 
 
-        {/* Saved Workspaces Dashboard */}
+        {/* Saved Tools Dashboard */}
         {bookmarkedTools.length > 0 && (
           <section className="p-8 border border-border bg-surface-elevated/40 select-none animate-fade-up">
             <div className="flex items-center gap-2 mb-8">
               <span className="text-amber-500">★</span>
               <h2 className="text-xs font-bold tracking-wider uppercase text-ink">
-                Your Saved Workspaces
+                Your Saved Tools
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {bookmarkedTools.map((tool) => {
+                const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "SAVED";
                 return (
                   <Link
                     key={tool.id}
                     href={`/tools/${tool.id}`}
-                    className="group relative block border border-border hover:border-ink bg-surface p-6 shadow-sm transition-all duration-200 active:scale-[0.98]"
+                    className="group relative block p-6 rounded-2xl border border-dashed border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden shadow-sm"
                   >
+                    {/* Hydration-safe grid background */}
+                    <GridOverlay isLive={true} />
+
                     <button
                       onClick={(e) => toggleBookmark(tool.id, e)}
-                      className="absolute top-4 right-4 text-amber-500 hover:scale-110 active:scale-90 transition-transform cursor-pointer"
+                      className="absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer z-20 text-amber-500 scale-105"
                       aria-label="Remove Bookmark"
                     >
                       ★
                     </button>
-                    <div>
-                      <span className="inline-block text-[9px] font-bold uppercase tracking-wider text-ink-muted border border-border/80 px-2 py-0.5 mb-3 bg-surface-elevated">
-                        SAVED
-                      </span>
-                      <h3 className="text-xs font-bold tracking-tight text-ink group-hover:text-accent transition-colors">
-                        {tool.title}
-                      </h3>
-                      <p className="mt-1.5 text-[11px] text-ink-muted leading-relaxed line-clamp-2">
+
+                    <div className="space-y-4 relative z-10">
+                      <div className="flex items-start gap-2.5">
+                        {/* Monochromatic SVG Title Icons */}
+                        {getToolIcon(tool.id)}
+                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
+                          {tool.title}
+                        </h3>
+                      </div>
+                      <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
                         {tool.description}
                       </p>
+
+                      <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
+                        <span className="text-ink-muted font-mono font-bold tracking-wider">
+                          {tagLabel}
+                        </span>
+                        <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
+                          LAUNCH
+                          <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   </Link>
                 );
