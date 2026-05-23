@@ -4,54 +4,41 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, ALL_TOOLS, type Tool } from "@/lib/tools";
+import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
 import ThemeToggle from "./ThemeToggle";
+import { getToolIcon } from "@/lib/icons";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  "mortgage-loan": (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-    </svg>
-  ),
-  "investment-tax": (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  "health-fitness": (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-    </svg>
-  ),
-  "math-percentage": (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 3.75l3 3M4.5 8.25l3-3m9-1.5l3 3m0-3l-3 3M3.75 19.5h16.5m-16.5 0v-4.5m16.5 4.5v-4.5m-16.5 0h16.5" />
-    </svg>
-  ),
-  converters: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
-    </svg>
-  ),
   "pdf-tools": (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
     </svg>
   ),
+  converters: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+    </svg>
+  ),
   "image-tools": (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+    </svg>
+  ),
+  "financial-growth": (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.5 4.5 8.25-8.25M21 12v5.25a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 17.25V5.25" />
     </svg>
   ),
 };
 
 export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(true);
+  const [pinned, setPinned] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [recents, setRecents] = useState<string[]>([]);
   const pathname = usePathname();
 
-  // Load Bookmarks and Recents
+  // Load Bookmarks, Recents, and Pinned state
   useEffect(() => {
     const handleStorageChange = () => {
       try {
@@ -60,12 +47,16 @@ export default function Sidebar() {
 
         const savedRecents = localStorage.getItem("zeelancebox_recents");
         if (savedRecents) setRecents(JSON.parse(savedRecents));
+
+        const savedPinned = localStorage.getItem("zeelancebox_sidebar_pinned");
+        if (savedPinned !== null) {
+          setPinned(JSON.parse(savedPinned));
+        }
       } catch (_) {}
     };
 
     handleStorageChange();
     window.addEventListener("storage", handleStorageChange);
-    // Setup local event listener to react to bookmarks immediately on the same page
     window.addEventListener("zeelancebox_storage_update", handleStorageChange);
 
     return () => {
@@ -74,7 +65,7 @@ export default function Sidebar() {
     };
   }, []);
 
-  // Update Recents when Path changes (if visiting a tool page)
+  // Update Recents
   useEffect(() => {
     const match = pathname?.match(/\/tools\/([a-zA-Z0-9-]+)/);
     if (match && match[1]) {
@@ -84,7 +75,6 @@ export default function Sidebar() {
         setRecents((prev) => {
           const next = [toolId, ...prev.filter((id) => id !== toolId)].slice(0, 3);
           localStorage.setItem("zeelancebox_recents", JSON.stringify(next));
-          // Notify other components (like sidebar)
           window.dispatchEvent(new Event("zeelancebox_storage_update"));
           return next;
         });
@@ -95,13 +85,27 @@ export default function Sidebar() {
   const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id));
   const recentTools = ALL_TOOLS.filter((t) => recents.includes(t.id));
 
+  const togglePinned = () => {
+    const nextPinned = !pinned;
+    setPinned(nextPinned);
+    try {
+      localStorage.setItem("zeelancebox_sidebar_pinned", JSON.stringify(nextPinned));
+      window.dispatchEvent(new Event("zeelancebox_storage_update"));
+    } catch (_) {}
+  };
+
+  // effective expanded state: pinned or hovered peek
+  const isExpanded = pinned || isHovered;
+
   return (
     <motion.aside
-      animate={{ width: collapsed ? 68 : 260 }}
+      animate={{ width: isExpanded ? 260 : 68 }}
       transition={{ type: "spring", stiffness: 220, damping: 24 }}
-      className="hidden md:flex flex-col h-screen sticky top-0 left-0 bg-surface-elevated border-r border-border/60 shadow-sm z-30 select-none overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="absolute top-0 left-0 h-screen bg-surface-elevated/75 backdrop-blur-xl border-r border-border/40 shadow-xl z-30 select-none overflow-hidden flex flex-col"
     >
-      {/* Sidebar Header Brand */}
+      {/* Brand Header */}
       <div className="flex items-center gap-3 h-16 px-4 border-b border-border/40 shrink-0">
         <Link
           href="/"
@@ -113,12 +117,12 @@ export default function Sidebar() {
             </svg>
           </div>
           <AnimatePresence mode="wait">
-            {!collapsed && (
+            {isExpanded && (
               <motion.span
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                className="font-bold tracking-tight text-base text-ink"
+                exit={{ opacity: 0, x: -6 }}
+                className="font-extrabold tracking-tight text-xs uppercase tracking-wider text-ink"
               >
                 ZeelanceBox
               </motion.span>
@@ -127,16 +131,18 @@ export default function Sidebar() {
         </Link>
       </div>
 
-      {/* Main Workspace Directories */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden py-6 px-3 space-y-6">
+      {/* Main directories */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden py-6 px-3 space-y-6 scrollbar-none">
         
         {/* Starred Bookmarks Section */}
         {bookmarkedTools.length > 0 && (
           <div className="space-y-1.5">
-            {!collapsed && (
-              <h4 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
+            {isExpanded ? (
+              <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
                 Saved Workspaces
               </h4>
+            ) : (
+              <div className="h-4" />
             )}
             <ul>
               {bookmarkedTools.map((t) => (
@@ -145,13 +151,13 @@ export default function Sidebar() {
                     href={`/tools/${t.id}`}
                     className={`flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-medium transition-all group ${
                       pathname === `/tools/${t.id}`
-                        ? "bg-accent-surface text-accent"
+                        ? "bg-accent-surface text-accent font-bold"
                         : "text-ink-secondary hover:bg-surface hover:text-ink"
                     }`}
                     title={t.title}
                   >
-                    <span className="text-amber-500 shrink-0">★</span>
-                    {!collapsed && <span className="truncate">{t.title}</span>}
+                    {getToolIcon(t.id)}
+                    {isExpanded && <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>}
                   </Link>
                 </li>
               ))}
@@ -162,10 +168,12 @@ export default function Sidebar() {
         {/* Recently Opened Section */}
         {recentTools.length > 0 && (
           <div className="space-y-1.5">
-            {!collapsed && (
-              <h4 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
+            {isExpanded ? (
+              <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
                 Recents
               </h4>
+            ) : (
+              <div className="h-4" />
             )}
             <ul>
               {recentTools.map((t) => (
@@ -174,15 +182,13 @@ export default function Sidebar() {
                     href={`/tools/${t.id}`}
                     className={`flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-medium transition-all group ${
                       pathname === `/tools/${t.id}`
-                        ? "bg-accent-surface text-accent font-semibold"
+                        ? "bg-accent-surface text-accent font-bold"
                         : "text-ink-secondary hover:bg-surface hover:text-ink"
                     }`}
                     title={t.title}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" className="text-ink-muted group-hover:text-accent transition-colors shrink-0">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {!collapsed && <span className="truncate">{t.title}</span>}
+                    {getToolIcon(t.id)}
+                    {isExpanded && <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>}
                   </Link>
                 </li>
               ))}
@@ -192,10 +198,12 @@ export default function Sidebar() {
 
         {/* Grouped Category Explorer */}
         <div className="space-y-1.5">
-          {!collapsed && (
-            <h4 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
+          {isExpanded ? (
+            <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
               Categories
             </h4>
+          ) : (
+            <div className="h-4" />
           )}
           <ul className="space-y-1">
             {CATEGORIES.map((cat) => {
@@ -206,7 +214,7 @@ export default function Sidebar() {
                     href={`/#${cat.slug}`}
                     className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                       isActive
-                        ? "bg-accent-surface text-accent"
+                        ? "bg-accent-surface text-accent font-bold"
                         : "text-ink-secondary hover:bg-surface hover:text-ink"
                     }`}
                     title={cat.title}
@@ -218,7 +226,7 @@ export default function Sidebar() {
                         </svg>
                       )}
                     </span>
-                    {!collapsed && <span className="truncate">{cat.title}</span>}
+                    {isExpanded && <span className="truncate text-xs font-bold uppercase tracking-wide">{cat.title}</span>}
                   </a>
                 </li>
               );
@@ -228,32 +236,32 @@ export default function Sidebar() {
 
       </div>
 
-      {/* Footer Controls: Collapse Button & Theme toggle */}
-      <div className="border-t border-border/40 p-3 shrink-0 flex flex-col gap-2 bg-surface-elevated/80">
+      {/* Footer collapsing button triggers */}
+      <div className="border-t border-border/40 p-3 shrink-0 flex flex-col gap-2 bg-surface-elevated/40">
         <div className="flex items-center justify-between gap-2 px-1">
           <ThemeToggle />
           
           <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="p-2 rounded-xl border border-border hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-surface text-ink hover:text-accent shadow-sm active:scale-95 transition-all duration-200 cursor-pointer w-9 h-9 flex items-center justify-center"
-            title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+            onClick={togglePinned}
+            className={`p-2 rounded-xl border hover:bg-surface hover:text-accent shadow-sm active:scale-95 transition-all duration-200 cursor-pointer w-9 h-9 flex items-center justify-center ${
+              pinned ? "border-accent text-accent bg-accent-surface" : "border-border text-ink"
+            }`}
+            title={pinned ? "Unpin Sidebar (Float on hover)" : "Pin Sidebar (Keep open)"}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              strokeWidth="2.5"
-              stroke="currentColor"
-              className={`transition-transform duration-300 ${collapsed ? "rotate-180" : ""}`}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
+            {pinned ? (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-accent shrink-0">
+                <path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/>
+              </svg>
+            ) : (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-ink shrink-0">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 4V12L6 14v2h12v-2l-2-2V4M12 16v6M7 4h10" />
+              </svg>
+            )}
           </button>
         </div>
         
-        {!collapsed && (
-          <div className="text-[10px] text-ink-muted text-center py-1.5 border-t border-border/20 mt-1 font-medium tracking-wide">
+        {isExpanded && (
+          <div className="text-[9px] text-ink-muted text-center py-1.5 border-t border-border/20 mt-1 font-bold tracking-wider uppercase">
             ZeelanceBox v1.0 • Client-side
           </div>
         )}

@@ -8,6 +8,8 @@ import CompressPDFWorkspace from "@/components/CompressPDFWorkspace";
 import RotatePDFWorkspace from "@/components/RotatePDFWorkspace";
 import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNumbersPDFWorkspace, OrganizePDFWorkspace } from "@/components/PDFEditorsWorkspace";
 import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
+import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
+import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -92,6 +94,8 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "pdf-page-numbers": PageNumbersPDFWorkspace,
   "pdf-organize": OrganizePDFWorkspace,
   "pdf-unlock": UnlockPDFWorkspace,
+  "saas-mrr": SaasMrrWorkspace,
+  "startup-equity": StartupEquityWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
@@ -183,6 +187,63 @@ const TOOL_ARTICLES: Record<
         paragraphs: [
           "When converting multiple photos, the tool processes each file one at a time and shows real-time progress. Once all conversions complete, you can download the entire batch as a single ZIP file using the JSZip library — again processed entirely client-side with no server involved.",
           "The quality slider lets you balance file size and image fidelity. A setting of 85% is the recommended sweet spot for web use, producing visually lossless results at a fraction of the original size.",
+        ],
+      },
+    ],
+  },
+  "saas-mrr": {
+    title: "SaaS MRR & Growth Projection Modeler: Forecast Monthly Recurring Revenue and Churn",
+    sections: [
+      {
+        heading: "What is SaaS Monthly Recurring Revenue (MRR)?",
+        paragraphs: [
+          "Monthly Recurring Revenue (MRR) is the single most critical metric for any subscription-based software business (SaaS). It measures the predictable, recurring portion of your business's revenue stream. By standardizing diverse pricing plans, contract lengths, and billing frequencies into a single monthly value, MRR allows startups and enterprises to track growth velocity, project forward run-rates, and assess financial stability.",
+        ],
+      },
+      {
+        heading: "Key Inputs in the MRR Projection Modeler",
+        paragraphs: [
+          "Our professional SaaS modeler enables founders, product owners, and financial planners to forecast subscription trajectories over 12 months using three key variables:",
+        ],
+        listItems: [
+          "Starting MRR: Your baseline monthly recurring revenue at Month 0.",
+          "Monthly Growth Rate (%): The estimated net-new customer revenue added each month as a percentage of the prior month's MRR.",
+          "Monthly Churn Rate (%): The percentage of subscription revenue lost due to cancellations, downgrades, or expired credit cards.",
+        ],
+      },
+      {
+        heading: "100% Client-Side Privacy Guarantees",
+        level: "h3",
+        paragraphs: [
+          "Unlike standard financial modeling spreadsheets or cloud apps that track your proprietary numbers, this workspace operates entirely client-side. No customer data or growth metrics are uploaded to our servers — meaning your strategic projections remain 100% confidential and private.",
+        ],
+      },
+    ],
+  },
+  "startup-equity": {
+    title: "Startup Option Vesting & Dilution Modeler: Calculate Equity Valuations and Options Schedules",
+    sections: [
+      {
+        heading: "Understanding Employee Stock Option Vesting",
+        paragraphs: [
+          "Vesting is the process by which an employee, advisor, or founder earns the right to own stock options or shares over time. In high-growth startups, equity grants are almost always subject to a vesting schedule to incentivize long-term commitment and align interests between employees and shareholders.",
+        ],
+      },
+      {
+        heading: "The Standard 4-Year Vest and 1-Year Cliff",
+        paragraphs: [
+          "This calculator supports the venture capital standard vesting structure:",
+        ],
+        listItems: [
+          "Vesting Duration: Typically 4 years (48 months), meaning you earn 1/48th of your grant each month.",
+          "1-Year Cliff: A standard safeguard. Under a cliff, no shares vest during your first 12 months. On the 1-year anniversary, 25% of your grant vests instantly, followed by standard monthly vesting.",
+        ],
+      },
+      {
+        heading: "How Ownership Percentage and Valuation Are Computed",
+        level: "h3",
+        paragraphs: [
+          "Your ownership percentage is calculated by dividing your granted options by the total outstanding shares of the company. The implied value of your equity is then projected using the company's latest post-money valuation. As the company raises subsequent rounds or increases in valuation, the implied value of your options grows proportionally.",
         ],
       },
     ],

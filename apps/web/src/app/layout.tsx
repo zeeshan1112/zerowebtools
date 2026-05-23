@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
-import Sidebar from "@/components/Sidebar";
+import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
 import CommandCenter from "@/components/CommandCenter";
 import "./globals.css";
+
 
 export const metadata: Metadata = {
   title: "ZeelanceBox - Free Online Calculators & Professional Web Tools",
@@ -98,8 +99,8 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-surface text-ink font-sans min-h-screen flex transition-colors duration-200">
-        {/* IDE-style persistent sidebar navigation drawer */}
-        <Sidebar />
+        {/* outer wrapper to reserve space on desktop and prevent layout jumping */}
+        <SidebarSpaceReserver />
         
         {/* Main Application Container */}
         <div className="flex-1 flex flex-col h-screen overflow-y-auto">

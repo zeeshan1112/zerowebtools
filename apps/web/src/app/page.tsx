@@ -6,31 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 
-// Pristine uppercase technical workflow tags replacing all colorful AI slop tags
+import { getToolIcon } from "@/lib/icons";
+
+// Pristine technical workflow tags
 const TOOL_WORKFLOW_TAGS: Record<string, string> = {
-  "mortgage-calculator": "AMORTIZE",
-  "loan-calculator": "LOAN",
-  "refinance-calculator": "REFI",
-  "compound-interest-calculator": "YIELD",
-  "auto-loan-calculator": "AUTO",
-  "apr-calculator": "RATE",
-  "investment-calculator": "ROI",
-  "savings-calculator": "SAVINGS",
-  "salary-calculator": "SALARY",
-  "income-tax-calculator": "TAX",
-  "roi-calculator": "RETURN",
-  "inflation-calculator": "CPI",
-  "bmi-calculator": "BMI",
-  "calorie-calculator": "CALORIE",
-  "macro-calculator": "MACROS",
-  "body-fat-calculator": "FAT %",
-  "ideal-weight-calculator": "WEIGHT",
-  "tdee-calculator": "TDEE",
-  "percentage-calculator": "PERCENT",
-  "fraction-calculator": "MATH",
-  "age-calculator": "AGE",
-  "time-calculator": "TIME",
-  "square-footage-calculator": "AREA",
   "pdf-merge": "MERGE",
   "pdf-split": "SPLIT",
   "pdf-compress": "COMPRESS",
@@ -50,8 +29,11 @@ const TOOL_WORKFLOW_TAGS: Record<string, string> = {
   "celsius-fahrenheit": "SCALE",
   "unit-converter": "UNIT",
   "color-converter": "COLOR",
+  "saas-mrr": "GROWTH",
+  "startup-equity": "VESTING",
 };
 
+// Stagger variant variables
 const staggerContainer = {
   hidden: { opacity: 0 },
   show: {
@@ -69,149 +51,134 @@ const staggerItem = {
   },
 } as const;
 
-// Braun ET66 physical-calculator sandbox
-function BraunCalculator() {
-  const [display, setDisplay] = useState<string>("0");
-  const [prevVal, setPrevVal] = useState<number | null>(null);
-  const [operation, setOperation] = useState<string | null>(null);
-  const [resetOnNext, setResetOnNext] = useState<boolean>(false);
+// Dynamic Code Node Inspector Sandbox Component
+interface NodeConfig {
+  id: string;
+  label: string;
+}
 
-  const inputDigit = (digit: string) => {
-    if (display === "0" || resetOnNext) {
-      setDisplay(digit);
-      setResetOnNext(false);
-    } else {
-      setDisplay(display + digit);
-    }
-  };
+function CodeNodeInspector() {
+  const [jsonText, setJsonText] = useState<string>(
+    JSON.stringify(
+      [
+        { id: "A", label: "PDF Suite" },
+        { id: "B", label: "Merge tool" },
+        { id: "C", label: "AES Protect" },
+      ],
+      null,
+      2
+    )
+  );
+  const [nodes, setNodes] = useState<NodeConfig[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const inputDecimal = () => {
-    if (resetOnNext) {
-      setDisplay("0.");
-      setResetOnNext(false);
-      return;
-    }
-    if (!display.includes(".")) {
-      setDisplay(display + ".");
-    }
-  };
-
-  const clear = () => {
-    setDisplay("0");
-    setPrevVal(null);
-    setOperation(null);
-    setResetOnNext(false);
-  };
-
-  const performOperation = (nextOp: string) => {
-    const inputValue = parseFloat(display);
-
-    if (prevVal === null) {
-      setPrevVal(inputValue);
-    } else if (operation) {
-      const currentVal = prevVal || 0;
-      let result = currentVal;
-
-      switch (operation) {
-        case "+":
-          result = currentVal + inputValue;
-          break;
-        case "-":
-          result = currentVal - inputValue;
-          break;
-        case "×":
-          result = currentVal * inputValue;
-          break;
-        case "÷":
-          result = currentVal / inputValue;
-          break;
+  useEffect(() => {
+    try {
+      const parsed = JSON.parse(jsonText);
+      if (Array.isArray(parsed) && parsed.every(n => typeof n === "object" && n.id && n.label)) {
+        setNodes(parsed);
+        setError(null);
+      } else {
+        setError("JSON must be an array of { id, label } objects");
       }
-
-      setPrevVal(result);
-      setDisplay(String(parseFloat(result.toFixed(6))));
+    } catch (err: any) {
+      setError(err.message || "Invalid JSON syntax");
     }
-
-    setResetOnNext(true);
-    setOperation(nextOp === "=" ? null : nextOp);
-  };
+  }, [jsonText]);
 
   return (
-    <div className="bg-[#121214] dark:bg-[#18181b] p-6 rounded-3xl border border-[#27272a]/60 shadow-xl max-w-[240px] w-full mx-auto select-none font-mono">
-      {/* Braun Display Panel */}
-      <div className="bg-[#2a2d28] border border-[#1b1c19] rounded-lg p-3 text-right mb-5 h-12 flex items-center justify-end overflow-hidden shadow-inner">
-        <span className="text-xl font-bold text-[#b4c8a8] tracking-wider truncate font-mono">
-          {display}
+    <div className="bg-[#121214] dark:bg-[#18181b] p-5 rounded-2xl border border-border/80 shadow-xl max-w-lg w-full mx-auto select-none font-mono flex flex-col h-[280px]">
+      <div className="flex items-center justify-between border-b border-border/30 pb-2.5 shrink-0">
+        <span className="text-[10px] font-bold text-accent uppercase tracking-wider flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Code Node Sandbox
         </span>
+        <span className="text-[9px] font-bold text-ink-muted bg-surface px-2 py-0.5 rounded border border-border/30">Local-only</span>
       </div>
 
-      {/* Button Grid */}
-      <div className="grid grid-cols-4 gap-2.5">
-        {/* Row 1 */}
-        <button onClick={clear} className="w-10 h-10 rounded-full bg-[#3c3c3e] hover:bg-[#4c4c4e] text-[#f4f4f5] text-xs font-bold transition-colors cursor-pointer flex items-center justify-center">
-          C
-        </button>
-        <button onClick={() => setDisplay(String(-parseFloat(display)))} className="w-10 h-10 rounded-full bg-[#3c3c3e] hover:bg-[#4c4c4e] text-[#f4f4f5] text-xs font-bold transition-colors cursor-pointer flex items-center justify-center">
-          +/-
-        </button>
-        <button onClick={() => setDisplay(String(parseFloat(display) / 100))} className="w-10 h-10 rounded-full bg-[#3c3c3e] hover:bg-[#4c4c4e] text-[#f4f4f5] text-xs font-bold transition-colors cursor-pointer flex items-center justify-center">
-          %
-        </button>
-        <button onClick={() => performOperation("÷")} className="w-10 h-10 rounded-full bg-[#d97706] hover:bg-[#f59e0b] text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          ÷
-        </button>
+      <div className="flex-grow grid grid-cols-2 gap-4 mt-4 min-h-0">
+        {/* Left: Code Editor Textarea */}
+        <div className="flex flex-col h-full min-h-0">
+          <textarea
+            value={jsonText}
+            onChange={(e) => setJsonText(e.target.value)}
+            className="w-full flex-grow p-2.5 rounded-xl border border-border bg-[#09090b] text-[11px] font-mono focus:outline-none focus:ring-2 focus:ring-accent/15 focus:border-accent transition-all text-emerald-400 resize-none overflow-y-auto"
+            spellCheck={false}
+          />
+          {error && (
+            <span className="text-[9px] text-red-500 mt-1 truncate block font-bold leading-tight uppercase">
+              {error.split("\n")[0]}
+            </span>
+          )}
+        </div>
 
-        {/* Row 2 */}
-        <button onClick={() => inputDigit("7")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          7
-        </button>
-        <button onClick={() => inputDigit("8")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          8
-        </button>
-        <button onClick={() => inputDigit("9")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          9
-        </button>
-        <button onClick={() => performOperation("×")} className="w-10 h-10 rounded-full bg-[#d97706] hover:bg-[#f59e0b] text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          ×
-        </button>
+        {/* Right: SVG Node Tree Graph */}
+        <div className="border border-border rounded-xl bg-surface-elevated/40 flex items-center justify-center relative overflow-hidden h-full">
+          <svg className="w-full h-full" viewBox="0 0 200 180">
+            {/* Draw connections */}
+            {nodes.length > 1 && nodes.slice(1).map((node, idx) => {
+              // Connect node 0 (root) to other nodes
+              const startX = 100;
+              const startY = 35;
+              const endX = nodes.length === 2 ? 100 : idx === 0 ? 45 : 155;
+              const endY = 125;
+              
+              return (
+                <line
+                  key={node.id}
+                  x1={startX}
+                  y1={startY}
+                  x2={endX}
+                  y2={endY}
+                  stroke="var(--border)"
+                  strokeWidth="1.5"
+                  strokeDasharray="2 2"
+                />
+              );
+            })}
 
-        {/* Row 3 */}
-        <button onClick={() => inputDigit("4")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          4
-        </button>
-        <button onClick={() => inputDigit("5")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          5
-        </button>
-        <button onClick={() => inputDigit("6")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          6
-        </button>
-        <button onClick={() => performOperation("-")} className="w-10 h-10 rounded-full bg-[#d97706] hover:bg-[#f59e0b] text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          -
-        </button>
-
-        {/* Row 4 */}
-        <button onClick={() => inputDigit("1")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          1
-        </button>
-        <button onClick={() => inputDigit("2")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          2
-        </button>
-        <button onClick={() => inputDigit("3")} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          3
-        </button>
-        <button onClick={() => performOperation("+")} className="w-10 h-10 rounded-full bg-[#d97706] hover:bg-[#f59e0b] text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          +
-        </button>
-
-        {/* Row 5 */}
-        <button onClick={() => inputDigit("0")} className="col-span-2 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-start pl-4">
-          0
-        </button>
-        <button onClick={inputDecimal} className="w-10 h-10 rounded-full bg-[#27272a] hover:bg-[#3f3f46] text-[#f4f4f5] text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          .
-        </button>
-        <button onClick={() => performOperation("=")} className="w-10 h-10 rounded-full bg-[#059669] hover:bg-[#10b981] text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center">
-          =
-        </button>
+            {/* Render Nodes */}
+            {nodes.map((node, idx) => {
+              const isRoot = idx === 0;
+              const x = isRoot ? 100 : nodes.length === 2 ? 100 : idx === 1 ? 45 : 155;
+              const y = isRoot ? 35 : 125;
+              
+              return (
+                <g key={node.id} className="transition-all duration-300">
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r={isRoot ? 22 : 18}
+                    fill="var(--surface-elevated)"
+                    stroke={isRoot ? "var(--ink)" : "var(--border)"}
+                    strokeWidth="1.5"
+                  />
+                  <text
+                    x={x}
+                    y={y + 3}
+                    textAnchor="middle"
+                    fill="var(--ink)"
+                    fontSize={isRoot ? "8" : "7"}
+                    fontWeight="bold"
+                    fontFamily="monospace"
+                  >
+                    {node.id}
+                  </text>
+                  <text
+                    x={x}
+                    y={y + (isRoot ? 32 : 28)}
+                    textAnchor="middle"
+                    fill="var(--ink-secondary)"
+                    fontSize="7"
+                    fontFamily="monospace"
+                  >
+                    {node.label.slice(0, 10)}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
       </div>
     </div>
   );
@@ -219,7 +186,7 @@ function BraunCalculator() {
 
 export default function HomePage() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeCategory, setActiveCategory] = useState("mortgage-loan");
+  const [activeTab, setActiveTab] = useState<"pdf" | "dev" | "financial" | "converters">("pdf");
 
   // Load Starred Bookmarks
   useEffect(() => {
@@ -258,26 +225,29 @@ export default function HomePage() {
     } catch (_) {}
   };
 
-  // Scrollspy active categories
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveCategory(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-25% 0px -55% 0px" }
-    );
+  // Map workspace activeTab to specific category slugs
+  const getTabCategorySlug = (): string[] => {
+    switch (activeTab) {
+      case "pdf":
+        return ["pdf-tools"];
+      case "dev":
+        return ["converters"];
+      case "financial":
+        return ["financial-growth"];
+      case "converters":
+        return ["image-tools"];
+      default:
+        return ["pdf-tools"];
+    }
+  };
 
-    CATEGORIES.forEach((cat) => {
-      const el = document.getElementById(cat.slug);
-      if (el) observer.observe(el);
-    });
+  const activeSlugs = getTabCategorySlug();
+  const filteredCategories = CATEGORIES.filter((c) => activeSlugs.includes(c.slug));
 
-    return () => observer.disconnect();
-  }, []);
+  // Top 4 Spotlight Live Tools (Merge PDF, HEIC to JPG, JSON Formatter, Case Converter)
+  const spotlightTools = ALL_TOOLS.filter((t) =>
+    ["pdf-merge", "heic-to-jpg", "json-formatter", "case-converter"].includes(t.id) && t.status === "live"
+  );
 
   const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id));
   const totalLive = ALL_TOOLS.filter((t) => t.status === "live").length;
@@ -285,82 +255,132 @@ export default function HomePage() {
   return (
     <div className="min-h-screen relative pb-28">
       
-      {/* Pristine Swiss Hero (Generous whitespace, absolute zero slop) */}
-      <section className="relative pt-20 pb-20 border-b border-border/40 select-none">
+      {/* Pristine Swiss Hero */}
+      <section className="relative pt-16 pb-16 border-b border-border/40 select-none">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             
-            {/* Left Pristine Copy */}
-            <div className="lg:col-span-8 space-y-8">
+            {/* Left Copy */}
+            <div className="lg:col-span-7 space-y-8">
               <div className="text-[10px] font-bold text-ink-muted uppercase tracking-wider select-none">
-                Local-First Browser Engine • {totalLive} Active Nodes
+                Local browser nodes • {totalLive} engines compiled
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] text-ink text-balance">
                 Utilities, refined.
               </h1>
 
-              <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[52ch]">
-                Stark, browser-compiled developer utilities and calculators built for professionals who value speed and absolute data containment. No telemetry, no backend processing.
+              <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[48ch]">
+                Stark, browser-compiled developer utilities and file processors built for builders who value absolute security. Zero network telemetry.
               </p>
 
-              {/* Monochromatic Sharp Action CTAs */}
-              <div className="flex flex-wrap gap-4 select-none pt-2">
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 pt-2">
                 <a
-                  href="#pdf-tools"
+                  href="#workspace-directory"
                   className="px-6 py-3 bg-ink hover:bg-zinc-800 dark:hover:bg-zinc-200 dark:bg-f4f4f5 text-surface text-xs font-bold tracking-wider uppercase border border-ink transition-all active:scale-[0.98] cursor-pointer"
                 >
-                  Merge / Compress PDF
+                  Launch Workspaces
                 </a>
                 <a
-                  href="#converters"
+                  href="#workspace-directory"
+                  onClick={() => setActiveTab("dev")}
                   className="px-6 py-3 bg-transparent hover:bg-surface-elevated text-ink-secondary hover:text-ink text-xs font-bold tracking-wider uppercase border border-border transition-all active:scale-[0.98] cursor-pointer"
                 >
-                  Formatters & Encoders
+                  Formatter suites
                 </a>
               </div>
             </div>
 
-            {/* Right Braun Tactile Interface */}
-            <div className="lg:col-span-4 flex justify-center">
-              <BraunCalculator />
+            {/* Right: Dynamic Code Node Sandbox */}
+            <div className="lg:col-span-5 flex justify-center">
+              <CodeNodeInspector />
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* Main Workspace grid */}
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mt-16">
+      {/* Main Grid Directory */}
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mt-16 space-y-16">
         
-        {/* Sticky Horizontal navigation list */}
-        <div className="sticky top-16 z-20 py-4 bg-surface/90 backdrop-blur-md border-b border-border/40 mb-12 select-none overflow-x-auto whitespace-nowrap scrollbar-none flex gap-1.5 items-center">
-          <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider mr-3">SOLVERS:</span>
-          {CATEGORIES.map((cat) => {
-            const isActive = activeCategory === cat.slug;
-            return (
-              <a
-                key={cat.slug}
-                href={`#${cat.slug}`}
-                className={`inline-block px-4 py-2 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer ${
-                  isActive
-                    ? "bg-ink border-ink text-surface shadow-sm"
-                    : "bg-surface-elevated border-border hover:border-ink text-ink-secondary hover:text-ink"
-                }`}
-              >
-                {cat.title}
-              </a>
-            );
-          })}
+        {/* SPOTLIGHT SECTION: Top 4 Highest-Traffic Live Tools */}
+        <section className="space-y-6">
+          <div className="border-b border-border/40 pb-4 select-none">
+            <h2 className="text-xs font-extrabold tracking-wider uppercase text-ink">
+              Spotlight Utilities
+            </h2>
+            <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+              Highly integrated, daily active local workspaces featuring vector rendering and WebAssembly compilation.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {spotlightTools.map((tool) => {
+              const isBookmarked = bookmarks.includes(tool.id);
+              const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
+              
+              return (
+                <Link
+                  key={tool.id}
+                  href={`/tools/${tool.id}`}
+                  className="group relative block border p-6 transition-all duration-200 active:scale-[0.98] border-border bg-surface hover:border-ink hover:bg-surface-elevated/20 cursor-pointer shadow-sm"
+                >
+                  <button
+                    onClick={(e) => toggleBookmark(tool.id, e)}
+                    className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer ${
+                      isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
+                    }`}
+                    aria-label="Toggle Bookmark"
+                  >
+                    {isBookmarked ? "★" : "☆"}
+                  </button>
+
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2.5">
+                      {/* Monochromatic SVG Title Icons */}
+                      {getToolIcon(tool.id)}
+                      <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
+                        {tool.title}
+                      </h3>
+                    </div>
+                    <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
+                      {tool.description}
+                    </p>
+                    
+                    <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
+                      <span className="text-ink-muted font-mono font-bold tracking-wider">
+                        {tagLabel}
+                      </span>
+                      <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
+                        LAUNCH
+                        <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Directory Ad slot */}
+        <div className="py-2 border-y border-border/40 flex justify-center select-none">
+          <div className="flex flex-col items-center">
+            <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider mb-2">SPONSORED PLATFORM EXTENSION</span>
+            <AdLayoutSlot type="leaderboard" className="my-0" />
+          </div>
         </div>
 
         {/* Saved Workspaces Dashboard */}
         {bookmarkedTools.length > 0 && (
-          <section className="p-8 border border-border bg-surface-elevated/40 mb-16 animate-fade-up">
-            <div className="flex items-center gap-2 mb-8 select-none">
+          <section className="p-8 border border-border bg-surface-elevated/40 select-none animate-fade-up">
+            <div className="flex items-center gap-2 mb-8">
               <span className="text-amber-500">★</span>
               <h2 className="text-xs font-bold tracking-wider uppercase text-ink">
-                YOUR SAVED WORKSPACES
+                Your Saved Workspaces
               </h2>
             </div>
 
@@ -397,37 +417,61 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* Grouped directory lists */}
-        <div className="space-y-16">
-          {CATEGORIES.map((category, index) => {
-            const liveCount = category.tools.filter((t) => t.status === "live").length;
+        {/* TABBED DIRECTORY WORKSPACE HUB (Replaces dry infinite scroll) */}
+        <section id="workspace-directory" className="space-y-8 scroll-mt-24">
+          
+          {/* Tab Switcher rail */}
+          <div className="flex items-baseline justify-between border-b border-border/40 pb-4 select-none">
+            <div className="flex flex-wrap items-center gap-1">
+              {[
+                { id: "pdf", label: "PDF Suite" },
+                { id: "dev", label: "Developers" },
+                { id: "financial", label: "Growth & Finance" },
+                { id: "converters", label: "Creative Tools" },
+              ].map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`px-4 py-2 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer ${
+                      isActive
+                        ? "bg-ink border-ink text-surface shadow-sm"
+                        : "bg-surface-elevated border-border hover:border-ink text-ink-secondary hover:text-ink"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
             
-            return (
-              <React.Fragment key={category.slug}>
-                {/* Category block */}
-                <section id={category.slug} className="scroll-mt-36 space-y-8">
-                  
-                  {/* Category Title segment */}
-                  <div className="flex items-baseline justify-between border-b border-border/40 pb-4">
-                    <div className="space-y-1">
-                      <h2 className="text-xs font-extrabold tracking-wider uppercase text-ink">
-                        {category.title}
-                      </h2>
-                      <p className="text-xs text-ink-muted max-w-[65ch]">
-                        {category.description}
-                      </p>
-                    </div>
+            <div className="text-[9px] text-ink-muted font-bold uppercase tracking-wider hidden sm:block">
+              WORKSPACE FILTER
+            </div>
+          </div>
 
-                    <div className="text-[9px] text-ink-muted font-bold uppercase tracking-wider">
+          {/* Cross-fade Category Grid */}
+          <div className="space-y-12">
+            {filteredCategories.map((category) => {
+              const liveCount = category.tools.filter((t) => t.status === "live").length;
+              
+              return (
+                <div key={category.slug} className="space-y-6">
+                  <div className="flex items-baseline justify-between border-b border-border/30 pb-2.5 select-none">
+                    <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider">
+                      {category.title}
+                    </h3>
+                    <span className="text-[9px] text-ink-muted font-bold">
                       {liveCount} OF {category.tools.length} LIVE
-                    </div>
+                    </span>
                   </div>
 
                   <motion.div
                     variants={staggerContainer}
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true, margin: "-20px" }}
+                    viewport={{ once: true, margin: "-10px" }}
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
                   >
                     {category.tools.map((tool) => {
@@ -458,23 +502,27 @@ export default function HomePage() {
                               </button>
                             )}
 
-                            <div className="pr-4 select-none">
-                              <h3 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 ${isLive ? "text-ink" : "text-ink-muted"}`}>
-                                {tool.title}
-                              </h3>
-                              <p className={`mt-1.5 text-[11px] leading-relaxed line-clamp-2 ${isLive ? "text-ink-secondary" : "text-ink-muted"}`}>
+                            <div className="pr-4 select-none space-y-3">
+                              <div className="flex items-start gap-2.5">
+                                {/* Title vector glyph */}
+                                {getToolIcon(tool.id)}
+                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 ${isLive ? "text-ink" : "text-ink-muted"}`}>
+                                  {tool.title}
+                                </h4>
+                              </div>
+                              <p className={`text-[11px] leading-relaxed ${isLive ? "text-ink-secondary" : "text-ink-muted"}`}>
                                 {tool.description}
                               </p>
                             </div>
 
                             {isLive ? (
-                              <div className="mt-4 flex items-center justify-between text-[10px] select-none">
+                              <div className="mt-4 flex items-center justify-between text-[10px] select-none border-t border-border/20 pt-2">
                                 <span className="text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
                                   {tagLabel}
                                 </span>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                                   LAUNCH
-                                  <svg className="ml-1 w-2 h-2 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                                  <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                   </svg>
                                 </div>
@@ -490,21 +538,11 @@ export default function HomePage() {
                       );
                     })}
                   </motion.div>
-                </section>
-
-                {/* Monochromatic integrated ad slot grids inside lists */}
-                {index % 2 === 1 && index < CATEGORIES.length - 1 && (
-                  <div className="py-6 border-y border-border/40 flex justify-center select-none">
-                    <div className="flex flex-col items-center">
-                      <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider mb-2">SPONSORED PLATFORM EXTENSION</span>
-                      <AdLayoutSlot type="leaderboard" className="my-0" />
-                    </div>
-                  </div>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
 
       </div>
     </div>
