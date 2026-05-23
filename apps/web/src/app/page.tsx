@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-cards";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
 
 // Pristine technical workflow tags
@@ -143,9 +144,24 @@ export default function HomePage() {
               100% Private • {totalLive} free online tools compiled
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05] text-ink text-balance">
-              Simple, Private Web Tools <span className="text-accent">Right in Your Browser.</span>
-            </h1>
+            {/* Screen reader only H1 for SEO compliance */}
+            <h1 className="sr-only">Simple, Private Web Tools Right in Your Browser.</h1>
+            <div className="flex justify-center select-none">
+              <TypewriterEffectSmooth
+                words={[
+                  { text: "Simple," },
+                  { text: "Private" },
+                  { text: "Web" },
+                  { text: "Tools" },
+                  { text: "Right" },
+                  { text: "in" },
+                  { text: "Your" },
+                  { text: "Browser.", className: "text-accent" }
+                ]}
+                className="my-0 pt-2"
+                cursorClassName="h-6 sm:h-10 lg:h-14 bg-accent"
+              />
+            </div>
 
             <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance font-medium">
               Free, fast, and completely secure tools to edit PDFs, convert formats, check MRR growth, and resize images. All calculations run entirely locally on your device so your files never leave your computer.
@@ -225,31 +241,19 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-dashed border-border/70 dark:border-border/40 bg-surface select-none overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-dashed divide-border/70 dark:divide-border/40">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {spotlightTools.map((tool) => {
               const isBookmarked = bookmarks.includes(tool.id);
               const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
-              const pattern = genRandomPattern(4);
               
               return (
                 <Link
                   key={tool.id}
                   href={`/tools/${tool.id}`}
-                  className="group relative block p-6 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden"
+                  className="group relative block p-6 rounded-2xl border border-dashed border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden shadow-sm"
                 >
-                  {/* Premium Abstract Grid Overlay */}
-                  <div className="pointer-events-none absolute top-0 left-1/2 -mt-2 -ml-20 h-full w-full [mask-image:linear-gradient(white,transparent)] z-0">
-                    <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-                      <GridPattern
-                        width={20}
-                        height={20}
-                        x="-12"
-                        y="4"
-                        squares={pattern}
-                        className="fill-ink/5 stroke-border/40 absolute inset-0 h-full w-full mix-blend-overlay"
-                      />
-                    </div>
-                  </div>
+                  {/* Hydration-safe grid background */}
+                  <GridOverlay isLive={true} />
 
                   <button
                     onClick={(e) => toggleBookmark(tool.id, e)}
@@ -391,37 +395,25 @@ export default function HomePage() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, margin: "-10px" }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-dashed border-border/70 dark:border-border/40 bg-surface select-none overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-dashed divide-border/70 dark:divide-border/40"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                   >
                     {category.tools.map((tool) => {
                       const isLive = tool.status === "live";
                       const isBookmarked = bookmarks.includes(tool.id);
                       const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
-                      const pattern = genRandomPattern(4);
                       
                       return (
                         <motion.div variants={staggerItem} key={tool.id} className="h-full">
                           <Link
                             href={isLive ? `/tools/${tool.id}` : "#"}
-                            className={`group relative block p-6 h-full overflow-hidden ${
+                            className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm ${
                               isLive
-                                ? "transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer"
-                                : "bg-surface-elevated/25 pointer-events-none opacity-50"
+                                ? "border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer"
+                                : "border-border/20 bg-surface-elevated/25 pointer-events-none opacity-50"
                             }`}
                           >
-                            {/* Premium Abstract Grid Overlay */}
-                            <div className={`pointer-events-none absolute top-0 left-1/2 -mt-2 -ml-20 h-full w-full [mask-image:linear-gradient(white,transparent)] z-0 ${!isLive && "opacity-40"}`}>
-                              <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-                                <GridPattern
-                                  width={20}
-                                  height={20}
-                                  x="-12"
-                                  y="4"
-                                  squares={isLive ? pattern : undefined}
-                                  className="fill-ink/5 stroke-border/40 absolute inset-0 h-full w-full mix-blend-overlay"
-                                />
-                              </div>
-                            </div>
+                            {/* Hydration-safe grid background */}
+                            <GridOverlay isLive={isLive} />
 
                             {/* Star trigger */}
                             {isLive && (
@@ -478,6 +470,30 @@ export default function HomePage() {
           </div>
         </section>
 
+      </div>
+    </div>
+  );
+}
+
+function GridOverlay({ isLive }: { isLive: boolean }) {
+  const [squares, setSquares] = useState<number[][]>([]);
+  useEffect(() => {
+    if (isLive) {
+      setSquares(genRandomPattern(4));
+    }
+  }, [isLive]);
+
+  return (
+    <div className={`pointer-events-none absolute top-0 left-1/2 -mt-2 -ml-20 h-full w-full [mask-image:linear-gradient(white,transparent)] z-0 ${!isLive && "opacity-40"}`}>
+      <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
+        <GridPattern
+          width={20}
+          height={20}
+          x="-12"
+          y="4"
+          squares={squares.length > 0 ? squares : undefined}
+          className="fill-ink/5 stroke-border/40 absolute inset-0 h-full w-full mix-blend-overlay"
+        />
       </div>
     </div>
   );
