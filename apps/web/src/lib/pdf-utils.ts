@@ -1,8 +1,30 @@
 import { PDFDocument, PDFImage, StandardFonts, rgb, PageSizes } from "pdf-lib";
 
+let workerBlobUrl: string | null = null;
+
+async function initPDFJSWorker(pdfjs: any) {
+  if (workerBlobUrl) {
+    pdfjs.GlobalWorkerOptions.workerSrc = workerBlobUrl;
+    return;
+  }
+  const cdnUrl = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+  try {
+    const res = await fetch(cdnUrl);
+    if (!res.ok) throw new Error("Worker fetch failed");
+    const blob = await res.blob();
+    workerBlobUrl = URL.createObjectURL(blob);
+    pdfjs.GlobalWorkerOptions.workerSrc = workerBlobUrl;
+  } catch (err) {
+    pdfjs.GlobalWorkerOptions.workerSrc = cdnUrl;
+  }
+}
+
 export async function loadPDFDoc(file: File, password?: string): Promise<PDFDocument> {
   const arrayBuffer = await file.arrayBuffer();
-  return PDFDocument.load(arrayBuffer, password ? { password } as any : undefined);
+  return PDFDocument.load(arrayBuffer, {
+    password,
+    ignoreEncryption: true,
+  } as any);
 }
 
 export async function savePDFDoc(doc: PDFDocument): Promise<Blob> {
@@ -35,7 +57,7 @@ export async function renderPDFPageToJPG(
   scale = 2,
 ): Promise<Blob> {
   const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+  await initPDFJSWorker(pdfjs);
 
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjs.getDocument({
@@ -81,7 +103,7 @@ export async function renderPDFThumbnail(file: File): Promise<string> {
 /** Render ALL pages of a PDF as an array of data URLs for preview. */
 export async function renderAllPDFPages(file: File | Blob, scale = 1.5): Promise<string[]> {
   const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+  await initPDFJSWorker(pdfjs);
 
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjs.getDocument({
@@ -159,7 +181,7 @@ export async function compressPDF(
   }
 
   const pdfjs = await import("pdfjs-dist");
-  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
+  await initPDFJSWorker(pdfjs);
 
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjs.getDocument({
@@ -183,7 +205,14 @@ export async function compressPDF(
     const originalWidth = originalViewport.width;
     const originalHeight = originalViewport.height;
 
-    const viewport = page.getViewport({ scale: targetScale });
+    let viewport = page.getViewport({ scale: targetScale });
+
+    // Safeguard: Limit max dimension to 1600px to prevent canvas OOM / empty rendering
+    const maxDim = 1600;
+    if (viewport.width > maxDim || viewport.height > maxDim) {
+      const factor = maxDim / Math.max(viewport.width, viewport.height);
+      viewport = page.getViewport({ scale: targetScale * factor });
+    }
 
     const canvas = document.createElement("canvas");
     canvas.width = viewport.width;
