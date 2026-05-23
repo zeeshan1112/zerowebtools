@@ -40,23 +40,24 @@ export default function CompressPDFWorkspace() {
             <span className="text-ink-muted text-xs font-mono">{formatBytes(before)}</span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">Compression Level</div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button
                 type="button"
                 onClick={() => setLevel("recommended")}
-                className={`text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-between text-ink ${
+                className={`text-left p-5 rounded-xl border-2 transition-all flex flex-col justify-between text-ink h-full relative ${
                   level === "recommended"
                     ? "border-accent bg-accent-surface"
                     : "border-border hover:border-zinc-300 bg-surface-elevated"
                 }`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-semibold text-sm font-mono">RECOMMENDED</span>
-                    <span className="text-[9px] px-2 py-0.5 rounded bg-accent text-white font-medium tracking-wide font-mono">BEST VALUE</span>
+                <div className="w-full">
+                  <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
+                    <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 01</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-accent text-white font-semibold font-mono tracking-wider">BEST VALUE</span>
                   </div>
+                  <span className="font-bold text-sm font-mono tracking-wide text-ink block mb-1.5">BALANCED COMPRESSION</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
                     Balanced quality & resolution (150 DPI). Reduces scanned files up to 90%. Best for standard uses.
                   </p>
@@ -66,17 +67,18 @@ export default function CompressPDFWorkspace() {
               <button
                 type="button"
                 onClick={() => setLevel("extreme")}
-                className={`text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-between text-ink ${
+                className={`text-left p-5 rounded-xl border-2 transition-all flex flex-col justify-between text-ink h-full relative ${
                   level === "extreme"
                     ? "border-accent bg-accent-surface"
                     : "border-border hover:border-zinc-300 bg-surface-elevated"
                 }`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-semibold text-sm font-mono">EXTREME</span>
-                    <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-medium tracking-wide font-mono">SMALLEST</span>
+                <div className="w-full">
+                  <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
+                    <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 02</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-semibold font-mono tracking-wider">SMALLEST</span>
                   </div>
+                  <span className="font-bold text-sm font-mono tracking-wide text-ink block mb-1.5">EXTREME COMPRESSION</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
                     Maximum compression (100 DPI) at lower image quality. Perfect for strict portal size limits.
                   </p>
@@ -86,17 +88,18 @@ export default function CompressPDFWorkspace() {
               <button
                 type="button"
                 onClick={() => setLevel("lossless")}
-                className={`text-left p-4 rounded-xl border-2 transition-all flex flex-col justify-between text-ink ${
+                className={`text-left p-5 rounded-xl border-2 transition-all flex flex-col justify-between text-ink h-full relative ${
                   level === "lossless"
                     ? "border-accent bg-accent-surface"
                     : "border-border hover:border-zinc-300 bg-surface-elevated"
                 }`}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-semibold text-sm font-mono">LOSSLESS</span>
-                    <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-medium tracking-wide font-mono">HIGH QUALITY</span>
+                <div className="w-full">
+                  <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
+                    <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 03</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-semibold font-mono tracking-wider">LOSSLESS</span>
                   </div>
+                  <span className="font-bold text-sm font-mono tracking-wide text-ink block mb-1.5">STREAM OPTIMIZATION</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
                     Cleans PDF structures & removes metadata. Preserves original visual quality, vectors, & selectable text.
                   </p>

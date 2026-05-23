@@ -1,22 +1,7 @@
 import { PDFDocument, PDFImage, StandardFonts, rgb, PageSizes } from "pdf-lib";
 
-let workerBlobUrl: string | null = null;
-
 async function initPDFJSWorker(pdfjs: any) {
-  if (workerBlobUrl) {
-    pdfjs.GlobalWorkerOptions.workerSrc = workerBlobUrl;
-    return;
-  }
-  const cdnUrl = "https://cdn.jsdelivr.net/npm/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs";
-  try {
-    const res = await fetch(cdnUrl);
-    if (!res.ok) throw new Error("Worker fetch failed");
-    const blob = await res.blob();
-    workerBlobUrl = URL.createObjectURL(blob);
-    pdfjs.GlobalWorkerOptions.workerSrc = workerBlobUrl;
-  } catch (err) {
-    pdfjs.GlobalWorkerOptions.workerSrc = cdnUrl;
-  }
+  pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 }
 
 export async function loadPDFDoc(file: File, password?: string): Promise<PDFDocument> {
