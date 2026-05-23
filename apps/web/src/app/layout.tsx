@@ -8,15 +8,19 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "ZeelanceBox - Free Online Calculators & Professional Web Tools",
+  title: "ZeroWebTools - Free Online Calculators & Professional Web Tools",
   description:
-    "ZeelanceBox provides free online calculators and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
-  metadataBase: new URL("https://zeelancebox.com"),
+    "ZeroWebTools provides free online calculators and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
+  metadataBase: new URL("https://zerowebtools.com"),
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "ZeelanceBox",
-    title: "ZeelanceBox - Free Online Calculators & Web Tools",
+    siteName: "ZeroWebTools",
+    title: "ZeroWebTools - Free Online Calculators & Web Tools",
     description: "Free, premium online tools and calculators that run 100% client-side for absolute privacy.",
   },
   robots: {
@@ -37,8 +41,8 @@ function Header() {
             href="/"
             className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
           >
-            <img src="/logo.png" alt="ZeelanceBox" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
-            <span className="font-bold tracking-tight text-sm text-ink">ZeelanceBox</span>
+            <img src="/logo.png" alt="ZeroWebTools" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
+            <span className="font-bold tracking-tight text-sm text-ink">ZeroWebTools</span>
           </Link>
           
           <div className="hidden md:block" />

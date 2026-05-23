@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - ZeelanceBox",
-  description: "Privacy policy for ZeelanceBox developer utility tools.",
+  title: "Privacy Policy - ZeroWebTools",
+  description: "Privacy policy for ZeroWebTools developer utility tools.",
 };
 
 export default function PrivacyPage() {
@@ -18,7 +18,7 @@ export default function PrivacyPage() {
               Data Collection
             </h2>
             <p className="mt-3">
-              ZeelanceBox operates entirely within your browser. No personal
+              ZeroWebTools operates entirely within your browser. No personal
               data, tool inputs, or processing results are transmitted to any
               server. All computations execute client-side using JavaScript.
             </p>

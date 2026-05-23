@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   const tool = getToolById(toolId);
   if (!tool) return { title: "Tool Not Found" };
   return {
-    title: `${tool.title} - Free Client-Side Tool | ZeelanceBox`,
+    title: `${tool.title} - Free Client-Side Tool | ZeroWebTools`,
     description: tool.metaDescription,
   };
 }

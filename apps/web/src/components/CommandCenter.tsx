@@ -185,7 +185,7 @@ export default function CommandCenter() {
                 <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↑↓</kbd> Navigate</span>
                 <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↵</kbd> Select</span>
               </div>
-              <span>ZeelanceBox CommandCenter</span>
+              <span>ZeroWebTools CommandCenter</span>
             </div>
 
           </motion.div>

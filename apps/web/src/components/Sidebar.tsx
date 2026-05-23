@@ -111,7 +111,7 @@ export default function Sidebar() {
           href="/"
           className="flex items-center gap-2.5 group active:scale-[0.98] transition-transform duration-200 truncate w-full"
         >
-          <img src="/logo.png" alt="ZeelanceBox" className="w-8 h-8 rounded-xl shadow-sm shrink-0 object-contain" />
+          <img src="/logo.png" alt="ZeroWebTools" className="w-8 h-8 rounded-xl shadow-sm shrink-0 object-contain" />
           <AnimatePresence mode="wait">
             {isExpanded && (
               <motion.span
@@ -120,7 +120,7 @@ export default function Sidebar() {
                 exit={{ opacity: 0, x: -6 }}
                 className="font-extrabold tracking-tight text-xs uppercase tracking-wider text-ink whitespace-nowrap"
               >
-                ZeelanceBox
+                ZeroWebTools
               </motion.span>
             )}
           </AnimatePresence>
@@ -260,7 +260,7 @@ export default function Sidebar() {
         
         {isExpanded && (
           <div className="text-[9px] text-ink-muted text-center py-1.5 border-t border-border/20 mt-1 font-bold tracking-wider uppercase">
-            ZeelanceBox v1.0 • Client-side
+            ZeroWebTools v1.0 • Client-side
           </div>
         )}
       </div>

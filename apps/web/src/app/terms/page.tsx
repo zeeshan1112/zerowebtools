@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - ZeelanceBox",
-  description: "Terms of service for ZeelanceBox developer utility tools.",
+  title: "Terms of Service - ZeroWebTools",
+  description: "Terms of service for ZeroWebTools developer utility tools.",
 };
 
 export default function TermsPage() {
@@ -18,7 +18,7 @@ export default function TermsPage() {
               Use of Service
             </h2>
             <p className="mt-3">
-              ZeelanceBox provides free, browser-based developer utility tools.
+              ZeroWebTools provides free, browser-based developer utility tools.
               By using these tools, you agree to these terms. All tools process
               data locally in your browser; no data is sent to external servers.
             </p>
@@ -40,7 +40,7 @@ export default function TermsPage() {
               Intellectual Property
             </h2>
             <p className="mt-3">
-              The ZeelanceBox website design, code, and branding are protected
+              The ZeroWebTools website design, code, and branding are protected
               by intellectual property laws. You may not reproduce, modify, or
               distribute the site&apos;s source code without explicit permission.
             </p>
@@ -51,7 +51,7 @@ export default function TermsPage() {
               Advertising
             </h2>
             <p className="mt-3">
-              ZeelanceBox displays third-party advertisements through Google
+              ZeroWebTools displays third-party advertisements through Google
               AdSense. These ads are subject to Google&apos;s own terms and
               privacy policies. We are not responsible for third-party ad
               content.
