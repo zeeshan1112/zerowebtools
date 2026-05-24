@@ -110,6 +110,37 @@ npm run build:web
 
 ---
 
+## 🧪 Testing Framework & Local Execution
+
+ZeroWebTools utilizes a comprehensive, hybrid testing suite to verify both visual UI interactions and core mathematical/parsing logic:
+1. **Playwright (End-to-End Browser Testing)**: Runs E2E tests inside a real browser against the local dev-server, verifying file uploads, passwords, the processing overlays, and file downloads.
+2. **Vitest (Unit & Integration Testing)**: Executes unit tests for math equations, casing transforms, and JSON formatting functions in milliseconds.
+
+### Prerequisites for E2E Tests
+E2E testing requires a local installation of **Google Chrome**. The tests are configured to run against the system-installed Chrome to avoid downloading large binary packages and bypass network constraints.
+
+### Run Tests Locally
+
+*   **Run all tests (Unit + E2E)**:
+    ```bash
+    npm run test
+    ```
+*   **Run Unit tests only**:
+    ```bash
+    npm run test:unit
+    ```
+*   **Run E2E browser tests only**:
+    ```bash
+    # Note: This will automatically start the dev-server in the background
+    npm run test:e2e
+    ```
+*   **Run E2E tests in interactive UI mode**:
+    ```bash
+    npx playwright test --ui
+    ```
+
+---
+
 ## 🔒 Security & Sandboxing Architecture
 
 Unlike standard online web tool utilities that stream user files to remote servers (incurring privacy exposure, bandwidth bottlenecks, and security vulnerabilities), **ZeroWebTools** maintains a zero-trust architecture:
