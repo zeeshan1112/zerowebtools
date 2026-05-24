@@ -1,170 +1,151 @@
 # 🔒 ZeroWebTools
 
+**🔗 [Try it live at zerowebtools.com](https://zerowebtools.com)** &nbsp;|&nbsp; [Report a Bug](https://github.com/zeeshan1112/zerowebtools/issues) &nbsp;|&nbsp; MIT License
+
+[![Live](https://img.shields.io/website?url=https%3A%2F%2Fzerowebtools.com&label=zerowebtools.com)](https://zerowebtools.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/zeeshan1112/zerowebtools/compare)
+
 > **Zero Server Uploads. Zero Latency. Zero Tracking. 100% Client-Side Browser Execution.**
 
-**ZeroWebTools** is a premium, locally-first, open-source suite of secure web tools designed for developers, creators, and modern builders. Crafted in a **Swiss Minimalist** design language (grayscale accents, modular typography, and spacious layouts), the platform runs entirely inside the user's browser sandbox context using WebAssembly (WASM) and client-side JavaScript. 
+**ZeroWebTools** is a premium, locally-first, open-source suite of secure web tools designed for developers, creators, and modern builders. Crafted in a **Swiss Minimalist** design language (grayscale accents, modular typography, and spacious layouts), the platform runs entirely inside the user's browser sandbox context using WebAssembly (WASM) and client-side JavaScript.
 
 No files, raw bytes, or user data are ever uploaded, processed, or cached on any remote servers—guaranteeing **absolute privacy** and **instantaneous offline execution**.
 
 ---
 
-## 🚀 Key Pillars
+## 🛠️ The Tool Suite
 
-1. **Absolute Privacy & Sandboxing**: All PDF processing, image resizing, Base64 conversions, and mathematical modeling run completely in the client's browser engine.
-2. **Swiss Minimalist Aesthetic**: A stark, professional visual style featuring solid grayscale tokens (#09090b light / #f4f4f5 dark), subtle active border highlights, spaced dash-bordered grids, and premium micro-interactions.
-3. **High-Performance WebAssembly**: Outfitted with dynamic client-side decoders for complex official documents (like e-Aadhaar cards or protected statements), processing standard structures, JPEG 2000 (`/JPXDecode`) streams, and custom formats locally.
-4. **Instant Offline Speed**: Loads in milliseconds and continues working without a network connection.
+### PDF Suite Pro (11 tools)
+| Tool | What It Does |
+|------|-------------|
+| **Merge PDF** | Combine multiple PDFs into a single document with drag-and-drop reordering |
+| **Split PDF** | Extract specific pages or split ranges cleanly into new documents |
+| **Compress PDF** | Reduce file size up to 90% with three compression levels |
+| **Rotate PDF** | Rotate pages by 90, 180, or 270 degrees |
+| **PDF to JPG** | Render PDF pages as high-resolution JPEG images |
+| **JPG to PDF** | Combine images into a PDF with adjustable page size and margins |
+| **Protect PDF** | Add 128-bit password encryption and permission locks |
+| **Unlock PDF** | Remove password protection from files you own |
+| **Organize PDF** | Drag-and-drop page reorder, rotation, and deletion |
+| **Watermark PDF** | Stamp custom text (CONFIDENTIAL, DRAFT) with opacity, scale, and angle controls |
+| **Page Numbers** | Insert page numbers with custom position, font, and formatting |
+
+### Developer Utilities
+| Tool | What It Does |
+|------|-------------|
+| **JSON Formatter** | Validate, beautify, minify, and explore JSON with a live tree view and syntax highlighting |
+| **Case Converter** | Transform between camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE |
+
+### Creative & Format Tools
+| Tool | What It Does |
+|------|-------------|
+| **HEIC Converter** | Convert Apple HEIC photos to JPG or PNG with batch upload and ZIP download |
+| **Bulk Image Resizer** | Resize, compress, and convert multiple images at once *(coming soon)* |
+
+### Growth & Financial Modelers
+| Tool | What It Does |
+|------|-------------|
+| **SaaS MRR Projections** | Forecast monthly recurring revenue, churn, and customer lifetime value with interactive charts |
+| **Equity Vesting Modeler** | Calculate employee option vesting schedules, dilution curves, and stock valuations |
 
 ---
 
-## 🛠️ The Tool Suite
+## ✨ Key Pillars
 
-### 1. PDF Suite Pro (Local PDF Workbench)
-*   **Merge PDF**: Combine multiple PDFs into a single document in any order with drag-and-drop file reordering.
-*   **Split PDF**: Extract page selections or range streams cleanly into optimized single sheets or custom packages.
-*   **Compress PDF**: Real-time visual compression supporting three distinct target levels:
-    *   *Balanced Compression (150 DPI)*: High-ratio visual downscaling (up to 90% space savings) with crisp visuals.
-    *   *Extreme Compression (100 DPI)*: High-compression JPEG rendering for strict portal size limits.
-    *   *Lossless Optimization*: Stream structure stripping and metadata cleaning (preserves searchable text and sharp vectors).
-*   **Protect PDF**: Fast, standard password encryption (128-bit/Revision 3 RC4) writing custom trailer dictionaries.
-*   **Unlock PDF**: Remove password locks from files you own.
-*   **Organize PDF**: Visually rearrange, rotate, or delete individual pages inside the browser grid.
-*   **Watermark PDF**: Embed text stamps (e.g. `CONFIDENTIAL`) with dynamic opacity, scale, and angles.
-*   **Page Numbers**: Stamp page indicators dynamically (top, bottom, right, center) with customized indexes.
-*   **PDF to JPG & JPG to PDF**: High-fidelity cross-conversions.
+1. **Absolute Privacy & Sandboxing** — All processing runs completely in the browser. No server uploads, ever.
+2. **Swiss Minimalist Aesthetic** — Grayscale design tokens, dash-bordered grids, premium micro-interactions.
+3. **High-Performance WebAssembly** — Client-side decoders for JPEG 2000 (`/JPXDecode`) streams and complex document formats.
+4. **Instant Offline Speed** — Loads in milliseconds. Works without a network connection.
 
-### 2. Creative & Format Utilities
-*   **Image Resizer**: Adjust image bounds and compress formats (PNG/JPEG/WEBP) in browser memory.
-*   **HEIC to JPG/PNG**: Fast client-side translation of Apple's high-efficiency image container formats.
+---
 
-### 3. Growth & Financial Modelers
-*   **MRR/ARR Growth Modeler**: Interactive recurring revenue modeler for SaaS builders to forecast growth paths.
-*   **SaaS Valuation Calculator**: Input key metrics to assess SaaS enterprise values instantly.
-
-## 📦 Monorepo Workspace Architecture
-
-**ZeroWebTools** is architected as a modular monorepo using **npm workspaces**, ensuring strict separation of concerns, high modularity, and reusable tooling libraries:
+## 📦 Monorepo Architecture
 
 ```
 zerowebtools/
 ├── apps/
-│   └── web/                # Next.js 15 Web Application (Page Routing, Workspace Views, Styling)
+│   └── web/                # Next.js 15 App (Static Export, Page Routing)
 └── packages/
-    └── tools-core/         # Core library workspace (growth mathematics, converters, core utilities)
+    └── tools-core/         # Core library (growth math, converters, utilities)
 ```
 
-### Workspace Operations:
-*   **Development Dev-Server**: `npm run dev:web` (boots the `apps/web` dynamic local Next.js client)
-*   **Production UI Build**: `npm run build:web` (compiles and statically exports UI pages)
-*   **Compile Core Packages**: `npm run build:tools-core` (builds the `@hub/tools-core` packages workspace dependencies)
+### Quick Start
 
----
-
-## ⚡ Tech Stack
-
-*   **Core framework**: React 19 & [Next.js 15](https://nextjs.org/) (App Router)
-*   **Styling System**: Tailwind CSS & Vanilla CSS modules (Grayscale visual design token theme)
-*   **Motion & Animation**: Framer Motion (Smooth, springs, page view transitions, and typewriter effects)
-*   **PDF Engine**: `pdf-lib` (Binary stream writer) & `pdfjs-dist` (High-fidelity canvas page renderer)
-*   **Encryption System**: `@pdfsmaller/pdf-encrypt-lite` (Lightweight Browser Standard encryption)
-
----
-
-## 🔧 Local Development & Setup
-
-### Prerequisites
-*   Node.js >= 18.17.0
-*   npm >= 9.0.0
-
-### Installation
-Clone the repository and install the workspaces' packages:
 ```bash
-git clone https://github.com/your-username/zerowebtools.git
+git clone https://github.com/zeeshan1112/zerowebtools.git
 cd zerowebtools
 npm install
+npm run dev:web
 ```
 
-### Static Asset Configurations (PDFJS Decoders)
-To compile scanned official PDF layers (like JPEG 2000 `/JPXDecode` images) successfully in secure local environments, the Web Worker and WASM decoders are served directly from the same origin. 
+Open [http://localhost:3000](http://localhost:3000) to start using the tools.
 
-Ensure the assets are copied into the web application's public assets folder:
+### Build for Production
+
 ```bash
-# Copies workers and WebAssembly modules from npm package to public directory
+npm run build:web
+```
+
+### PDFJS Static Assets
+
+For scanned PDF processing (JPEG 2000 decoders), copy the worker and WASM assets:
+
+```bash
 cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs apps/web/public/pdf.worker.min.js
 mkdir -p apps/web/public/wasm
 cp node_modules/pdfjs-dist/wasm/* apps/web/public/wasm/
 ```
 
-### Run the Development Server
-Start the local Next.js workspace server:
-```bash
-npm run dev:web
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser to interact with the workbench.
+---
 
-### Build and Static Compile
-Validate and build the production-ready optimized bundles:
+## 🧪 Testing
+
 ```bash
-npm run build:web
+npm run test            # All tests (Unit + E2E)
+npm run test:unit       # Vitest unit tests only
+npm run test:e2e        # Playwright E2E tests (requires Chrome)
 ```
 
 ---
 
-## 🧪 Testing Framework & Local Execution
+## 🔒 Security Architecture
 
-ZeroWebTools utilizes a comprehensive, hybrid testing suite to verify both visual UI interactions and core mathematical/parsing logic:
-1. **Playwright (End-to-End Browser Testing)**: Runs E2E tests inside a real browser against the local dev-server, verifying file uploads, passwords, the processing overlays, and file downloads.
-2. **Vitest (Unit & Integration Testing)**: Executes unit tests for math equations, casing transforms, and JSON formatting functions in milliseconds.
+```
+User File → Browser Canvas/Memory → Local WASM/JS Processing → Same-Origin Blob Download
+                 │                                      │
+                 └── Files never leave the browser ──────┘
+```
 
-### Prerequisites for E2E Tests
-E2E testing requires a local installation of **Google Chrome**. The tests are configured to run against the system-installed Chrome to avoid downloading large binary packages and bypass network constraints.
-
-### Run Tests Locally
-
-*   **Run all tests (Unit + E2E)**:
-    ```bash
-    npm run test
-    ```
-*   **Run Unit tests only**:
-    ```bash
-    npm run test:unit
-    ```
-*   **Run E2E browser tests only**:
-    ```bash
-    # Note: This will automatically start the dev-server in the background
-    npm run test:e2e
-    ```
-*   **Run E2E tests in interactive UI mode**:
-    ```bash
-    npx playwright test --ui
-    ```
+- **Zero Server Streams** — Files never exit the browser's execution context
+- **Isolated Web Workers** — Heavy decoders run in background sandboxes
+- **Blob URL Downloads** — Temporary links self-destruct on tab close
 
 ---
 
-## 🔒 Security & Sandboxing Architecture
+## ⚡ Tech Stack
 
-Unlike standard online web tool utilities that stream user files to remote servers (incurring privacy exposure, bandwidth bottlenecks, and security vulnerabilities), **ZeroWebTools** maintains a zero-trust architecture:
+- **React 19** & **Next.js 15** (App Router, Static Export)
+- **Tailwind CSS** with grayscale design token theme
+- **Framer Motion** for page transitions and micro-interactions
+- **pdf-lib** (binary stream writer) & **pdfjs-dist** (canvas page renderer)
+- **@pdfsmaller/pdf-encrypt-lite** for browser-standard PDF encryption
 
-```mermaid
-graph TD
-    A[User PDF/Image File] -->|Drag & Drop| B(Browser Canvas/Memory)
-    B -->|pdf-lib Binary Stream| C{Local Process}
-    B -->|pdfjs-dist Web Worker| C
-    C -->|Local Wasm/JPEG 2000 decoders| D[Browser Compiled ArrayBuffer]
-    D -->|Same-Origin Blob Link| E[Direct Local Download]
-    
-    style A fill:#f4f4f5,stroke:#09090b,stroke-width:2px
-    style B fill:#09090b,stroke:#09090b,color:#fff,stroke-width:2px
-    style C fill:#f4f4f5,stroke:#09090b,stroke-width:2px
-    style E fill:#09090b,stroke:#09090b,color:#fff,stroke-width:2px
-```
+---
 
-*   **Zero Server Streams**: Files never exit your browser's execution memory context.
-*   **Isolated Web Workers**: Heavy canvas decoders load inside background worker sandboxes of the same origin.
-*   **Blob URL Generators**: Temporary download links exist solely inside browser session windows, self-destructing instantly on tab close.
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -m "Add my feature"`
+4. Push to the branch: `git push origin feature/my-feature`
+5. Open a Pull Request
+
+Bug reports and feature requests are welcome at [GitHub Issues](https://github.com/zeeshan1112/zerowebtools/issues).
 
 ---
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
