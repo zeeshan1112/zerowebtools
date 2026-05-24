@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
@@ -54,9 +54,42 @@ const staggerItem = {
 
 
 
+// Hash fragment → tab mapping (sidebar links use /#pdf-tools, /#converters etc.)
+const SLUG_TO_TAB: Record<string, "pdf" | "dev" | "financial" | "converters"> = {
+  "pdf-tools": "pdf",
+  "converters": "dev",
+  "financial-growth": "financial",
+  "image-tools": "converters",
+};
+
+const TAB_TO_SLUG: Record<string, string> = {
+  pdf: "pdf-tools",
+  dev: "converters",
+  financial: "financial-growth",
+  converters: "image-tools",
+};
+
 export default function HomePage() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<"pdf" | "dev" | "financial" | "converters">("pdf");
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      const tabId = SLUG_TO_TAB[hash];
+      if (tabId) {
+        setActiveTab(tabId);
+        document.getElementById("workspace-directory")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    if (window.location.hash) {
+      handleHash();
+    }
+
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   // Load Starred Bookmarks
   useEffect(() => {
@@ -374,7 +407,10 @@ export default function HomePage() {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                    onClick={() => {
+                      setActiveTab(tab.id as any);
+                      history.replaceState(null, "", `#${TAB_TO_SLUG[tab.id]}`);
+                    }}
                     className={`px-4 py-2.5 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer min-h-[44px] ${
                       isActive
                         ? "bg-ink border-ink text-surface shadow-sm"

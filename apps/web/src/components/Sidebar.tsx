@@ -206,7 +206,7 @@ export default function Sidebar() {
               const isActive = pathname === `/#${cat.slug}` || (pathname === "/" && cat.slug === "mortgage-loan");
               return (
                 <li key={cat.slug}>
-                  <a
+                  <Link
                     href={`/#${cat.slug}`}
                     className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                       isActive
@@ -223,7 +223,7 @@ export default function Sidebar() {
                       )}
                     </span>
                     {isExpanded && <span className="truncate text-xs font-bold uppercase tracking-wide">{cat.title}</span>}
-                  </a>
+                  </Link>
                 </li>
               );
             })}
