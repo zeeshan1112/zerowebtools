@@ -43,7 +43,8 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   if (!tool) return { title: "Tool Not Found" };
 
   const canonicalUrl = `${BASE_URL}/tools/${toolId}`;
-  const pageTitle = `${tool.title} - Free Client-Side Tool | ZeroWebTools`;
+  const pageTitle = `${tool.title} — 100% Free & Private | ZeroWebTools`;
+  const ogDescription = tool.metaDescription;
 
   return {
     title: pageTitle,
@@ -53,15 +54,24 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     },
     openGraph: {
       title: pageTitle,
-      description: tool.metaDescription,
+      description: ogDescription,
       type: "website",
       url: canonicalUrl,
       siteName: "ZeroWebTools",
+      images: [
+        {
+          url: "/logo.png",
+          width: 1200,
+          height: 630,
+          alt: `${tool.title} — Free Online Tool by ZeroWebTools`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
-      description: tool.metaDescription,
+      description: ogDescription,
+      images: ["/logo.png"],
     },
   };
 }
@@ -614,7 +624,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
     "@id": `${BASE_URL}/tools/${toolId}#software-application`,
     "name": tool.title,
     "description": tool.metaDescription,
-    "image": `${BASE_URL}/og-image.png`,
+    "image": `${BASE_URL}/logo.png`,
     "applicationCategory": `${category?.title || "Utility"}Application`,
     "operatingSystem": "Any",
     "offers": {
