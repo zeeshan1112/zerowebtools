@@ -10,6 +10,34 @@ const PROTECT_STEPS = [
   "Outputting password-encrypted PDF payload...",
 ];
 
+const UNLOCK_STEPS = [
+  "Validating document security permissions...",
+  "Removing standard encryption filters...",
+  "Rebuilding plain catalog stream trees...",
+  "Packaging unlocked output PDF...",
+];
+
+const WATERMARK_STEPS = [
+  "Analyzing target page layouts...",
+  "Calculating overlay coordinate matrices...",
+  "Drawing vector watermark elements...",
+  "Compiling watermarked document...",
+];
+
+const PAGINATE_STEPS = [
+  "Reading page layout bounds...",
+  "Generating page number layout stamps...",
+  "Positioning labels on canvas grids...",
+  "Compiling paginated output PDF...",
+];
+
+const ORGANIZE_STEPS = [
+  "Analyzing page catalog structure...",
+  "Re-ordering selected page nodes...",
+  "Rebuilding internal document offsets...",
+  "Compiling organized output PDF...",
+];
+
 function SZ({ onFile, label, accept }: { onFile: (f: File) => void; label: string; accept: string }) {
   const [drag, setDrag] = useState(false);
   return (
@@ -97,19 +125,51 @@ export function UnlockPDFWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const unlock = useCallback(async () => {
     if (!file || !password) { setError("Enter the password"); return; }
-    setProcessing(true); setError(null);
+    setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const doc = await loadPDFDoc(file, password);
       const blob = await savePDFDoc(doc);
-      downloadBlob(blob, getFilename("pdf-unlock", file.name));
-    } catch (e: any) { setError(e.message || "Could not unlock. Check password."); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename("pdf-unlock", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Could not unlock. Check password.");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, password]);
 
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-unlock", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
+
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a protected PDF" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
@@ -117,6 +177,13 @@ export function UnlockPDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={unlock} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Unlocking..." : "Unlock PDF"}</button>
       </div>}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={UNLOCK_STEPS}
+        loadingText="Unlocking your PDF document..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }
@@ -129,9 +196,21 @@ export function WatermarkPDFWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const water = useCallback(async () => {
     if (!file || !text) return;
-    setProcessing(true); setError(null);
+    setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const doc = await loadPDFDoc(file);
       const font = await doc.embedFont(StandardFonts.HelveticaBold);
@@ -142,13 +221,33 @@ export function WatermarkPDFWorkspace() {
         page.drawText(text, { x: width / 2, y: height / 2, size, font, color: rgb(0, 0, 0), opacity, rotate: { type: "degrees" as any, angle: -angle }, xSkew: { type: "degrees" as any, angle: 0 }, ySkew: { type: "degrees" as any, angle: 0 } });
       }
       const blob = await savePDFDoc(doc);
-      downloadBlob(blob, getFilename("pdf-watermark", file.name));
-    } catch (e: any) { setError(e.message || "Watermark failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename("pdf-watermark", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Watermark failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, text, size, opacity]);
 
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-watermark", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
+
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a PDF to watermark" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
@@ -162,6 +261,13 @@ export function WatermarkPDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={water} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Applying..." : "Add Watermark"}</button>
       </div>}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={WATERMARK_STEPS}
+        loadingText="Watermarking your PDF document..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }
@@ -173,9 +279,21 @@ export function PageNumbersPDFWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const add = useCallback(async () => {
     if (!file) return;
-    setProcessing(true); setError(null);
+    setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const doc = await loadPDFDoc(file);
       const font = await doc.embedFont(StandardFonts.Helvetica);
@@ -188,13 +306,33 @@ export function PageNumbersPDFWorkspace() {
         page.drawText(String(start + i), { x, y, size: 10, font, color: rgb(0.4, 0.4, 0.4) });
       }
       const blob = await savePDFDoc(doc);
-      downloadBlob(blob, getFilename("pdf-page-numbers", file.name));
-    } catch (e: any) { setError(e.message || "Page numbering failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename("pdf-page-numbers", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Page numbering failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, start, pos]);
 
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-page-numbers", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
+
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a PDF" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
@@ -209,6 +347,13 @@ export function PageNumbersPDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={add} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Adding..." : "Add Page Numbers"}</button>
       </div>}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={PAGINATE_STEPS}
+        loadingText="Adding page numbers..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }
@@ -220,6 +365,12 @@ export function OrganizePDFWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const handleFile = useCallback(async (f: File) => {
     setFile(f); setError(null);
     try { const doc = await loadPDFDoc(f); setTotal(doc.getPageCount()); } catch { setError("Could not read PDF"); }
@@ -227,21 +378,47 @@ export function OrganizePDFWorkspace() {
 
   const organize = useCallback(async () => {
     if (!file || !order.trim()) { setError("Enter page order"); return; }
-    setProcessing(true); setError(null);
+    setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const indices = order.split(",").map((s) => Number(s.trim()) - 1).filter((n) => n >= 0 && n < total);
-      if (!indices.length) { setError("No valid pages"); setProcessing(false); return; }
+      if (!indices.length) { setError("No valid pages"); setProcessing(false); setShowProcessingOverlay(false); isGeneratingRef.current = false; return; }
       const doc = await loadPDFDoc(file);
       const out = await PDFDocument.create();
       for (const i of indices) { const [p] = await out.copyPages(doc, [i]); out.addPage(p); }
       const blob = await savePDFDoc(out);
-      downloadBlob(blob, getFilename("pdf-organize", file.name));
-    } catch (e: any) { setError(e.message || "Organization failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename("pdf-organize", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Organization failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, order, total]);
 
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-organize", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
+
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <SZ onFile={handleFile} label="Drop a PDF" accept=".pdf" />
       {file && total > 0 && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)} · {total} pages</span></div>
@@ -250,6 +427,13 @@ export function OrganizePDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={organize} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Organizing..." : "Organize PDF"}</button>
       </div>}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={ORGANIZE_STEPS}
+        loadingText="Reorganizing your PDF pages..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }
