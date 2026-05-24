@@ -135,7 +135,7 @@ export default function Sidebar() {
           <div className="space-y-1.5">
             {isExpanded ? (
               <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-3.5 mb-2">
-                Saved Workspaces
+                Saved Tools
               </h4>
             ) : (
               <div className="h-4" />

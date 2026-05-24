@@ -158,7 +158,7 @@ export default function MobileDrawer() {
                 {bookmarkedTools.length > 0 && (
                   <div className="space-y-2">
                     <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
-                      Saved Workspaces
+                      Saved Tools
                     </h4>
                     <ul className="space-y-0.5">
                       {bookmarkedTools.map((t) => (
