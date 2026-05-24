@@ -645,8 +645,10 @@ export default async function ToolPage({ params }: ToolPageProps) {
   const softwareApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${BASE_URL}/tools/${toolId}#software-application`,
     "name": tool.title,
     "description": tool.metaDescription,
+    "image": `${BASE_URL}/og-image.png`,
     "applicationCategory": `${category?.title || "Utility"}Application`,
     "operatingSystem": "Any",
     "offers": {

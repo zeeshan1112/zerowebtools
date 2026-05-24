@@ -22,6 +22,20 @@ export const metadata: Metadata = {
     siteName: "ZeroWebTools",
     title: "ZeroWebTools - Free Online Professional Web Tools",
     description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ZeroWebTools - Free Browser-Based Professional Tools",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ZeroWebTools - Free Online Professional Web Tools",
+    description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

@@ -1,8 +1,27 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Terms of Service - ZeroWebTools",
-  description: "Terms of service for ZeroWebTools developer utility tools.",
+  description:
+    "Terms of service for ZeroWebTools — free browser-based PDF tools, image converters, and developer utilities with 100% client-side processing.",
+  alternates: {
+    canonical: "https://zerowebtools.com/terms",
+  },
+  openGraph: {
+    title: "Terms of Service - ZeroWebTools",
+    description:
+      "Terms governing the use of ZeroWebTools free browser-based utility tools.",
+    type: "website",
+    url: "https://zerowebtools.com/terms",
+    siteName: "ZeroWebTools",
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms of Service - ZeroWebTools",
+    description:
+      "Terms governing the use of ZeroWebTools free browser-based utility tools.",
+  },
 };
 
 export default function TermsPage() {

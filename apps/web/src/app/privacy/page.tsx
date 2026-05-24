@@ -1,8 +1,27 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Privacy Policy - ZeroWebTools",
-  description: "Privacy policy for ZeroWebTools developer utility tools.",
+  description:
+    "Privacy policy for ZeroWebTools — learn how we protect your data with 100% client-side processing. No server uploads, no tracking, no data collection.",
+  alternates: {
+    canonical: "https://zerowebtools.com/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy - ZeroWebTools",
+    description:
+      "ZeroWebTools processes all tools entirely in your browser. Your files and data never leave your device.",
+    type: "website",
+    url: "https://zerowebtools.com/privacy",
+    siteName: "ZeroWebTools",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy - ZeroWebTools",
+    description:
+      "100% client-side processing. Your files and data never leave your device.",
+  },
 };
 
 export default function PrivacyPage() {
