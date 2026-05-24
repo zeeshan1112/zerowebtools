@@ -2,6 +2,14 @@
 
 import React, { useState, useCallback, useRef } from "react";
 import { downloadBlob, formatBytes, getFilename, compressPDF } from "@/lib/pdf-utils";
+import ProcessingOverlay from "./ProcessingOverlay";
+
+const COMPRESS_STEPS = [
+  "Analyzing PDF content stream structures...",
+  "Extracting and downscaling embedded raster images...",
+  "Re-compressing vector objects and coordinates...",
+  "Optimizing font references and page metadata...",
+];
 
 export default function CompressPDFWorkspace() {
   const [file, setFile] = useState<File | null>(null);
@@ -13,22 +21,56 @@ export default function CompressPDFWorkspace() {
   const [error, setError] = useState<string | null>(null);
   const ref = useRef<HTMLInputElement>(null);
 
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const handleFile = useCallback(async (f: File) => {
     setFile(f); setBefore(f.size); setAfter(null); setProgress(null); setError(null);
   }, []);
 
   const compress = useCallback(async () => {
     if (!file) return;
-    setProcessing(true); setError(null); setProgress(null);
+    setError(null);
+    setProgress(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const blob = await compressPDF(file, level, (current, total) => {
         setProgress({ current, total });
       });
-      setAfter(blob.size);
-      downloadBlob(blob, getFilename("pdf-compress", file.name));
-    } catch (e: any) { setError(e.message || "Compression failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        setAfter(blob.size);
+        downloadBlob(blob, getFilename("pdf-compress", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Compression failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, level]);
+
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      setAfter(pendingBlobRef.current.size);
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-compress", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
 
   return (
     <div className="space-y-6">
@@ -149,6 +191,13 @@ export default function CompressPDFWorkspace() {
           </button>
         </div>
       )}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={COMPRESS_STEPS}
+        loadingText="Compressing your PDF document..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }

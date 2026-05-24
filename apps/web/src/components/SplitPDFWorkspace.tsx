@@ -3,6 +3,14 @@
 import React, { useState, useCallback, useRef } from "react";
 import { PDFDocument } from "pdf-lib";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename } from "@/lib/pdf-utils";
+import ProcessingOverlay from "./ProcessingOverlay";
+
+const SPLIT_STEPS = [
+  "Analyzing PDF page layout tree...",
+  "Isolating selected page streams...",
+  "Discarding unreferenced stream resources...",
+  "Packaging split output document...",
+];
 
 export default function SplitPDFWorkspace() {
   const [file, setFile] = useState<File | null>(null);
@@ -12,6 +20,12 @@ export default function SplitPDFWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const ref = useRef<HTMLInputElement>(null);
+
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
 
   const handleFile = useCallback(async (f: File) => {
     setFile(f);
@@ -24,8 +38,13 @@ export default function SplitPDFWorkspace() {
 
   const process = useCallback(async () => {
     if (!file || !ranges.trim()) { setError("Enter page ranges"); return; }
-    setProcessing(true);
     setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const doc = await loadPDFDoc(file);
       const indices: number[] = [];
@@ -54,10 +73,30 @@ export default function SplitPDFWorkspace() {
         }
       }
       const blob = await savePDFDoc(outDoc);
-      downloadBlob(blob, getFilename(mode === "extract" ? "pdf-split" : "pdf-organize", file.name));
-    } catch (e: any) { setError(e.message || "Split failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename(mode === "extract" ? "pdf-split" : "pdf-organize", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Split failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, ranges, mode, totalPages]);
+
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename(mode === "extract" ? "pdf-split" : "pdf-organize", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file, mode]);
 
   return (
     <div className="space-y-5">
@@ -82,6 +121,13 @@ export default function SplitPDFWorkspace() {
           <button onClick={process} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Processing..." : mode === "extract" ? "Extract Pages" : "Remove Pages"}</button>
         </div>
       )}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={SPLIT_STEPS}
+        loadingText="Splitting your PDF document..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }

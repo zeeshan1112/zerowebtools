@@ -1,6 +1,13 @@
 "use client";
-
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import ProcessingOverlay from "./ProcessingOverlay";
+
+const CONVERT_STEPS = [
+  "Initializing WebAssembly HEIF/HEIC decoder...",
+  "Loading source image binary streams...",
+  "Decoding image pixels & color profiles...",
+  "Encoding output format (JPG/PNG)...",
+];
 
 interface ImageFile {
   id: string;
@@ -59,6 +66,12 @@ export default function HeicConverterWorkspace() {
   const [quality, setQuality] = useState(85);
   const [isDragging, setIsDragging] = useState(false);
   const [isConverting, setIsConverting] = useState(false);
+
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const animationFinishedRef = useRef(false);
+  const isGeneratingRef = useRef(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const filesRef = useRef<ImageFile[]>([]);
   filesRef.current = files;
@@ -149,6 +162,9 @@ export default function HeicConverterWorkspace() {
     const currentQuality = quality;
 
     setIsConverting(true);
+    setShowProcessingOverlay(true);
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
 
     setFiles((prev) =>
       prev.map((f) => ({ ...f, converting: true, error: null, convertedBlob: null, convertedSize: null }))
@@ -173,6 +189,8 @@ export default function HeicConverterWorkspace() {
           )
         );
         setIsConverting(false);
+        setShowProcessingOverlay(false);
+        isGeneratingRef.current = false;
         return;
       }
     }
@@ -184,14 +202,12 @@ export default function HeicConverterWorkspace() {
         let resultBlob: Blob;
 
         if (isHeic && heicConvert) {
-          // Use modern heic-to with built-in libheif v1.21+
           resultBlob = await heicConvert({
             blob: file,
             type: currentFormat,
             quality: currentQuality / 100,
           });
         } else {
-          // Non-HEIC: direct Canvas API conversion
           const bitmap = await createImageBitmap(file);
           const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
           const ctx = canvas.getContext("2d")!;
@@ -218,8 +234,21 @@ export default function HeicConverterWorkspace() {
       }
     }
 
-    setIsConverting(false);
+    isGeneratingRef.current = false;
+
+    if (animationFinishedRef.current) {
+      setIsConverting(false);
+      setShowProcessingOverlay(false);
+    }
   }, [targetFormat, quality]);
+
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current) {
+      setIsConverting(false);
+      setShowProcessingOverlay(false);
+    }
+  }, []);
 
   const downloadSingle = useCallback(
     (entry: ImageFile) => {
@@ -412,6 +441,13 @@ export default function HeicConverterWorkspace() {
           </div>
         </div>
       )}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={CONVERT_STEPS}
+        loadingText="Converting your photos..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }
