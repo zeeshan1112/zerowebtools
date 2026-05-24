@@ -203,11 +203,19 @@ export default function Sidebar() {
           )}
           <ul className="space-y-1">
             {CATEGORIES.map((cat) => {
-              const isActive = pathname === `/#${cat.slug}` || (pathname === "/" && cat.slug === "mortgage-loan");
+              const isActive = pathname === "/" && false;
               return (
                 <li key={cat.slug}>
                   <Link
-                    href={`/#${cat.slug}`}
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (pathname === "/") {
+                        window.dispatchEvent(new CustomEvent("zeelancebox_navigate_tab", { detail: cat.slug }));
+                      } else {
+                        window.location.href = `/#${cat.slug}`;
+                      }
+                    }}
                     className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                       isActive
                         ? "bg-accent-surface text-accent font-bold"

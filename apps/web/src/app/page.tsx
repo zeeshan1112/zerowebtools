@@ -83,12 +83,25 @@ export default function HomePage() {
       }
     };
 
+    const handleTabNav = (e: Event) => {
+      const slug = (e as CustomEvent).detail;
+      const tabId = SLUG_TO_TAB[slug];
+      if (tabId) {
+        setActiveTab(tabId);
+        document.getElementById("workspace-directory")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
     if (window.location.hash) {
       handleHash();
     }
 
     window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
+    window.addEventListener("zeelancebox_navigate_tab", handleTabNav);
+    return () => {
+      window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("zeelancebox_navigate_tab", handleTabNav);
+    };
   }, []);
 
   // Load Starred Bookmarks
