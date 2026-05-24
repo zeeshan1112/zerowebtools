@@ -11,17 +11,25 @@
     "build:web": "npm run build --workspace=apps/web",
     "build:tools-core": "npm run build --workspace=@hub/tools-core",
     "lint": "npm run lint --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e"
   },
   "engines": {
     "node": ">=18.17.0"
   },
   "dependencies": {
+    "@pdfsmaller/pdf-decrypt": "^1.0.1",
     "@pdfsmaller/pdf-encrypt-lite": "^1.0.2",
     "heic-to": "^1.4.3",
     "heic2any": "^0.0.4",
     "jszip": "^3.10.1",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.7.284"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "vitest": "^4.1.7"
   }
 }

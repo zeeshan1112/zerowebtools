@@ -41,6 +41,23 @@ No files, raw bytes, or user data are ever uploaded, processed, or cached on any
 *   **MRR/ARR Growth Modeler**: Interactive recurring revenue modeler for SaaS builders to forecast growth paths.
 *   **SaaS Valuation Calculator**: Input key metrics to assess SaaS enterprise values instantly.
 
+## 📦 Monorepo Workspace Architecture
+
+**ZeroWebTools** is architected as a modular monorepo using **npm workspaces**, ensuring strict separation of concerns, high modularity, and reusable tooling libraries:
+
+```
+zerowebtools/
+├── apps/
+│   └── web/                # Next.js 15 Web Application (Page Routing, Workspace Views, Styling)
+└── packages/
+    └── tools-core/         # Core library workspace (growth mathematics, converters, core utilities)
+```
+
+### Workspace Operations:
+*   **Development Dev-Server**: `npm run dev:web` (boots the `apps/web` dynamic local Next.js client)
+*   **Production UI Build**: `npm run build:web` (compiles and statically exports UI pages)
+*   **Compile Core Packages**: `npm run build:tools-core` (builds the `@hub/tools-core` packages workspace dependencies)
+
 ---
 
 ## ⚡ Tech Stack
@@ -90,6 +107,37 @@ Validate and build the production-ready optimized bundles:
 ```bash
 npm run build:web
 ```
+
+---
+
+## 🧪 Testing Framework & Local Execution
+
+ZeroWebTools utilizes a comprehensive, hybrid testing suite to verify both visual UI interactions and core mathematical/parsing logic:
+1. **Playwright (End-to-End Browser Testing)**: Runs E2E tests inside a real browser against the local dev-server, verifying file uploads, passwords, the processing overlays, and file downloads.
+2. **Vitest (Unit & Integration Testing)**: Executes unit tests for math equations, casing transforms, and JSON formatting functions in milliseconds.
+
+### Prerequisites for E2E Tests
+E2E testing requires a local installation of **Google Chrome**. The tests are configured to run against the system-installed Chrome to avoid downloading large binary packages and bypass network constraints.
+
+### Run Tests Locally
+
+*   **Run all tests (Unit + E2E)**:
+    ```bash
+    npm run test
+    ```
+*   **Run Unit tests only**:
+    ```bash
+    npm run test:unit
+    ```
+*   **Run E2E browser tests only**:
+    ```bash
+    # Note: This will automatically start the dev-server in the background
+    npm run test:e2e
+    ```
+*   **Run E2E tests in interactive UI mode**:
+    ```bash
+    npx playwright test --ui
+    ```
 
 ---
 

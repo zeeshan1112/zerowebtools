@@ -185,7 +185,7 @@ export default function CommandCenter() {
                 <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↑↓</kbd> Navigate</span>
                 <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↵</kbd> Select</span>
               </div>
-              <span>ZeelanceBox CommandCenter</span>
+              <span>ZeroWebTools CommandCenter</span>
             </div>
 
           </motion.div>
@@ -200,13 +200,13 @@ export default function CommandCenter() {
       {/* Global Quick Search Header Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-border hover:border-zinc-300 dark:hover:border-zinc-700 bg-surface-elevated hover:bg-surface text-ink-secondary hover:text-ink text-xs font-semibold shadow-sm transition-all duration-200 cursor-pointer w-48 text-left select-none outline-none"
+        className="flex items-center gap-2.5 px-2.5 sm:px-3 py-1.5 rounded-xl border border-border hover:border-zinc-300 dark:hover:border-zinc-700 bg-surface-elevated hover:bg-surface text-ink-secondary hover:text-ink text-xs font-semibold shadow-sm transition-all duration-200 cursor-pointer w-10 sm:w-48 justify-center sm:justify-start text-left select-none outline-none min-h-[40px]"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-ink-muted shrink-0">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-ink-muted shrink-0" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
-        <span className="flex-1 text-ink-muted font-medium">Quick search...</span>
-        <div className="flex items-center gap-0.5 shrink-0 opacity-70">
+        <span className="hidden sm:block flex-1 text-ink-muted font-medium">Quick search...</span>
+        <div className="hidden sm:flex items-center gap-0.5 shrink-0 opacity-70">
           <kbd className="px-1 py-0.5 text-[9px] font-sans text-ink-muted bg-surface rounded-md border border-border">⌘</kbd>
           <kbd className="px-1 py-0.5 text-[9px] font-sans text-ink-muted bg-surface rounded-md border border-border">K</kbd>
         </div>

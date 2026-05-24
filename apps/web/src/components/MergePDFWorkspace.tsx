@@ -5,6 +5,7 @@ import { PDFDocument } from "pdf-lib";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, renderPDFThumbnail, renderAllPDFPages } from "@/lib/pdf-utils";
+import ProcessingOverlay from "./ProcessingOverlay";
 
 interface MergeJob {
   id: string;
@@ -14,6 +15,13 @@ interface MergeJob {
   thumbnailUrl: string | null;
   pageCount: number | null;
 }
+
+const MERGE_STEPS = [
+  "Reading and parsing PDF file structures...",
+  "Merging document catalogs and page pools...",
+  "Optimizing resource dictionaries...",
+  "Generating final combined PDF...",
+];
 
 export default function MergePDFWorkspace() {
   const [jobs, setJobs] = useState<MergeJob[]>([]);
@@ -27,6 +35,12 @@ export default function MergePDFWorkspace() {
   const [previewLoading, setPreviewLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
 
   // Revoke object URLs on unmount to prevent memory leaks
   useEffect(() => {
@@ -165,8 +179,13 @@ export default function MergePDFWorkspace() {
       setError("Add at least 2 PDF files to merge");
       return;
     }
-    setProcessing(true);
     setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const merged = await PDFDocument.create();
       for (const job of jobs) {
@@ -175,16 +194,34 @@ export default function MergePDFWorkspace() {
         copied.forEach((p) => merged.addPage(p));
       }
       const blob = await savePDFDoc(merged);
-      setMergedBlob(blob);
-      
-      // Stark monochromatic Success Toast Trigger
-      setToastMessage("PDFs merged successfully!");
-      setTimeout(() => setToastMessage(null), 3000);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        setMergedBlob(blob);
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+        setToastMessage("PDFs merged successfully!");
+        setTimeout(() => setToastMessage(null), 3000);
+      }
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Merge failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
     }
-    setProcessing(false);
   }, [jobs]);
+
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current) {
+      setMergedBlob(pendingBlobRef.current);
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      setToastMessage("PDFs merged successfully!");
+      setTimeout(() => setToastMessage(null), 3000);
+    }
+  }, []);
 
   const download = useCallback(() => {
     if (!mergedBlob) return;
@@ -224,7 +261,7 @@ export default function MergePDFWorkspace() {
   const totalPages = jobs.reduce((acc, j) => acc + (j.pageCount ?? 0), 0);
 
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       {/* Drop zone */}
       <div
         onDrop={(e) => { e.preventDefault(); addFiles(e.dataTransfer.files); }}
@@ -493,6 +530,13 @@ export default function MergePDFWorkspace() {
           </AnimatePresence>,
           document.body
         )}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={MERGE_STEPS}
+        loadingText="Merging your PDF documents..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }

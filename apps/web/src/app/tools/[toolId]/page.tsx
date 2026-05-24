@@ -10,16 +10,19 @@ import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNum
 import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
 import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
 import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
+import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
+import MobileToolActions from "@/components/MobileToolActions";
 import {
   CATEGORIES,
   getToolById,
   getCategoryForTool,
   CATEGORY_TAG_STYLES,
+  type Tool,
+  type ToolCategory,
 } from "@/lib/tools";
-import { toCamelCase, toSnakeCase, toKebabCase } from "@hub/tools-core";
 
 interface ToolPageProps {
   params: Promise<{ toolId: string }>;
@@ -32,52 +35,38 @@ export async function generateStaticParams() {
   return liveTools;
 }
 
+const BASE_URL = "https://zerowebtools.com";
+
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
   const { toolId } = await params;
   const tool = getToolById(toolId);
   if (!tool) return { title: "Tool Not Found" };
+
+  const canonicalUrl = `${BASE_URL}/tools/${toolId}`;
+  const pageTitle = `${tool.title} - Free Client-Side Tool | ZeroWebTools`;
+
   return {
-    title: `${tool.title} - Free Client-Side Tool | ZeelanceBox`,
+    title: pageTitle,
     description: tool.metaDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: pageTitle,
+      description: tool.metaDescription,
+      type: "website",
+      url: canonicalUrl,
+      siteName: "ZeroWebTools",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: tool.metaDescription,
+    },
   };
 }
 
-function CaseConverterWorkspace() {
-  const sampleText = "hello world example";
 
-  return (
-    <div className="space-y-4">
-      <label className="block text-sm font-medium text-ink" htmlFor="text-input">
-        Input Text
-      </label>
-      <input
-        id="text-input"
-        type="text"
-        className="w-full rounded-xl border border-border bg-surface-elevated px-4 py-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
-        defaultValue={sampleText}
-      />
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-        {[
-          { label: "camelCase", value: toCamelCase(sampleText) },
-          { label: "snake_case", value: toSnakeCase(sampleText) },
-          { label: "kebab-case", value: toKebabCase(sampleText) },
-        ].map((conversion) => (
-          <div
-            key={conversion.label}
-            className="rounded-xl border border-border bg-surface-elevated p-4 shadow-sm"
-          >
-            <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider">
-              {conversion.label}
-            </span>
-            <output className="block mt-1 text-sm font-mono text-ink">
-              {conversion.value}
-            </output>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "json-formatter": JsonViewerWorkspace,
@@ -248,7 +237,307 @@ const TOOL_ARTICLES: Record<
       },
     ],
   },
+  "pdf-merge": {
+    title: "Merge PDF Online: Combine PDF Files Safely in Your Browser",
+    sections: [
+      {
+        heading: "How to Merge PDF Files Locally?",
+        paragraphs: [
+          "Merging multiple PDF documents is a simple operation when executed client-side. The file merger loads your PDF files directly into memory, parses the structural layers of each, and writes a unified document catalog using the pdf-lib library.",
+          "This ensures that all text streams, fonts, and vector elements are retained with high fidelity in the output document, without any loss of quality.",
+        ],
+      },
+      {
+        heading: "Step-by-Step Instructions to Merge PDFs",
+        paragraphs: [
+          "Operating the PDF merger is fast, visual, and simple:",
+        ],
+        listItems: [
+          "Select the PDFs you want to merge -- Click the upload zone or drag and drop your files into the workspace.",
+          "Arrange the file order -- Drag and drop the file cards to arrange them in your preferred sequence.",
+          "Review and modify -- Rotate pages or delete unwanted documents from the merge queue dynamically.",
+          "Combine files -- Click 'Merge PDF' to compile the pages together in your browser memory.",
+          "Download output -- Save the merged PDF file instantly.",
+        ],
+      },
+      {
+        heading: "Absolute Privacy & Zero Server Uploads",
+        paragraphs: [
+          "Unlike third-party PDF utilities that upload files to external servers, this tool runs entirely on your local CPU. Your bank statements, personal documents, and legal papers never leave your device, ensuring complete privacy compliance.",
+        ],
+      },
+    ],
+  },
+  "pdf-split": {
+    title: "Split PDF Online: Extract Pages from PDF Files Securely",
+    sections: [
+      {
+        heading: "Extract Specific Pages Locally",
+        paragraphs: [
+          "Whether you need a single page from a large report or a specific range of pages, splitting a PDF client-side is fast and private. The parser lets you select page sets and extracts them into a clean, new document.",
+        ],
+      },
+      {
+        heading: "Steps to Split a PDF",
+        paragraphs: [
+          "To split your PDF document into separate sheets:",
+        ],
+        listItems: [
+          "Upload PDF -- Select the PDF file from your device.",
+          "Choose extraction range -- Enter page numbers or custom ranges (e.g. 1-3, 5).",
+          "Extract pages -- Click the split button to parse the document stream locally in-memory.",
+          "Save file -- Download the new split PDF instantly.",
+        ],
+      },
+    ],
+  },
+  "pdf-compress": {
+    title: "Compress PDF Online: Reduce PDF File Size Client-Side",
+    sections: [
+      {
+        heading: "How Local PDF Compression Works",
+        paragraphs: [
+          "PDF files contain text streams, fonts, vector paths, and raster images. The compressor optimizes the document's structure in three distinct ways: Lossless optimization, recommended downscaling, or extreme compression.",
+        ],
+      },
+      {
+        heading: "Understanding the Compression Options",
+        paragraphs: [
+          "ZeroWebTools offers three custom compression settings to fit your needs:",
+        ],
+        listItems: [
+          "Balanced Compression (150 DPI) -- Best sweet spot for standard files, downscaling images to 150 DPI at 70% quality.",
+          "Extreme Compression (100 DPI) -- Downscales images to 100 DPI at 40% quality, useful for government upload portals.",
+          "Lossless Optimization -- Cleans structural streams and strips useless metadata while keeping images intact.",
+        ],
+      },
+      {
+        heading: "Offline Security & Privacy",
+        paragraphs: [
+          "Since all file rendering, downscaling, and compression calculations execute locally, your documents are completely safe and secure.",
+        ],
+      },
+    ],
+  },
+  "pdf-rotate": {
+    title: "Rotate PDF Online: Rotate PDF Pages Instantly",
+    sections: [
+      {
+        heading: "Change PDF Page Rotation Locally",
+        paragraphs: [
+          "Scanned documents often come with upside-down or misaligned pages. Rotating pages client-side lets you adjust orientations without loading files onto a server.",
+        ],
+      },
+      {
+        heading: "How to Rotate PDF Pages",
+        paragraphs: [
+          "To rotate your document pages:",
+        ],
+        listItems: [
+          "Upload PDF -- Select the PDF document you want to rotate.",
+          "Select angle -- Choose rotation angles (90, 180, or 270 degrees clockwise) for individual pages or all pages.",
+          "Apply changes -- Click the rotate action to rewrite page orientations in the document catalog.",
+          "Download file -- Save the modified PDF file.",
+        ],
+      },
+    ],
+  },
+  "pdf-to-jpg": {
+    title: "Convert PDF to JPG Online: Render PDF Pages to JPEG Images",
+    sections: [
+      {
+        heading: "Fidelity Canvas Conversion",
+        paragraphs: [
+          "Render pages of any PDF document into crisp, high-resolution JPEG images locally. Ideal for presentations, social sharing, and image editors.",
+        ],
+      },
+      {
+        heading: "Steps to Convert PDF Pages to JPG",
+        paragraphs: [
+          "To render PDF pages as images:",
+        ],
+        listItems: [
+          "Upload PDF -- Select your PDF file.",
+          "Adjust quality -- Configure the output image resolution scaling.",
+          "Convert -- Render canvas buffers locally and download them as individual JPEGs or a combined ZIP.",
+        ],
+      },
+    ],
+  },
+  "jpg-to-pdf": {
+    title: "Convert JPG to PDF Online: Combine JPEG Photos into PDF",
+    sections: [
+      {
+        heading: "Combine Images into a PDF Layout",
+        paragraphs: [
+          "Merge your receipts, document scans, or photos into a single, clean PDF page catalog client-side.",
+        ],
+      },
+      {
+        heading: "Convert Images Offline",
+        paragraphs: [
+          "To compile your images into a PDF:",
+        ],
+        listItems: [
+          "Select images -- Upload your JPG or PNG files in order.",
+          "Configure page layout -- Adjust page sizes, orientations, and margins.",
+          "Build PDF -- Click convert to compile and save the output document instantly.",
+        ],
+      },
+    ],
+  },
+  "pdf-protect": {
+    title: "Protect PDF Online: Add Password Encryption and Secure PDF Files",
+    sections: [
+      {
+        heading: "Secure Your PDF Files with Standard Password Protection",
+        paragraphs: [
+          "Add an access password to restrict opening, viewing, or copying sensitive content. The protector writes a standard Revision 3 trailer dictionary locally in your browser.",
+        ],
+      },
+      {
+        heading: "How to Encrypt a PDF",
+        paragraphs: [
+          "To secure your file:",
+        ],
+        listItems: [
+          "Upload PDF -- Select the PDF document you want to secure.",
+          "Set password -- Enter the password you wish to lock the file with.",
+          "Encrypt -- Click Protect PDF to encrypt the byte streams in-memory.",
+          "Download file -- Save the locked PDF to your local storage.",
+        ],
+      },
+    ],
+  },
+  "pdf-watermark": {
+    title: "Add Watermark to PDF Online: Stamp Text Over PDF Pages",
+    sections: [
+      {
+        heading: "Add Custom Watermarks to Your PDF Documents",
+        paragraphs: [
+          "Stamp labels like 'CONFIDENTIAL', 'DRAFT', or your company name across PDF pages to establish ownership or display statuses.",
+        ],
+      },
+      {
+        heading: "How to Add a Watermark",
+        paragraphs: [
+          "To stamp your PDF:",
+        ],
+        listItems: [
+          "Upload PDF -- Select your PDF file.",
+          "Configure text -- Input your watermark text, choose fonts, and select placement positions.",
+          "Style stamp -- Adjust opacity, scale, and stamp angles.",
+          "Save PDF -- Generate and download the watermarked PDF file.",
+        ],
+      },
+    ],
+  },
+  "pdf-page-numbers": {
+    title: "Add Page Numbers to PDF Online: Number PDF Pages Instantly",
+    sections: [
+      {
+        heading: "Number PDF Pages Locally",
+        paragraphs: [
+          "Organize long documents, manuals, or eBooks by stamping page numbers. The page numbering utility lets you customize formats and alignments in-memory.",
+        ],
+      },
+      {
+        heading: "How to Number PDF Pages",
+        paragraphs: [
+          "To add page numbers:",
+        ],
+        listItems: [
+          "Upload PDF -- Select the PDF file.",
+          "Configure styling -- Choose page number placements (Top Right, Bottom Center, etc.).",
+          "Set formatting -- Customize the numbering template format.",
+          "Download PDF -- Click Add Page Numbers and save the numbered PDF file.",
+        ],
+      },
+    ],
+  },
+  "pdf-organize": {
+    title: "Organize PDF Online: Reorder, Rotate, and Delete PDF Pages",
+    sections: [
+      {
+        heading: "Rearrange, Delete, or Extract Pages in Browser Memory",
+        paragraphs: [
+          "Manage the physical layout of your PDF pages. Drag and drop to change page orders, remove unneeded sheets, or rotate individual frames visually.",
+        ],
+      },
+      {
+        heading: "How to Organize Your PDF",
+        paragraphs: [
+          "To modify the page layout structure:",
+        ],
+        listItems: [
+          "Upload PDF -- Select your PDF document.",
+          "Rearrange pages -- Drag and drop thumbnails to change sequences.",
+          "Rotate & Delete -- Use page action overlays to rotate or remove sheets.",
+          "Export file -- Click Organize PDF to build and download the new document catalog.",
+        ],
+      },
+    ],
+  },
+  "pdf-unlock": {
+    title: "Unlock PDF Online: Remove Password Protection from PDF Files",
+    sections: [
+      {
+        heading: "Remove Restrictions & Password Locks Local-First",
+        paragraphs: [
+          "If you own a password-protected PDF and need to remove the prompt for convenient reading, you can decrypt the streams locally in your browser.",
+        ],
+      },
+      {
+        heading: "How to Decrypt PDF Files",
+        paragraphs: [
+          "To remove a password lock:",
+        ],
+        listItems: [
+          "Upload PDF -- Select the locked PDF file from your device.",
+          "Enter password -- Input the file password to authenticate ownership.",
+          "Unlock -- Click Unlock PDF to decrypt the file streams.",
+          "Download file -- Save the fully decrypted version to your device.",
+        ],
+      },
+    ],
+  },
 };
+
+// Programmatic SEO Fallback Article Generator
+function generateFallbackArticle(tool: Tool, category?: ToolCategory) {
+  return {
+    title: `${tool.title} Online: Free Client-Side Tool`,
+    sections: [
+      {
+        heading: `What is the ${tool.title} Tool?`,
+        paragraphs: [
+          `The ${tool.title} tool is a free online utility that allows you to ${tool.description.toLowerCase().replace(/\.$/, "")} instantly in your browser. As part of the ZeroWebTools suite, it requires no software installations, no server uploads, and no account registrations.`,
+          `This tool is designed to work client-side, meaning that all data parsing, conversions, and rendering operations happen strictly in your browser session context. This guarantees absolute privacy and provides immediate execution speeds.`
+        ]
+      },
+      {
+        heading: `How to Use ${tool.title} Offline`,
+        paragraphs: [
+          `Operating this workspace is designed to be simple and accessible:`
+        ],
+        listItems: [
+          `Open the ${tool.title} page in any modern web browser.`,
+          `Upload your files, paste your code, or input parameters into the workspace sandbox area.`,
+          `Adjust the options or settings to suit your target output requirements.`,
+          `Click the processing button to trigger calculations locally on your CPU.`,
+          `Save the generated file or copy the formatted text output instantly.`
+        ]
+      },
+      {
+        heading: "100% Secure & Private Local Processing",
+        paragraphs: [
+          `Security is the core pillar of ZeroWebTools. When you use the ${tool.title} tool, your input files, parameters, and results are never transmitted to external servers.`,
+          `Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control.`
+        ]
+      }
+    ]
+  };
+}
 
 export default async function ToolPage({ params }: ToolPageProps) {
   const { toolId } = await params;
@@ -308,7 +597,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
   }
 
   const WorkspaceComponent = WORKSPACE_MAP[toolId];
-  const article = TOOL_ARTICLES[toolId];
+  const article = TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined);
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";
@@ -322,8 +611,10 @@ export default async function ToolPage({ params }: ToolPageProps) {
   const softwareApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${BASE_URL}/tools/${toolId}#software-application`,
     "name": tool.title,
     "description": tool.metaDescription,
+    "image": `${BASE_URL}/og-image.png`,
     "applicationCategory": `${category?.title || "Utility"}Application`,
     "operatingSystem": "Any",
     "offers": {
@@ -355,6 +646,50 @@ export default async function ToolPage({ params }: ToolPageProps) {
     }
   }
 
+  // BreadcrumbList JSON-LD Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${BASE_URL}/`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": category?.title || "Tools",
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": tool.title,
+        "item": `${BASE_URL}/tools/${toolId}`,
+      },
+    ],
+  };
+
+  // HowTo JSON-LD Schema — auto-generated from the first article section with listItems
+  let howToSchema = null;
+  if (article && article.sections) {
+    const howToSection = article.sections.find((s) => s.listItems && s.listItems.length > 0);
+    if (howToSection) {
+      howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": howToSection.heading,
+        "description": howToSection.paragraphs?.join(" ") || `Learn how to use the ${tool.title} tool.`,
+        "step": howToSection.listItems!.map((item, index) => ({
+          "@type": "HowToStep",
+          "position": index + 1,
+          "text": item,
+        })),
+      };
+    }
+  }
+
   return (
     <div className="min-h-screen pt-10 pb-20">
       {/* Schema Injection */}
@@ -366,6 +701,16 @@ export default async function ToolPage({ params }: ToolPageProps) {
         <script
           type="application/ld-json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <script
+        type="application/ld-json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {howToSchema && (
+        <script
+          type="application/ld-json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
 
@@ -403,7 +748,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
           
           {/* LEFT: Interactive Workspace & SEO text */}
           <div className="lg:col-span-8 space-y-10">
-            <section className="p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
+            {/* Mobile-only quick actions (Save/Share) — above the workspace */}
+            <MobileToolActions toolId={toolId} />
+            <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
               {WorkspaceComponent && <WorkspaceComponent />}
             </section>

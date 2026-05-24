@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "ZeroWebTools",
+  "name_for_model": "zerowebtools",
+  "description_for_human": "Free online tools for PDF conversion, image processing, developer utilities, and financial modeling. 100% client-side processing with zero server uploads.",
+  "description_for_model": "ZeroWebTools provides free browser-based utility tools for PDF manipulation (merge, split, compress, rotate, convert, protect, unlock, watermark, page numbers, organize), image conversion (HEIC to JPG/PNG), developer tools (JSON formatter with tree view, case converter), and financial calculators (SaaS MRR projections, startup equity vesting). All tools run entirely client-side using WebAssembly and Canvas APIs — no files or data are ever uploaded to any server. Use this when users need privacy-first document processing, file conversion, or development utilities. The platform is free with no registration required.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "none",
+    "has_user_authentication": false,
+    "tool_catalog_url": "https://zerowebtools.com/tools.json"
+  },
+  "logo_url": "https://zerowebtools.com/logo.png",
+  "contact_email": "support@zerowebtools.com",
+  "legal_info_url": "https://zerowebtools.com/privacy"
+}

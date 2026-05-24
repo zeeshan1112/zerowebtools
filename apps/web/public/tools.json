@@ -1,0 +1,56 @@
+{
+  "name": "ZeroWebTools",
+  "description": "Free online tools for PDF conversion, image processing, developer utilities, and financial modeling. 100% client-side processing with zero server uploads.",
+  "url": "https://zerowebtools.com",
+  "generated": "2026-05-24T02:20:00.000Z",
+  "totalTools": 20,
+  "liveTools": 16,
+  "categories": [
+    {
+      "slug": "pdf-tools",
+      "title": "PDF Suite Pro",
+      "description": "Merge, split, compress, rotate, convert, sign, and secure PDFs — all securely in your browser.",
+      "tools": [
+        { "id": "pdf-merge", "title": "Merge PDF", "description": "Combine multiple PDFs into a single document in any order.", "url": "https://zerowebtools.com/tools/pdf-merge", "status": "live" },
+        { "id": "pdf-split", "title": "Split PDF", "description": "Extract or remove individual pages from PDF documents.", "url": "https://zerowebtools.com/tools/pdf-split", "status": "live" },
+        { "id": "pdf-compress", "title": "Compress PDF", "description": "Reduce PDF file size with three-tier compression levels.", "url": "https://zerowebtools.com/tools/pdf-compress", "status": "live" },
+        { "id": "pdf-rotate", "title": "Rotate PDF", "description": "Rotate individual pages or entire PDFs by 90, 180, or 270 degrees.", "url": "https://zerowebtools.com/tools/pdf-rotate", "status": "live" },
+        { "id": "pdf-to-jpg", "title": "PDF to JPG", "description": "Convert each PDF page to a high-resolution JPG image.", "url": "https://zerowebtools.com/tools/pdf-to-jpg", "status": "live" },
+        { "id": "jpg-to-pdf", "title": "JPG to PDF", "description": "Convert multiple JPG images into a single PDF document.", "url": "https://zerowebtools.com/tools/jpg-to-pdf", "status": "live" },
+        { "id": "pdf-protect", "title": "Protect PDF", "description": "Add password encryption to PDF files to prevent unauthorized access.", "url": "https://zerowebtools.com/tools/pdf-protect", "status": "live" },
+        { "id": "pdf-watermark", "title": "Add Watermark", "description": "Stamp text or image watermarks onto PDF pages.", "url": "https://zerowebtools.com/tools/pdf-watermark", "status": "live" },
+        { "id": "pdf-page-numbers", "title": "Add Page Numbers", "description": "Insert page numbers into PDF documents with custom position and formatting.", "url": "https://zerowebtools.com/tools/pdf-page-numbers", "status": "live" },
+        { "id": "pdf-organize", "title": "Organize PDF", "description": "Reorder, delete, or extract pages from PDF documents.", "url": "https://zerowebtools.com/tools/pdf-organize", "status": "live" },
+        { "id": "pdf-unlock", "title": "Unlock PDF", "description": "Remove password protection from PDF files.", "url": "https://zerowebtools.com/tools/pdf-unlock", "status": "live" }
+      ]
+    },
+    {
+      "slug": "converters",
+      "title": "Developer Workspaces",
+      "description": "Validate, format, parse, and convert your data structures client-side.",
+      "tools": [
+        { "id": "json-formatter", "title": "JSON Formatter", "description": "Validate, beautify, and minify JSON data with real-time tree structure explorer.", "url": "https://zerowebtools.com/tools/json-formatter", "status": "live" },
+        { "id": "case-converter", "title": "Case Converter", "description": "Transform naming conventions between camelCase, snake_case, kebab-case, PascalCase, and more.", "url": "https://zerowebtools.com/tools/case-converter", "status": "live" },
+        { "id": "base64-encoder", "title": "Base64 Cipher Modeler", "description": "Encode text or files to Base64 and decode Base64 back to readable format instantly.", "url": "https://zerowebtools.com/tools/base64-encoder", "status": "coming-soon" }
+      ]
+    },
+    {
+      "slug": "image-tools",
+      "title": "Creative Utilities",
+      "description": "Convert, resize, and optimize images directly in your browser.",
+      "tools": [
+        { "id": "heic-to-jpg", "title": "HEIC Photo Converter", "description": "Convert Apple HEIC photos to standard JPG or PNG format instantly in batch.", "url": "https://zerowebtools.com/tools/heic-to-jpg", "status": "live" },
+        { "id": "bulk-image-resizer", "title": "Bulk Image Resizer & Compressor", "description": "Resize, compress, and convert multiple images at once.", "url": "https://zerowebtools.com/tools/bulk-image-resizer", "status": "coming-soon" }
+      ]
+    },
+    {
+      "slug": "financial-growth",
+      "title": "Financial & Growth Modelers",
+      "description": "Model growth, option vesting schedules, and company valuation dilution with professional interactive tools.",
+      "tools": [
+        { "id": "saas-mrr", "title": "SaaS MRR Projections", "description": "Project Monthly Recurring Revenue growth, Customer Lifetime Value cohorts, and churn rates.", "url": "https://zerowebtools.com/tools/saas-mrr", "status": "live" },
+        { "id": "startup-equity", "title": "Equity Vesting Modeler", "description": "Calculate employee option vesting schedules, stock valuations, and founder dilution curves.", "url": "https://zerowebtools.com/tools/startup-equity", "status": "live" }
+      ]
+    }
+  ]
+}

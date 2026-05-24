@@ -1,0 +1,295 @@
+"use client";
+
+import React, { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
+import ThemeToggle from "./ThemeToggle";
+import { getToolIcon } from "@/lib/icons";
+
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  "pdf-tools": (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+    </svg>
+  ),
+  converters: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+    </svg>
+  ),
+  "image-tools": (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+    </svg>
+  ),
+  "financial-growth": (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.5 4.5 8.25-8.25M21 12v5.25a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 17.25V5.25" />
+    </svg>
+  ),
+};
+
+export default function MobileDrawer() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [recents, setRecents] = useState<string[]>([]);
+  const pathname = usePathname();
+
+  // Load Bookmarks & Recents
+  useEffect(() => {
+    const handleStorageChange = () => {
+      try {
+        const savedBookmarks = localStorage.getItem("zeelancebox_bookmarks");
+        if (savedBookmarks) setBookmarks(JSON.parse(savedBookmarks));
+
+        const savedRecents = localStorage.getItem("zeelancebox_recents");
+        if (savedRecents) setRecents(JSON.parse(savedRecents));
+      } catch (_) {}
+    };
+
+    handleStorageChange();
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("zeelancebox_storage_update", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("zeelancebox_storage_update", handleStorageChange);
+    };
+  }, []);
+
+  // Close drawer on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  // Close on Escape
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isOpen]);
+
+  const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id));
+  const recentTools = ALL_TOOLS.filter((t) => recents.includes(t.id));
+
+  return (
+    <>
+      {/* Hamburger trigger — only visible on mobile */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl text-ink hover:bg-surface-elevated active:scale-95 transition-all duration-200 cursor-pointer"
+        aria-label="Open navigation menu"
+        aria-expanded={isOpen}
+        aria-controls="mobile-nav-drawer"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+
+      {/* Drawer overlay + panel */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-[4px] md:hidden"
+              aria-hidden="true"
+            />
+
+            {/* Drawer panel */}
+            <motion.nav
+              id="mobile-nav-drawer"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 left-0 bottom-0 z-[95] w-[min(20rem,80vw)] bg-surface-elevated/95 backdrop-blur-xl border-r border-border/40 shadow-2xl flex flex-col md:hidden overflow-hidden"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation menu"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between h-16 px-5 border-b border-border/40 shrink-0">
+                <Link
+                  href="/"
+                  className="flex items-center gap-2.5 group active:scale-[0.98] transition-transform duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <img src="/logo.png" alt="ZeroWebTools" className="w-8 h-8 rounded-xl shadow-sm object-contain" />
+                  <span className="font-extrabold tracking-tight text-xs uppercase text-ink">ZeroWebTools</span>
+                </Link>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center w-9 h-9 rounded-xl border border-border hover:bg-surface text-ink-secondary hover:text-ink active:scale-95 transition-all cursor-pointer"
+                  aria-label="Close navigation menu"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable content */}
+              <div className="flex-1 overflow-y-auto overflow-x-hidden py-5 px-4 space-y-6">
+
+                {/* Bookmarks */}
+                {bookmarkedTools.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
+                      Saved Workspaces
+                    </h4>
+                    <ul className="space-y-0.5">
+                      {bookmarkedTools.map((t) => (
+                        <li key={t.id}>
+                          <Link
+                            href={`/tools/${t.id}`}
+                            onClick={() => setIsOpen(false)}
+                            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
+                              pathname === `/tools/${t.id}`
+                                ? "bg-accent-surface text-accent font-bold"
+                                : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
+                            }`}
+                          >
+                            {getToolIcon(t.id)}
+                            <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Recents */}
+                {recentTools.length > 0 && (
+                  <div className="space-y-2">
+                    <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
+                      Recents
+                    </h4>
+                    <ul className="space-y-0.5">
+                      {recentTools.map((t) => (
+                        <li key={t.id}>
+                          <Link
+                            href={`/tools/${t.id}`}
+                            onClick={() => setIsOpen(false)}
+                            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
+                              pathname === `/tools/${t.id}`
+                                ? "bg-accent-surface text-accent font-bold"
+                                : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
+                            }`}
+                          >
+                            {getToolIcon(t.id)}
+                            <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Categories */}
+                <div className="space-y-2">
+                  <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
+                    Categories
+                  </h4>
+                  <ul className="space-y-0.5">
+                    {CATEGORIES.map((cat) => (
+                      <li key={cat.slug}>
+                        <a
+                          href={`/#${cat.slug}`}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface min-h-[44px]"
+                        >
+                          <span className="shrink-0 text-ink-muted">
+                            {CATEGORY_ICONS[cat.slug] || (
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                              </svg>
+                            )}
+                          </span>
+                          <span className="truncate text-xs font-bold uppercase tracking-wide">{cat.title}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* All Live Tools quick list */}
+                <div className="space-y-2">
+                  <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
+                    All Live Tools
+                  </h4>
+                  <ul className="space-y-0.5">
+                    {ALL_TOOLS.filter((t) => t.status === "live").map((t) => (
+                      <li key={t.id}>
+                        <Link
+                          href={`/tools/${t.id}`}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
+                            pathname === `/tools/${t.id}`
+                              ? "bg-accent-surface text-accent font-bold"
+                              : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
+                          }`}
+                        >
+                          {getToolIcon(t.id)}
+                          <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="border-t border-border/40 p-4 shrink-0 bg-surface-elevated/40 space-y-3">
+                <div className="flex items-center justify-between">
+                  <ThemeToggle />
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href="/privacy"
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
+                    >
+                      Privacy
+                    </Link>
+                    <Link
+                      href="/terms"
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
+                    >
+                      Terms
+                    </Link>
+                  </div>
+                </div>
+                <div className="text-[9px] text-ink-muted text-center py-1 border-t border-border/20 font-bold tracking-wider uppercase">
+                  ZeroWebTools v1.0 • Client-side
+                </div>
+              </div>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

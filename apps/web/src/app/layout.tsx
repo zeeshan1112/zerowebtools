@@ -4,20 +4,39 @@ import Link from "next/link";
 import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
 import CommandCenter from "@/components/CommandCenter";
 import ScrollToTop from "@/components/ScrollToTop";
+import MobileDrawer from "@/components/MobileDrawer";
 import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "ZeelanceBox - Free Online Calculators & Professional Web Tools",
+  title: "ZeroWebTools - Free Online Professional Web Tools & Utilities",
   description:
-    "ZeelanceBox provides free online calculators and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
-  metadataBase: new URL("https://zeelancebox.com"),
+    "ZeroWebTools provides free professional utility and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
+  metadataBase: new URL("https://zerowebtools.com"),
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "ZeelanceBox",
-    title: "ZeelanceBox - Free Online Calculators & Web Tools",
-    description: "Free, premium online tools and calculators that run 100% client-side for absolute privacy.",
+    siteName: "ZeroWebTools",
+    title: "ZeroWebTools - Free Online Professional Web Tools",
+    description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ZeroWebTools - Free Browser-Based Professional Tools",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ZeroWebTools - Free Online Professional Web Tools",
+    description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -31,30 +50,33 @@ function Header() {
   return (
     <header className="relative z-40 bg-surface border-b border-border/40 shrink-0 select-none">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo only visible on mobile (since sidebar is hidden on mobile) */}
-          <Link
-            href="/"
-            className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
-          >
-            <img src="/logo.png" alt="ZeelanceBox" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
-            <span className="font-bold tracking-tight text-sm text-ink">ZeelanceBox</span>
-          </Link>
+        <div className="flex items-center justify-between h-16 gap-2">
+          {/* Left side: hamburger + logo on mobile */}
+          <div className="flex items-center gap-1">
+            <MobileDrawer />
+            <Link
+              href="/"
+              className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
+            >
+              <img src="/logo.png" alt="ZeroWebTools" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
+              <span className="font-bold tracking-tight text-sm text-ink">ZeroWebTools</span>
+            </Link>
+          </div>
           
           <div className="hidden md:block" />
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <CommandCenter />
             <Link
               href="/privacy"
-              className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200"
+              className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
               Privacy
             </Link>
-            <span className="w-px h-3 bg-border/80" />
+            <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
               href="/terms"
-              className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200"
+              className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
               Terms
             </Link>
@@ -101,7 +123,7 @@ export default function RootLayout({
         <ScrollToTop />
         
         {/* Main Application Container */}
-        <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        <div className="flex-1 flex flex-col h-[100dvh] md:h-screen overflow-hidden">
           <Header />
           <div className="flex-1 overflow-y-auto page-scroll-container">
             <main className="flex-grow">{children}</main>

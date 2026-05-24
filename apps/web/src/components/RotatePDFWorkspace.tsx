@@ -1,16 +1,39 @@
 "use client";
 import React, { useState, useCallback, useRef } from "react";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename } from "@/lib/pdf-utils";
+import ProcessingOverlay from "./ProcessingOverlay";
+
+const ROTATE_STEPS = [
+  "Reading document catalog page structures...",
+  "Applying rotation transformation matrices...",
+  "Updating layout dimensions & bounding boxes...",
+  "Packaging rotated output PDF...",
+];
+
 export default function RotatePDFWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [angle, setAngle] = useState(90);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const ref = useRef<HTMLInputElement>(null);
+
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const handleFile = useCallback((f: File) => { setFile(f); setError(null); }, []);
+
   const rotate = useCallback(async () => {
     if (!file) return;
-    setProcessing(true); setError(null);
+    setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
       const doc = await loadPDFDoc(file);
       const pages = doc.getPages();
@@ -19,12 +42,32 @@ export default function RotatePDFWorkspace() {
         p.setRotation({ angle: (r + angle) % 360, type: "degrees" as any });
       }
       const blob = await savePDFDoc(doc);
-      downloadBlob(blob, getFilename("pdf-rotate", file.name));
-    } catch (e: any) { setError(e.message || "Rotation failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename("pdf-rotate", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Rotation failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, angle]);
+
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-rotate", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <DropZone ref={ref} onFile={handleFile} label="Drop a PDF to rotate" accept=".pdf" />
       {file && (
         <div className="space-y-4">
@@ -38,6 +81,13 @@ export default function RotatePDFWorkspace() {
           <button onClick={rotate} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Rotating..." : "Rotate PDF"}</button>
         </div>
       )}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={ROTATE_STEPS}
+        loadingText="Rotating your PDF document..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }

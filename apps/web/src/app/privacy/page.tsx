@@ -1,8 +1,27 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - ZeelanceBox",
-  description: "Privacy policy for ZeelanceBox developer utility tools.",
+  title: "Privacy Policy - ZeroWebTools",
+  description:
+    "Privacy policy for ZeroWebTools — learn how we protect your data with 100% client-side processing. No server uploads, no tracking, no data collection.",
+  alternates: {
+    canonical: "https://zerowebtools.com/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy - ZeroWebTools",
+    description:
+      "ZeroWebTools processes all tools entirely in your browser. Your files and data never leave your device.",
+    type: "website",
+    url: "https://zerowebtools.com/privacy",
+    siteName: "ZeroWebTools",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy - ZeroWebTools",
+    description:
+      "100% client-side processing. Your files and data never leave your device.",
+  },
 };
 
 export default function PrivacyPage() {
@@ -18,7 +37,7 @@ export default function PrivacyPage() {
               Data Collection
             </h2>
             <p className="mt-3">
-              ZeelanceBox operates entirely within your browser. No personal
+              ZeroWebTools operates entirely within your browser. No personal
               data, tool inputs, or processing results are transmitted to any
               server. All computations execute client-side using JavaScript.
             </p>
