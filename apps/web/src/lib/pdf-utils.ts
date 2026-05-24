@@ -9,7 +9,7 @@ export async function loadPDFDoc(file: File, password?: string): Promise<PDFDocu
   const arrayBuffer = await file.arrayBuffer();
   return PDFDocument.load(arrayBuffer, {
     password,
-    ignoreEncryption: true,
+    ignoreEncryption: password ? false : true,
   } as any);
 }
 
