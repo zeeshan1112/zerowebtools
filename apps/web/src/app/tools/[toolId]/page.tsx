@@ -11,6 +11,7 @@ import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWor
 import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
 import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
+import Base64Workspace from "@/components/Base64Workspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -95,12 +96,43 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "pdf-unlock": UnlockPDFWorkspace,
   "saas-mrr": SaasMrrWorkspace,
   "startup-equity": StartupEquityWorkspace,
+  "base64-encoder": Base64Workspace,
 };
 
 const TOOL_ARTICLES: Record<
   string,
   { title: string; sections: { heading: string; level?: "h2" | "h3"; paragraphs?: string[]; listItems?: string[] }[] }
 > = {
+  "base64-encoder": {
+    title: "Base64 Encoder & Decoder: Convert Text and Files Locally",
+    sections: [
+      {
+        heading: "What is Base64 Encoding?",
+        paragraphs: [
+          "Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. By translating data into 64 safe characters (A-Z, a-z, 0-9, +, /), Base64 ensures that information remains intact without modification during transit over transport layers that are designed to handle text, such as email (MIME) or XML/HTML documents.",
+          "It is widely used to embed raw images directly in CSS or HTML, transmit data in Web APIs, and represent binary data in simple text environments.",
+        ],
+      },
+      {
+        heading: "How to Encode and Decode Client-Side",
+        paragraphs: [
+          "Our tool runs entirely client-side in your browser, enabling you to process both text and files without uploading anything to a remote server.",
+        ],
+        listItems: [
+          "Text to Base64: Enter standard UTF-8 text (including emojis or non-ASCII characters) and copy the encoded output.",
+          "Base64 to Text: Paste your Base64 string to instantly decode it back to readable text. The utility includes automatic format verification and padding checks.",
+          "File to Base64: Drag and drop any file (like an image, PDF, or document) to output its Base64 Data URL, ready to copy and use directly in code.",
+        ],
+      },
+      {
+        heading: "100% Secure & Offline-First Privacy",
+        paragraphs: [
+          "Many online conversion tools upload your data to their web servers for processing, posing a serious privacy risk for private keys, credentials, or sensitive files.",
+          "ZeroWebTools guarantees absolute privacy. All encoding and decoding operations execute inside your browser's JavaScript environment on your local CPU. Your text and files never touch our servers or the network, allowing you to use this tool offline and with complete peace of mind.",
+        ],
+      },
+    ],
+  },
   "json-formatter": {
     title: "JSON Viewer & Formatter: Parse, Validate, and Explore JSON Data Online",
     sections: [

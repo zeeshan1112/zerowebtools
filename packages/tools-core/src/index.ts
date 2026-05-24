@@ -11,3 +11,5 @@ export {
 
 export { parseJsonToTree, searchTree, getNodePath } from "./jsonParserEngine";
 export type { JsonTreeNode, JsonParseResult } from "./jsonParserEngine";
+
+export { encodeBase64, decodeBase64, isValidBase64 } from "./base64";

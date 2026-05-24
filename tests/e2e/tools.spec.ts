@@ -4,7 +4,7 @@ import fs from "fs";
 
 test.describe("ZeroWebTools Suite E2E Tests", () => {
   const dummyPdfPath = path.join(__dirname, "..", "fixtures", "dummy.pdf");
-  const tempProtectedPath = path.join(__dirname, "..", "fixtures", "temp-protected.pdf");
+  const tempProtectedPath = path.join(__dirname, "..", "fixtures", `temp-protected-${Math.floor(Math.random() * 1000000)}.pdf`);
 
   test.afterAll(() => {
     // Clean up temporary protected PDF file if it was created
@@ -114,7 +114,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     // Upload newly protected PDF
     await page.setInputFiles('input[type="file"]', tempProtectedPath);
-    await expect(page.locator("text=temp-protected.pdf")).toBeVisible();
+    await expect(page.locator(`text=${path.basename(tempProtectedPath)}`)).toBeVisible();
 
     // Enter WRONG password
     const unlockPasswordInput = page.locator('input[type="password"]');
@@ -133,7 +133,8 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.click('button:has-text("Unlock PDF")');
     const unlockDownload = await unlockDownloadPromise;
 
-    expect(unlockDownload.suggestedFilename()).toBe("temp-protected-unlocked.pdf");
+    const expectedUnlockFilename = `${path.basename(tempProtectedPath, ".pdf")}-unlocked.pdf`;
+    expect(unlockDownload.suggestedFilename()).toBe(expectedUnlockFilename);
   });
 
   test("5. PDF Split", async ({ page }) => {
@@ -280,5 +281,32 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     await expect(estValue).not.toHaveText(initialText);
     await expect(estValue).toContainText("$600,000"); // 200,000 shares / 10M outstanding * $30M valuation = $600,000
+  });
+
+  test("16. Base64 Cipher Modeler - Interactive & File Upload", async ({ page }) => {
+    const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
+    await page.goto("/tools/base64-encoder");
+    await expect(page.locator("h1")).toContainText("Base64 Cipher Modeler");
+
+    // Test text encoding
+    const textInput = page.locator("textarea#text-input");
+    await textInput.fill("hello");
+    await expect(page.locator("text=aGVsbG8=")).toBeVisible();
+
+    // Test text decoding
+    await page.click('button:has-text("Base64 to Text")');
+    await textInput.fill("WmVyb1dlYlRvb2xz");
+    await expect(page.locator("pre")).toHaveText("ZeroWebTools");
+
+    // Test file encoding
+    await page.click('button:has-text("File to Base64")');
+    await page.setInputFiles('input[type="file"]', dummyJpgPath);
+    await page.click('button:has-text("Encode File to Base64")');
+
+    // Wait for simulated processing overlay to disappear
+    await expect(page.locator("text=Encoding your file...")).not.toBeVisible({ timeout: 5000 });
+    // Check if the result textarea contains Base64 Data URL prefix
+    const outputArea = page.locator("pre.whitespace-pre-wrap");
+    await expect(outputArea).toContainText("data:image/jpeg;base64");
   });
 });

@@ -57,7 +57,7 @@ export const CATEGORIES: ToolCategory[] = [
         id: "base64-encoder",
         title: "Base64 Cipher Modeler",
         description: "Encode text or files to Base64 and decode Base64 back to readable format instantly.",
-        status: "coming-soon",
+        status: "live",
         metaDescription: "Encode and decode Base64 instantly — free and private. Convert text or files to and from Base64 right in your browser. No server uploads.",
       },
     ],
