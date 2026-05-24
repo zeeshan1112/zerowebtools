@@ -1,6 +1,14 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename, StandardFonts, rgb, PDFDocument } from "@/lib/pdf-utils";
+import ProcessingOverlay from "./ProcessingOverlay";
+
+const PROTECT_STEPS = [
+  "Analyzing PDF catalog stream elements...",
+  "Applying security flags & permission locks...",
+  "Generating cryptographically secure key block...",
+  "Outputting password-encrypted PDF payload...",
+];
 
 function SZ({ onFile, label, accept }: { onFile: (f: File) => void; label: string; accept: string }) {
   const [drag, setDrag] = useState(false);
@@ -18,24 +26,53 @@ export function ProtectPDFWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Simulated processing delay state for labor illusion & dwell time
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
+  const pendingBlobRef = useRef<Blob | null>(null);
+  const isGeneratingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
+
   const protect = useCallback(async () => {
     if (!file || !password) { setError("Enter a password"); return; }
-    setProcessing(true); setError(null);
+    setError(null);
+    setProcessing(true);
+    setShowProcessingOverlay(true);
+    pendingBlobRef.current = null;
+    animationFinishedRef.current = false;
+    isGeneratingRef.current = true;
+
     try {
-      // Dynamic import to keep initial bundle size lightweight
       const { encryptPDF } = await import("@pdfsmaller/pdf-encrypt-lite");
-      
       const arrayBuffer = await file.arrayBuffer();
       const encryptedBytes = await encryptPDF(new Uint8Array(arrayBuffer), password);
-      
       const blob = new Blob([encryptedBytes as any], { type: "application/pdf" });
-      downloadBlob(blob, getFilename("pdf-protect", file.name));
-    } catch (e: any) { setError(e.message || "Encryption failed"); }
-    setProcessing(false);
+      pendingBlobRef.current = blob;
+      isGeneratingRef.current = false;
+
+      if (animationFinishedRef.current) {
+        downloadBlob(blob, getFilename("pdf-protect", file.name));
+        setShowProcessingOverlay(false);
+        setProcessing(false);
+      }
+    } catch (e: any) {
+      setError(e.message || "Encryption failed");
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+      isGeneratingRef.current = false;
+    }
   }, [file, password]);
 
+  const handleProcessingFinished = useCallback(() => {
+    animationFinishedRef.current = true;
+    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      downloadBlob(pendingBlobRef.current, getFilename("pdf-protect", file.name));
+      setShowProcessingOverlay(false);
+      setProcessing(false);
+    }
+  }, [file]);
+
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a PDF to protect" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
@@ -43,6 +80,13 @@ export function ProtectPDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={protect} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Encrypting..." : "Protect PDF"}</button>
       </div>}
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        steps={PROTECT_STEPS}
+        loadingText="Encrypting your PDF document..."
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
     </div>
   );
 }
