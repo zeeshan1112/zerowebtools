@@ -141,7 +141,10 @@ export function UnlockPDFWorkspace() {
     isGeneratingRef.current = true;
 
     try {
-      const doc = await loadPDFDoc(file, password);
+      const { decryptPDF } = await import("@pdfsmaller/pdf-decrypt");
+      const arrayBuffer = await file.arrayBuffer();
+      const decryptedBytes = await decryptPDF(new Uint8Array(arrayBuffer), password);
+      const doc = await PDFDocument.load(decryptedBytes);
       const blob = await savePDFDoc(doc);
       pendingBlobRef.current = blob;
       isGeneratingRef.current = false;
