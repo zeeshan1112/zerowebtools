@@ -4,6 +4,7 @@ import Link from "next/link";
 import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
 import CommandCenter from "@/components/CommandCenter";
 import ScrollToTop from "@/components/ScrollToTop";
+import MobileDrawer from "@/components/MobileDrawer";
 import "./globals.css";
 
 
@@ -49,30 +50,33 @@ function Header() {
   return (
     <header className="relative z-40 bg-surface border-b border-border/40 shrink-0 select-none">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo only visible on mobile (since sidebar is hidden on mobile) */}
-          <Link
-            href="/"
-            className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
-          >
-            <img src="/logo.png" alt="ZeroWebTools" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
-            <span className="font-bold tracking-tight text-sm text-ink">ZeroWebTools</span>
-          </Link>
+        <div className="flex items-center justify-between h-16 gap-2">
+          {/* Left side: hamburger + logo on mobile */}
+          <div className="flex items-center gap-1">
+            <MobileDrawer />
+            <Link
+              href="/"
+              className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
+            >
+              <img src="/logo.png" alt="ZeroWebTools" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
+              <span className="font-bold tracking-tight text-sm text-ink">ZeroWebTools</span>
+            </Link>
+          </div>
           
           <div className="hidden md:block" />
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <CommandCenter />
             <Link
               href="/privacy"
-              className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200"
+              className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
               Privacy
             </Link>
-            <span className="w-px h-3 bg-border/80" />
+            <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
               href="/terms"
-              className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200"
+              className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
               Terms
             </Link>
@@ -119,7 +123,7 @@ export default function RootLayout({
         <ScrollToTop />
         
         {/* Main Application Container */}
-        <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        <div className="flex-1 flex flex-col h-[100dvh] md:h-screen overflow-hidden">
           <Header />
           <div className="flex-1 overflow-y-auto page-scroll-container">
             <main className="flex-grow">{children}</main>

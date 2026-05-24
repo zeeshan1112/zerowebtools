@@ -125,7 +125,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen relative pb-28">
        {/* Immersive Full-Screen Premium Hero with Covered Background Image Glow */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-16 pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
+      <section className="relative min-h-[60vh] md:min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-12 md:pt-16 pb-14 md:pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
         
         {/* Clean, High-End Pure-CSS Monochromatic Dot Grid */}
         <div 
@@ -182,7 +182,7 @@ export default function HomePage() {
                   </svg>
                   <span className="text-ink-muted font-bold group-hover:text-ink transition-colors duration-150">Search for a tool (e.g. merge pdf)...</span>
                 </div>
-                <div className="flex items-center gap-1 opacity-70">
+                <div className="hidden sm:flex items-center gap-1 opacity-70">
                   <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">⌘</kbd>
                   <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">K</kbd>
                 </div>
@@ -211,15 +211,15 @@ export default function HomePage() {
               </div>
 
               {/* Micro workspace tags shortcut below search */}
-              <div className="flex flex-wrap items-center justify-center gap-2 text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-2 text-[10px] sm:text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
                 <span>SUITES:</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors">PDF Editors</a>
+                <a href="#workspace-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Editors</a>
                 <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("dev")} className="hover:text-accent transition-colors">Code Converters</a>
+                <a href="#workspace-directory" onClick={() => setActiveTab("dev")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Code Converters</a>
                 <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("financial")} className="hover:text-accent transition-colors">Finance Formulas</a>
+                <a href="#workspace-directory" onClick={() => setActiveTab("financial")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Finance Formulas</a>
                 <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("converters")} className="hover:text-accent transition-colors">Image Utilities</a>
+                <a href="#workspace-directory" onClick={() => setActiveTab("converters")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Image Utilities</a>
               </div>
             </div>
 
@@ -257,7 +257,7 @@ export default function HomePage() {
 
                   <button
                     onClick={(e) => toggleBookmark(tool.id, e)}
-                    className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer z-20 ${
+                    className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg select-none transition-all duration-150 cursor-pointer z-20 ${
                       isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
                     }`}
                     aria-label="Toggle Bookmark"
@@ -321,7 +321,7 @@ export default function HomePage() {
 
                     <button
                       onClick={(e) => toggleBookmark(tool.id, e)}
-                      className="absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer z-20 text-amber-500 scale-105"
+                      className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg select-none transition-all duration-150 cursor-pointer z-20 text-amber-500 scale-105"
                       aria-label="Remove Bookmark"
                     >
                       ★
@@ -375,7 +375,7 @@ export default function HomePage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as any)}
-                    className={`px-4 py-2 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer ${
+                    className={`px-4 py-2.5 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer min-h-[44px] ${
                       isActive
                         ? "bg-ink border-ink text-surface shadow-sm"
                         : "bg-surface-elevated border-border hover:border-ink text-ink-secondary hover:text-ink"
@@ -437,7 +437,7 @@ export default function HomePage() {
                             {isLive && (
                               <button
                                 onClick={(e) => toggleBookmark(tool.id, e)}
-                                className={`absolute top-4 right-4 text-xs select-none transition-all duration-150 cursor-pointer z-20 ${
+                                className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg select-none transition-all duration-150 cursor-pointer z-20 ${
                                   isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
                                 }`}
                                 aria-label="Toggle Bookmark"

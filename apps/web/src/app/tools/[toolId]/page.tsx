@@ -14,6 +14,7 @@ import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
+import MobileToolActions from "@/components/MobileToolActions";
 import {
   CATEGORIES,
   getToolById,
@@ -747,7 +748,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
           
           {/* LEFT: Interactive Workspace & SEO text */}
           <div className="lg:col-span-8 space-y-10">
-            <section className="p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
+            {/* Mobile-only quick actions (Save/Share) — above the workspace */}
+            <MobileToolActions toolId={toolId} />
+            <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
               {WorkspaceComponent && <WorkspaceComponent />}
             </section>
