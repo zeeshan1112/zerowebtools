@@ -5,13 +5,14 @@ import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
 import CommandCenter from "@/components/CommandCenter";
 import ScrollToTop from "@/components/ScrollToTop";
 import MobileDrawer from "@/components/MobileDrawer";
+import Analytics from "@/components/Analytics";
 import "./globals.css";
 
 
 export const metadata: Metadata = {
   title: "ZeroWebTools - Free Online Professional Web Tools & Utilities",
   description:
-    "ZeroWebTools provides free professional utility and developer tools running 100% client-side. Mortgage, Loan, HEIC converter, JSON Formatter, and PDF editors that run securely in your browser.",
+    "Free, instant, and 100% private web tools — PDF editor, HEIC converter, JSON formatter, SaaS growth modeler, and more. No signup, no server uploads. Everything runs in your browser.",
   metadataBase: new URL("https://zerowebtools.com"),
   icons: {
     icon: "/logo.png",
@@ -21,22 +22,30 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "ZeroWebTools",
-    title: "ZeroWebTools - Free Online Professional Web Tools",
-    description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
+    title: "ZeroWebTools — Free Web Tools That Never Upload Your Data",
+    description: "Merge PDFs, convert HEIC, format JSON, model MRR growth, and more — all 100% private and instant. No signup, no servers, no tracking.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "ZeroWebTools - Free Browser-Based Professional Tools",
+        alt: "ZeroWebTools — Free Browser-Based Professional Tools",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZeroWebTools - Free Online Professional Web Tools",
-    description: "Free, premium online tools and developer utilities that run 100% client-side for absolute privacy.",
-    images: ["/og-image.png"],
+    title: "ZeroWebTools — Free Web Tools That Never Upload Your Data",
+    description: "Merge PDFs, convert HEIC, format JSON, model MRR growth, and more — all 100% private and instant. No signup, no servers.",
+    images: ["/logo.png"],
+  },
+  verification: {
+    other: {
+      "msvalidate.01": "CDF578F6D13EC54F2BF44888BF0B7E5D",
+    },
+  },
+  alternates: {
+    canonical: "https://zerowebtools.com",
   },
   robots: {
     index: true,
@@ -136,6 +145,7 @@ export default function RootLayout({
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />
+        <Analytics />
       </body>
     </html>
   );

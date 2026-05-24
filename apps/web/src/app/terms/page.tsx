@@ -15,12 +15,21 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://zerowebtools.com/terms",
     siteName: "ZeroWebTools",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "ZeroWebTools — Free Browser-Based Professional Tools",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Terms of Service - ZeroWebTools",
     description:
       "Terms governing the use of ZeroWebTools free browser-based utility tools.",
+    images: ["/logo.png"],
   },
 };
 
