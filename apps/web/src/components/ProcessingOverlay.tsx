@@ -73,22 +73,19 @@ export default function ProcessingOverlay({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[150] flex items-center justify-center p-4">
-        {/* Backdrop overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="absolute inset-0 bg-zinc-950/40 dark:bg-black/60 backdrop-blur-md"
-        />
-
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 z-20 flex items-center justify-center p-4 rounded-2xl bg-zinc-50/80 dark:bg-zinc-950/80 backdrop-blur-sm"
+      >
         {/* Processing Card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300, damping: 28 }}
-          className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-border bg-surface-elevated p-6 shadow-2xl"
+          className="w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-surface-elevated p-6 shadow-xl"
         >
           {/* Header */}
           <div className="text-center space-y-1">
@@ -168,7 +165,7 @@ export default function ProcessingOverlay({
             })}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </AnimatePresence>
   );
 }

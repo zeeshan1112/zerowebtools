@@ -73,7 +73,7 @@ export default function CompressPDFWorkspace() {
   }, [file]);
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
       <DropZone ref={ref} onFile={handleFile} label="Drop a PDF to compress" accept=".pdf" />
       {file && (
         <div className="space-y-6">

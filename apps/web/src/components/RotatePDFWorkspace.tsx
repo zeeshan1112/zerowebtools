@@ -67,7 +67,7 @@ export default function RotatePDFWorkspace() {
     }
   }, [file]);
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <DropZone ref={ref} onFile={handleFile} label="Drop a PDF to rotate" accept=".pdf" />
       {file && (
         <div className="space-y-4">

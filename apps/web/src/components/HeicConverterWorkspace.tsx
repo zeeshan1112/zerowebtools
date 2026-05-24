@@ -299,7 +299,7 @@ export default function HeicConverterWorkspace() {
   const hasConversion = files.some((f) => f.convertedBlob);
 
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2">
           <label className="text-xs font-medium text-ink-muted uppercase tracking-wider">Format</label>

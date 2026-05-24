@@ -261,7 +261,7 @@ export default function MergePDFWorkspace() {
   const totalPages = jobs.reduce((acc, j) => acc + (j.pageCount ?? 0), 0);
 
   return (
-    <div className="space-y-5">
+    <div className="relative space-y-5">
       {/* Drop zone */}
       <div
         onDrop={(e) => { e.preventDefault(); addFiles(e.dataTransfer.files); }}
