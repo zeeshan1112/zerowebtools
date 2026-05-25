@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import JSZip from "jszip";
 import ProcessingOverlay from "./ProcessingOverlay";
 
@@ -37,6 +37,10 @@ export default function BulkImageResizerWorkspace() {
   const [maintainAspect, setMaintainAspect] = useState(true);
   const [format, setFormat] = useState<"original" | "image/jpeg" | "image/png" | "image/webp">("original");
   const [quality, setQuality] = useState(80);
+
+  const pendingDownloadRef = useRef<{ url: string; name: string }[] | null>(null);
+  const isProcessingRef = useRef(false);
+  const animationFinishedRef = useRef(false);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -83,10 +87,36 @@ export default function BulkImageResizerWorkspace() {
     setImages([]);
   };
 
+  const triggerDownload = () => {
+    if (!pendingDownloadRef.current) return;
+    pendingDownloadRef.current.forEach((item) => {
+      const a = document.createElement("a");
+      a.href = item.url;
+      a.download = item.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      // Delay revocation so the browser has time to start the download
+      setTimeout(() => URL.revokeObjectURL(item.url), 100);
+    });
+    pendingDownloadRef.current = null;
+    setShowProcessing(false);
+  };
+
+  const handleFinished = () => {
+    animationFinishedRef.current = true;
+    if (!isProcessingRef.current && pendingDownloadRef.current) {
+      triggerDownload();
+    }
+  };
+
   const processImages = async () => {
     if (images.length === 0) return;
     setLoadingText(`Processing ${images.length} image(s)...`);
     setShowProcessing(true);
+    animationFinishedRef.current = false;
+    isProcessingRef.current = true;
+    pendingDownloadRef.current = null;
 
     try {
       const zip = new JSZip();
@@ -149,30 +179,22 @@ export default function BulkImageResizerWorkspace() {
       if (processedBlobs.length === 1) {
         // Single image download
         const url = URL.createObjectURL(processedBlobs[0].blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = processedBlobs[0].name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        pendingDownloadRef.current = [{ url, name: processedBlobs[0].name }];
       } else {
         // Multiple images: pack into a zip
         processedBlobs.forEach((p) => zip.file(p.name, p.blob));
         const content = await zip.generateAsync({ type: "blob" });
         const url = URL.createObjectURL(content);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "resized-images.zip";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        pendingDownloadRef.current = [{ url, name: "resized-images.zip" }];
       }
     } catch (err) {
       console.error(err);
-    } finally {
       setShowProcessing(false);
+    } finally {
+      isProcessingRef.current = false;
+      if (animationFinishedRef.current) {
+        triggerDownload();
+      }
     }
   };
 
@@ -371,7 +393,7 @@ export default function BulkImageResizerWorkspace() {
         steps={RESIZE_STEPS}
         loadingText={loadingText}
         duration={1500}
-        onFinished={() => setShowProcessing(false)}
+        onFinished={handleFinished}
       />
     </div>
   );
