@@ -714,7 +714,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("37. Markdown to HTML Converter - live conversions and preview", async ({ page }) => {
     await page.goto("/tools/markdown-converter");
-    await expect(page.locator("h1")).toContainText("Markdown ↔ HTML Converter");
+    await expect(page.locator("h1").first()).toContainText("Markdown ↔ HTML Converter");
     
     // Check markdown to HTML conversion
     const sourceTextarea = page.locator('textarea[placeholder="Type Markdown here..."]');
@@ -749,6 +749,60 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.click("button:has-text('Load Example List')");
     const linesTextarea = page.locator('textarea[placeholder="Enter names, emails, or raffle options, one per line..."]');
     await expect(linesTextarea).toHaveValue(/Alice/);
+  });
+
+  test("39. QR Code Generator & Customizer - Visual QR output", async ({ page }) => {
+    await page.goto("/tools/qr-code-generator");
+    await expect(page.locator("h1").first()).toContainText("QR Code Generator & Customizer");
+
+    // Check custom text input
+    const inputArea = page.locator("textarea#qr-text");
+    await inputArea.fill("https://example.com/e2e-test");
+
+    // Download PNG and verify download event triggers
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download PNG")');
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toContain("qrcode-");
+  });
+
+  test("40. CSS Box Shadow Generator - live preview and copy code", async ({ page }) => {
+    await page.goto("/tools/css-box-shadow");
+    await expect(page.locator("h1").first()).toContainText("CSS Box Shadow Generator");
+
+    // Tweak sliders
+    const xOffsetInput = page.locator("input#x-offset");
+    await xOffsetInput.fill("10");
+
+    // Verify code block contains updated offset values
+    const codeOutput = page.locator("pre");
+    await expect(codeOutput).toContainText("10px");
+  });
+
+  test("41. Unix Timestamp Converter - ticking clock and conversions", async ({ page }) => {
+    await page.goto("/tools/unix-timestamp-converter");
+    await expect(page.locator("h1").first()).toContainText("Unix Timestamp Converter");
+
+    // Verify ticker buttons are visible
+    await expect(page.locator("button:has-text('Copy Seconds')")).toBeVisible();
+
+    // Verify epoch input field
+    const input = page.locator("input#epoch-input");
+    await input.fill("1779538666");
+    await expect(page.locator("text=UTC Timezone Date")).toBeVisible();
+  });
+
+  test("42. Cron Expression Generator & Parser - visual tabs and parsing", async ({ page }) => {
+    await page.goto("/tools/cron-generator");
+    await expect(page.locator("h1").first()).toContainText("Cron Expression Generator & Parser");
+
+    // Type a custom cron expression
+    await page.click("button:has-text('Raw Expression Parser')");
+    const input = page.locator("input#cron-input");
+    await input.fill("*/5 * * * *");
+
+    // Check English description
+    await expect(page.locator("text=every 5 minutes")).toBeVisible();
   });
 });
 

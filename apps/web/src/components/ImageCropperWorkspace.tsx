@@ -14,15 +14,16 @@ export default function ImageCropperWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [showProcessing, setShowProcessing] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Aspect ratio lock setting
   const [aspectRatio, setAspectRatio] = useState<"free" | "1:1" | "16:9" | "4:3" | "circle">("free");
 
   // Crop overlay box position & dimension (percentages of the preview container)
-  const [boxX, setBoxX] = useState(10); // % from left
-  const [boxY, setBoxY] = useState(10); // % from top
-  const [boxW, setBoxW] = useState(80); // % width
-  const [boxH, setBoxH] = useState(80); // % height
+  const [boxX, setBoxX] = useState(15); // % from left
+  const [boxY, setBoxY] = useState(15); // % from top
+  const [boxW, setBoxW] = useState(70); // % width
+  const [boxH, setBoxH] = useState(70); // % height
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
@@ -32,24 +33,46 @@ export default function ImageCropperWorkspace() {
 
   // Update crop box to match preset aspect ratios
   useEffect(() => {
-    if (!imageSrc) return;
-    if (aspectRatio === "1:1" || aspectRatio === "circle") {
-      const minSize = Math.min(boxW, boxH);
-      setBoxW(minSize);
-      setBoxH(minSize);
-    } else if (aspectRatio === "16:9") {
-      const targetH = boxW * (9 / 16);
-      setBoxH(Math.min(90, targetH));
-    } else if (aspectRatio === "4:3") {
-      const targetH = boxW * (3 / 4);
-      setBoxH(Math.min(90, targetH));
+    if (!imageSrc || !imageLoaded || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    const imageRatio = rect.width / rect.height;
+
+    if (aspectRatio === "free") {
+      // Default to 70% width and height, centered
+      setBoxX(15);
+      setBoxY(15);
+      setBoxW(70);
+      setBoxH(70);
+      return;
     }
-  }, [aspectRatio, imageSrc]);
+
+    let targetRatio = 1.0;
+    if (aspectRatio === "16:9") targetRatio = 16 / 9;
+    else if (aspectRatio === "4:3") targetRatio = 4 / 3;
+
+    // We want the box to occupy at most 70% of the image's dimensions.
+    // boxH = boxW * (imageRatio / targetRatio)
+    let newW = 70;
+    let newH = newW * (imageRatio / targetRatio);
+
+    if (newH > 70) {
+      newH = 70;
+      newW = newH * (targetRatio / imageRatio);
+    }
+
+    setBoxW(newW);
+    setBoxH(newH);
+    setBoxX((100 - newW) / 2);
+    setBoxY((100 - newH) / 2);
+  }, [aspectRatio, imageSrc, imageLoaded]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
       setFile(selectedFile);
+      setImageLoaded(false);
       setImageSrc(URL.createObjectURL(selectedFile));
       // Reset crop box
       setBoxX(15);
@@ -64,6 +87,7 @@ export default function ImageCropperWorkspace() {
     if (imageSrc) URL.revokeObjectURL(imageSrc);
     setFile(null);
     setImageSrc(null);
+    setImageLoaded(false);
   };
 
   // Dragging crop box logic
@@ -124,6 +148,7 @@ export default function ImageCropperWorkspace() {
   const performResize = (e: MouseEvent) => {
     if (!isResizingRef.current || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
 
     const deltaX = ((e.clientX - startResizePos.current.x) / rect.width) * 100;
     
@@ -135,23 +160,16 @@ export default function ImageCropperWorkspace() {
       const deltaY = ((e.clientY - startResizePos.current.y) / rect.height) * 100;
       newH = startResizePos.current.boxH + deltaY;
       newH = Math.max(10, Math.min(100 - boxY, newH));
-    } else if (aspectRatio === "1:1" || aspectRatio === "circle") {
-      newH = newW;
+    } else {
+      const imageRatio = rect.width / rect.height;
+      let targetRatio = 1.0;
+      if (aspectRatio === "16:9") targetRatio = 16 / 9;
+      else if (aspectRatio === "4:3") targetRatio = 4 / 3;
+
+      newH = newW * (imageRatio / targetRatio);
       if (boxY + newH > 100) {
         newH = 100 - boxY;
-        newW = newH;
-      }
-    } else if (aspectRatio === "16:9") {
-      newH = newW * (9 / 16);
-      if (boxY + newH > 100) {
-        newH = 100 - boxY;
-        newW = newH * (16 / 9);
-      }
-    } else if (aspectRatio === "4:3") {
-      newH = newW * (3 / 4);
-      if (boxY + newH > 100) {
-        newH = 100 - boxY;
-        newW = newH * (4 / 3);
+        newW = newH * (targetRatio / imageRatio);
       }
     }
 
@@ -185,8 +203,15 @@ export default function ImageCropperWorkspace() {
       // Convert percentage values to raw source pixels, ensuring at least 1px for dimensions
       const cropX_px = Math.round((boxX / 100) * naturalW);
       const cropY_px = Math.round((boxY / 100) * naturalH);
-      const cropW_px = Math.max(1, Math.round((boxW / 100) * naturalW));
-      const cropH_px = Math.max(1, Math.round((boxH / 100) * naturalH));
+      let cropW_px = Math.max(1, Math.round((boxW / 100) * naturalW));
+      let cropH_px = Math.max(1, Math.round((boxH / 100) * naturalH));
+
+      // Guard visual aspect ratios to prevent floating point rounding deviations on download
+      if (aspectRatio === "circle" || aspectRatio === "1:1") {
+        const minPixels = Math.min(cropW_px, cropH_px);
+        cropW_px = minPixels;
+        cropH_px = minPixels;
+      }
 
       const canvas = document.createElement("canvas");
       canvas.width = cropW_px;
@@ -312,37 +337,45 @@ export default function ImageCropperWorkspace() {
           </div>
 
           {/* Visual Workspace Image Renderer */}
-          <div className="lg:col-span-8 flex flex-col items-center">
+          <div className="lg:col-span-8 flex flex-col items-center justify-center">
             <div
-              ref={containerRef}
-              className="relative border border-border bg-white/60 shadow-lg overflow-hidden flex items-center justify-center max-w-full w-[400px] h-[400px] rounded-2xl"
+              className="relative border border-border bg-white/60 shadow-lg overflow-hidden flex items-center justify-center max-w-full w-[400px] h-[400px] rounded-2xl p-2"
             >
-              {/* Image Preview */}
-              <img
-                src={imageSrc}
-                alt="Upload Preview"
-                className="max-w-full max-h-full object-contain pointer-events-none"
-              />
-
-              {/* Crop box overlay */}
+              {/* Inner wrapper that shrink-wraps the image */}
               <div
-                onMouseDown={startDrag}
-                className={`absolute cursor-move border-2 border-dashed border-accent bg-black/35 flex items-center justify-center select-none ${
-                  aspectRatio === "circle" ? "rounded-full" : ""
-                }`}
-                style={{
-                  left: `${boxX}%`,
-                  top: `${boxY}%`,
-                  width: `${boxW}%`,
-                  height: `${boxH}%`,
-                }}
+                ref={containerRef}
+                className="relative inline-block max-w-full max-h-full"
               >
-                {/* Resizing handle */}
-                <div
-                  onMouseDown={startResize}
-                  className="absolute right-0 bottom-0 w-3.5 h-3.5 bg-accent cursor-se-resize flex items-center justify-center"
-                  title="Resize Crop Area"
+                {/* Image Preview */}
+                <img
+                  src={imageSrc}
+                  alt="Upload Preview"
+                  onLoad={() => setImageLoaded(true)}
+                  className="max-w-full max-h-[380px] block pointer-events-none"
                 />
+
+                {/* Crop box overlay */}
+                {imageLoaded && (
+                  <div
+                    onMouseDown={startDrag}
+                    className={`absolute cursor-move border-2 border-dashed border-accent bg-black/35 flex items-center justify-center select-none ${
+                      aspectRatio === "circle" ? "rounded-full" : ""
+                    }`}
+                    style={{
+                      left: `${boxX}%`,
+                      top: `${boxY}%`,
+                      width: `${boxW}%`,
+                      height: `${boxH}%`,
+                    }}
+                  >
+                    {/* Resizing handle */}
+                    <div
+                      onMouseDown={startResize}
+                      className="absolute right-0 bottom-0 w-3.5 h-3.5 bg-accent cursor-se-resize flex items-center justify-center"
+                      title="Resize Crop Area"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

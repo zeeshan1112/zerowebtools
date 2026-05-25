@@ -55,7 +55,8 @@ const staggerItem = {
 
 
 // Hash fragment → tab mapping (sidebar links use /#pdf-tools, /#converters etc.)
-const SLUG_TO_TAB: Record<string, "pdf" | "text" | "dev" | "financial" | "converters"> = {
+const SLUG_TO_TAB: Record<string, "all" | "pdf" | "text" | "dev" | "financial" | "converters"> = {
+  "all-tools": "all",
   "pdf-tools": "pdf",
   "text-tools": "text",
   "converters": "dev",
@@ -64,6 +65,7 @@ const SLUG_TO_TAB: Record<string, "pdf" | "text" | "dev" | "financial" | "conver
 };
 
 const TAB_TO_SLUG: Record<string, string> = {
+  all: "all-tools",
   pdf: "pdf-tools",
   text: "text-tools",
   dev: "converters",
@@ -73,7 +75,7 @@ const TAB_TO_SLUG: Record<string, string> = {
 
 export default function HomePage() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"pdf" | "text" | "dev" | "financial" | "converters">("pdf");
+  const [activeTab, setActiveTab] = useState<"all" | "pdf" | "text" | "dev" | "financial" | "converters">("all");
 
   useEffect(() => {
     const handleHash = () => {
@@ -146,6 +148,8 @@ export default function HomePage() {
   // Map workspace activeTab to specific category slugs
   const getTabCategorySlug = (): string[] => {
     switch (activeTab) {
+      case "all":
+        return ["pdf-tools", "text-tools", "converters", "image-tools", "financial-growth"];
       case "pdf":
         return ["pdf-tools"];
       case "text":
@@ -417,6 +421,7 @@ export default function HomePage() {
           <div className="flex items-baseline justify-between border-b border-border/40 pb-4 select-none">
             <div className="flex flex-wrap items-center gap-1">
               {[
+                { id: "all", label: "All Tools" },
                 { id: "pdf", label: "PDF Suite" },
                 { id: "text", label: "Text & Content" },
                 { id: "dev", label: "Developers" },

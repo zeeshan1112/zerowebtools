@@ -34,6 +34,10 @@ import PasswordGeneratorWorkspace from "@/components/PasswordGeneratorWorkspace"
 import VoiceDictatorWorkspace from "@/components/VoiceDictatorWorkspace";
 import MarkdownConverterWorkspace from "@/components/MarkdownConverterWorkspace";
 import RandomPickerWorkspace from "@/components/RandomPickerWorkspace";
+import QrCodeWorkspace from "@/components/QrCodeWorkspace";
+import BoxShadowWorkspace from "@/components/BoxShadowWorkspace";
+import UnixTimestampWorkspace from "@/components/UnixTimestampWorkspace";
+import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -141,6 +145,10 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "voice-dictator": VoiceDictatorWorkspace,
   "markdown-converter": MarkdownConverterWorkspace,
   "random-picker": RandomPickerWorkspace,
+  "qr-code-generator": QrCodeWorkspace,
+  "css-box-shadow": BoxShadowWorkspace,
+  "unix-timestamp-converter": UnixTimestampWorkspace,
+  "cron-generator": CronGeneratorWorkspace,
 };
 
 const TOOL_ARTICLES: Record<

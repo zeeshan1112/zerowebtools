@@ -97,6 +97,27 @@ export function getToolIcon(id: string): React.ReactNode {
           <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
         </svg>
       );
+    case "css-box-shadow":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <rect x="3" y="3" width="12" height="12" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M18 8h1a2 2 0 012 2v9a2 2 0 01-2 2h-9a2 2 0 01-2-2v-1" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+        </svg>
+      );
+    case "unix-timestamp-converter":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M12 6v6l4 2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "cron-generator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <rect x="3" y="4" width="18" height="16" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M16 2v4M8 2v4M3 10h18" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
     case "case-converter":
       return (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
@@ -223,6 +244,15 @@ export function getToolIcon(id: string): React.ReactNode {
       return (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15m-3-3l3 3 3-3" />
+        </svg>
+      );
+    case "qr-code-generator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <path d="M14 14h3v3h-3zm3 3h4v4h-4zm0-3h4v3h-4zm-3 3h3v4h-3z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
 
