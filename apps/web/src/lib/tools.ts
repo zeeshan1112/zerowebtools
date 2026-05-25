@@ -35,6 +35,27 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
+    slug: "text-tools",
+    title: "Writing & Content Utilities",
+    description: "Clean, format, count, and convert text contents instantly in your browser.",
+    tools: [
+      {
+        id: "word-counter",
+        title: "Word Counter Pro",
+        description: "Count words, characters, sentences, and paragraphs in real-time, plus keyword density analysis.",
+        status: "live",
+        metaDescription: "Free client-side word and character counter. Analyze reading time, speaking time, lines, sentences, and keyword density. 100% private.",
+      },
+      {
+        id: "case-converter",
+        title: "Case Converter",
+        description: "Transform naming conventions between camelCase, snake_case, kebab-case, and more.",
+        status: "live",
+        metaDescription: "Convert text between any naming convention — camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE. Free, instant, and private.",
+      },
+    ],
+  },
+  {
     slug: "converters",
     title: "Developer Workspaces",
     description: "Validate, format, parse, and convert your data structures client-side.",
@@ -47,25 +68,11 @@ export const CATEGORIES: ToolCategory[] = [
         metaDescription: "Validate, format, and explore JSON data visually — free, instant, and 100% private. Tree view, syntax highlighting, and live error detection. No server uploads.",
       },
       {
-        id: "case-converter",
-        title: "Case Converter",
-        description: "Transform naming conventions between camelCase, snake_case, kebab-case, and more.",
-        status: "live",
-        metaDescription: "Convert text between any naming convention — camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE. Free, instant, and private.",
-      },
-      {
         id: "base64-encoder",
         title: "Base64 Cipher Modeler",
         description: "Encode text or files to Base64 and decode Base64 back to readable format instantly.",
         status: "live",
         metaDescription: "Encode and decode Base64 instantly — free and private. Convert text or files to and from Base64 right in your browser. No server uploads.",
-      },
-      {
-        id: "word-counter",
-        title: "Word Counter Pro",
-        description: "Count words, characters, sentences, and paragraphs in real-time, plus keyword density analysis.",
-        status: "live",
-        metaDescription: "Free client-side word and character counter. Analyze reading time, speaking time, lines, sentences, and keyword density. 100% private.",
       },
     ],
   },
@@ -117,6 +124,7 @@ export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
 
 export const CATEGORY_TAG_STYLES: Record<string, string> = {
   "pdf-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
+  "text-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "converters": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "image-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "financial-growth": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
