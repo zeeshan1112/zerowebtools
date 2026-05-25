@@ -467,6 +467,289 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.click('button:has-text("Replace All Matches")');
     await expect(inputArea).toHaveValue("I love Blueberries");
   });
+
+  test("22. PDF Sign - Visual signature placement and save", async ({ page }) => {
+    await page.goto("/tools/pdf-sign");
+    await expect(page.locator("h1")).toContainText("Sign PDF");
+
+    // Upload dummy PDF
+    await page.setInputFiles('input[type="file"]', dummyPdfPath);
+    await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
+
+    // Select Type tab
+    await page.click('button:has-text("Type")');
+    await page.fill('input[placeholder*="Enter your name"]', "Zeeshan");
+    await page.click('button:has-text("Generate Signature")');
+
+    // Signature image element should be rendered
+    const placedSignature = page.locator('img[alt="Placed Signature"]');
+    await expect(placedSignature).toBeVisible();
+
+    // Save document and verify download
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Save Signed PDF")');
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("dummy-signed.pdf");
+  });
+
+  test("23. PDF Crop & Page Resize - Visual margins crop and page resize", async ({ page }) => {
+    await page.goto("/tools/pdf-crop");
+    await expect(page.locator("h1")).toContainText("PDF Crop & Page Resize");
+
+    // Upload dummy PDF
+    await page.setInputFiles('input[type="file"]', dummyPdfPath);
+    await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
+
+    // Test cropping mode
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Apply Crop & Download")');
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("dummy-cropped.pdf");
+
+    // Switch to page resize mode
+    await page.click('button:has-text("Page Resize")');
+    await page.selectOption("select#resize-page-size", "Letter");
+    
+    const resizeDownloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Apply Crop & Download")');
+    const resizeDownload = await resizeDownloadPromise;
+    expect(resizeDownload.suggestedFilename()).toBe("dummy-resized.pdf");
+  });
+
+  test("24. PDF to Text Extractor - Layout-preserving text extraction", async ({ page }) => {
+    await page.goto("/tools/pdf-to-text");
+    await expect(page.locator("h1")).toContainText("PDF to Text Extractor");
+
+    // Upload dummy PDF
+    await page.setInputFiles('input[type="file"]', dummyPdfPath);
+    // Click Extract
+    await page.click('button:has-text("Extract Text")');
+
+    // Wait for the processing overlay to finish
+    await expect(page.locator("text=Extracting PDF text...")).not.toBeVisible({ timeout: 5000 });
+
+    // Verify stats appear
+    await expect(page.locator("text=Pages").first()).toBeVisible();
+    
+    // Verify pre block has extracted text
+    const textOutput = page.locator("pre");
+    await expect(textOutput).toBeVisible();
+    await expect(textOutput).toContainText("Page 1");
+
+    // Verify download of text file
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download .txt")');
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("dummy-extracted.txt");
+  });
+
+  test("25. Bulk Image Resizer - Sizing and format compress", async ({ page }) => {
+    const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
+    await page.goto("/tools/bulk-image-resizer");
+    await expect(page.locator("h1")).toContainText("Bulk Image Resizer");
+
+    // Upload image
+    await page.setInputFiles('input[type="file"]', dummyJpgPath);
+    await expect(page.locator("text=dummy.jpg").first()).toBeVisible();
+
+    // Resize
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Resize & Save")');
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("dummy-resized.jpg");
+  });
+
+  test("26. Visual Image Cropper - Crop presets and shapes", async ({ page }) => {
+    const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
+    await page.goto("/tools/image-cropper");
+    await expect(page.locator("h1")).toContainText("Visual Image Cropper");
+
+    // Upload image
+    await page.setInputFiles('input[type="file"]', dummyJpgPath);
+
+    // Crop presets
+    await page.click('button:has-text("Square")');
+
+    // Crop & save
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Crop & Save")');
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("dummy-cropped.jpg");
+  });
+
+  test("27. SVG Minifier - Strip namespaces and precision", async ({ page }) => {
+    await page.goto("/tools/svg-minifier");
+    await expect(page.locator("h1")).toContainText("SVG Minifier");
+
+    const inputArea = page.locator('textarea[placeholder*="Paste your raw"]');
+    await inputArea.fill('<svg sodipodi:docname="test.svg"><circle cx="10.1234" cy="20.5678" r="5" /><!-- comment --></svg>');
+
+    // Minify
+    await page.click('button:has-text("Optimize SVG")');
+
+    // Verify output area contains minified SVG code
+    const outputArea = page.locator('textarea[placeholder*="Your optimized"]');
+    await expect(outputArea).toHaveValue('<svg><circle cx="10.12" cy="20.57" r="5" /></svg>');
+  });
+
+  test("28. Mortgage & Loan Amortization - Schedule and payment", async ({ page }) => {
+    await page.goto("/tools/mortgage-calculator");
+    await expect(page.locator("h1")).toContainText("Mortgage & Loan Amortization Schedule");
+
+    // Verify monthly payment
+    await expect(page.locator("text=$1,520.06").first()).toBeVisible();
+
+    // Adjust principal and verify payment changes
+    const input = page.locator("#mortgage-principal-input");
+    await input.fill("400000");
+    await expect(page.locator("text=$2,026.74").first()).toBeVisible();
+  });
+
+  test("29. Startup Cap Table Modeler - Dilution round", async ({ page }) => {
+    await page.goto("/tools/cap-table");
+    await expect(page.locator("h1")).toContainText("Startup Capitalization Table Modeler");
+
+    // Add a shareholder
+    await page.fill("#stakeholder-name", "Investor C");
+    await page.fill("#stakeholder-shares", "2000000");
+    await page.click('button:has-text("Add Shareholder")');
+
+    // Verify addition
+    await expect(page.locator("text=Investor C").first()).toBeVisible();
+  });
+
+  test("30. SaaS CAC & LTV Retention Modeler - Metrics and curve", async ({ page }) => {
+    await page.goto("/tools/saas-ltv");
+    await expect(page.locator("h1")).toContainText("SaaS CAC & LTV Retention Modeler");
+
+    // Verify LTV payback outputs
+    await expect(page.locator("text=$1,143").first()).toBeVisible();
+    await expect(page.locator("text=7.6x").first()).toBeVisible();
+    await expect(page.locator("text=3.8 Mo").first()).toBeVisible();
+  });
+
+  test("31. Break-Even Point Calculator - Expenses and intersection", async ({ page }) => {
+    await page.goto("/tools/break-even");
+    await expect(page.locator("h1")).toContainText("Break-Even Point Calculator");
+
+    // Verify break even quantity and sales values
+    await expect(page.locator("text=500").first()).toBeVisible();
+    await expect(page.locator("text=$25,000").first()).toBeVisible();
+  });
+
+  test("32. Regex Tester - Match highlights", async ({ page }) => {
+    await page.goto("/tools/regex-tester");
+    await expect(page.locator("h1")).toContainText("Interactive Regex Tester");
+    // Verify default email matcher highlights zerowebtools.com
+    await expect(page.locator("mark").first()).toContainText("support@zerowebtools.com");
+    // Load example and check matches
+    await page.click('button:has-text("Load Examples")');
+    await expect(page.locator("mark").first()).toContainText("123-456-7890");
+  });
+
+  test("33. SQL Formatter & Beautifier - Query Formatting", async ({ page }) => {
+    await page.goto("/tools/sql-formatter");
+    await expect(page.locator("h1")).toContainText("SQL Formatter & Beautifier");
+    // Load example
+    await page.click('button:has-text("Load Example")');
+    // Format SQL
+    await page.click('button:has-text("Format SQL")');
+    // Verify output has capitalized keywords like SELECT
+    const outputArea = page.locator('textarea[placeholder="Your beautified SQL will appear here..."]');
+    await expect(outputArea).toHaveValue(/SELECT/);
+  });
+
+  test("34. Client-Side File Hasher - Hashing Local Files", async ({ page }) => {
+    await page.goto("/tools/file-hasher");
+    await expect(page.locator("h1")).toContainText("Client-Side File Hasher");
+
+    // Upload a simulated file
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "test.txt",
+      mimeType: "text/plain",
+      buffer: Buffer.from("hello world"),
+    });
+
+    // Verify detail card
+    await expect(page.locator("text=test.txt").first()).toBeVisible();
+
+    // Click generate hashes
+    await page.click('button:has-text("Generate Hashes")');
+
+    // MD5 for 'hello world' is 5eb63bbbe01eeed093cb22bb8f5acdc3
+    await expect(page.locator("text=5eb63bbbe01eeed093cb22bb8f5acdc3").first()).toBeVisible();
+  });
+
+  test("35. Password Strength Meter & Generator", async ({ page }) => {
+    await page.goto("/tools/password-generator");
+    await expect(page.locator("h1")).toContainText("Password Strength Meter & Generator");
+
+    // Wait for hydration to complete and password to generate (placeholder text is gone)
+    const pwdLocator = page.locator("span.font-mono.text-base");
+    await expect(pwdLocator).not.toHaveText("Select at least one constraint...");
+
+    // Get value of generated password
+    const pwdValue = await pwdLocator.innerText();
+    expect(pwdValue.length).toBe(16);
+
+    // Modify length
+    const slider = page.locator("#password-length");
+    await slider.fill("24");
+
+    // Verify updated password length
+    const updatedPwdValue = await page.locator("span.font-mono.text-base").innerText();
+    expect(updatedPwdValue.length).toBe(24);
+  });
+
+  test("36. Voice Dictator & Reader - TTS and dictation fallback", async ({ page }) => {
+    await page.goto("/tools/voice-dictator");
+    await expect(page.locator("h1")).toContainText("Voice Dictator & Reader");
+    // Verify text area defaultValue
+    await expect(page.locator("textarea")).toHaveValue(/dictate text here/);
+    // Verify clear action
+    await page.click("button:has-text('Clear')");
+    await expect(page.locator("textarea")).toHaveValue("");
+  });
+
+  test("37. Markdown to HTML Converter - live conversions and preview", async ({ page }) => {
+    await page.goto("/tools/markdown-converter");
+    await expect(page.locator("h1")).toContainText("Markdown ↔ HTML Converter");
+    
+    // Check markdown to HTML conversion
+    const sourceTextarea = page.locator('textarea[placeholder="Type Markdown here..."]');
+    await sourceTextarea.fill("# Hello world\n\nThis is a **test** link: [Google](https://google.com)");
+    
+    const outputTextarea = page.locator('textarea[placeholder="Converted text will appear here..."]');
+    await expect(outputTextarea).toHaveValue(/<h1>Hello world<\/h1>/);
+    await expect(outputTextarea).toHaveValue(/<strong>test<\/strong>/);
+    await expect(outputTextarea).toHaveValue(/<a href="https:\/\/google.com"/);
+
+    // Switch mode to HTML to Markdown
+    await page.click("button:has-text('HTML → Markdown')");
+    
+    const htmlSourceTextarea = page.locator('textarea[placeholder="Type HTML here..."]');
+    await htmlSourceTextarea.fill("<h1>Hello world</h1>\n<p>This is a <strong>test</strong>.</p>");
+    
+    const mdOutputTextarea = page.locator('textarea[placeholder="Converted text will appear here..."]');
+    await expect(mdOutputTextarea).toHaveValue(/# Hello world/);
+    await expect(mdOutputTextarea).toHaveValue(/\*\*test\*\*/);
+  });
+
+  test("38. List Shuffler & Random Picker - Draw Winners", async ({ page }) => {
+    await page.goto("/tools/random-picker");
+    await expect(page.locator("h1")).toContainText("List Shuffler & Random Picker");
+    
+    // Draw winners
+    await page.click("button:has-text('Draw Winners')");
+    // Winner card should be visible
+    await expect(page.locator("text=Drawn Winner").first()).toBeVisible();
+    
+    // Reset list
+    await page.click("button:has-text('Load Example List')");
+    const linesTextarea = page.locator('textarea[placeholder="Enter names, emails, or raffle options, one per line..."]');
+    await expect(linesTextarea).toHaveValue(/Alice/);
+  });
 });
 
 

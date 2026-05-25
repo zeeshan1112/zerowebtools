@@ -34,3 +34,26 @@ export {
   sortLines,
   findAndReplace,
 } from "./textCleaner";
+
+export { minifySvg } from "./svgMinifier";
+
+export {
+  calculateAmortization,
+  modelDilutionRound,
+  calculateSaasLtv,
+  calculateBreakEven,
+} from "./financialModels";
+export type {
+  AmortizationPeriod,
+  AmortizationSchedule,
+  Shareholder,
+  CapTableRound,
+  SaasLtvMetrics,
+  BreakEvenMetrics,
+} from "./financialModels";
+
+export { formatSql } from "./sqlFormatter";
+export { generatePassword, calculatePasswordStrength } from "./passwordGenerator";
+export type { PasswordOptions, PasswordStats } from "./passwordGenerator";
+export { markdownToHtml, htmlToMarkdown } from "./markdown";
+export { shuffleList, pickWinners } from "./randomPicker";
