@@ -19,3 +19,18 @@ export type { TextStats } from "./textCounter";
 
 export { computeLineDiff, diffWords } from "./diffChecker";
 export type { DiffLine, DiffRow, DiffToken } from "./diffChecker";
+
+export { decodeJwtToken } from "./jwtDecoder";
+export type { DecodedJwt } from "./jwtDecoder";
+
+export { encodeUrlString, decodeUrlString, parseUrlParams, buildUrlString } from "./urlUtility";
+export type { UrlParam, ParsedUrl } from "./urlUtility";
+
+export {
+  removeDuplicateLines,
+  removeEmptyLines,
+  removeExtraSpaces,
+  stripHtmlTags,
+  sortLines,
+  findAndReplace,
+} from "./textCleaner";

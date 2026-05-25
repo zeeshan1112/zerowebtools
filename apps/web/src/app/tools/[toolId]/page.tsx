@@ -14,6 +14,9 @@ import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import Base64Workspace from "@/components/Base64Workspace";
 import TextCounterWorkspace from "@/components/TextCounterWorkspace";
 import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
+import JwtDebuggerWorkspace from "@/components/JwtDebuggerWorkspace";
+import UrlEncoderWorkspace from "@/components/UrlEncoderWorkspace";
+import TextCleanerWorkspace from "@/components/TextCleanerWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -101,12 +104,93 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "base64-encoder": Base64Workspace,
   "word-counter": TextCounterWorkspace,
   "diff-checker": DiffCheckerWorkspace,
+  "jwt-debugger": JwtDebuggerWorkspace,
+  "url-encoder": UrlEncoderWorkspace,
+  "text-cleaner": TextCleanerWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
   string,
   { title: string; sections: { heading: string; level?: "h2" | "h3"; paragraphs?: string[]; listItems?: string[] }[] }
 > = {
+  "jwt-debugger": {
+    title: "JWT Debugger & Decoder: Verify and Inspect JSON Web Tokens Locally",
+    sections: [
+      {
+        heading: "What is a JSON Web Token (JWT)?",
+        paragraphs: [
+          "JSON Web Tokens (JWT) are an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.",
+          "A typical JWT contains three parts separated by dots: Header, Payload, and Signature. Because these segments are Base64Url encoded, they look like a random block of text until they are decoded."
+        ]
+      },
+      {
+        heading: "Inspect JWT Header & Claims Instantly",
+        paragraphs: [
+          "Our local JWT Debugger decodes any standard token instantly, rendering structured, editable fields in raw JSON formatting:"
+        ],
+        listItems: [
+          "Header -- Decodes details about the algorithm used (e.g. HS256, RS256) and the type of token.",
+          "Payload Claims -- Decodes the statement details containing data claims like Subject (sub), Issuer (iss), Issue Time (iat), and Expiry Time (exp). Also maps any custom variables added by authentication libraries (like Auth0, Firebase, or custom backends).",
+          "Signature -- Inspects the cryptographic signature block at the tail of the token.",
+          "Claims Status Alerts -- Displays expiration indicators, warnings, and local time conversions."
+        ]
+      },
+      {
+        heading: "100% Client-Side Privacy Protection",
+        paragraphs: [
+          "Security is key when analyzing authentication tokens, as payload strings often contain sensitive user emails, account IDs, security roles, and scopes.",
+          "ZeroWebTools guarantees that all decoding operations execute directly in your browser's JavaScript engine on your device. No tokens or payloads are ever uploaded to a server, keeping your session credentials entirely secure."
+        ]
+      }
+    ]
+  },
+  "url-encoder": {
+    title: "URL Encoder & Decoder: Parse and Edit Query Parameters Visually",
+    sections: [
+      {
+        heading: "Understanding URL Encoding (Percent-Encoding)",
+        paragraphs: [
+          "URL encoding converts characters into a format that can be safely transmitted over the Internet. URLs can only contain a limited set of characters from the US-ASCII character set. Non-safe characters are replaced with a '%' followed by two hexadecimal digits.",
+          "For example, spaces are encoded as %20 (or + in query strings), and special characters like slashes, question marks, and ampersands must be encoded to preserve boundaries between parameters."
+        ]
+      },
+      {
+        heading: "Query Parameter Grid Editor",
+        paragraphs: [
+          "Unlike traditional encoders that just output a single long percent-encoded string, this utility features a visual query parameter grid:"
+        ],
+        listItems: [
+          "Input URL Parser -- Automatically splits a pasted URL into its Base Path and separate query key-value segments.",
+          "Interactive Edit Grid -- Edit, add, or delete query parameter values. Changes immediately re-encode and update the raw URL.",
+          "Encoder / Decoder Toggle -- Switch modes between encoding plain text into percent-notation or decoding percent-strings into readable strings.",
+          "Single-Click Copy -- Quickly copy the re-assembled and encoded URL to your clipboard."
+        ]
+      }
+    ]
+  },
+  "text-cleaner": {
+    title: "Universal Text Cleaner: Format, Sort, and Search-and-Replace Text Lists",
+    sections: [
+      {
+        heading: "Optimize and Clean Text Blocks Offline",
+        paragraphs: [
+          "Writers, researchers, and database administrators regularly need to clean and standardize messy text lists or document segments. Doing this manually is time-consuming and error-prone.",
+          "The Universal Text Cleaner collects common list sanitization operations into a single-click local console. You can sequence cleanups, sort lists, and run search-and-replace queries without sending your texts to third-party servers."
+        ]
+      },
+      {
+        heading: "Interactive Sanitize & Clean Options",
+        listItems: [
+          "Trim & Collapse Spaces -- Strips leading/trailing line spacing and reduces double or triple internal spaces into a single space.",
+          "Remove Duplicates -- Filters out duplicate lines from list content, keeping only the first unique instance.",
+          "Remove Empty Lines -- Instantly deletes blank lines or lines containing only whitespaces.",
+          "Strip HTML Tags -- Removes HTML markup code, extracting raw text contents from rich formatting.",
+          "Structured Sorting -- Sorts lines alphabetically, numerically (extracting numbers from lines), or by string length, in ascending or descending direction.",
+          "Find and Replace Console -- Supports literal string changes or regular expression (regex) search patterns with case-insensitivity flags."
+        ]
+      }
+    ]
+  },
   "base64-encoder": {
     title: "Base64 Encoder & Decoder: Convert Text and Files Locally",
     sections: [

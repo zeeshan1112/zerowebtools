@@ -368,8 +368,8 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     const originalInput = page.locator("textarea#original-text-input");
     const modifiedInput = page.locator("textarea#modified-text-input");
 
-    await expect(originalInput).toContainText("ZeroWebTools is a collection of high-traffic web tools.");
-    await expect(modifiedInput).toContainText("ZeroWebTools is a premium suite of high-traffic tools.");
+    await expect(originalInput).toHaveValue(/ZeroWebTools is a collection of high-traffic web tools\./);
+    await expect(modifiedInput).toHaveValue(/ZeroWebTools is a premium suite of high-traffic tools\./);
 
     // Trigger Comparison
     await page.click('button:has-text("Compare Differences")');
@@ -396,8 +396,77 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     // Test Swap Panes
     await page.click('button:has-text("Swap Panes")');
-    await expect(originalInput).toContainText("ZeroWebTools is a premium suite of high-traffic tools.");
-    await expect(modifiedInput).toContainText("ZeroWebTools is a collection of high-traffic web tools.");
+    await expect(originalInput).toHaveValue(/ZeroWebTools is a premium suite of high-traffic tools\./);
+    await expect(modifiedInput).toHaveValue(/ZeroWebTools is a collection of high-traffic web tools\./);
+  });
+
+  test("19. JWT Debugger & Decoder - Interactive Verification", async ({ page }) => {
+    await page.goto("/tools/jwt-debugger");
+    await expect(page.locator("h1")).toContainText("JWT Debugger & Decoder");
+
+    // Load example JWT
+    await page.click('button:has-text("Load Example")');
+
+    // Confirm segments decoded correctly
+    await expect(page.locator("text=Valid Signature Format")).toBeVisible();
+    await expect(page.locator("text=Alice Vance")).toBeVisible();
+    expect(await page.locator("pre").first().innerText()).toContain("HS256");
+  });
+
+  test("20. URL Encoder & Parameter Grid Editor", async ({ page }) => {
+    await page.goto("/tools/url-encoder");
+    await expect(page.locator("h1")).toContainText("URL Encoder/Decoder & Parameter Grid");
+
+    // Load Example URL
+    await page.click('button:has-text("Load Example URL")');
+
+    // Verify grid editor displays keys and values
+    const queryInputKey = page.locator('input[value="next.js frameworks"]');
+    await expect(queryInputKey).toBeVisible();
+
+    // Verify base URL path input
+    const baseInput = page.locator("input#url-base-input");
+    await expect(baseInput).toHaveValue("https://zerowebtools.com/search");
+
+    // Modify base URL path and verify input string reassembles
+    await baseInput.fill("https://example.com/api");
+    const mainInput = page.locator("textarea#url-input");
+    await expect(mainInput).toHaveValue(/https:\/\/example.com\/api/);
+  });
+
+  test("21. Universal Text Cleaner - Clean, Sort, and Search-and-Replace", async ({ page }) => {
+    await page.goto("/tools/text-cleaner");
+    await expect(page.locator("h1")).toContainText("Universal Text Cleaner");
+
+    const inputArea = page.locator("textarea#text-cleaner-input");
+    await expect(inputArea).toBeVisible();
+
+    // Load Example
+    await page.click('button:has-text("Load Example Text")');
+    await expect(inputArea).toHaveValue(/Apples/);
+
+    // Fill with a clean unsorted list for sorting validation
+    await inputArea.fill("cherry\nbanana\napple");
+
+    // Sort lines alphabetically ascending
+    await page.selectOption("select#sort-criteria", "alpha");
+    await page.selectOption("select#sort-direction", "asc");
+    await page.click('button:has-text("Sort Lines")');
+
+    // Expected alphabetical ordering
+    const sortedVal = await inputArea.inputValue();
+    expect(sortedVal).toBe("apple\nbanana\ncherry");
+
+    // Test Find & Replace with a controlled string
+    await inputArea.fill("I love Apples");
+    const findField = page.locator("input#find-input");
+    const replaceField = page.locator("input#replace-input");
+    await findField.fill("Apples");
+    await replaceField.fill("Blueberries");
+
+    await page.click('button:has-text("Replace All Matches")');
+    await expect(inputArea).toHaveValue("I love Blueberries");
   });
 });
+
 
