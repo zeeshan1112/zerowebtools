@@ -77,12 +77,14 @@ export default function Sidebar() {
       const toolId = match[1];
       const liveToolExists = ALL_TOOLS.some((t) => t.id === toolId && t.status === "live");
       if (liveToolExists) {
-        setRecents((prev) => {
-          const next = [toolId, ...prev.filter((id) => id !== toolId)].slice(0, 3);
+        try {
+          const savedRecents = localStorage.getItem("zeelancebox_recents");
+          const prev = savedRecents ? JSON.parse(savedRecents) : [];
+          const next = [toolId, ...prev.filter((id: string) => id !== toolId)].slice(0, 3);
           localStorage.setItem("zeelancebox_recents", JSON.stringify(next));
+          setRecents(next);
           window.dispatchEvent(new Event("zeelancebox_storage_update"));
-          return next;
-        });
+        } catch (_) {}
       }
     }
   }, [pathname]);
