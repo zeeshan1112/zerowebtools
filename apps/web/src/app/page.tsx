@@ -55,8 +55,9 @@ const staggerItem = {
 
 
 // Hash fragment → tab mapping (sidebar links use /#pdf-tools, /#converters etc.)
-const SLUG_TO_TAB: Record<string, "pdf" | "dev" | "financial" | "converters"> = {
+const SLUG_TO_TAB: Record<string, "pdf" | "text" | "dev" | "financial" | "converters"> = {
   "pdf-tools": "pdf",
+  "text-tools": "text",
   "converters": "dev",
   "financial-growth": "financial",
   "image-tools": "converters",
@@ -64,6 +65,7 @@ const SLUG_TO_TAB: Record<string, "pdf" | "dev" | "financial" | "converters"> = 
 
 const TAB_TO_SLUG: Record<string, string> = {
   pdf: "pdf-tools",
+  text: "text-tools",
   dev: "converters",
   financial: "financial-growth",
   converters: "image-tools",
@@ -71,7 +73,7 @@ const TAB_TO_SLUG: Record<string, string> = {
 
 export default function HomePage() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"pdf" | "dev" | "financial" | "converters">("pdf");
+  const [activeTab, setActiveTab] = useState<"pdf" | "text" | "dev" | "financial" | "converters">("pdf");
 
   useEffect(() => {
     const handleHash = () => {
@@ -146,6 +148,8 @@ export default function HomePage() {
     switch (activeTab) {
       case "pdf":
         return ["pdf-tools"];
+      case "text":
+        return ["text-tools"];
       case "dev":
         return ["converters"];
       case "financial":
@@ -260,6 +264,8 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-2 text-[10px] sm:text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
                 <span>SUITES:</span>
                 <a href="#tools-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Editors</a>
+                <span>•</span>
+                <a href="#tools-directory" onClick={() => setActiveTab("text")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Text & Content</a>
                 <span>•</span>
                 <a href="#tools-directory" onClick={() => setActiveTab("dev")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Code Converters</a>
                 <span>•</span>
@@ -412,6 +418,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center gap-1">
               {[
                 { id: "pdf", label: "PDF Suite" },
+                { id: "text", label: "Text & Content" },
                 { id: "dev", label: "Developers" },
                 { id: "financial", label: "Growth & Finance" },
                 { id: "converters", label: "Creative Tools" },
