@@ -13,6 +13,7 @@ import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import Base64Workspace from "@/components/Base64Workspace";
 import TextCounterWorkspace from "@/components/TextCounterWorkspace";
+import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -99,6 +100,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "startup-equity": StartupEquityWorkspace,
   "base64-encoder": Base64Workspace,
   "word-counter": TextCounterWorkspace,
+  "diff-checker": DiffCheckerWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
@@ -134,6 +136,44 @@ const TOOL_ARTICLES: Record<
         ],
       },
     ],
+  },
+  "diff-checker": {
+    title: "Side-by-Side Diff Checker: Compare Text and Code Files Locally",
+    sections: [
+      {
+        heading: "What is a Side-by-Side Diff Checker?",
+        paragraphs: [
+          "A diff checker is an essential developer utility that compares two blocks of text, code files, or data structures to identify differences. By highlighting additions, deletions, and line-level changes, it allows programmers, writers, and editors to instantly audit modifications between different document versions.",
+          "Our interactive workspace supports both a Split (Side-by-Side) View and a Unified (Inline) View, providing high-contrast red and green highlights for changed segments down to individual characters and words."
+        ]
+      },
+      {
+        heading: "Features of the Professional Diff Engine",
+        paragraphs: [
+          "This local-first diffing tool is optimized for speed, precision, and privacy. Key features include:"
+        ],
+        listItems: [
+          "Split and Unified Views -- Toggle between horizontal columns with synchronized vertical scroll or a single integrated stream listing sequential additions and removals.",
+          "Token-Level Difference Highlighting -- Performs deep character-by-character analysis on modified rows to highlight exact edits (such as typos, variable name changes, or word swaps) in a darker shade.",
+          "Line and Character Limits -- Employs a high-performance Longest Common Subsequence (LCS) dynamic programming algorithm capped at 3,000 lines to prevent memory overhead and browser lag.",
+          "Quick Tool Actions -- Load local files (.txt, .md, .js, .ts, etc.) independently, swap left/right panes, or paste a built-in comparison example to test features.",
+          "Privacy First Architecture -- All data compares 100% locally in your browser memory on your CPU. No files or strings ever upload to any remote server, ensuring complete confidentiality."
+        ]
+      },
+      {
+        heading: "How to Compare Text & Code Locally",
+        paragraphs: [
+          "To begin auditing your text blocks:"
+        ],
+        listItems: [
+          "Select 'Edit Inputs' to open the original (left) and modified (right) text panes.",
+          "Paste your text directly, drag and drop files from your desktop, or click 'Load File' to import documents.",
+          "Click the 'Compare Differences' button to process the changes.",
+          "Switch between 'Split View' (horizontal scroll sync) and 'Unified View' (inline stream) to review findings.",
+          "Inspect the statistics bar to view total additions, deletions, and unchanged lines."
+        ]
+      }
+    ]
   },
   "word-counter": {
     title: "Word Counter Pro: Free Client-Side Character & Line Analyzer",

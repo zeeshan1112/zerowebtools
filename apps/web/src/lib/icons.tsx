@@ -91,6 +91,12 @@ export function getToolIcon(id: string): React.ReactNode {
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5M3 9h18M3 15h18" />
         </svg>
       );
+    case "diff-checker":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 4.5v15m6-15H9m6 0a2 2 0 012 2v11a2 2 0 01-2 2h-6a2 2 0 01-2-2V6.5a2 2 0 012-2zm-6 0H5a2 2 0 00-2 2v11a2 2 0 002 2h1" />
+        </svg>
+      );
     case "word-counter":
       return (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>

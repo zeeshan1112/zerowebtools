@@ -74,6 +74,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Encode and decode Base64 instantly — free and private. Convert text or files to and from Base64 right in your browser. No server uploads.",
       },
+      {
+        id: "diff-checker",
+        title: "Side-by-Side Diff Checker",
+        description: "Compare two text blocks or code files side-by-side or inline to highlight additions, deletions, and character modifications.",
+        status: "live",
+        metaDescription: "Compare two text files side-by-side or inline to highlight additions, deletions, and character modifications in real time. 100% private and client-side.",
+      },
     ],
   },
   {

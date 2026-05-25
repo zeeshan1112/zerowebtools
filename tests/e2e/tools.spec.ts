@@ -357,4 +357,47 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
       fs.unlinkSync(dummyTextFixturePath);
     }
   });
+
+  test("18. Side-by-Side Diff Checker - Interactive comparison & View Switcher & Swap", async ({ page }) => {
+    await page.goto("/tools/diff-checker");
+    await expect(page.locator("h1")).toContainText("Side-by-Side Diff Checker");
+
+    // Load example comparison
+    await page.click('button:has-text("Load Example")');
+
+    const originalInput = page.locator("textarea#original-text-input");
+    const modifiedInput = page.locator("textarea#modified-text-input");
+
+    await expect(originalInput).toContainText("ZeroWebTools is a collection of high-traffic web tools.");
+    await expect(modifiedInput).toContainText("ZeroWebTools is a premium suite of high-traffic tools.");
+
+    // Trigger Comparison
+    await page.click('button:has-text("Compare Differences")');
+
+    // Wait for the processing overlay to finish
+    await expect(page.locator("text=Comparing source files...")).not.toBeVisible({ timeout: 5000 });
+
+    // Assert that we are in the diff results tab
+    await expect(page.locator("text=additions").first()).toBeVisible();
+    await expect(page.locator("text=deletions").first()).toBeVisible();
+    await expect(page.locator("text=unchanged").first()).toBeVisible();
+
+    // Verify Split View is shown by default
+    await expect(page.locator("text=Original (Left)").first()).toBeVisible();
+    await expect(page.locator("text=Modified (Right)").first()).toBeVisible();
+
+    // Toggle to Unified View
+    await page.click('button:has-text("Unified")');
+    await expect(page.locator("text=Unified Diff View")).toBeVisible();
+
+    // Go back to Edit
+    await page.click('button:has-text("Back to Edit")');
+    await expect(originalInput).toBeVisible();
+
+    // Test Swap Panes
+    await page.click('button:has-text("Swap Panes")');
+    await expect(originalInput).toContainText("ZeroWebTools is a premium suite of high-traffic tools.");
+    await expect(modifiedInput).toContainText("ZeroWebTools is a collection of high-traffic web tools.");
+  });
 });
+
