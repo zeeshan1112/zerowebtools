@@ -12,6 +12,7 @@ import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
 import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import Base64Workspace from "@/components/Base64Workspace";
+import TextCounterWorkspace from "@/components/TextCounterWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -97,6 +98,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "saas-mrr": SaasMrrWorkspace,
   "startup-equity": StartupEquityWorkspace,
   "base64-encoder": Base64Workspace,
+  "word-counter": TextCounterWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
@@ -129,6 +131,43 @@ const TOOL_ARTICLES: Record<
         paragraphs: [
           "Many online conversion tools upload your data to their web servers for processing, posing a serious privacy risk for private keys, credentials, or sensitive files.",
           "ZeroWebTools guarantees absolute privacy. All encoding and decoding operations execute inside your browser's JavaScript environment on your local CPU. Your text and files never touch our servers or the network, allowing you to use this tool offline and with complete peace of mind.",
+        ],
+      },
+    ],
+  },
+  "word-counter": {
+    title: "Word Counter Pro: Free Client-Side Character & Line Analyzer",
+    sections: [
+      {
+        heading: "A Privacy-First Character & Word Counter",
+        paragraphs: [
+          "ZeroWebTools Word Counter Pro is an advanced writing and analysis workspace designed to run entirely locally in your browser. Whether you are writing a blog post, formatting an academic paper, or drafting social media posts, you can analyze your text without sending a single byte of your content to a remote server.",
+        ],
+      },
+      {
+        heading: "Features of the Professional Text Analyzer",
+        paragraphs: [
+          "This utility parses text and calculates structural metrics in real-time. It covers key specifications required by copywriters, developers, and editors:",
+        ],
+        listItems: [
+          "Real-Time Statistics -- Automatically updates word count, character count (with/without spaces), sentence count, paragraph count, and line count.",
+          "Estimated Reading & Speaking Times -- Calculates dynamic read time (estimated at 200 words per minute) and speech narration time (estimated at 130 words per minute).",
+          "SEO Keyword Density Matrix -- Extracts the top 10 most frequent words in your document and computes their density percentages. Includes a toggle to skip common English stop words to reveal actual topical keywords.",
+          "Case Transformation Utilities -- Instantly convert text cases between UPPERCASE, lowercase, Title Case, and Sentence case with a single click.",
+          "Local File Import -- Load text-based files (.txt, .md, .csv, .json, and code files) directly from your device.",
+        ],
+      },
+      {
+        heading: "How to Use Word Counter Pro",
+        paragraphs: [
+          "Getting started is simple:",
+        ],
+        listItems: [
+          "Type or paste your text into the editor area above, or click 'Load File' to import a document from your computer.",
+          "Look at the metrics grid immediately below the editor to inspect words, characters, sentences, paragraphs, and lines.",
+          "Check the estimated reading and speaking times to see how long it will take to read silently or narrate aloud.",
+          "Inspect the SEO Keyword Density table on the right to optimize your content keywords.",
+          "Use the transform buttons above the editor to convert text capitalization.",
         ],
       },
     ],

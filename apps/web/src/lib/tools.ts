@@ -60,6 +60,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Encode and decode Base64 instantly — free and private. Convert text or files to and from Base64 right in your browser. No server uploads.",
       },
+      {
+        id: "word-counter",
+        title: "Word Counter Pro",
+        description: "Count words, characters, sentences, and paragraphs in real-time, plus keyword density analysis.",
+        status: "live",
+        metaDescription: "Free client-side word and character counter. Analyze reading time, speaking time, lines, sentences, and keyword density. 100% private.",
+      },
     ],
   },
   {
