@@ -20,38 +20,68 @@
 
 ## 🛠️ The Tool Suite
 
-### PDF Suite Pro (11 tools)
-| Tool | What It Does |
-|------|-------------|
-| **Merge PDF** | Combine multiple PDFs into a single document with drag-and-drop reordering |
-| **Split PDF** | Extract specific pages or split ranges cleanly into new documents |
-| **Compress PDF** | Reduce file size up to 90% with three compression levels |
-| **Rotate PDF** | Rotate pages by 90, 180, or 270 degrees |
-| **PDF to JPG** | Render PDF pages as high-resolution JPEG images |
-| **JPG to PDF** | Combine images into a PDF with adjustable page size and margins |
-| **Protect PDF** | Add 128-bit password encryption and permission locks |
-| **Unlock PDF** | Remove password protection from files you own |
-| **Organize PDF** | Drag-and-drop page reorder, rotation, and deletion |
-| **Watermark PDF** | Stamp custom text (CONFIDENTIAL, DRAFT) with opacity, scale, and angle controls |
-| **Page Numbers** | Insert page numbers with custom position, font, and formatting |
+### PDF Suite Pro (14 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **Merge PDF** | [Try Live](https://zerowebtools.com/tools/pdf-merge) | Combine multiple PDFs into a single document with drag-and-drop reordering |
+| **Split PDF** | [Try Live](https://zerowebtools.com/tools/pdf-split) | Extract specific pages or split ranges cleanly into new documents |
+| **Compress PDF** | [Try Live](https://zerowebtools.com/tools/pdf-compress) | Reduce file size up to 90% with three compression levels |
+| **Rotate PDF** | [Try Live](https://zerowebtools.com/tools/pdf-rotate) | Rotate pages by 90, 180, or 270 degrees |
+| **PDF to JPG** | [Try Live](https://zerowebtools.com/tools/pdf-to-jpg) | Render PDF pages as high-resolution JPEG images |
+| **JPG to PDF** | [Try Live](https://zerowebtools.com/tools/jpg-to-pdf) | Combine images into a PDF with adjustable page size and margins |
+| **Protect PDF** | [Try Live](https://zerowebtools.com/tools/pdf-protect) | Add 128-bit password encryption and permission locks |
+| **Unlock PDF** | [Try Live](https://zerowebtools.com/tools/pdf-unlock) | Remove password protection from files you own |
+| **Organize PDF** | [Try Live](https://zerowebtools.com/tools/pdf-organize) | Drag-and-drop page reorder, rotation, and deletion |
+| **Watermark PDF** | [Try Live](https://zerowebtools.com/tools/pdf-watermark) | Stamp custom text (CONFIDENTIAL, DRAFT) with opacity, scale, and angle controls |
+| **Page Numbers** | [Try Live](https://zerowebtools.com/tools/pdf-page-numbers) | Insert page numbers with custom position, font, and formatting |
+| **Sign PDF** | [Try Live](https://zerowebtools.com/tools/pdf-sign) | Draw, type, or upload a signature to sign PDF pages locally with drag-and-drop scaling |
+| **Crop PDF & Page Resize** | [Try Live](https://zerowebtools.com/tools/pdf-crop) | Crop PDF margins and resize pages to standard layouts (A4, Letter, Legal) |
+| **PDF to Text Extractor** | [Try Live](https://zerowebtools.com/tools/pdf-to-text) | Extract raw text streams and rebuild structured page layouts locally |
 
-### Developer Utilities
-| Tool | What It Does |
-|------|-------------|
-| **JSON Formatter** | Validate, beautify, minify, and explore JSON with a live tree view and syntax highlighting |
-| **Case Converter** | Transform between camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE |
+### Developer Utilities (12 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **JSON Formatter** | [Try Live](https://zerowebtools.com/tools/json-formatter) | Validate, format, beautify, and explore JSON with a live tree view |
+| **Base64 Cipher Modeler** | [Try Live](https://zerowebtools.com/tools/base64-encoder) | Encode text or files to Base64 and decode them back to readable format |
+| **Side-by-Side Diff Checker** | [Try Live](https://zerowebtools.com/tools/diff-checker) | Compare two text blocks or code files to highlight modifications side-by-side |
+| **JWT Debugger & Decoder** | [Try Live](https://zerowebtools.com/tools/jwt-debugger) | Decode, parse, and validate JSON Web Tokens (JWT) header, payload, and signatures |
+| **URL Encoder/Decoder** | [Try Live](https://zerowebtools.com/tools/url-encoder) | Percent-encode/decode strings and edit query parameters interactively in a grid |
+| **Interactive Regex Tester** | [Try Live](https://zerowebtools.com/tools/regex-tester) | Test regular expressions, highlight matches, and check capturing groups |
+| **SQL Formatter & Beautifier** | [Try Live](https://zerowebtools.com/tools/sql-formatter) | Format, beautify, clean indentation, and capitalize SQL dialect statements |
+| **Client-Side File Hasher** | [Try Live](https://zerowebtools.com/tools/file-hasher) | Calculate MD5, SHA-1, SHA-256, and SHA-512 cryptographic checksum digests |
+| **Password Strength & Generator** | [Try Live](https://zerowebtools.com/tools/password-generator) | Generate secure random passwords and calculate cryptographic entropy strength |
+| **CSS Box Shadow Generator** | [Try Live](https://zerowebtools.com/tools/css-box-shadow) | Generate CSS box shadows visually with real-time preview and inset options |
+| **Unix Timestamp Converter** | [Try Live](https://zerowebtools.com/tools/unix-timestamp-converter) | Convert Unix epoch timestamps to human-readable dates (UTC/local) and vice versa |
+| **Cron Expression Generator** | [Try Live](https://zerowebtools.com/tools/cron-generator) | Build cron schedule expressions visually or parse raw cron expressions |
 
-### Creative & Format Tools
-| Tool | What It Does |
-|------|-------------|
-| **HEIC Converter** | Convert Apple HEIC photos to JPG or PNG with batch upload and ZIP download |
-| **Bulk Image Resizer** | Resize, compress, and convert multiple images at once *(coming soon)* |
+### Creative & Image Tools (5 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **HEIC Photo Converter** | [Try Live](https://zerowebtools.com/tools/heic-to-jpg) | Convert Apple HEIC photos to standard JPG or PNG format in batch |
+| **Bulk Image Resizer & Compressor** | [Try Live](https://zerowebtools.com/tools/bulk-image-resizer) | Resize, compress, and convert multiple images in batch with ZIP download |
+| **Visual Image Cropper** | [Try Live](https://zerowebtools.com/tools/image-cropper) | Crop images visually to standard aspect ratios or circular profile formats |
+| **SVG Minifier & Cleaner** | [Try Live](https://zerowebtools.com/tools/svg-minifier) | Minify and optimize vector SVG markup by stripping comments and namespaces |
+| **QR Code Generator & Customizer** | [Try Live](https://zerowebtools.com/tools/qr-code-generator) | Generate customizable QR codes with custom colors and center logo overlays |
 
-### Growth & Financial Modelers
-| Tool | What It Does |
-|------|-------------|
-| **SaaS MRR Projections** | Forecast monthly recurring revenue, churn, and customer lifetime value with interactive charts |
-| **Equity Vesting Modeler** | Calculate employee option vesting schedules, dilution curves, and stock valuations |
+### Writing & Content Utilities (6 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **Word Counter Pro** | [Try Live](https://zerowebtools.com/tools/word-counter) | Count words, characters, sentences, paragraphs, and analyze density & reading time |
+| **Case Converter** | [Try Live](https://zerowebtools.com/tools/case-converter) | Transform naming conventions between camelCase, snake_case, kebab-case, PascalCase |
+| **Universal Text Cleaner** | [Try Live](https://zerowebtools.com/tools/text-cleaner) | Clean spaces, deduplicate lines, remove empty lines, strip HTML, and sort lists |
+| **Voice Dictator & Reader** | [Try Live](https://zerowebtools.com/tools/voice-dictator) | Dictate speech to text and narrate text to speech offline using native Speech APIs |
+| **Markdown ↔ HTML Converter** | [Try Live](https://zerowebtools.com/tools/markdown-converter) | Convert Markdown markup to HTML and vice versa in real time with preview |
+| **List Shuffler & Random Picker** | [Try Live](https://zerowebtools.com/tools/random-picker) | Shuffle lists, draw random items, pick names, or choose raffle winners |
+
+### Financial & Growth Modelers (6 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **SaaS MRR Projections** | [Try Live](https://zerowebtools.com/tools/saas-mrr) | Forecast monthly recurring revenue, churn, and LTV with interactive charts |
+| **Equity Vesting Modeler** | [Try Live](https://zerowebtools.com/tools/startup-equity) | Calculate employee option vesting schedules, valuations, and founder dilution curves |
+| **Mortgage & Loan Amortization** | [Try Live](https://zerowebtools.com/tools/mortgage-calculator) | Calculate payments and principal vs interest amortization schedules |
+| **Startup Cap Table Modeler** | [Try Live](https://zerowebtools.com/tools/cap-table) | Model stock option pool dilutive rounds and share pricing dilution schedules |
+| **SaaS CAC & LTV Retention** | [Try Live](https://zerowebtools.com/tools/saas-ltv) | Forecast LTV:CAC efficiency, payback periods, and cohort decay curves |
+| **Break-Even Point Calculator** | [Try Live](https://zerowebtools.com/tools/break-even) | Model fixed vs variable costs, contribution margins, and break-even points |
 
 ---
 
