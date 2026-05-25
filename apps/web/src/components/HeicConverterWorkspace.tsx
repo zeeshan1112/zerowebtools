@@ -45,13 +45,8 @@ let heicToPromise: Promise<HeicToFn> | null = null;
 async function getHeicToConverter(): Promise<HeicToFn> {
   if (!heicToPromise) {
     heicToPromise = (async () => {
-      const url = "https://cdn.jsdelivr.net/npm/heic-to@1.4.3/dist/csp/heic-to.js";
       // @ts-ignore
-      const mod: { heicTo?: HeicToFn; default?: HeicToFn } = await import(
-        /* webpackIgnore: true */
-        // @ts-ignore
-        url
-      );
+      const mod: { heicTo?: HeicToFn; default?: HeicToFn } = await import("heic-to/csp");
       const fn = mod.heicTo || mod.default;
       if (!fn) throw new Error("heic-to module loaded but no converter function found");
       return fn;

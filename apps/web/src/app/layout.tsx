@@ -15,7 +15,13 @@ export const metadata: Metadata = {
     "Free, instant, and 100% private web tools — PDF editor, HEIC converter, JSON formatter, SaaS growth modeler, and more. No signup, no server uploads. Everything runs in your browser.",
   metadataBase: new URL("https://zerowebtools.com"),
   icons: {
-    icon: "/logo.png",
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-144x144.png", sizes: "144x144", type: "image/png" },
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/logo.png",
   },
   openGraph: {

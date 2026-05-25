@@ -187,7 +187,7 @@ export default function ArticleBlock({ title, sections }: ArticleBlockProps) {
             >
               {feedback === "yes"
                 ? "Awesome! Thank you for the positive feedback. It fuels our development!"
-                : "Thank you for letting us know! We will evaluate updates for this workspace."}
+                : "Thank you for letting us know! We will evaluate updates for this tool."}
             </motion.div>
           )}
         </AnimatePresence>

@@ -11,6 +11,33 @@ import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWor
 import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
 import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
+import Base64Workspace from "@/components/Base64Workspace";
+import TextCounterWorkspace from "@/components/TextCounterWorkspace";
+import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
+import JwtDebuggerWorkspace from "@/components/JwtDebuggerWorkspace";
+import UrlEncoderWorkspace from "@/components/UrlEncoderWorkspace";
+import TextCleanerWorkspace from "@/components/TextCleanerWorkspace";
+import PdfSignWorkspace from "@/components/PdfSignWorkspace";
+import PdfCropWorkspace from "@/components/PdfCropWorkspace";
+import PdfToTextWorkspace from "@/components/PdfToTextWorkspace";
+import BulkImageResizerWorkspace from "@/components/BulkImageResizerWorkspace";
+import ImageCropperWorkspace from "@/components/ImageCropperWorkspace";
+import SvgMinifierWorkspace from "@/components/SvgMinifierWorkspace";
+import MortgageCalculatorWorkspace from "@/components/MortgageCalculatorWorkspace";
+import CapTableWorkspace from "@/components/CapTableWorkspace";
+import SaasLtvWorkspace from "@/components/SaasLtvWorkspace";
+import BreakEvenWorkspace from "@/components/BreakEvenWorkspace";
+import RegexTesterWorkspace from "@/components/RegexTesterWorkspace";
+import SqlFormatterWorkspace from "@/components/SqlFormatterWorkspace";
+import FileHasherWorkspace from "@/components/FileHasherWorkspace";
+import PasswordGeneratorWorkspace from "@/components/PasswordGeneratorWorkspace";
+import VoiceDictatorWorkspace from "@/components/VoiceDictatorWorkspace";
+import MarkdownConverterWorkspace from "@/components/MarkdownConverterWorkspace";
+import RandomPickerWorkspace from "@/components/RandomPickerWorkspace";
+import QrCodeWorkspace from "@/components/QrCodeWorkspace";
+import BoxShadowWorkspace from "@/components/BoxShadowWorkspace";
+import UnixTimestampWorkspace from "@/components/UnixTimestampWorkspace";
+import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -95,12 +122,222 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "pdf-unlock": UnlockPDFWorkspace,
   "saas-mrr": SaasMrrWorkspace,
   "startup-equity": StartupEquityWorkspace,
+  "base64-encoder": Base64Workspace,
+  "word-counter": TextCounterWorkspace,
+  "diff-checker": DiffCheckerWorkspace,
+  "jwt-debugger": JwtDebuggerWorkspace,
+  "url-encoder": UrlEncoderWorkspace,
+  "text-cleaner": TextCleanerWorkspace,
+  "pdf-sign": PdfSignWorkspace,
+  "pdf-crop": PdfCropWorkspace,
+  "pdf-to-text": PdfToTextWorkspace,
+  "bulk-image-resizer": BulkImageResizerWorkspace,
+  "image-cropper": ImageCropperWorkspace,
+  "svg-minifier": SvgMinifierWorkspace,
+  "mortgage-calculator": MortgageCalculatorWorkspace,
+  "cap-table": CapTableWorkspace,
+  "saas-ltv": SaasLtvWorkspace,
+  "break-even": BreakEvenWorkspace,
+  "regex-tester": RegexTesterWorkspace,
+  "sql-formatter": SqlFormatterWorkspace,
+  "file-hasher": FileHasherWorkspace,
+  "password-generator": PasswordGeneratorWorkspace,
+  "voice-dictator": VoiceDictatorWorkspace,
+  "markdown-converter": MarkdownConverterWorkspace,
+  "random-picker": RandomPickerWorkspace,
+  "qr-code-generator": QrCodeWorkspace,
+  "css-box-shadow": BoxShadowWorkspace,
+  "unix-timestamp-converter": UnixTimestampWorkspace,
+  "cron-generator": CronGeneratorWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
   string,
   { title: string; sections: { heading: string; level?: "h2" | "h3"; paragraphs?: string[]; listItems?: string[] }[] }
 > = {
+  "jwt-debugger": {
+    title: "JWT Debugger & Decoder: Verify and Inspect JSON Web Tokens Locally",
+    sections: [
+      {
+        heading: "What is a JSON Web Token (JWT)?",
+        paragraphs: [
+          "JSON Web Tokens (JWT) are an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.",
+          "A typical JWT contains three parts separated by dots: Header, Payload, and Signature. Because these segments are Base64Url encoded, they look like a random block of text until they are decoded."
+        ]
+      },
+      {
+        heading: "Inspect JWT Header & Claims Instantly",
+        paragraphs: [
+          "Our local JWT Debugger decodes any standard token instantly, rendering structured, editable fields in raw JSON formatting:"
+        ],
+        listItems: [
+          "Header -- Decodes details about the algorithm used (e.g. HS256, RS256) and the type of token.",
+          "Payload Claims -- Decodes the statement details containing data claims like Subject (sub), Issuer (iss), Issue Time (iat), and Expiry Time (exp). Also maps any custom variables added by authentication libraries (like Auth0, Firebase, or custom backends).",
+          "Signature -- Inspects the cryptographic signature block at the tail of the token.",
+          "Claims Status Alerts -- Displays expiration indicators, warnings, and local time conversions."
+        ]
+      },
+      {
+        heading: "100% Client-Side Privacy Protection",
+        paragraphs: [
+          "Security is key when analyzing authentication tokens, as payload strings often contain sensitive user emails, account IDs, security roles, and scopes.",
+          "ZeroWebTools guarantees that all decoding operations execute directly in your browser's JavaScript engine on your device. No tokens or payloads are ever uploaded to a server, keeping your session credentials entirely secure."
+        ]
+      }
+    ]
+  },
+  "url-encoder": {
+    title: "URL Encoder & Decoder: Parse and Edit Query Parameters Visually",
+    sections: [
+      {
+        heading: "Understanding URL Encoding (Percent-Encoding)",
+        paragraphs: [
+          "URL encoding converts characters into a format that can be safely transmitted over the Internet. URLs can only contain a limited set of characters from the US-ASCII character set. Non-safe characters are replaced with a '%' followed by two hexadecimal digits.",
+          "For example, spaces are encoded as %20 (or + in query strings), and special characters like slashes, question marks, and ampersands must be encoded to preserve boundaries between parameters."
+        ]
+      },
+      {
+        heading: "Query Parameter Grid Editor",
+        paragraphs: [
+          "Unlike traditional encoders that just output a single long percent-encoded string, this utility features a visual query parameter grid:"
+        ],
+        listItems: [
+          "Input URL Parser -- Automatically splits a pasted URL into its Base Path and separate query key-value segments.",
+          "Interactive Edit Grid -- Edit, add, or delete query parameter values. Changes immediately re-encode and update the raw URL.",
+          "Encoder / Decoder Toggle -- Switch modes between encoding plain text into percent-notation or decoding percent-strings into readable strings.",
+          "Single-Click Copy -- Quickly copy the re-assembled and encoded URL to your clipboard."
+        ]
+      }
+    ]
+  },
+  "text-cleaner": {
+    title: "Universal Text Cleaner: Format, Sort, and Search-and-Replace Text Lists",
+    sections: [
+      {
+        heading: "Optimize and Clean Text Blocks Offline",
+        paragraphs: [
+          "Writers, researchers, and database administrators regularly need to clean and standardize messy text lists or document segments. Doing this manually is time-consuming and error-prone.",
+          "The Universal Text Cleaner collects common list sanitization operations into a single-click local console. You can sequence cleanups, sort lists, and run search-and-replace queries without sending your texts to third-party servers."
+        ]
+      },
+      {
+        heading: "Interactive Sanitize & Clean Options",
+        listItems: [
+          "Trim & Collapse Spaces -- Strips leading/trailing line spacing and reduces double or triple internal spaces into a single space.",
+          "Remove Duplicates -- Filters out duplicate lines from list content, keeping only the first unique instance.",
+          "Remove Empty Lines -- Instantly deletes blank lines or lines containing only whitespaces.",
+          "Strip HTML Tags -- Removes HTML markup code, extracting raw text contents from rich formatting.",
+          "Structured Sorting -- Sorts lines alphabetically, numerically (extracting numbers from lines), or by string length, in ascending or descending direction.",
+          "Find and Replace Console -- Supports literal string changes or regular expression (regex) search patterns with case-insensitivity flags."
+        ]
+      }
+    ]
+  },
+  "base64-encoder": {
+    title: "Base64 Encoder & Decoder: Convert Text and Files Locally",
+    sections: [
+      {
+        heading: "What is Base64 Encoding?",
+        paragraphs: [
+          "Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. By translating data into 64 safe characters (A-Z, a-z, 0-9, +, /), Base64 ensures that information remains intact without modification during transit over transport layers that are designed to handle text, such as email (MIME) or XML/HTML documents.",
+          "It is widely used to embed raw images directly in CSS or HTML, transmit data in Web APIs, and represent binary data in simple text environments.",
+        ],
+      },
+      {
+        heading: "How to Encode and Decode Client-Side",
+        paragraphs: [
+          "Our tool runs entirely client-side in your browser, enabling you to process both text and files without uploading anything to a remote server.",
+        ],
+        listItems: [
+          "Text to Base64: Enter standard UTF-8 text (including emojis or non-ASCII characters) and copy the encoded output.",
+          "Base64 to Text: Paste your Base64 string to instantly decode it back to readable text. The utility includes automatic format verification and padding checks.",
+          "File to Base64: Drag and drop any file (like an image, PDF, or document) to output its Base64 Data URL, ready to copy and use directly in code.",
+        ],
+      },
+      {
+        heading: "100% Secure & Offline-First Privacy",
+        paragraphs: [
+          "Many online conversion tools upload your data to their web servers for processing, posing a serious privacy risk for private keys, credentials, or sensitive files.",
+          "ZeroWebTools guarantees absolute privacy. All encoding and decoding operations execute inside your browser's JavaScript environment on your local CPU. Your text and files never touch our servers or the network, allowing you to use this tool offline and with complete peace of mind.",
+        ],
+      },
+    ],
+  },
+  "diff-checker": {
+    title: "Side-by-Side Diff Checker: Compare Text and Code Files Locally",
+    sections: [
+      {
+        heading: "What is a Side-by-Side Diff Checker?",
+        paragraphs: [
+          "A diff checker is an essential developer utility that compares two blocks of text, code files, or data structures to identify differences. By highlighting additions, deletions, and line-level changes, it allows programmers, writers, and editors to instantly audit modifications between different document versions.",
+          "Our interactive workspace supports both a Split (Side-by-Side) View and a Unified (Inline) View, providing high-contrast red and green highlights for changed segments down to individual characters and words."
+        ]
+      },
+      {
+        heading: "Features of the Professional Diff Engine",
+        paragraphs: [
+          "This local-first diffing tool is optimized for speed, precision, and privacy. Key features include:"
+        ],
+        listItems: [
+          "Split and Unified Views -- Toggle between horizontal columns with synchronized vertical scroll or a single integrated stream listing sequential additions and removals.",
+          "Token-Level Difference Highlighting -- Performs deep character-by-character analysis on modified rows to highlight exact edits (such as typos, variable name changes, or word swaps) in a darker shade.",
+          "Line and Character Limits -- Employs a high-performance Longest Common Subsequence (LCS) dynamic programming algorithm capped at 3,000 lines to prevent memory overhead and browser lag.",
+          "Quick Tool Actions -- Load local files (.txt, .md, .js, .ts, etc.) independently, swap left/right panes, or paste a built-in comparison example to test features.",
+          "Privacy First Architecture -- All data compares 100% locally in your browser memory on your CPU. No files or strings ever upload to any remote server, ensuring complete confidentiality."
+        ]
+      },
+      {
+        heading: "How to Compare Text & Code Locally",
+        paragraphs: [
+          "To begin auditing your text blocks:"
+        ],
+        listItems: [
+          "Select 'Edit Inputs' to open the original (left) and modified (right) text panes.",
+          "Paste your text directly, drag and drop files from your desktop, or click 'Load File' to import documents.",
+          "Click the 'Compare Differences' button to process the changes.",
+          "Switch between 'Split View' (horizontal scroll sync) and 'Unified View' (inline stream) to review findings.",
+          "Inspect the statistics bar to view total additions, deletions, and unchanged lines."
+        ]
+      }
+    ]
+  },
+  "word-counter": {
+    title: "Word Counter Pro: Free Client-Side Character & Line Analyzer",
+    sections: [
+      {
+        heading: "A Privacy-First Character & Word Counter",
+        paragraphs: [
+          "ZeroWebTools Word Counter Pro is an advanced writing and analysis workspace designed to run entirely locally in your browser. Whether you are writing a blog post, formatting an academic paper, or drafting social media posts, you can analyze your text without sending a single byte of your content to a remote server.",
+        ],
+      },
+      {
+        heading: "Features of the Professional Text Analyzer",
+        paragraphs: [
+          "This utility parses text and calculates structural metrics in real-time. It covers key specifications required by copywriters, developers, and editors:",
+        ],
+        listItems: [
+          "Real-Time Statistics -- Automatically updates word count, character count (with/without spaces), sentence count, paragraph count, and line count.",
+          "Estimated Reading & Speaking Times -- Calculates dynamic read time (estimated at 200 words per minute) and speech narration time (estimated at 130 words per minute).",
+          "SEO Keyword Density Matrix -- Extracts the top 10 most frequent words in your document and computes their density percentages. Includes a toggle to skip common English stop words to reveal actual topical keywords.",
+          "Case Transformation Utilities -- Instantly convert text cases between UPPERCASE, lowercase, Title Case, and Sentence case with a single click.",
+          "Local File Import -- Load text-based files (.txt, .md, .csv, .json, and code files) directly from your device.",
+        ],
+      },
+      {
+        heading: "How to Use Word Counter Pro",
+        paragraphs: [
+          "Getting started is simple:",
+        ],
+        listItems: [
+          "Type or paste your text into the editor area above, or click 'Load File' to import a document from your computer.",
+          "Look at the metrics grid immediately below the editor to inspect words, characters, sentences, paragraphs, and lines.",
+          "Check the estimated reading and speaking times to see how long it will take to read silently or narrate aloud.",
+          "Inspect the SEO Keyword Density table on the right to optimize your content keywords.",
+          "Use the transform buttons above the editor to convert text capitalization.",
+        ],
+      },
+    ],
+  },
   "json-formatter": {
     title: "JSON Viewer & Formatter: Parse, Validate, and Explore JSON Data Online",
     sections: [
@@ -510,6 +747,415 @@ const TOOL_ARTICLES: Record<
         ],
       },
     ],
+  },
+  "pdf-sign": {
+    title: "Sign PDF Online: Draw, Type, and Place Digital Signatures Locally",
+    sections: [
+      {
+        heading: "Securely Sign PDF Documents Offline",
+        paragraphs: [
+          "Signing PDF documents is a frequent necessity for professionals, freelancers, and businesses. Standard online PDF signing solutions require you to upload private contracts, agreements, or identification papers to remote servers, risking data leaks or policy violations.",
+          "ZeroWebTools Sign PDF operates 100% locally in your browser. All visual overlays, typing renders, and signature embeds are processed on your local CPU. Your sensitive documents never leave your device."
+        ]
+      },
+      {
+        heading: "Three Visual Signature Modes",
+        paragraphs: [
+          "Choose the signing workflow that fits your needs:"
+        ],
+        listItems: [
+          "Draw Signature -- Use your mouse, trackpad, or touchscreen to draw a natural signature directly on our visual pad.",
+          "Type Signature -- Enter your name and generate a clean cursive signature instantly.",
+          "Upload Image -- Import pre-scanned PNG/JPG signatures from your local drive."
+        ]
+      },
+      {
+        heading: "Interactive Drag-and-Drop Placement",
+        paragraphs: [
+          "Once your signature is ready, click to place it on the active PDF page. You can drag the signature overlay anywhere on the page canvas and resize it using visual bounding box handles to achieve a perfect fit. When you are ready, click Save Signed PDF to compile the pages together."
+        ]
+      }
+    ]
+  },
+  "pdf-crop": {
+    title: "PDF Crop & Page Resizer: Visual Margin Cropper & Layout Resizer",
+    sections: [
+      {
+        heading: "Visual PDF Crop Box Guidelines",
+        paragraphs: [
+          "Need to clean up scanned document margins, remove page numbers, or clip unwanted white space? Our visual cropper provides high-precision crop percentage sliders (Left, Right, Top, Bottom) with real-time bounding box borders rendered directly on your PDF pages.",
+          "You can adjust crop percentages dynamically and check results visually on the page preview before saving."
+        ]
+      },
+      {
+        heading: "Standardize Layouts to A4, Letter, and Legal",
+        paragraphs: [
+          "If you need to resize pages for printing or standardized filings, switch to the Page Resize tab. Instantly convert PDF pages to standard paper formats (A4, US Letter, US Legal) or input custom coordinate points (in pt) directly. Sizing adjustments occur instantly in browser memory."
+        ]
+      }
+    ]
+  },
+  "pdf-to-text": {
+    title: "PDF to Text Extractor: Layout-Preserving Client-Side Text Parsing",
+    sections: [
+      {
+        heading: "Extract Raw Text Streams Locally",
+        paragraphs: [
+          "Copying text out of PDF files can be extremely frustrating, especially when layouts contain multiple columns, tables, or complex grids. Standard copying often mixes lines up and destroys tabular formats.",
+          "Our local PDF to Text Extractor runs a layout-reconstruction sorting algorithm in-browser, grouping text segments within vertical coordinate ranges to preserve reading order."
+        ]
+      },
+      {
+        heading: "Reconstruct Row and Column Grids",
+        paragraphs: [
+          "Key features of the text extractor include:"
+        ],
+        listItems: [
+          "Heuristic Row Grouping -- Groups adjacent characters and words on the same Y-axis line within a 5pt vertical tolerance.",
+          "Left-to-Right Sorting -- Arranges columns and text boxes logically from left to right within each row.",
+          "Page Break Markers -- Option to insert visual markers separating extracted pages for clean multi-page document parsing.",
+          "Real-Time Stats -- Displays total extracted pages, word count, and character counts instantly."
+        ]
+      },
+    ]
+  },
+  "bulk-image-resizer": {
+    title: "Bulk Image Resizer & Compressor: Resize and Compress Multiple Images Locally",
+    sections: [
+      {
+        heading: "Secure Client-Side Bulk Image Processing",
+        paragraphs: [
+          "Processing batches of images for websites, newsletters, or online portals can be slow and risky when using typical cloud conversion sites. Sending personal photographs, proprietary designs, or client assets to remote servers leaves your data vulnerable.",
+          "Our Bulk Image Resizer and Compressor processes all files inside your browser on your local device. No files are uploaded to any server, guaranteeing 100% data privacy."
+        ]
+      },
+      {
+        heading: "Flexible Sizing and Compression Settings",
+        paragraphs: [
+          "Configure your image exports to match your precise requirements:"
+        ],
+        listItems: [
+          "Scale Percentage -- Instantly shrink files to 50%, 75%, or any scale ratio.",
+          "Custom Dimensions -- Input target Width and Height in pixels. Includes an option to maintain the image's original aspect ratio to prevent stretching.",
+          "Format Conversion -- Convert files to PNG, JPEG, or optimized WebP format.",
+          "Compression Quality -- Adjust quality levels to balance detail fidelity with file sizes."
+        ]
+      },
+      {
+        heading: "Download as ZIP Archive",
+        paragraphs: [
+          "When resizing multiple files, the tool compiles them into a single, clean ZIP folder using JSZip client-side. You can download all optimized files in a single click."
+        ]
+      }
+    ]
+  },
+  "image-cropper": {
+    title: "Visual Image Cropper: Crop Photos Client-Side with Standard Aspect Ratios",
+    sections: [
+      {
+        heading: "High-Performance Visual Cropper",
+        paragraphs: [
+          "Need to crop photos, adjust profiles, or prepare banners? Our Visual Image Cropper is fully client-side and offers visual overlay boundaries for precision slicing.",
+          "Drag the crop selection box and resize its bounding corners directly over your preview image. Slicing occurs locally using HTML5 Canvas rendering."
+        ]
+      },
+      {
+        heading: "Standard Aspect Ratio Presets",
+        paragraphs: [
+          "We support standard image dimensions to help you format assets correctly:"
+        ],
+        listItems: [
+          "Square (1:1) -- Ideal for profile pictures, avatars, and social media blocks.",
+          "Landscape (16:9) -- Perfect for video thumbnails, presentation slides, and web banners.",
+          "Standard (4:3) -- Useful for classic photos and media embeds.",
+          "Circle Profile -- Automatically clips corners to crop a circular avatar. Exports as a transparent PNG."
+        ]
+      }
+    ]
+  },
+  "svg-minifier": {
+    title: "SVG Minifier & Cleaner: Clean and Optimize Vector Markup Locally",
+    sections: [
+      {
+        heading: "Reduce Vector Code Sizes Offline",
+        paragraphs: [
+          "SVG vector files often contain large amounts of redundant metadata, editor-specific coordinates, namespaces, comments, and empty properties that bloat file size and slow down web page load speeds.",
+          "The SVG Minifier and Cleaner parses your XML markup locally and runs a series of optimization rules to sanitize the code, making SVGs up to 60% smaller without changing their visual rendering."
+        ]
+      },
+      {
+        heading: "Minification Rule Settings",
+        paragraphs: [
+          "Adjust your optimization rules using our simple toggles:"
+        ],
+        listItems: [
+          "Strip Comments: Removes unnecessary XML and developer comments.",
+          "Remove Metadata: Deletes namespaces and metadata blocks (like Sodipodi, Inkscape, or Adobe Illustrator tags).",
+          "Remove Editor Namespaces: Deletes prefix tags and editor configurations.",
+          "Collapse Spaces: Compresses whitespaces, newlines, and indentations into a single minified line.",
+          "Decimal Precision: Truncates coordinate values to a set number of decimal places (e.g. 2 digits) to save bandwidth."
+        ]
+      }
+    ]
+  },
+  "mortgage-calculator": {
+    title: "Mortgage & Loan Amortization Schedule: Calculate Principal and Interest Payments Locally",
+    sections: [
+      {
+        heading: "Model Loan Amortization Schedules Offline",
+        paragraphs: [
+          "Evaluating a home loan, commercial mortgage, or personal debt schedule involves reviewing complex interest compounding formulas. Sending your private loan calculations, property valuations, or net worth values to external servers poses a clear privacy risk.",
+          "Our Mortgage and Loan Amortization Calculator calculates monthly payments and aggregates principal vs interest breakdowns entirely client-side. No financial details or rates are uploaded, maintaining 100% data privacy."
+        ]
+      },
+      {
+        heading: "Features of the Amortization Scheduler",
+        paragraphs: [
+          "Use the loan planner to analyze debt repayments over time:"
+        ],
+        listItems: [
+          "Interactive Sliders -- Adjust Principal and Annual Interest Rates visually to check monthly payment updates.",
+          "Custom Term Sizing -- Model standard 10, 15, 20, or 30-year terms.",
+          "Stacked Bar Charts -- Review custom SVG-rendered bars illustrating interest decrease vs principal payoff over time.",
+          "Annual Breakdown Schedule -- Inspect a comprehensive year-by-year grid listing payments, principal paid, interest paid, and remaining balance."
+        ]
+      }
+    ]
+  },
+  "cap-table": {
+    title: "Startup Capitalization Table Modeler: Calculate Equity Dilution Rounds Locally",
+    sections: [
+      {
+        heading: "Equity Vesting & Dilution Math Offline",
+        paragraphs: [
+          "Startups raising venture capital rounds need to model share issuance, founder dilution, and option pool resizing. Keeping these calculations private is essential during investor negotiations.",
+          "This Capitalization Table Modeler runs in-browser, computing pre and post-round share pricing, investor allocations, and employee option pools with complete security. Your capitalization strategy remains confidential."
+        ]
+      },
+      {
+        heading: "Model Venture Funding Rounds",
+        paragraphs: [
+          "Configure and evaluate next-round equity distributions:"
+        ],
+        listItems: [
+          "Shareholder List -- Add founders or early employees with custom share allocations.",
+          "Investment & Valuation -- Input pre-money valuation parameters and target investment amounts.",
+          "Option Pool Allocation -- Dilute ownership to size employee option pools (post-money calculations).",
+          "Interactive Donut Chart -- Inspect visual SVG-rendered slices illustrating share percentages.",
+          "Dilution Matrix -- Analyze a before vs after table detailing shares, value, and ownership percentages."
+        ]
+      }
+    ]
+  },
+  "saas-ltv": {
+    title: "SaaS CAC & LTV Retention Modeler: Forecast Customer Lifetime Value and Payback Periods",
+    sections: [
+      {
+        heading: "Analyze Unit Economics Locally",
+        paragraphs: [
+          "A healthy SaaS growth engine relies on strong unit economics: Customer Acquisition Cost (CAC) and Customer Lifetime Value (LTV). Calculating these metrics helps founders and investors understand revenue retention health.",
+          "This SaaS CAC & LTV Modeler works entirely inside your browser CPU, calculating key metrics and plotting cohort decay lines without transmitting company data to remote servers."
+        ]
+      },
+      {
+        heading: "Key SaaS Growth Variables",
+        paragraphs: [
+          "Input your startup metrics to evaluate growth engine health:"
+        ],
+        listItems: [
+          "Customer Acquisition Cost (CAC) -- The average spend required to acquire a customer.",
+          "Average Revenue Per Account (ARPA) -- The average monthly spend per customer.",
+          "Gross Margin (%) -- Software delivery margin percent.",
+          "Monthly Churn Rate (%) -- The monthly percentage of customer churn.",
+          "LTV:CAC Health Rating -- Highlights if your growth engine meets the venture standard 3:1 LTV:CAC target."
+        ]
+      }
+    ]
+  },
+  "break-even": {
+    title: "Break-Even Point Calculator: Calculate Contribution Margins and Intersection Units",
+    sections: [
+      {
+        heading: "Contribution Margin & Break-Even Analysis",
+        paragraphs: [
+          "Determining when your business will become profitable is essential for pricing strategies and financial planning. Identifying fixed costs, variable costs, and selling prices helps compute the exact volume required to break even.",
+          "Our Break-Even Point Calculator runs offline in-browser, calculating break-even sales values, contribution margins, and rendering expense intersection line graphs with 100% local privacy."
+        ]
+      },
+      {
+        heading: "Financial Analysis Features",
+        paragraphs: [
+          "Model costs and sales volumes to find your profitability threshold:"
+        ],
+        listItems: [
+          "Break-Even Quantity -- The exact units needed to cover all expenses.",
+          "Break-Even Sales -- The revenue amount required to cover all expenses.",
+          "Contribution Margin -- Price per unit minus variable cost per unit.",
+          "Break-Even Intersection Chart -- Custom SVG-rendered line graph showing Fixed Costs, Total Costs, and Revenue lines with a highlighted blue break-even point."
+        ]
+      }
+    ]
+  },
+  "regex-tester": {
+    title: "Interactive Regex Tester: Match Highlighter and Capturing Groups Analyzer",
+    sections: [
+      {
+        heading: "Test and Debug Regular Expressions Locally",
+        paragraphs: [
+          "Writing and optimizing regular expressions (regex) can be complex and tedious. Standard online regex debuggers often require sending your patterns and data to remote servers, risking exposure of private text schemas, credentials, or proprietary search algorithms.",
+          "Our Interactive Regex Tester operates 100% locally in your browser. All pattern compilation, match highlighting, and group extractions are executed inside your browser tab on your local device."
+        ]
+      },
+      {
+        heading: "Features of the Regex Workspace",
+        paragraphs: [
+          "Use the sandbox to analyze expression structures:"
+        ],
+        listItems: [
+          "Interactive Pattern Box -- Enter patterns with custom flag configurations (Global g, Ignore Case i, Multiline m).",
+          "Match Highlighting -- Review matching sections highlighted in high-contrast visual backgrounds in real time.",
+          "Capturing Groups Table -- Inspect structured breakdowns listing exact characters matched by each capturing group parenthesis.",
+          "Cheat Sheet Card -- Check common regex syntax characters (e.g. \\d, \\w, \\s, anchors) for quick reference."
+        ]
+      }
+    ]
+  },
+  "sql-formatter": {
+    title: "SQL Formatter & Beautifier: Capitalize Keywords and Format Dialect Clauses",
+    sections: [
+      {
+        heading: "Clean and Beautify SQL Code Offline",
+        paragraphs: [
+          "Poorly formatted SQL statements with mixed casing, duplicate whitespaces, and unindented columns are difficult to audit and maintain. Uploading database queries containing proprietary table structures, column keys, or business logics to third-party formatters risks data exposures.",
+          "Our local SQL Formatter reformats and beautifies your SQL query scripts client-side. Your schema remains completely private."
+        ]
+      },
+      {
+        heading: "SQL Formatting Rules",
+        paragraphs: [
+          "The formatting engine standardizes SQL queries using clean structures:"
+        ],
+        listItems: [
+          "Keyword Capitalization -- Capitalizes standard SQL keywords (e.g. SELECT, FROM, WHERE, GROUP BY, ORDER BY, JOIN).",
+          "Indented Clauses -- Places major clauses on new lines and indents query lists for clear tabular scanning.",
+          "Operator Spacing -- Normalizes spacing around operators like =, !=, <, >, and commas."
+        ]
+      }
+    ]
+  },
+  "file-hasher": {
+    title: "Client-Side File Hasher: Generate MD5, SHA-1, SHA-256, and SHA-512 Checksums",
+    sections: [
+      {
+        heading: "Secure Local Checksum Hashing",
+        paragraphs: [
+          "Verifying download integrity or security states requires calculating cryptographic file hashes. Uploading large files to third-party web portals is extremely slow and exposes private binary data.",
+          "ZeroWebTools File Hasher processes files locally. It leverages the browser's high-speed Web Crypto API to generate SHA-1, SHA-256, and SHA-512 hashes. For MD5, it runs a self-contained in-memory algorithm on the CPU. Your files are never uploaded, keeping calculations secure and private."
+        ]
+      },
+      {
+        heading: "Supported Hashing Algorithms",
+        listItems: [
+          "MD5 checksum: Standard fast file signature.",
+          "SHA-1 digest: Secure legacy signature.",
+          "SHA-256 checksum: Modern secure cryptographic hash recommended for security checks.",
+          "SHA-512 checksum: Maximum strength cryptographic digest."
+        ]
+      }
+    ]
+  },
+  "password-generator": {
+    title: "Password Strength Meter & Generator: Create Secure Passwords Locally",
+    sections: [
+      {
+        heading: "Generate Random Passwords Privately",
+        paragraphs: [
+          "Using automated cloud tools to create login passwords poses a serious risk, as malicious generators might track or log the keys they deliver.",
+          "Our local Password Generator runs entirely offline in your browser. All randomization calculations use secure client-side seeds. The moment you close the tab, all generated memory is cleared."
+        ]
+      },
+      {
+        heading: "Entropy and Strength Meter",
+        paragraphs: [
+          "Create passwords with customized constraints and assess their strength:"
+        ],
+        listItems: [
+          "Length Settings -- Generate passwords from 6 up to 64 characters.",
+          "Character Constraints -- Toggle Uppercase, Lowercase, Numbers, and special Symbols.",
+          "Entropy Bit Rating -- View real-time entropy ratings (L * log2(Pool)).",
+          "Assessments Meter -- View visual color indicators assessing strength from Very Weak to Very Strong."
+        ]
+      }
+    ]
+  },
+  "voice-dictator": {
+    title: "Voice Dictator & Reader: Secure Offline Speech-to-Text and Text-to-Speech",
+    sections: [
+      {
+        heading: "Native In-Browser Speech Services",
+        paragraphs: [
+          "ZeroWebTools Voice Dictator and Reader utilizes native Web Speech APIs to perform speech-to-text dictation and text-to-speech reading. Because it hooks into your browser's local speech engines, your recorded audio and text scripts are never transmitted to external cloud servers.",
+          "Perfect for students, writers, and developers who need a private transcription workbench, this utility runs entirely client-side."
+        ]
+      },
+      {
+        heading: "Features and Settings",
+        paragraphs: [
+          "Enjoy rich browser capabilities without heavy installations:"
+        ],
+        listItems: [
+          "Local Speech Synthesis -- Choose from standard system voices and adjust playback speed and voice pitch dynamically.",
+          "Continuous Dictation -- Click the microphone to start transcribing spoken words into the editor instantly.",
+          "Secure Exports -- Download transcribed files as clean plain text (.txt) files locally."
+        ]
+      }
+    ]
+  },
+  "markdown-converter": {
+    title: "Markdown to HTML Converter: Real-Time Split Pane Markdown Previewer",
+    sections: [
+      {
+        heading: "Fast Client-Side Markdown Conversions",
+        paragraphs: [
+          "ZeroWebTools Markdown Converter translates markup syntax to HTML tags and vice versa in real time. It uses a lightweight, local regex compiler that executes instantly in your browser's Javascript engine.",
+          "Whether you are formatting files for blogs, preparing documentation, or cleaning up raw HTML streams, this utility guarantees 100% data privacy."
+        ]
+      },
+      {
+        heading: "Interactive Conversion Features",
+        paragraphs: [
+          "Convert and preview documents on the fly:"
+        ],
+        listItems: [
+          "Dual Conversion Direction -- Convert from Markdown to HTML or convert HTML back into raw Markdown text.",
+          "Live HTML Preview -- Review how your rendered headings, blockquotes, bold text, links, and code snippets look instantly.",
+          "Quick Copy & Export -- Copy formatted source or download as .html / .md files with a single click."
+        ]
+      }
+    ]
+  },
+  "random-picker": {
+    title: "List Shuffler & Random Picker: Draw Names and Raffle Winners Instantly",
+    sections: [
+      {
+        heading: "Fair Random Selection Offline",
+        paragraphs: [
+          "Our List Shuffler and Winner Picker helps you randomly order groups of items, draw raffle winners, or make unbiased decisions. All randomization calculations use browser math generators, ensuring all entries have an equal probability of being picked.",
+          "No names, entries, or lists are uploaded to remote servers. The drawing processes strictly in your local device memory."
+        ]
+      },
+      {
+        heading: "Custom Drawing Settings",
+        paragraphs: [
+          "Customize your drawings and list arrangements:"
+        ],
+        listItems: [
+          "Dynamic Winner Counts -- Choose exactly how many entries to select (from 1 up to the total list size).",
+          "Remove Picked Winners -- Toggle exclusion rules to remove selected winners from the main list automatically after a draw.",
+          "Instant Shuffling -- Randomize lines instantly to scramble drawing orders or names."
+        ]
+      }
+    ]
   },
 };
 

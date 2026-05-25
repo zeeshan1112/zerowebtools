@@ -3,6 +3,10 @@ import Script from "next/script";
 const GA_MEASUREMENT_ID = "G-L9Z1RQWNJV";
 
 export default function Analytics() {
+  if (process.env.NODE_ENV !== "production") {
+    return null;
+  }
+
   return (
     <>
       <Script

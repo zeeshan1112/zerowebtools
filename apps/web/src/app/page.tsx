@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
@@ -54,9 +54,59 @@ const staggerItem = {
 
 
 
+// Hash fragment → tab mapping (sidebar links use /#pdf-tools, /#converters etc.)
+const SLUG_TO_TAB: Record<string, "all" | "pdf" | "text" | "dev" | "financial" | "converters"> = {
+  "all-tools": "all",
+  "pdf-tools": "pdf",
+  "text-tools": "text",
+  "converters": "dev",
+  "financial-growth": "financial",
+  "image-tools": "converters",
+};
+
+const TAB_TO_SLUG: Record<string, string> = {
+  all: "all-tools",
+  pdf: "pdf-tools",
+  text: "text-tools",
+  dev: "converters",
+  financial: "financial-growth",
+  converters: "image-tools",
+};
+
 export default function HomePage() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"pdf" | "dev" | "financial" | "converters">("pdf");
+  const [activeTab, setActiveTab] = useState<"all" | "pdf" | "text" | "dev" | "financial" | "converters">("all");
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      const tabId = SLUG_TO_TAB[hash];
+      if (tabId) {
+        setActiveTab(tabId);
+        document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    const handleTabNav = (e: Event) => {
+      const slug = (e as CustomEvent).detail;
+      const tabId = SLUG_TO_TAB[slug];
+      if (tabId) {
+        setActiveTab(tabId);
+        document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    if (window.location.hash) {
+      handleHash();
+    }
+
+    window.addEventListener("hashchange", handleHash);
+    window.addEventListener("zeelancebox_navigate_tab", handleTabNav);
+    return () => {
+      window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("zeelancebox_navigate_tab", handleTabNav);
+    };
+  }, []);
 
   // Load Starred Bookmarks
   useEffect(() => {
@@ -98,8 +148,12 @@ export default function HomePage() {
   // Map workspace activeTab to specific category slugs
   const getTabCategorySlug = (): string[] => {
     switch (activeTab) {
+      case "all":
+        return ["pdf-tools", "text-tools", "converters", "image-tools", "financial-growth"];
       case "pdf":
         return ["pdf-tools"];
+      case "text":
+        return ["text-tools"];
       case "dev":
         return ["converters"];
       case "financial":
@@ -164,7 +218,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance font-medium">
-              Free, fast, and completely secure tools to edit PDFs, convert formats, check MRR growth, and resize images. All tool computations run entirely locally on your device so your files never leave your computer.
+              Free, fast, and completely secure tools to edit PDFs, convert formats, check MRR growth, and resize images. All tools run entirely locally on your device so your files never leave your computer.
             </p>
 
             {/* Quick-Launcher Command Center Centerpiece */}
@@ -191,7 +245,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <button
                   onClick={() => {
-                    document.getElementById("workspace-directory")?.scrollIntoView({ behavior: "smooth" });
+                    document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="px-6 py-3.5 rounded-xl border border-border/80 bg-surface-elevated/40 backdrop-blur-md hover:bg-surface-elevated/80 text-ink hover:text-accent font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:border-accent/30 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group"
                 >
@@ -210,16 +264,18 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* Micro workspace tags shortcut below search */}
+              {/* Micro tool tags shortcut below search */}
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-2 text-[10px] sm:text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
                 <span>SUITES:</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Editors</a>
+                <a href="#tools-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Editors</a>
                 <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("dev")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Code Converters</a>
+                <a href="#tools-directory" onClick={() => setActiveTab("text")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Text & Content</a>
                 <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("financial")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Finance Formulas</a>
+                <a href="#tools-directory" onClick={() => setActiveTab("dev")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Code Converters</a>
                 <span>•</span>
-                <a href="#workspace-directory" onClick={() => setActiveTab("converters")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Image Utilities</a>
+                <a href="#tools-directory" onClick={() => setActiveTab("financial")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Finance Formulas</a>
+                <span>•</span>
+                <a href="#tools-directory" onClick={() => setActiveTab("converters")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Image Utilities</a>
               </div>
             </div>
 
@@ -237,7 +293,7 @@ export default function HomePage() {
               Spotlight Utilities
             </h2>
             <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-              Highly integrated, daily active local workspaces featuring vector rendering and WebAssembly compilation.
+              Highly integrated, daily active local tools featuring vector rendering and WebAssembly compilation.
             </p>
           </div>
 
@@ -358,14 +414,16 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* TABBED DIRECTORY WORKSPACE HUB (Replaces dry infinite scroll) */}
-        <section id="workspace-directory" className="space-y-8 scroll-mt-24">
+        {/* TABBED DIRECTORY TOOLS HUB (Replaces dry infinite scroll) */}
+        <section id="tools-directory" className="space-y-8 scroll-mt-24">
           
           {/* Tab Switcher rail */}
           <div className="flex items-baseline justify-between border-b border-border/40 pb-4 select-none">
             <div className="flex flex-wrap items-center gap-1">
               {[
+                { id: "all", label: "All Tools" },
                 { id: "pdf", label: "PDF Suite" },
+                { id: "text", label: "Text & Content" },
                 { id: "dev", label: "Developers" },
                 { id: "financial", label: "Growth & Finance" },
                 { id: "converters", label: "Creative Tools" },
@@ -374,7 +432,10 @@ export default function HomePage() {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                    onClick={() => {
+                      setActiveTab(tab.id as any);
+                      history.replaceState(null, "", `#${TAB_TO_SLUG[tab.id]}`);
+                    }}
                     className={`px-4 py-2.5 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer min-h-[44px] ${
                       isActive
                         ? "bg-ink border-ink text-surface shadow-sm"
@@ -388,7 +449,7 @@ export default function HomePage() {
             </div>
             
             <div className="text-[9px] text-ink-muted font-bold uppercase tracking-wider hidden sm:block">
-              WORKSPACE FILTER
+              TOOL FILTER
             </div>
           </div>
 

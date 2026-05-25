@@ -71,12 +71,51 @@ export function getToolIcon(id: string): React.ReactNode {
           <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
         </svg>
       );
+    case "pdf-sign":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-3.858.962.962-3.858A4.5 4.5 0 013.172 15L16.863 4.487zm0 0L19.5 7.125" />
+        </svg>
+      );
+    case "pdf-crop":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18V3m12 15V6.75m0 0l-3-3m3 3h-6m6 0a2.25 2.25 0 00-2.25-2.25H6m0 0l-3 3M3 18h15M6 18a2.25 2.25 0 002.25 2.25h12" />
+        </svg>
+      );
+    case "pdf-to-text":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12" />
+        </svg>
+      );
 
     // --- Developer Tools ---
     case "json-formatter":
       return (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+        </svg>
+      );
+    case "css-box-shadow":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <rect x="3" y="3" width="12" height="12" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M18 8h1a2 2 0 012 2v9a2 2 0 01-2 2h-9a2 2 0 01-2-2v-1" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
+        </svg>
+      );
+    case "unix-timestamp-converter":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M12 6v6l4 2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "cron-generator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <rect x="3" y="4" width="18" height="16" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M16 2v4M8 2v4M3 10h18" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       );
     case "case-converter":
@@ -89,6 +128,78 @@ export function getToolIcon(id: string): React.ReactNode {
       return (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5M3 9h18M3 15h18" />
+        </svg>
+      );
+    case "diff-checker":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 4.5v15m6-15H9m6 0a2 2 0 012 2v11a2 2 0 01-2 2h-6a2 2 0 01-2-2V6.5a2 2 0 012-2zm-6 0H5a2 2 0 00-2 2v11a2 2 0 002 2h1" />
+        </svg>
+      );
+    case "jwt-debugger":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25" />
+        </svg>
+      );
+    case "url-encoder":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+        </svg>
+      );
+    case "regex-tester":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4m6 18h4a2 2 0 002-2V5a2 2 0 00-2-2h-4M8 12h8m-4-4v8" />
+        </svg>
+      );
+    case "sql-formatter":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+        </svg>
+      );
+    case "file-hasher":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zM9 14h6m-6 3h6" />
+        </svg>
+      );
+    case "password-generator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+        </svg>
+      );
+    case "text-cleaner":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      );
+    case "word-counter":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5M3.75 6.75h16.5M3.75 17.25h12m0 0l-3.75-3.75M15.75 17.25l-3.75 3.75" />
+        </svg>
+      );
+    case "voice-dictator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+        </svg>
+      );
+    case "markdown-converter":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v-9a1.5 1.5 0 011.5-1.5h15A1.5 1.5 0 0121 7.5v9a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 16.5zM7.5 9.75v4.5M10.5 9.75v4.5M7.5 12h3m3.75-2.25l2.25 2.25-2.25 2.25" />
+        </svg>
+      );
+    case "random-picker":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 4.5l-15 15m0-15l15 15m0-15h-3.75m3.75 0v3.75m0 11.25h-3.75m3.75 0v-3.75" />
         </svg>
       );
     case "celsius-fahrenheit":
@@ -123,6 +234,27 @@ export function getToolIcon(id: string): React.ReactNode {
           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75h16.5v16.5H3.75V3.75zm3 3h10.5v10.5H6.75V6.75z" />
         </svg>
       );
+    case "image-cropper":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18V3m12 15V6.75m0 0l-3-3m3 3h-6m6 0a2.25 2.25 0 00-2.25-2.25H6m0 0l-3 3M3 18h15M6 18a2.25 2.25 0 002.25 2.25h12" />
+        </svg>
+      );
+    case "svg-minifier":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15m-3-3l3 3 3-3" />
+        </svg>
+      );
+    case "qr-code-generator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <path d="M14 14h3v3h-3zm3 3h4v4h-4zm0-3h4v3h-4zm-3 3h3v4h-3z" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
 
     // --- High-CPC Financial Suites (Dynamic dashboards!) ---
     case "saas-mrr":
@@ -135,6 +267,30 @@ export function getToolIcon(id: string): React.ReactNode {
       return (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6zM13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+        </svg>
+      );
+    case "mortgage-calculator":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m0-18L21 21M12 3h9a1.5 1.5 0 011.5 1.5v12a1.5 1.5 0 01-1.5 1.5h-9" />
+        </svg>
+      );
+    case "cap-table":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6zM13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+        </svg>
+      );
+    case "saas-ltv":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.5 4.5 8.25-8.25M21 12v5.25a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 17.25V5.25" />
+        </svg>
+      );
+    case "break-even":
+      return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={baseClass}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6v12m6-6h-12M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       );
 
