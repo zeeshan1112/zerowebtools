@@ -657,26 +657,38 @@ const TOOL_ARTICLES: Record<
     ],
   },
   "pdf-watermark": {
-    title: "Add Watermark to PDF Online: Stamp Text Over PDF Pages",
+    title: "Add Watermark to PDF: Stamp Text and Image Watermarks Offline",
     sections: [
       {
-        heading: "Add Custom Watermarks to Your PDF Documents",
+        heading: "Secure & Private PDF Watermarking in Your Browser",
         paragraphs: [
-          "Stamp labels like 'CONFIDENTIAL', 'DRAFT', or your company name across PDF pages to establish ownership or display statuses.",
-        ],
+          "Protect your documents and assert ownership with custom watermark stamps. Whether you need to overlay 'CONFIDENTIAL', 'DRAFT', 'COPY', or your brand's official logo, our utility performs all calculations in-memory on your local CPU. Your private documents, contracts, and images are never uploaded to a server, guaranteeing 100% data security."
+        ]
       },
       {
-        heading: "How to Add a Watermark",
+        heading: "Flexible Custom Text & Image Stamp Options",
         paragraphs: [
-          "To stamp your PDF:",
+          "Customize your watermark's presentation with professional design controls:"
         ],
         listItems: [
-          "Upload PDF -- Select your PDF file.",
-          "Configure text -- Input your watermark text, choose fonts, and select placement positions.",
-          "Style stamp -- Adjust opacity, scale, and stamp angles.",
-          "Save PDF -- Generate and download the watermarked PDF file.",
-        ],
+          "Text Stamp Mode -- Type custom messages and labels. Adjust the font size to scale relative to the document size.",
+          "Image Stamp Mode -- Upload local PNG or JPG files to stamp logos, seals, or signature files directly onto PDF pages.",
+          "Color Selector -- Pick from standard design preset swatches (Red, Black, Blue, Gray) or launch the custom color picker to select any hex color code.",
+          "Opacity Dropdown -- Adjust transparency layers (No Transparency, 75%, 50%, or the default 25% opacity) to ensure the background document text remains fully legible.",
+          "Rotation Angles -- Rotate your watermark diagonally or vertically. Choose from Do Not Rotate (0°), 45°, 90°, 180°, 270°, and the standard 315° angle."
+        ]
       },
+      {
+        heading: "Interactive Drag-to-Position Visual Editor",
+        paragraphs: [
+          "Position your watermark precisely on the page layout before exporting. Our interactive layout editor dynamically extracts the dimensions of your uploaded PDF to scale the thumbnail to a matching aspect ratio. Simply drag the watermark overlay to the desired coordinates. The coordinate calculation formula ensures that what you see in the visual preview matches the final exported PDF precisely."
+        ],
+        listItems: [
+          "Single Center Mode -- Click and drag the watermark indicator anywhere on the thumbnail preview box.",
+          "3x3 Grid Mode -- Apply the watermark across 9 grid coordinates simultaneously for complete page coverage.",
+          "Page Range Selection -- Specify the start and end pages to stamp, allowing you to bypass cover sheets or indexes."
+        ]
+      }
     ],
   },
   "pdf-page-numbers": {
