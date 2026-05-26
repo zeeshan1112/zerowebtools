@@ -1350,22 +1350,22 @@ export default async function ToolPage({ params }: ToolPageProps) {
     <div className="min-h-screen pt-10 pb-20">
       {/* Schema Injection */}
       <script
-        type="application/ld-json"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
       />
       {faqSchema && (
         <script
-          type="application/ld-json"
+          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
       <script
-        type="application/ld-json"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {howToSchema && (
         <script
-          type="application/ld-json"
+          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
