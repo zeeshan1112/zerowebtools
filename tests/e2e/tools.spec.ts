@@ -179,8 +179,13 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Rotate PDF")');
+
+    // Wait for the Download button to become visible after processing finishes
+    await expect(page.locator('button:has-text("Download Rotated PDF")')).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Rotated PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-rotated.pdf");
   });
