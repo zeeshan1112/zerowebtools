@@ -44,6 +44,7 @@ export function JpgToPdfWorkspace() {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   // Result and Preview states
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -90,8 +91,25 @@ export function JpgToPdfWorkspace() {
     setDraggedIndex(index);
   }, []);
 
+  const handleDragEnter = useCallback((index: number) => {
+    setDragOverIndex(index);
+  }, []);
+
+  const handleDragLeave = useCallback(() => {
+    setDragOverIndex(null);
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  }, []);
+
   const handleDrop = useCallback((targetIndex: number) => {
-    if (draggedIndex === null || draggedIndex === targetIndex) return;
+    if (draggedIndex === null || draggedIndex === targetIndex) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
     setFiles((p) => {
       const nextList = [...p];
       const [draggedItem] = nextList.splice(draggedIndex, 1);
@@ -99,6 +117,7 @@ export function JpgToPdfWorkspace() {
       return nextList;
     });
     setDraggedIndex(null);
+    setDragOverIndex(null);
     setPdfBlob(null);
   }, [draggedIndex]);
 
@@ -111,6 +130,7 @@ export function JpgToPdfWorkspace() {
     setShowPreview(false);
     setError(null);
     setDraggedIndex(null);
+    setDragOverIndex(null);
   }, [files, previewPages]);
 
   const convert = useCallback(async () => {
@@ -219,6 +239,7 @@ export function JpgToPdfWorkspace() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {files.map((item, i) => {
               const isDragged = draggedIndex === i;
+              const isDragOver = dragOverIndex === i;
               const canDrag = !processing && pdfBlob === null;
               return (
                 <div
@@ -226,12 +247,17 @@ export function JpgToPdfWorkspace() {
                   draggable={canDrag}
                   onDragStart={() => handleDragStart(i)}
                   onDragOver={(e) => e.preventDefault()}
+                  onDragEnter={() => handleDragEnter(i)}
+                  onDragLeave={handleDragLeave}
+                  onDragEnd={handleDragEnd}
                   onDrop={() => handleDrop(i)}
                   className={`relative rounded-xl border p-2 group flex flex-col justify-between shadow-sm select-none transition-all duration-200 ${
                     canDrag ? "cursor-grab active:cursor-grabbing hover:border-accent/40" : ""
                   } ${
                     isDragged
-                      ? "opacity-40 border-dashed border-accent bg-accent-surface/30 scale-95"
+                      ? "opacity-30 border-dashed border-accent bg-accent-surface/30 scale-95"
+                      : isDragOver
+                      ? "border-accent ring-2 ring-accent/30 bg-accent-surface/50 scale-[1.03] shadow-md"
                       : "border-border bg-surface-elevated/70"
                   }`}
                 >
