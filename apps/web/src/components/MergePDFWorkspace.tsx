@@ -34,6 +34,8 @@ export default function MergePDFWorkspace() {
   const [previewPages, setPreviewPages] = useState<string[]>([]);
   const [previewLoading, setPreviewLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isPreviewingMerged, setIsPreviewingMerged] = useState(false);
+  const [previewTitle, setPreviewTitle] = useState("Preview PDF");
   const fileRef = useRef<HTMLInputElement>(null);
 
   // Simulated processing delay state for labor illusion & dwell time
@@ -229,9 +231,11 @@ export default function MergePDFWorkspace() {
   }, [mergedBlob]);
 
   // Preview modal
-  const openPreview = useCallback(async (targetFile?: File | Blob) => {
+  const openPreview = useCallback(async (targetFile?: File | Blob, isMerged = false, fileName = "") => {
     const fileToPreview = targetFile || mergedBlob;
     if (!fileToPreview) return;
+    setIsPreviewingMerged(isMerged);
+    setPreviewTitle(isMerged ? "Preview merged PDF" : `Preview: ${fileName || "Individual PDF"}`);
     setShowPreview(true);
     setPreviewLoading(true);
     try {
@@ -347,7 +351,7 @@ export default function MergePDFWorkspace() {
 
                   {/* Preview Button */}
                   <button
-                    onClick={() => openPreview(job.file)}
+                    onClick={() => openPreview(job.file, false, job.name)}
                     className="shrink-0 text-zinc-400 hover:text-ink transition-colors p-1 cursor-pointer mr-1"
                     title="Preview file"
                   >
@@ -402,7 +406,7 @@ export default function MergePDFWorkspace() {
                   Download
                 </button>
                 <button
-                  onClick={() => openPreview()}
+                  onClick={() => openPreview(undefined, true, "Merged PDF")}
                   className="rounded-lg border border-border bg-surface-elevated hover:bg-surface px-5 py-2.5 text-sm font-medium text-ink-secondary hover:text-ink active:scale-[0.98] transition-all flex items-center gap-2"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
@@ -471,7 +475,7 @@ export default function MergePDFWorkspace() {
                   {/* Header */}
                   <div className="flex items-center justify-between px-5 py-3.5 border-b border-border shrink-0">
                     <div>
-                      <h3 className="text-sm font-semibold text-ink">Preview merged PDF</h3>
+                      <h3 className="text-sm font-semibold text-ink">{previewTitle}</h3>
                       <p className="text-xs text-ink-muted">{previewPages.length} page{previewPages.length !== 1 ? "s" : ""}</p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -515,14 +519,16 @@ export default function MergePDFWorkspace() {
                   </div>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between px-5 py-3 border-t border-border shrink-0">
-                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
-                      </svg>
-                      Download merged PDF
-                    </button>
-                    <div className="text-[9px] text-ink-muted font-medium uppercase tracking-wider">Esc to close · Scroll to view all pages</div>
+                  <div className={`flex items-center shrink-0 px-5 py-3 border-t border-border ${isPreviewingMerged ? "justify-between" : "justify-end"}`}>
+                    {isPreviewingMerged && (
+                      <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                        </svg>
+                        Download merged PDF
+                      </button>
+                    )}
+                    <div className="text-[9px] text-ink-muted font-medium uppercase tracking-wider font-mono">Esc to close · Scroll to view all pages</div>
                   </div>
                 </motion.div>
               </div>
