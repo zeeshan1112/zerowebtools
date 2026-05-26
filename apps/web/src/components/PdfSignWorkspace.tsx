@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { loadPDFDoc, savePDFDoc, downloadBlob, renderAllPDFPages, getFilename } from "@/lib/pdf-utils";
-import { rgb } from "pdf-lib";
 import ProcessingOverlay from "./ProcessingOverlay";
 
 const SIGN_STEPS = [
@@ -12,10 +11,19 @@ const SIGN_STEPS = [
   "Compiling signed PDF stream...",
 ];
 
+interface PlacedSignature {
+  id: string;
+  pageIndex: number;
+  x: number; // percentage from left
+  y: number; // percentage from top
+  width: number; // px
+  height: number; // px
+  image: string; // base64 PNG
+}
+
 export default function PdfSignWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [pagePreviews, setPagePreviews] = useState<string[]>([]);
-  const [activePageIndex, setActivePageIndex] = useState(0);
   const [showProcessing, setShowProcessing] = useState(false);
   const [loadingText, setLoadingText] = useState("Loading PDF document...");
 
@@ -23,32 +31,26 @@ export default function PdfSignWorkspace() {
   const [signatureType, setSignatureType] = useState<"draw" | "type" | "upload">("draw");
   const [typedName, setTypedName] = useState("");
   const [signatureImage, setSignatureImage] = useState<string | null>(null); // base64 PNG
+  const [penColor, setPenColor] = useState("#000000"); // manual color selector
 
-  // Placed signature overlays on the page
-  const [isPlaced, setIsPlaced] = useState(false);
-  const [sigX, setSigX] = useState(50); // percentage (0-100) from left
-  const [sigY, setSigY] = useState(50); // percentage (0-100) from top
-  const [sigWidth, setSigWidth] = useState(150); // px
-  const [sigHeight, setSigHeight] = useState(60); // px
+  // Placed signatures across pages
+  const [placedSignatures, setPlacedSignatures] = useState<PlacedSignature[]>([]);
 
   // Drawing Pad Refs
   const drawCanvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
 
-  // Dragging states
-  const previewContainerRef = useRef<HTMLDivElement>(null);
+  // Drag & drop state
   const isDraggingRef = useRef(false);
-  const dragStartOffsetRef = useRef({ x: 0, y: 0 });
 
   // Load PDF and render previews
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
       setFile(selectedFile);
-      setIsPlaced(false);
+      setPlacedSignatures([]);
       setSignatureImage(null);
       setPagePreviews([]);
-      setActivePageIndex(0);
 
       setLoadingText("Rendering PDF pages...");
       setShowProcessing(true);
@@ -63,19 +65,57 @@ export default function PdfSignWorkspace() {
     }
   };
 
-  // Drawing Pad Canvas logic
+  const handleClearDocument = () => {
+    setFile(null);
+    setPagePreviews([]);
+    setPlacedSignatures([]);
+    setSignatureImage(null);
+    setTypedName("");
+  };
+
+  // Add signature to a specific page
+  const addSignatureToPage = (pageIndex: number, customImg?: string) => {
+    const img = customImg || signatureImage;
+    if (!img) return;
+    const newSig: PlacedSignature = {
+      id: Math.random().toString(36).substring(2, 9),
+      pageIndex,
+      x: 35, // default offset
+      y: 40,
+      width: 150,
+      height: 60,
+      image: img,
+    };
+    setPlacedSignatures((prev) => [...prev, newSig]);
+  };
+
+  // Drawing Pad Canvas logic & resolution adjustment
   useEffect(() => {
     if (signatureType === "draw" && drawCanvasRef.current) {
       const canvas = drawCanvasRef.current;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = 3;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-      }
+      
+      const resizeCanvas = () => {
+        const rect = canvas.getBoundingClientRect();
+        // Match internal pixel resolution directly to display bounds
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.strokeStyle = penColor;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+        }
+      };
+
+      // Set resolution immediately
+      resizeCanvas();
+      
+      window.addEventListener("resize", resizeCanvas);
+      return () => window.removeEventListener("resize", resizeCanvas);
     }
-  }, [signatureType]);
+  }, [signatureType, penColor]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     const canvas = drawCanvasRef.current;
@@ -126,13 +166,14 @@ export default function PdfSignWorkspace() {
     const canvas = drawCanvasRef.current;
     if (!canvas) return;
     
-    // Check if canvas is empty before saving
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const base64 = canvas.toDataURL("image/png");
     setSignatureImage(base64);
-    setIsPlaced(true);
+    if (placedSignatures.length === 0) {
+      addSignatureToPage(0, base64); // Only auto-place on Page 1 if none are placed yet
+    }
   };
 
   // Generate typed signature on canvas
@@ -144,7 +185,7 @@ export default function PdfSignWorkspace() {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = penColor;
       ctx.font = "italic bold 36px 'Dancing Script', 'Brush Script MT', cursive, serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -152,7 +193,9 @@ export default function PdfSignWorkspace() {
       
       const base64 = canvas.toDataURL("image/png");
       setSignatureImage(base64);
-      setIsPlaced(true);
+      if (placedSignatures.length === 0) {
+        addSignatureToPage(0, base64); // Only auto-place on Page 1 if none are placed yet
+      }
     }
   };
 
@@ -163,96 +206,188 @@ export default function PdfSignWorkspace() {
       reader.onload = (event) => {
         if (typeof event.target?.result === "string") {
           setSignatureImage(event.target.result);
-          setIsPlaced(true);
+          if (placedSignatures.length === 0) {
+            addSignatureToPage(0, event.target.result); // Only auto-place on Page 1 if none are placed yet
+          }
         }
       };
       reader.readAsDataURL(e.target.files[0]);
     }
   };
 
-  // Overlays drag & drop movement logic
-  const handleDragStart = (e: React.MouseEvent) => {
+  // Drag & drop movement logic
+  const handleDragStart = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    if (!previewContainerRef.current) return;
+    const sigElement = e.currentTarget as HTMLDivElement;
+    const container = sigElement.parentElement;
+    if (!container) return;
+
     isDraggingRef.current = true;
 
-    const containerRect = previewContainerRef.current.getBoundingClientRect();
-    // Calculate signature offset from top-left of signature box
-    const sigLeft = (sigX / 100) * containerRect.width;
-    const sigTop = (sigY / 100) * containerRect.height;
+    const sig = placedSignatures.find((s) => s.id === id);
+    if (!sig) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const sigLeft = (sig.x / 100) * containerRect.width;
+    const sigTop = (sig.y / 100) * containerRect.height;
     
     const clickX = e.clientX - containerRect.left;
     const clickY = e.clientY - containerRect.top;
 
-    dragStartOffsetRef.current = {
+    const offset = {
       x: clickX - sigLeft,
       y: clickY - sigTop,
+    };
+
+    const handleDragging = (ev: MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      const rect = container.getBoundingClientRect();
+      const mouseX = ev.clientX - rect.left;
+      const mouseY = ev.clientY - rect.top;
+
+      const targetLeft = mouseX - offset.x;
+      const targetTop = mouseY - offset.y;
+
+      const newX = Math.max(0, Math.min(100, (targetLeft / rect.width) * 100));
+      const newY = Math.max(0, Math.min(100, (targetTop / rect.height) * 100));
+
+      setPlacedSignatures((prev) =>
+        prev.map((s) => (s.id === id ? { ...s, x: newX, y: newY } : s))
+      );
+    };
+
+    const handleDragEnd = () => {
+      isDraggingRef.current = false;
+      document.removeEventListener("mousemove", handleDragging);
+      document.removeEventListener("mouseup", handleDragEnd);
     };
 
     document.addEventListener("mousemove", handleDragging);
     document.addEventListener("mouseup", handleDragEnd);
   };
 
-  const handleDragging = (e: MouseEvent) => {
-    if (!isDraggingRef.current || !previewContainerRef.current) return;
-    const containerRect = previewContainerRef.current.getBoundingClientRect();
+  // Drag resizing logic supporting all 4 corners
+  const handleResizeStart = (e: React.MouseEvent, id: string, corner: "top-left" | "top-right" | "bottom-left" | "bottom-right") => {
+    e.stopPropagation();
+    e.preventDefault();
+    
+    const sigElement = e.currentTarget.parentElement;
+    if (!sigElement) return;
+    const container = sigElement.parentElement;
+    if (!container) return;
 
-    const mouseX = e.clientX - containerRect.left;
-    const mouseY = e.clientY - containerRect.top;
+    const sig = placedSignatures.find((s) => s.id === id);
+    if (!sig) return;
 
-    // Projected position minus start click offset inside overlay
-    const targetLeft = mouseX - dragStartOffsetRef.current.x;
-    const targetTop = mouseY - dragStartOffsetRef.current.y;
+    const containerRect = container.getBoundingClientRect();
+    const startWidth = sig.width;
+    const startHeight = sig.height;
+    const startX = e.clientX;
+    const startY = e.clientY;
+    
+    const startPercentX = sig.x;
+    const startPercentY = sig.y;
 
-    // Convert back to percentages with constraints (0-100)
-    const newX = Math.max(0, Math.min(100, (targetLeft / containerRect.width) * 100));
-    const newY = Math.max(0, Math.min(100, (targetTop / containerRect.height) * 100));
+    const handleResize = (ev: MouseEvent) => {
+      const deltaX = ev.clientX - startX;
+      const deltaY = ev.clientY - startY;
 
-    setSigX(newX);
-    setSigY(newY);
+      let newWidth = startWidth;
+      let newHeight = startHeight;
+      let newPercentX = startPercentX;
+      let newPercentY = startPercentY;
+
+      const containerW = containerRect.width;
+      const containerH = containerRect.height;
+
+      if (corner === "bottom-right") {
+        newWidth = Math.max(50, startWidth + deltaX);
+        newHeight = Math.max(20, startHeight + deltaY);
+      } else if (corner === "bottom-left") {
+        const potentialWidth = Math.max(50, startWidth - deltaX);
+        newWidth = potentialWidth;
+        newPercentX = startPercentX + ((deltaX / 2) / containerW) * 100;
+      } else if (corner === "top-right") {
+        newWidth = Math.max(50, startWidth + deltaX);
+        const potentialHeight = Math.max(20, startHeight - deltaY);
+        newHeight = potentialHeight;
+        newPercentY = startPercentY + ((deltaY / 2) / containerH) * 100;
+      } else if (corner === "top-left") {
+        const potentialWidth = Math.max(50, startWidth - deltaX);
+        const potentialHeight = Math.max(20, startHeight - deltaY);
+        newWidth = potentialWidth;
+        newHeight = potentialHeight;
+        newPercentX = startPercentX + ((deltaX / 2) / containerW) * 100;
+        newPercentY = startPercentY + ((deltaY / 2) / containerH) * 100;
+      }
+
+      setPlacedSignatures((prev) =>
+        prev.map((s) =>
+          s.id === id
+            ? {
+                ...s,
+                width: newWidth,
+                height: newHeight,
+                x: Math.max(0, Math.min(100, newPercentX)),
+                y: Math.max(0, Math.min(100, newPercentY)),
+              }
+            : s
+        )
+      );
+    };
+
+    const handleResizeEnd = () => {
+      document.removeEventListener("mousemove", handleResize);
+      document.removeEventListener("mouseup", handleResizeEnd);
+    };
+
+    document.addEventListener("mousemove", handleResize);
+    document.addEventListener("mouseup", handleResizeEnd);
   };
 
-  const handleDragEnd = () => {
-    isDraggingRef.current = false;
-    document.removeEventListener("mousemove", handleDragging);
-    document.removeEventListener("mouseup", handleDragEnd);
-  };
-
-  // Compile and Save the Signed PDF document
+  // Compile and Save the Signed PDF document with all signatures embedded
   const handleSaveDocument = async () => {
-    if (!file || !signatureImage) return;
+    if (!file || placedSignatures.length === 0) return;
 
-    setLoadingText("Applying signature to PDF pages...");
+    setLoadingText("Applying signatures to PDF pages...");
     setShowProcessing(true);
 
     try {
       const doc = await loadPDFDoc(file);
       const pages = doc.getPages();
-      const page = pages[activePageIndex];
 
-      // Extract image bytes from Base64 Data URL
-      const base64Data = signatureImage.split(",")[1];
-      const imageBytes = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
-      
-      const embeddedImg = await doc.embedPng(imageBytes);
+      // Embed each placed signature
+      for (const sig of placedSignatures) {
+        const page = pages[sig.pageIndex];
+        if (!page) continue;
 
-      // Map percentages to actual PDF coordinates
-      const { width: pageW, height: pageH } = page.getSize();
-      
-      // Calculate HTML overlay values
-      const sigW_pdf = (sigWidth / 400) * pageW; // base scale factor of 400px page preview width
-      const sigH_pdf = (sigHeight / 550) * pageH; // base scale factor of 550px page preview height
+        // Extract image bytes from Base64 Data URL
+        const base64Data = sig.image.split(",")[1];
+        const imageBytes = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+        
+        const embeddedImg = await doc.embedPng(imageBytes);
 
-      const posX_pdf = (sigX / 100) * pageW;
-      // Convert HTML Y coordinate (top-down) to PDF coordinate (bottom-up)
-      const posY_pdf = pageH - ((sigY / 100) * pageH) - sigH_pdf;
+        // Map percentages to actual PDF coordinates
+        const { width: pageW, height: pageH } = page.getSize();
+        
+        // Uniform scaling based on width of 400px
+        const scale = pageW / 400;
+        
+        const sigW_pdf = sig.width * scale;
+        const sigH_pdf = sig.height * scale;
 
-      page.drawImage(embeddedImg, {
-        x: posX_pdf,
-        y: posY_pdf,
-        width: sigW_pdf,
-        height: sigH_pdf,
-      });
+        // Coordinates based on centering of the signature box
+        const posX_pdf = (sig.x / 100) * pageW - (sigW_pdf / 2);
+        // Convert top-down percentage to bottom-up PDF coordinates
+        const posY_pdf = pageH - ((sig.y / 100) * pageH) - (sigH_pdf / 2);
+
+        page.drawImage(embeddedImg, {
+          x: posX_pdf,
+          y: posY_pdf,
+          width: sigW_pdf,
+          height: sigH_pdf,
+        });
+      }
 
       const outBlob = await savePDFDoc(doc);
       const outName = getFilename("pdf-watermark", file.name).replace("-watermarked.pdf", "-signed.pdf");
@@ -318,14 +453,51 @@ export default function PdfSignWorkspace() {
                 </button>
               </div>
 
+              {/* Color Selector */}
+              <div className="space-y-1.5 pt-1">
+                <label className="text-[10px] font-bold text-ink-muted uppercase block">Pen / Text Color</label>
+                <div className="flex items-center gap-2">
+                  {[
+                    { name: "Black", value: "#000000" },
+                    { name: "Navy", value: "#1e3a8a" },
+                    { name: "Blue", value: "#2563eb" },
+                    { name: "Red", value: "#dc2626" },
+                  ].map((c) => (
+                    <button
+                      key={c.value}
+                      onClick={() => setPenColor(c.value)}
+                      className={`w-6 h-6 rounded-full border transition-all cursor-pointer ${
+                        penColor === c.value
+                          ? "border-accent scale-110 ring-2 ring-accent/20"
+                          : "border-border hover:scale-105"
+                      }`}
+                      style={{ backgroundColor: c.value }}
+                      title={c.name}
+                    />
+                  ))}
+                  {/* Custom color picker */}
+                  <div className="relative w-6 h-6 rounded-full border border-border overflow-hidden cursor-pointer flex items-center justify-center bg-zinc-50 hover:scale-105 transition-all">
+                    <input
+                      type="color"
+                      value={penColor}
+                      onChange={(e) => setPenColor(e.target.value)}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                      title="Custom Color"
+                    />
+                    <svg className="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122l9.37-9.37a2.25 2.25 0 10-3.182-3.182l-9.37 9.37a4.5 4.5 0 00-1.196 2.378l-.662 2.648a.75.75 0 00.916.916l2.648-.662a4.5 4.5 0 002.378-1.196z" />
+                    </svg>
+                  </div>
+                  <span className="text-[10px] font-mono font-semibold text-ink-muted/80">{penColor}</span>
+                </div>
+              </div>
+
               {/* Draw Signature */}
               {signatureType === "draw" && (
                 <div className="space-y-3">
                   <div className="border border-border rounded-xl overflow-hidden bg-white">
                     <canvas
                       ref={drawCanvasRef}
-                      width={300}
-                      height={150}
                       onMouseDown={startDrawing}
                       onMouseMove={draw}
                       onMouseUp={stopDrawing}
@@ -333,7 +505,7 @@ export default function PdfSignWorkspace() {
                       onTouchStart={startDrawing}
                       onTouchMove={draw}
                       onTouchEnd={stopDrawing}
-                      className="w-full h-36 touch-none cursor-crosshair"
+                      className="w-full h-36 touch-none cursor-crosshair block bg-white"
                     />
                   </div>
                   <div className="flex gap-2">
@@ -364,7 +536,10 @@ export default function PdfSignWorkspace() {
                     className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2.5 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
                   />
                   {typedName && (
-                    <div className="border border-border/80 rounded-xl p-4 bg-white/50 text-center font-mono text-2xl select-text italic text-ink overflow-x-auto min-h-[64px] flex items-center justify-center font-cursive">
+                    <div
+                      className="border border-border/80 rounded-xl p-4 bg-white/50 text-center font-mono text-2xl select-text italic overflow-x-auto min-h-[64px] flex items-center justify-center font-cursive"
+                      style={{ color: penColor }}
+                    >
                       {typedName}
                     </div>
                   )}
@@ -393,6 +568,22 @@ export default function PdfSignWorkspace() {
               )}
             </div>
 
+            {/* Signature Notification status banner */}
+            {signatureImage && (
+              <div className="bg-accent/10 border border-accent/20 rounded-2xl p-4 text-xs text-accent text-center font-bold space-y-2 shadow-sm">
+                <div>✓ Signature Template Ready!</div>
+                <div className="text-[10px] text-ink-secondary font-medium">
+                  Scroll to any page on the right and click <strong>"+ Place Signature"</strong> to apply it.
+                </div>
+                <button
+                  onClick={() => setSignatureImage(null)}
+                  className="mt-1 text-[10px] underline text-accent/80 hover:text-accent font-bold cursor-pointer block mx-auto"
+                >
+                  Clear Template
+                </button>
+              </div>
+            )}
+
             {/* Document stats / Info */}
             <div className="rounded-2xl border border-border bg-surface-elevated p-5 space-y-4 shadow-sm">
               <h4 className="text-xs font-bold text-ink uppercase tracking-wider">
@@ -400,110 +591,131 @@ export default function PdfSignWorkspace() {
               </h4>
               <div className="text-xs space-y-2 text-ink-secondary">
                 <p><span className="font-bold text-ink-muted">Filename:</span> {file.name}</p>
-                <p><span className="font-bold text-ink-muted">Pages:</span> {pagePreviews.length}</p>
-                <p><span className="font-bold text-ink-muted">Active Page:</span> {activePageIndex + 1}</p>
+                <p><span className="font-bold text-ink-muted">Total Pages:</span> {pagePreviews.length}</p>
+                <p><span className="font-bold text-ink-muted">Placed Signatures:</span> {placedSignatures.length}</p>
               </div>
 
-              {signatureImage && (
+              <div className="space-y-2">
+                {placedSignatures.length > 0 && (
+                  <>
+                    <button
+                      onClick={handleSaveDocument}
+                      className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m0 0l-6-6m6 6l6-6" />
+                      </svg>
+                      Save Signed PDF
+                    </button>
+                    <button
+                      onClick={() => setPlacedSignatures([])}
+                      className="w-full py-2 border border-border text-ink-muted hover:text-red-500 rounded-xl text-xs font-bold hover:bg-red-500/5 transition-colors cursor-pointer"
+                    >
+                      Clear Placed Signatures
+                    </button>
+                  </>
+                )}
+                
                 <button
-                  onClick={handleSaveDocument}
-                  className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  onClick={handleClearDocument}
+                  className="w-full py-2 border border-dashed border-border text-ink-muted hover:text-red-500 rounded-xl text-xs font-bold hover:bg-red-500/5 transition-colors cursor-pointer"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m0 0l-6-6m6 6l6-6" />
-                  </svg>
-                  Save Signed PDF
+                  Clear Document & Start Over
                 </button>
-              )}
+              </div>
             </div>
           </div>
 
           {/* Right Column: PDF Preview Render & Place signature */}
           <div className="lg:col-span-8 space-y-4 flex flex-col items-center">
-            {/* Page navigation */}
-            {pagePreviews.length > 1 && (
-              <div className="flex items-center gap-3 bg-surface-elevated border border-border/60 p-2 rounded-xl">
-                <button
-                  onClick={() => {
-                    setActivePageIndex((prev) => Math.max(0, prev - 1));
-                    setIsPlaced(false);
-                  }}
-                  disabled={activePageIndex === 0}
-                  className="p-1 px-2.5 border border-border disabled:opacity-40 rounded-lg text-xs font-bold text-ink hover:text-accent cursor-pointer"
-                >
-                  ◀ Prev
-                </button>
-                <span className="text-xs font-mono font-bold text-ink">
-                  Page {activePageIndex + 1} of {pagePreviews.length}
-                </span>
-                <button
-                  onClick={() => {
-                    setActivePageIndex((prev) => Math.min(pagePreviews.length - 1, prev + 1));
-                    setIsPlaced(false);
-                  }}
-                  disabled={activePageIndex === pagePreviews.length - 1}
-                  className="p-1 px-2.5 border border-border disabled:opacity-40 rounded-lg text-xs font-bold text-ink hover:text-accent cursor-pointer"
-                >
-                  Next ▶
-                </button>
-              </div>
-            )}
-
-            {/* Preview Sheet Container */}
             {pagePreviews.length > 0 ? (
-              <div
-                ref={previewContainerRef}
-                className="relative border border-border bg-white shadow-lg overflow-hidden flex items-center justify-center max-w-full w-[400px] h-[550px] rounded-2xl"
-              >
-                {/* PDF Page Image Preview */}
-                <img
-                  src={pagePreviews[activePageIndex]}
-                  alt={`PDF page ${activePageIndex + 1}`}
-                  className="max-w-full max-h-full object-contain pointer-events-none"
-                />
-
-                {/* Placed signature overlay */}
-                {isPlaced && signatureImage && (
-                  <div
-                    onMouseDown={handleDragStart}
-                    className="absolute cursor-move border-2 border-dashed border-accent group bg-accent/5 overflow-hidden flex items-center justify-center select-none"
-                    style={{
-                      left: `${sigX}%`,
-                      top: `${sigY}%`,
-                      width: `${sigWidth}px`,
-                      height: `${sigHeight}px`,
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    <img
-                      src={signatureImage}
-                      alt="Placed Signature"
-                      className="max-w-full max-h-full object-contain pointer-events-none"
-                    />
-
-                    {/* Simple drag resize handle */}
+              <div className="w-full max-h-[750px] overflow-y-auto space-y-6 pr-2">
+                {pagePreviews.map((preview, idx) => (
+                  <div key={idx} className="flex flex-col items-center gap-3 bg-zinc-50 dark:bg-zinc-900/30 border border-border/40 p-4 rounded-2xl shadow-sm">
+                    <div className="flex items-center justify-between w-full max-w-[400px]">
+                      <span className="text-xs font-mono font-bold text-ink">
+                        Page {idx + 1} of {pagePreviews.length}
+                      </span>
+                      {signatureImage && (
+                        <button
+                          onClick={() => addSignatureToPage(idx)}
+                          className="text-[10px] bg-accent/10 hover:bg-accent/20 text-accent font-extrabold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                        >
+                          + Place Signature
+                        </button>
+                      )}
+                    </div>
+                    
                     <div
-                      onMouseDown={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        const handleResize = (ev: MouseEvent) => {
-                          const w = sigWidth + ev.movementX;
-                          const h = sigHeight + ev.movementY;
-                          setSigWidth(Math.max(50, w));
-                          setSigHeight(Math.max(20, h));
-                        };
-                        const handleResizeEnd = () => {
-                          document.removeEventListener("mousemove", handleResize);
-                          document.removeEventListener("mouseup", handleResizeEnd);
-                        };
-                        document.addEventListener("mousemove", handleResize);
-                        document.addEventListener("mouseup", handleResizeEnd);
-                      }}
-                      className="absolute right-0 bottom-0 w-3 h-3 bg-accent cursor-se-resize flex items-center justify-center"
-                      title="Resize signature"
-                    />
+                      className="relative border border-border bg-white shadow-md overflow-hidden w-[400px] rounded-2xl"
+                    >
+                      {/* PDF Page Image Preview - full width, dynamic height */}
+                      <img
+                        src={preview}
+                        alt={`PDF page ${idx + 1}`}
+                        className="w-full h-auto block pointer-events-none"
+                      />
+
+                      {/* Placed signature overlays on this page */}
+                      {placedSignatures
+                        .filter((sig) => sig.pageIndex === idx)
+                        .map((sig) => (
+                          <div
+                            key={sig.id}
+                            onMouseDown={(e) => handleDragStart(e, sig.id)}
+                            className="absolute cursor-move border-2 border-dashed border-accent group bg-accent/5 overflow-hidden flex items-center justify-center select-none"
+                            style={{
+                              left: `${sig.x}%`,
+                              top: `${sig.y}%`,
+                              width: `${sig.width}px`,
+                              height: `${sig.height}px`,
+                              transform: "translate(-50%, -50%)",
+                            }}
+                          >
+                            <img
+                              src={sig.image}
+                              alt="Placed Signature"
+                              className="max-w-full max-h-full object-contain pointer-events-none"
+                            />
+
+                            {/* Delete button (shows on hover) */}
+                            <button
+                              onMouseDown={(e) => e.stopPropagation()} // prevent drag trigger
+                              onClick={() => {
+                                setPlacedSignatures((prev) => prev.filter((s) => s.id !== sig.id));
+                              }}
+                              className="absolute top-1 right-1 w-4 h-4 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-[9px] font-extrabold shadow cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+                              title="Remove signature"
+                            >
+                              ✕
+                            </button>
+
+                            {/* Resize handles from all 4 corners */}
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "top-left")}
+                              className="absolute left-0 top-0 w-3 h-3 bg-accent cursor-nwse-resize shadow border border-white"
+                              title="Resize from top-left"
+                            />
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "top-right")}
+                              className="absolute right-0 top-0 w-3 h-3 bg-accent cursor-nesw-resize shadow border border-white"
+                              title="Resize from top-right"
+                            />
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "bottom-left")}
+                              className="absolute left-0 bottom-0 w-3 h-3 bg-accent cursor-nesw-resize shadow border border-white"
+                              title="Resize from bottom-left"
+                            />
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "bottom-right")}
+                              className="absolute right-0 bottom-0 w-3 h-3 bg-accent cursor-nwse-resize shadow border border-white"
+                              title="Resize from bottom-right"
+                            />
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
             ) : (
               <div className="w-[400px] h-[550px] border border-dashed border-border/80 rounded-2xl bg-surface-elevated/20 flex items-center justify-center text-ink-muted/40 italic text-xs">

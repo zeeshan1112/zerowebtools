@@ -146,10 +146,14 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Fill in range value
     await page.locator('input[placeholder*="e.g."]').fill("1");
 
-    const downloadPromise = page.waitForEvent("download");
+    // Process pages
     await page.click('button:has-text("Extract Pages")');
+
+    // Wait for processing to finish and click download button
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Split PDF")');
     const download = await downloadPromise;
-    expect(download.suggestedFilename()).toBe("split.zip");
+    expect(download.suggestedFilename()).toBe("dummy-split.pdf");
   });
 
   test("6. PDF Compress", async ({ page }) => {
@@ -158,8 +162,13 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Compress PDF")');
+
+    // Wait for the compression metrics to appear (which shows processing completed)
+    await expect(page.locator("text=Compression Metrics")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Compressed PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-compressed.pdf");
   });
@@ -170,8 +179,13 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Rotate PDF")');
+
+    // Wait for the Download button to become visible after processing finishes
+    await expect(page.locator('button:has-text("Download Rotated PDF")')).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Rotated PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-rotated.pdf");
   });
@@ -197,22 +211,36 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyJpgPath);
     await expect(page.locator("text=dummy.jpg").first()).toBeVisible();
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Create PDF")');
+
+    // Wait for the Download PDF button to become visible after processing finishes
+    await expect(page.locator('button:has-text("Download PDF")')).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("document.pdf");
   });
 
   test("10. PDF Watermark", async ({ page }) => {
+    page.on("console", (msg) => console.log(`BROWSER LOG [${msg.type()}]:`, msg.text()));
+    page.on("pageerror", (err) => console.error("BROWSER EXCEPTION STACK:", err.stack || err.message));
+
     await page.goto("/tools/pdf-watermark");
     await expect(page.locator("h1")).toContainText("Add Watermark");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
     await page.locator('input[value="CONFIDENTIAL"]').fill("TEST-WATERMARK");
+    await page.locator('button[title="Blue"]').click();
+
+    await page.click('button:has-text("Add Watermark")');
+
+    // Wait for the Download Watermarked PDF button to become visible after processing finishes (simulated delay is 3.5s)
+    await expect(page.locator('button:has-text("Download Watermarked PDF")')).toBeVisible({ timeout: 15000 });
 
     const downloadPromise = page.waitForEvent("download");
-    await page.click('button:has-text("Add Watermark")');
+    await page.click('button:has-text("Download Watermarked PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-watermarked.pdf");
   });

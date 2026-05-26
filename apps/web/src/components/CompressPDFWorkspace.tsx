@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useCallback, useRef } from "react";
-import { downloadBlob, formatBytes, getFilename, compressPDF } from "@/lib/pdf-utils";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import { downloadBlob, formatBytes, getFilename, compressPDF, renderPDFThumbnail, loadPDFDoc } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
 
 const COMPRESS_STEPS = [
@@ -19,6 +19,9 @@ export default function CompressPDFWorkspace() {
   const [progress, setProgress] = useState<{ current: number; total: number } | null>(null);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [compressedBlob, setCompressedBlob] = useState<Blob | null>(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(0);
   const ref = useRef<HTMLInputElement>(null);
 
   // Simulated processing delay state for labor illusion & dwell time
@@ -27,9 +30,46 @@ export default function CompressPDFWorkspace() {
   const isGeneratingRef = useRef(false);
   const animationFinishedRef = useRef(false);
 
+  useEffect(() => {
+    return () => {
+      if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
+    };
+  }, [thumbnailUrl]);
+
   const handleFile = useCallback(async (f: File) => {
-    setFile(f); setBefore(f.size); setAfter(null); setProgress(null); setError(null);
+    setFile(f);
+    setBefore(f.size);
+    setAfter(null);
+    setCompressedBlob(null);
+    setProgress(null);
+    setError(null);
+    setThumbnailUrl(null);
+    try {
+      const doc = await loadPDFDoc(f);
+      setTotalPages(doc.getPageCount());
+      const thumb = await renderPDFThumbnail(f);
+      setThumbnailUrl(thumb);
+    } catch {
+      setError("Could not read PDF");
+    }
   }, []);
+
+  const handleLevelChange = useCallback((newLevel: "recommended" | "extreme" | "lossless") => {
+    setLevel(newLevel);
+    setAfter(null);
+    setCompressedBlob(null);
+  }, []);
+
+  const handleClear = useCallback(() => {
+    if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
+    setFile(null);
+    setBefore(0);
+    setAfter(null);
+    setCompressedBlob(null);
+    setProgress(null);
+    setError(null);
+    setThumbnailUrl(null);
+  }, [thumbnailUrl]);
 
   const compress = useCallback(async () => {
     if (!file) return;
@@ -50,7 +90,7 @@ export default function CompressPDFWorkspace() {
 
       if (animationFinishedRef.current) {
         setAfter(blob.size);
-        downloadBlob(blob, getFilename("pdf-compress", file.name));
+        setCompressedBlob(blob);
         setShowProcessingOverlay(false);
         setProcessing(false);
       }
@@ -66,20 +106,42 @@ export default function CompressPDFWorkspace() {
     animationFinishedRef.current = true;
     if (!isGeneratingRef.current && pendingBlobRef.current && file) {
       setAfter(pendingBlobRef.current.size);
-      downloadBlob(pendingBlobRef.current, getFilename("pdf-compress", file.name));
+      setCompressedBlob(pendingBlobRef.current);
       setShowProcessingOverlay(false);
       setProcessing(false);
     }
   }, [file]);
+
+  const download = useCallback(() => {
+    if (!compressedBlob || !file) return;
+    downloadBlob(compressedBlob, getFilename("pdf-compress", file.name));
+  }, [compressedBlob, file]);
+
+  const isLosslessFallback = after !== null && before > 0 && level !== "lossless" && (before - after) < 1024;
 
   return (
     <div className="relative space-y-6">
       <DropZone ref={ref} onFile={handleFile} label="Drop a PDF to compress" accept=".pdf" />
       {file && (
         <div className="space-y-6">
-          <div className="flex items-center gap-4 text-sm border-b border-border pb-3">
-            <span className="font-semibold text-ink">{file.name}</span>
-            <span className="text-ink-muted text-xs font-mono">{formatBytes(before)}</span>
+          {/* Thumbnail / Meta card */}
+          <div className="flex items-center gap-4 rounded-xl border border-border bg-surface-elevated p-3 select-none">
+            <div className="shrink-0 w-14 h-[72px] rounded-lg bg-zinc-100 dark:bg-zinc-800 overflow-hidden flex items-center justify-center border border-border/40">
+              {thumbnailUrl ? (
+                <img src={thumbnailUrl} alt={file.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="flex flex-col items-center gap-1 text-zinc-400">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                  </svg>
+                  <div className="w-6 h-0.5 rounded-full bg-zinc-200 dark:bg-zinc-700 animate-pulse"/>
+                </div>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-ink truncate" title={file.name}>{file.name}</p>
+              <p className="text-xs text-ink-secondary mt-0.5">{formatBytes(before)} · {totalPages} pages</p>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -87,12 +149,13 @@ export default function CompressPDFWorkspace() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button
                 type="button"
-                onClick={() => setLevel("recommended")}
+                onClick={() => handleLevelChange("recommended")}
+                disabled={processing || compressedBlob !== null}
                 className={`text-left p-5 rounded-xl border-2 transition-all flex flex-col justify-between text-ink h-full relative ${
                   level === "recommended"
                     ? "border-accent bg-accent-surface"
                     : "border-border hover:border-zinc-300 bg-surface-elevated"
-                }`}
+                } ${(processing || compressedBlob !== null) ? "opacity-60 cursor-not-allowed" : ""}`}
               >
                 <div className="w-full">
                   <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
@@ -108,12 +171,13 @@ export default function CompressPDFWorkspace() {
 
               <button
                 type="button"
-                onClick={() => setLevel("extreme")}
+                onClick={() => handleLevelChange("extreme")}
+                disabled={processing || compressedBlob !== null}
                 className={`text-left p-5 rounded-xl border-2 transition-all flex flex-col justify-between text-ink h-full relative ${
                   level === "extreme"
                     ? "border-accent bg-accent-surface"
                     : "border-border hover:border-zinc-300 bg-surface-elevated"
-                }`}
+                } ${(processing || compressedBlob !== null) ? "opacity-60 cursor-not-allowed" : ""}`}
               >
                 <div className="w-full">
                   <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
@@ -129,12 +193,13 @@ export default function CompressPDFWorkspace() {
 
               <button
                 type="button"
-                onClick={() => setLevel("lossless")}
+                onClick={() => handleLevelChange("lossless")}
+                disabled={processing || compressedBlob !== null}
                 className={`text-left p-5 rounded-xl border-2 transition-all flex flex-col justify-between text-ink h-full relative ${
                   level === "lossless"
                     ? "border-accent bg-accent-surface"
                     : "border-border hover:border-zinc-300 bg-surface-elevated"
-                }`}
+                } ${(processing || compressedBlob !== null) ? "opacity-60 cursor-not-allowed" : ""}`}
               >
                 <div className="w-full">
                   <div className="flex items-center justify-between mb-3 border-b border-border pb-2">
@@ -151,7 +216,7 @@ export default function CompressPDFWorkspace() {
           </div>
 
           {after !== null && (
-            <div className="rounded-xl border border-dashed border-border bg-surface-elevated p-5 space-y-3">
+            <div className="rounded-xl border border-dashed border-border bg-surface-elevated p-5 space-y-4">
               <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider border-b border-border pb-2 font-mono">Compression Metrics</div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
@@ -165,30 +230,59 @@ export default function CompressPDFWorkspace() {
                 <div>
                   <div className="text-[10px] font-mono text-ink-muted uppercase">Saved Space</div>
                   <div className="text-sm font-semibold text-ink mt-0.5 font-mono">
-                    {formatBytes(before - after)} ({((1 - after / before) * 100).toFixed(0)}%)
+                    {formatBytes(before - after)} ({((1 - after / before) * 100).toFixed(1)}%)
                   </div>
                 </div>
               </div>
+
+              {isLosslessFallback && (
+                <div className="p-3 bg-accent-surface border border-accent/20 rounded-lg text-xs text-ink-secondary leading-relaxed">
+                  <span className="font-semibold text-accent block mb-1">ℹ️ Lossless Fallback Applied</span>
+                  This PDF is text- and vector-based (not scanned). Standard image compression would make the text blurry and actually increase the file size. To prevent a larger file size, a metadata and structural optimization was automatically performed, preserving vector and text clarity.
+                </div>
+              )}
             </div>
           )}
 
           {error && <p className="text-xs text-red-500 font-mono">{error}</p>}
           
-          <button
-            onClick={compress}
-            disabled={processing}
-            className="rounded-lg bg-accent text-white px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 w-full md:w-auto font-mono uppercase tracking-wider"
-          >
-            {processing ? (
-              progress ? (
-                `Compressing page ${progress.current} of ${progress.total}...`
-              ) : (
-                "Compressing..."
-              )
+          <div className="flex flex-wrap items-center gap-3">
+            {compressedBlob === null ? (
+              <button
+                onClick={compress}
+                disabled={processing}
+                className="rounded-lg bg-accent text-white px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 w-full md:w-auto font-mono uppercase tracking-wider"
+              >
+                {processing ? (
+                  progress ? (
+                    `Compressing page ${progress.current} of ${progress.total}...`
+                  ) : (
+                    "Compressing..."
+                  )
+                ) : (
+                  "Compress PDF"
+                )}
+              </button>
             ) : (
-              "Compress PDF"
+              <>
+                <button
+                  onClick={download}
+                  className="rounded-lg bg-accent hover:bg-accent-hover text-white px-5 py-2.5 text-sm font-medium active:scale-[0.98] transition-all shadow-sm flex items-center gap-2 font-mono uppercase tracking-wider"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                  </svg>
+                  Download Compressed PDF
+                </button>
+                <button
+                  onClick={handleClear}
+                  className="text-xs text-ink-muted hover:text-ink transition-colors font-mono uppercase tracking-wider ml-2"
+                >
+                  Start Over
+                </button>
+              </>
             )}
-          </button>
+          </div>
         </div>
       )}
       <ProcessingOverlay
