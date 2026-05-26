@@ -116,7 +116,6 @@ export default function SplitPDFWorkspace() {
 
       if (animationFinishedRef.current) {
         setSplitBlob(blob);
-        downloadBlob(blob, getFilename(mode === "extract" ? "pdf-split" : "pdf-organize", file.name));
         setShowProcessingOverlay(false);
         setProcessing(false);
       }
@@ -130,13 +129,12 @@ export default function SplitPDFWorkspace() {
 
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
-    if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+    if (!isGeneratingRef.current && pendingBlobRef.current) {
       setSplitBlob(pendingBlobRef.current);
-      downloadBlob(pendingBlobRef.current, getFilename(mode === "extract" ? "pdf-split" : "pdf-organize", file.name));
       setShowProcessingOverlay(false);
       setProcessing(false);
     }
-  }, [file, mode]);
+  }, []);
 
   const download = useCallback(() => {
     if (!splitBlob || !file) return;

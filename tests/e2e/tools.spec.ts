@@ -146,10 +146,14 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Fill in range value
     await page.locator('input[placeholder*="e.g."]').fill("1");
 
-    const downloadPromise = page.waitForEvent("download");
+    // Process pages
     await page.click('button:has-text("Extract Pages")');
+
+    // Wait for processing to finish and click download button
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Split PDF")');
     const download = await downloadPromise;
-    expect(download.suggestedFilename()).toBe("split.zip");
+    expect(download.suggestedFilename()).toBe("dummy-split.pdf");
   });
 
   test("6. PDF Compress", async ({ page }) => {

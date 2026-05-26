@@ -141,7 +141,7 @@ export function getFilename(tool: string, original?: string): string {
   const base = original?.replace(/\.[^.]+$/, "") ?? "document";
   const map: Record<string, string> = {
     "pdf-merge": "merged.pdf",
-    "pdf-split": "split.zip",
+    "pdf-split": `${base}-split.pdf`,
     "pdf-compress": `${base}-compressed.pdf`,
     "pdf-rotate": `${base}-rotated.pdf`,
     "pdf-to-jpg": `${base}.zip`,
