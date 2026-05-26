@@ -20,54 +20,48 @@ export default function ProcessingOverlay({
 }: ProcessingOverlayProps) {
   const [progress, setProgress] = useState(0);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const startTimeRef = useRef<number | null>(null);
-  const requestRef = useRef<number | null>(null);
+
+  // Stable ref for onFinished to avoid re-triggering the animation when the callback reference changes
+  const onFinishedRef = useRef(onFinished);
+  useEffect(() => {
+    onFinishedRef.current = onFinished;
+  }, [onFinished]);
 
   // Reset states when opened
   useEffect(() => {
-    if (isOpen) {
-      setProgress(0);
-      setCurrentStepIndex(0);
-      startTimeRef.current = performance.now();
+    if (!isOpen) return;
 
-      const animate = (time: number) => {
-        if (startTimeRef.current === null) return;
-        const elapsed = time - startTimeRef.current;
-        const currentProgress = Math.min((elapsed / duration) * 100, 100);
-        
-        setProgress(currentProgress);
+    setProgress(0);
+    setCurrentStepIndex(0);
+    const startTime = performance.now();
 
-        // Determine step index based on progress segment
-        const stepSegment = 100 / steps.length;
-        const nextStepIndex = Math.min(
-          Math.floor(currentProgress / stepSegment),
-          steps.length - 1
-        );
-        setCurrentStepIndex(nextStepIndex);
+    const timer = setInterval(() => {
+      const elapsed = performance.now() - startTime;
+      const currentProgress = Math.min((elapsed / duration) * 100, 100);
 
-        if (currentProgress < 100) {
-          requestRef.current = requestAnimationFrame(animate);
-        } else {
-          // Allow a brief pause at 100% for user satisfaction before triggering finalization
-          setTimeout(() => {
-            onFinished();
-          }, 300);
-        }
-      };
+      setProgress(currentProgress);
 
-      requestRef.current = requestAnimationFrame(animate);
-    } else {
-      if (requestRef.current !== null) {
-        cancelAnimationFrame(requestRef.current);
+      // Determine step index based on progress segment
+      const stepSegment = 100 / steps.length;
+      const nextStepIndex = Math.min(
+        Math.floor(currentProgress / stepSegment),
+        steps.length - 1
+      );
+      setCurrentStepIndex(nextStepIndex);
+
+      if (currentProgress >= 100) {
+        clearInterval(timer);
+        // Allow a brief pause at 100% for user satisfaction before triggering finalization
+        setTimeout(() => {
+          onFinishedRef.current();
+        }, 300);
       }
-    }
+    }, 30);
 
     return () => {
-      if (requestRef.current !== null) {
-        cancelAnimationFrame(requestRef.current);
-      }
+      clearInterval(timer);
     };
-  }, [isOpen, steps.length, duration, onFinished]);
+  }, [isOpen, steps.length, duration]);
 
   if (!isOpen) return null;
 

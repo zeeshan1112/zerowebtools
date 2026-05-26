@@ -223,15 +223,24 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("10. PDF Watermark", async ({ page }) => {
+    page.on("console", (msg) => console.log(`BROWSER LOG [${msg.type()}]:`, msg.text()));
+    page.on("pageerror", (err) => console.error("BROWSER EXCEPTION STACK:", err.stack || err.message));
+
     await page.goto("/tools/pdf-watermark");
     await expect(page.locator("h1")).toContainText("Add Watermark");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
     await page.locator('input[value="CONFIDENTIAL"]').fill("TEST-WATERMARK");
+    await page.locator('button[title="Blue"]').click();
+
+    await page.click('button:has-text("Add Watermark")');
+
+    // Wait for the Download Watermarked PDF button to become visible after processing finishes (simulated delay is 3.5s)
+    await expect(page.locator('button:has-text("Download Watermarked PDF")')).toBeVisible({ timeout: 15000 });
 
     const downloadPromise = page.waitForEvent("download");
-    await page.click('button:has-text("Add Watermark")');
+    await page.click('button:has-text("Download Watermarked PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-watermarked.pdf");
   });
