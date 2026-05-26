@@ -162,10 +162,19 @@ export async function compressPDF(
 ): Promise<Blob> {
   if (level === "lossless") {
     const doc = await loadPDFDoc(file);
+    doc.setTitle("");
+    doc.setAuthor("");
+    doc.setSubject("");
+    doc.setCreator("");
+    doc.setProducer("");
     const bytes = await doc.save({
       useObjectStreams: true,
     });
-    return new Blob([bytes as any], { type: "application/pdf" });
+    const blob = new Blob([bytes as any], { type: "application/pdf" });
+    if (blob.size >= file.size) {
+      return file;
+    }
+    return blob;
   }
 
   const pdfjs = await import("pdfjs-dist");
@@ -237,7 +246,31 @@ export async function compressPDF(
     useObjectStreams: true,
   });
 
-  return new Blob([bytes as any], { type: "application/pdf" });
+  const compressedBlob = new Blob([bytes as any], { type: "application/pdf" });
+
+  // If the compressed size is larger than or equal to the original, fall back to lossless optimization
+  if (compressedBlob.size >= file.size) {
+    try {
+      const doc = await loadPDFDoc(file);
+      doc.setTitle("");
+      doc.setAuthor("");
+      doc.setSubject("");
+      doc.setCreator("");
+      doc.setProducer("");
+      const losslessBytes = await doc.save({
+        useObjectStreams: true,
+      });
+      const losslessBlob = new Blob([losslessBytes as any], { type: "application/pdf" });
+      if (losslessBlob.size < file.size) {
+        return losslessBlob;
+      }
+    } catch {
+      // Ignore error and fall back to the original file
+    }
+    return file;
+  }
+
+  return compressedBlob;
 }
 
 export { PDFDocument, StandardFonts, rgb, PageSizes };
