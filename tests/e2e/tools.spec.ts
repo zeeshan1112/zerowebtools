@@ -211,8 +211,13 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyJpgPath);
     await expect(page.locator("text=dummy.jpg").first()).toBeVisible();
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Create PDF")');
+
+    // Wait for the Download PDF button to become visible after processing finishes
+    await expect(page.locator('button:has-text("Download PDF")')).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("document.pdf");
   });
