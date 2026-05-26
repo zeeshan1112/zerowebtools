@@ -148,7 +148,9 @@ export default function PdfSignWorkspace() {
 
     const base64 = canvas.toDataURL("image/png");
     setSignatureImage(base64);
-    addSignatureToPage(0, base64); // Add to first page by default
+    if (placedSignatures.length === 0) {
+      addSignatureToPage(0, base64); // Only auto-place on Page 1 if none are placed yet
+    }
   };
 
   // Generate typed signature on canvas
@@ -168,7 +170,9 @@ export default function PdfSignWorkspace() {
       
       const base64 = canvas.toDataURL("image/png");
       setSignatureImage(base64);
-      addSignatureToPage(0, base64); // Add to first page by default
+      if (placedSignatures.length === 0) {
+        addSignatureToPage(0, base64); // Only auto-place on Page 1 if none are placed yet
+      }
     }
   };
 
@@ -179,7 +183,9 @@ export default function PdfSignWorkspace() {
       reader.onload = (event) => {
         if (typeof event.target?.result === "string") {
           setSignatureImage(event.target.result);
-          addSignatureToPage(0, event.target.result); // Add to first page by default
+          if (placedSignatures.length === 0) {
+            addSignatureToPage(0, event.target.result); // Only auto-place on Page 1 if none are placed yet
+          }
         }
       };
       reader.readAsDataURL(e.target.files[0]);
@@ -237,26 +243,72 @@ export default function PdfSignWorkspace() {
     document.addEventListener("mouseup", handleDragEnd);
   };
 
-  // Drag resizing logic
-  const handleResizeStart = (e: React.MouseEvent, id: string) => {
+  // Drag resizing logic supporting all 4 corners
+  const handleResizeStart = (e: React.MouseEvent, id: string, corner: "top-left" | "top-right" | "bottom-left" | "bottom-right") => {
     e.stopPropagation();
     e.preventDefault();
+    
+    const sigElement = e.currentTarget.parentElement;
+    if (!sigElement) return;
+    const container = sigElement.parentElement;
+    if (!container) return;
+
     const sig = placedSignatures.find((s) => s.id === id);
     if (!sig) return;
 
+    const containerRect = container.getBoundingClientRect();
     const startWidth = sig.width;
     const startHeight = sig.height;
     const startX = e.clientX;
     const startY = e.clientY;
+    
+    const startPercentX = sig.x;
+    const startPercentY = sig.y;
 
     const handleResize = (ev: MouseEvent) => {
       const deltaX = ev.clientX - startX;
       const deltaY = ev.clientY - startY;
-      const w = startWidth + deltaX;
-      const h = startHeight + deltaY;
+
+      let newWidth = startWidth;
+      let newHeight = startHeight;
+      let newPercentX = startPercentX;
+      let newPercentY = startPercentY;
+
+      const containerW = containerRect.width;
+      const containerH = containerRect.height;
+
+      if (corner === "bottom-right") {
+        newWidth = Math.max(50, startWidth + deltaX);
+        newHeight = Math.max(20, startHeight + deltaY);
+      } else if (corner === "bottom-left") {
+        const potentialWidth = Math.max(50, startWidth - deltaX);
+        newWidth = potentialWidth;
+        newPercentX = startPercentX + ((deltaX / 2) / containerW) * 100;
+      } else if (corner === "top-right") {
+        newWidth = Math.max(50, startWidth + deltaX);
+        const potentialHeight = Math.max(20, startHeight - deltaY);
+        newHeight = potentialHeight;
+        newPercentY = startPercentY + ((deltaY / 2) / containerH) * 100;
+      } else if (corner === "top-left") {
+        const potentialWidth = Math.max(50, startWidth - deltaX);
+        const potentialHeight = Math.max(20, startHeight - deltaY);
+        newWidth = potentialWidth;
+        newHeight = potentialHeight;
+        newPercentX = startPercentX + ((deltaX / 2) / containerW) * 100;
+        newPercentY = startPercentY + ((deltaY / 2) / containerH) * 100;
+      }
+
       setPlacedSignatures((prev) =>
         prev.map((s) =>
-          s.id === id ? { ...s, width: Math.max(50, w), height: Math.max(20, h) } : s
+          s.id === id
+            ? {
+                ...s,
+                width: newWidth,
+                height: newHeight,
+                x: Math.max(0, Math.min(100, newPercentX)),
+                y: Math.max(0, Math.min(100, newPercentY)),
+              }
+            : s
         )
       );
     };
@@ -450,6 +502,16 @@ export default function PdfSignWorkspace() {
               )}
             </div>
 
+            {/* Signature Notification status banner */}
+            {signatureImage && (
+              <div className="bg-accent/10 border border-accent/20 rounded-2xl p-4 text-xs text-accent text-center font-bold space-y-2 shadow-sm">
+                <div>✓ Signature Template Ready!</div>
+                <div className="text-[10px] text-ink-secondary font-medium">
+                  Scroll to any page on the right and click <strong>"+ Place Signature"</strong> to apply it.
+                </div>
+              </div>
+            )}
+
             {/* Document stats / Info */}
             <div className="rounded-2xl border border-border bg-surface-elevated p-5 space-y-4 shadow-sm">
               <h4 className="text-xs font-bold text-ink uppercase tracking-wider">
@@ -539,11 +601,26 @@ export default function PdfSignWorkspace() {
                               ✕
                             </button>
 
-                            {/* Resize handle */}
+                            {/* Resize handles from all 4 corners */}
                             <div
-                              onMouseDown={(e) => handleResizeStart(e, sig.id)}
-                              className="absolute right-0 bottom-0 w-3.5 h-3.5 bg-accent cursor-se-resize flex items-center justify-center shadow"
-                              title="Resize signature"
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "top-left")}
+                              className="absolute left-0 top-0 w-3 h-3 bg-accent cursor-nwse-resize shadow border border-white"
+                              title="Resize from top-left"
+                            />
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "top-right")}
+                              className="absolute right-0 top-0 w-3 h-3 bg-accent cursor-nesw-resize shadow border border-white"
+                              title="Resize from top-right"
+                            />
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "bottom-left")}
+                              className="absolute left-0 bottom-0 w-3 h-3 bg-accent cursor-nesw-resize shadow border border-white"
+                              title="Resize from bottom-left"
+                            />
+                            <div
+                              onMouseDown={(e) => handleResizeStart(e, sig.id, "bottom-right")}
+                              className="absolute right-0 bottom-0 w-3 h-3 bg-accent cursor-nwse-resize shadow border border-white"
+                              title="Resize from bottom-right"
                             />
                           </div>
                         ))}
