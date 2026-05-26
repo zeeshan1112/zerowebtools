@@ -31,6 +31,7 @@ export default function PdfSignWorkspace() {
   const [signatureType, setSignatureType] = useState<"draw" | "type" | "upload">("draw");
   const [typedName, setTypedName] = useState("");
   const [signatureImage, setSignatureImage] = useState<string | null>(null); // base64 PNG
+  const [penColor, setPenColor] = useState("#000000"); // manual color selector
 
   // Placed signatures across pages
   const [placedSignatures, setPlacedSignatures] = useState<PlacedSignature[]>([]);
@@ -88,19 +89,33 @@ export default function PdfSignWorkspace() {
     setPlacedSignatures((prev) => [...prev, newSig]);
   };
 
-  // Drawing Pad Canvas logic
+  // Drawing Pad Canvas logic & resolution adjustment
   useEffect(() => {
     if (signatureType === "draw" && drawCanvasRef.current) {
       const canvas = drawCanvasRef.current;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = 3;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-      }
+      
+      const resizeCanvas = () => {
+        const rect = canvas.getBoundingClientRect();
+        // Match internal pixel resolution directly to display bounds
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.strokeStyle = penColor;
+          ctx.lineWidth = 3;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+        }
+      };
+
+      // Set resolution immediately
+      resizeCanvas();
+      
+      window.addEventListener("resize", resizeCanvas);
+      return () => window.removeEventListener("resize", resizeCanvas);
     }
-  }, [signatureType]);
+  }, [signatureType, penColor]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     const canvas = drawCanvasRef.current;
@@ -170,7 +185,7 @@ export default function PdfSignWorkspace() {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = penColor;
       ctx.font = "italic bold 36px 'Dancing Script', 'Brush Script MT', cursive, serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -438,14 +453,51 @@ export default function PdfSignWorkspace() {
                 </button>
               </div>
 
+              {/* Color Selector */}
+              <div className="space-y-1.5 pt-1">
+                <label className="text-[10px] font-bold text-ink-muted uppercase block">Pen / Text Color</label>
+                <div className="flex items-center gap-2">
+                  {[
+                    { name: "Black", value: "#000000" },
+                    { name: "Navy", value: "#1e3a8a" },
+                    { name: "Blue", value: "#2563eb" },
+                    { name: "Red", value: "#dc2626" },
+                  ].map((c) => (
+                    <button
+                      key={c.value}
+                      onClick={() => setPenColor(c.value)}
+                      className={`w-6 h-6 rounded-full border transition-all cursor-pointer ${
+                        penColor === c.value
+                          ? "border-accent scale-110 ring-2 ring-accent/20"
+                          : "border-border hover:scale-105"
+                      }`}
+                      style={{ backgroundColor: c.value }}
+                      title={c.name}
+                    />
+                  ))}
+                  {/* Custom color picker */}
+                  <div className="relative w-6 h-6 rounded-full border border-border overflow-hidden cursor-pointer flex items-center justify-center bg-zinc-50 hover:scale-105 transition-all">
+                    <input
+                      type="color"
+                      value={penColor}
+                      onChange={(e) => setPenColor(e.target.value)}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                      title="Custom Color"
+                    />
+                    <svg className="w-3.5 h-3.5 text-zinc-500" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122l9.37-9.37a2.25 2.25 0 10-3.182-3.182l-9.37 9.37a4.5 4.5 0 00-1.196 2.378l-.662 2.648a.75.75 0 00.916.916l2.648-.662a4.5 4.5 0 002.378-1.196z" />
+                    </svg>
+                  </div>
+                  <span className="text-[10px] font-mono font-semibold text-ink-muted/80">{penColor}</span>
+                </div>
+              </div>
+
               {/* Draw Signature */}
               {signatureType === "draw" && (
                 <div className="space-y-3">
                   <div className="border border-border rounded-xl overflow-hidden bg-white">
                     <canvas
                       ref={drawCanvasRef}
-                      width={300}
-                      height={150}
                       onMouseDown={startDrawing}
                       onMouseMove={draw}
                       onMouseUp={stopDrawing}
@@ -453,7 +505,7 @@ export default function PdfSignWorkspace() {
                       onTouchStart={startDrawing}
                       onTouchMove={draw}
                       onTouchEnd={stopDrawing}
-                      className="w-full h-36 touch-none cursor-crosshair"
+                      className="w-full h-36 touch-none cursor-crosshair block bg-white"
                     />
                   </div>
                   <div className="flex gap-2">
@@ -484,7 +536,10 @@ export default function PdfSignWorkspace() {
                     className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2.5 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
                   />
                   {typedName && (
-                    <div className="border border-border/80 rounded-xl p-4 bg-white/50 text-center font-mono text-2xl select-text italic text-ink overflow-x-auto min-h-[64px] flex items-center justify-center font-cursive">
+                    <div
+                      className="border border-border/80 rounded-xl p-4 bg-white/50 text-center font-mono text-2xl select-text italic overflow-x-auto min-h-[64px] flex items-center justify-center font-cursive"
+                      style={{ color: penColor }}
+                    >
                       {typedName}
                     </div>
                   )}
