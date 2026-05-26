@@ -193,14 +193,55 @@ export function UnlockPDFWorkspace() {
   );
 }
 
+const WATERMARK_COLORS = {
+  red: rgb(0.937, 0.267, 0.267),   // #ef4444
+  black: rgb(0, 0, 0),             // #000000
+  blue: rgb(0.231, 0.51, 0.965),   // #3b82f6
+  gray: rgb(0.42, 0.447, 0.502),   // #6b7280
+};
+
+const WATERMARK_HEX_COLORS = {
+  red: "#ef4444",
+  black: "#000000",
+  blue: "#3b82f6",
+  gray: "#6b7280",
+};
+
+function hexToPdfRgb(hex: string) {
+  const cleanHex = hex.replace("#", "");
+  const r = (parseInt(cleanHex.substring(0, 2), 16) || 0) / 255;
+  const g = (parseInt(cleanHex.substring(2, 4), 16) || 0) / 255;
+  const b = (parseInt(cleanHex.substring(4, 6), 16) || 0) / 255;
+  return rgb(r, g, b);
+}
+
+const getWatermarkColor = (col: string) => {
+  if (col === "red") return WATERMARK_COLORS.red;
+  if (col === "black") return WATERMARK_COLORS.black;
+  if (col === "blue") return WATERMARK_COLORS.blue;
+  if (col === "gray") return WATERMARK_COLORS.gray;
+  return hexToPdfRgb(col);
+};
+
+const getWatermarkHexColor = (col: string) => {
+  if (col === "red") return "#ef4444";
+  if (col === "black") return "#000000";
+  if (col === "blue") return "#3b82f6";
+  if (col === "gray") return "#6b7280";
+  return col;
+};
+
 export function WatermarkPDFWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [type, setType] = useState<"text" | "image">("text");
   const [text, setText] = useState("CONFIDENTIAL");
   const [size, setSize] = useState(36);
-  const [opacity, setOpacity] = useState(0.2);
-  const [angle, setAngle] = useState(-45);
+  const [opacity, setOpacity] = useState(0.25);
+  const [angle, setAngle] = useState(0);
+  const [position, setPosition] = useState<{ xPct: number; yPct: number }>({ xPct: 50, yPct: 50 });
   const [grid, setGrid] = useState<"single" | "mosaic">("single");
+  const [color, setColor] = useState<string>("red");
+  const [pageSize, setPageSize] = useState<{ width: number; height: number } | null>(null);
   const [layer, setLayer] = useState<"above" | "below">("above");
   const [fromPage, setFromPage] = useState(1);
   const [toPage, setToPage] = useState(1);
@@ -219,6 +260,8 @@ export function WatermarkPDFWorkspace() {
   const [previewLoading, setPreviewLoading] = useState(false);
 
   const ref = useRef<HTMLInputElement>(null);
+  const positionPreviewRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
 
   // Simulated processing delay state for labor illusion & dwell time
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
@@ -245,6 +288,11 @@ export function WatermarkPDFWorkspace() {
       setTotalPages(count);
       setFromPage(1);
       setToPage(count);
+      const firstPage = doc.getPages()[0];
+      if (firstPage) {
+        const { width, height } = firstPage.getSize();
+        setPageSize({ width, height });
+      }
       const thumb = await renderPDFThumbnail(f);
       setThumbnailUrl(thumb);
     } catch {
@@ -269,9 +317,12 @@ export function WatermarkPDFWorkspace() {
     setType("text");
     setText("CONFIDENTIAL");
     setSize(36);
-    setOpacity(0.2);
-    setAngle(-45);
+    setOpacity(0.25);
+    setAngle(0);
+    setPosition({ xPct: 50, yPct: 50 });
     setGrid("single");
+    setColor("red");
+    setPageSize(null);
     setLayer("above");
     setImageFile(null);
     setImagePreview(null);
@@ -280,6 +331,36 @@ export function WatermarkPDFWorkspace() {
     setShowPreview(false);
     setError(null);
   }, [thumbnailUrl, imagePreview, previewPages]);
+
+  const updateWatermarkPosition = useCallback((clientX: number, clientY: number) => {
+    const rect = positionPreviewRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const xPct = Math.max(2, Math.min(98, ((clientX - rect.left) / rect.width) * 100));
+    const yPct = Math.max(2, Math.min(98, ((clientY - rect.top) / rect.height) * 100));
+    setPosition({ xPct, yPct });
+    setWatermarkedBlob(null);
+  }, []);
+
+  const handlePositionMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true;
+    updateWatermarkPosition(e.clientX, e.clientY);
+  }, [updateWatermarkPosition]);
+
+  const handlePositionMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    updateWatermarkPosition(e.clientX, e.clientY);
+  }, [updateWatermarkPosition]);
+
+  const handlePositionMouseUp = useCallback(() => {
+    isDraggingRef.current = false;
+  }, []);
+
+  const handleTouchUpdate = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    if (touch) {
+      updateWatermarkPosition(touch.clientX, touch.clientY);
+    }
+  }, [updateWatermarkPosition]);
 
   const water = useCallback(async () => {
     if (!file) return;
@@ -295,7 +376,7 @@ export function WatermarkPDFWorkspace() {
     try {
       const doc = await loadPDFDoc(file);
       const pages = doc.getPages();
-      const font = await doc.embedFont(StandardFonts.HelveticaBold);
+      const font = await doc.embedFont(StandardFonts.Helvetica);
 
       let watermarkImage: any = null;
       if (type === "image" && imageFile) {
@@ -314,10 +395,20 @@ export function WatermarkPDFWorkspace() {
         const page = pages[i];
         const { width, height } = page.getSize();
 
-        // Calculate positions
+        // PDF rotation angle: CSS uses clockwise positive, pdf-lib uses counter-clockwise positive
+        const drawAnglePDF = -angle;
+        const rad = (drawAnglePDF * Math.PI) / 180;
+        const cosA = Math.cos(rad);
+        const sinA = Math.sin(rad);
+
         const positions: { x: number; y: number }[] = [];
         if (grid === "single") {
-          positions.push({ x: width / 2, y: height / 2 });
+          // Map visual editor percentage to PDF coordinates.
+          // Visual editor: (0%, 0%) = top-left, (100%, 100%) = bottom-right
+          // PDF coords: (0, 0) = bottom-left, (width, height) = top-right
+          const px = position.xPct / 100;
+          const py = position.yPct / 100;
+          positions.push({ x: width * px, y: height * (1 - py) });
         } else {
           // 3x3 grid coordinates
           const cols = [width * 0.25, width * 0.5, width * 0.75];
@@ -332,28 +423,47 @@ export function WatermarkPDFWorkspace() {
         // Draw watermarks
         for (const pos of positions) {
           if (type === "text") {
-            const textWidth = font.widthOfTextAtSize(text, size);
-            const textHeight = size * 0.7; // approximate text baseline height
+            let textWidth = text.length * size * 0.55;
+            try {
+              textWidth = font.widthOfTextAtSize(text, size);
+            } catch (err) {
+              console.warn("font.widthOfTextAtSize failed, using fallback approximation:", err);
+            }
+            const textHeight = size * 0.7; // approximate ascender height
+
+            // Center the watermark at pos (the target center point).
+            // pdf-lib drawText places (x,y) at baseline-left and rotates around (x,y).
+            // After rotation by θ around (x,y), the center of the text moves to:
+            //   center = (x + tw/2·cosθ − th/2·sinθ,  x + tw/2·sinθ + th/2·cosθ)
+            // Solving for x,y so that center = pos:
+            const finalX = pos.x - ( (textWidth / 2) * cosA - (textHeight / 2) * sinA );
+            const finalY = pos.y - ( (textWidth / 2) * sinA + (textHeight / 2) * cosA );
+
             page.drawText(text, {
-              x: pos.x - textWidth / 2,
-              y: pos.y - textHeight / 2,
+              x: finalX,
+              y: finalY,
               size,
               font,
-              color: rgb(0, 0, 0),
+              color: getWatermarkColor(color),
               opacity,
-              rotate: { type: "degrees" as any, angle },
+              rotate: { type: "degrees" as any, angle: drawAnglePDF },
             });
           } else if (watermarkImage) {
             const scaleFactor = (size * 4) / watermarkImage.width;
             const imgWidth = watermarkImage.width * scaleFactor;
             const imgHeight = watermarkImage.height * scaleFactor;
+
+            // Rotate around center calculation
+            const finalX = pos.x - ( (imgWidth / 2) * cosA - (imgHeight / 2) * sinA );
+            const finalY = pos.y - ( (imgWidth / 2) * sinA + (imgHeight / 2) * cosA );
+
             page.drawImage(watermarkImage, {
-              x: pos.x - imgWidth / 2,
-              y: pos.y - imgHeight / 2,
+              x: finalX,
+              y: finalY,
               width: imgWidth,
               height: imgHeight,
               opacity,
-              rotate: { type: "degrees" as any, angle },
+              rotate: { type: "degrees" as any, angle: drawAnglePDF },
             });
           }
         }
@@ -369,12 +479,13 @@ export function WatermarkPDFWorkspace() {
         setProcessing(false);
       }
     } catch (e: any) {
+      console.error("WATERMARK ERROR STACK:", e.stack || e);
       setError(e.message || "Watermark failed");
       setShowProcessingOverlay(false);
       setProcessing(false);
       isGeneratingRef.current = false;
     }
-  }, [file, type, text, size, opacity, angle, grid, layer, fromPage, toPage, imageFile]);
+  }, [file, type, text, size, opacity, angle, grid, layer, fromPage, toPage, imageFile, position, color]);
 
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
@@ -419,7 +530,15 @@ export function WatermarkPDFWorkspace() {
 
   return (
     <div className="relative space-y-5">
+      <ProcessingOverlay
+        isOpen={showProcessingOverlay}
+        loadingText="Applying watermark..."
+        steps={["Loading PDF document", "Embedding watermark", "Saving output"]}
+        duration={3500}
+        onFinished={handleProcessingFinished}
+      />
       {!file && <SZ onFile={handleFile} label="Drop a PDF to watermark" accept=".pdf" />}
+
       {file && (
         <div className="space-y-5">
           {/* Thumbnail / Meta card */}
@@ -442,162 +561,298 @@ export function WatermarkPDFWorkspace() {
             </div>
           </div>
 
-          <div className="space-y-4 rounded-2xl border border-border bg-surface-elevated/40 p-5">
-            {/* Watermark Type Selector */}
-            <div className="flex items-center gap-3">
-              <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">Watermark Type</label>
-              <div className="flex bg-zinc-100 dark:bg-zinc-900 border border-border/50 p-1 rounded-xl">
-                {(["text", "image"] as const).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => { setType(t); setWatermarkedBlob(null); }}
-                    className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer ${
-                      type === t ? "bg-surface shadow text-accent" : "text-ink-secondary"
-                    }`}
-                  >
-                    {t === "text" ? "Text" : "Image"}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Config controls */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {type === "text" ? (
-                <div>
-                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Text String</label>
-                  <input
-                    value={text}
-                    onChange={(e) => { setText(e.target.value); setWatermarkedBlob(null); }}
-                    className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Image File</label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg"
-                      onChange={handleImageFile}
-                      className="hidden"
-                      id="watermark-img-file"
-                    />
-                    <label
-                      htmlFor="watermark-img-file"
-                      className="rounded-xl border border-border bg-surface-elevated hover:bg-surface px-4 py-2 text-xs font-medium text-ink-secondary hover:text-ink cursor-pointer transition-colors shrink-0"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Left Column: Config Panel */}
+            <div className={`space-y-4 rounded-2xl border border-border bg-surface-elevated/40 p-5 ${grid === "single" ? "lg:col-span-8" : "lg:col-span-12"}`}>
+              {/* Watermark Type Selector */}
+              <div className="flex items-center gap-3">
+                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">Watermark Type</label>
+                <div className="flex bg-zinc-100 dark:bg-zinc-900 border border-border/50 p-1 rounded-xl">
+                  {(["text", "image"] as const).map((t) => (
+                    <button
+                      key={t}
+                      onClick={() => { setType(t); setWatermarkedBlob(null); }}
+                      className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer ${
+                        type === t ? "bg-surface shadow text-accent" : "text-ink-secondary"
+                      }`}
                     >
-                      Select Image
-                    </label>
-                    <div className="min-w-0 flex-1">
-                      {imageFile ? (
-                        <p className="text-xs text-ink font-medium truncate" title={imageFile.name}>{imageFile.name}</p>
-                      ) : (
-                        <p className="text-xs text-ink-muted italic">No image selected</p>
-                      )}
+                      {t === "text" ? "Text" : "Image"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Config controls */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {type === "text" ? (
+                  <div>
+                    <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Text String</label>
+                    <input
+                      value={text}
+                      onChange={(e) => { setText(e.target.value); setWatermarkedBlob(null); }}
+                      className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Image File</label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        onChange={handleImageFile}
+                        className="hidden"
+                        id="watermark-img-file"
+                      />
+                      <label
+                        htmlFor="watermark-img-file"
+                        className="rounded-xl border border-border bg-surface-elevated hover:bg-surface px-4 py-2 text-xs font-medium text-ink-secondary hover:text-ink cursor-pointer transition-colors shrink-0"
+                      >
+                        Select Image
+                      </label>
+                      <div className="min-w-0 flex-1">
+                        {imageFile ? (
+                          <p className="text-xs text-ink font-medium truncate" title={imageFile.name}>{imageFile.name}</p>
+                        ) : (
+                          <p className="text-xs text-ink-muted italic">No image selected</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Grid Layout</label>
+                  <div className="flex bg-zinc-100 dark:bg-zinc-900 border border-border/50 p-1 rounded-xl">
+                    {(["single", "mosaic"] as const).map((g) => (
+                      <button
+                        key={g}
+                        onClick={() => { setGrid(g); setWatermarkedBlob(null); }}
+                        className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer text-center ${
+                          grid === g ? "bg-surface shadow text-accent" : "text-ink-secondary"
+                        }`}
+                      >
+                        {g === "single" ? "Single Center" : "Mosaic (3x3)"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Page Range (From Page {fromPage} to Page {toPage})</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <span className="text-[10px] text-ink-muted block mb-1">Start Page</span>
+                      <input
+                        type="number"
+                        min={1}
+                        max={totalPages}
+                        value={fromPage}
+                        onChange={(e) => { setFromPage(Math.max(1, Math.min(totalPages, +e.target.value || 1))); setWatermarkedBlob(null); }}
+                        className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent font-mono"
+                      />
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-ink-muted block mb-1">End Page</span>
+                      <input
+                        type="number"
+                        min={1}
+                        max={totalPages}
+                        value={toPage}
+                        onChange={(e) => { setToPage(Math.max(1, Math.min(totalPages, +e.target.value || 1))); setWatermarkedBlob(null); }}
+                        className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent font-mono"
+                      />
                     </div>
                   </div>
                 </div>
-              )}
 
-              <div>
-                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Grid Layout</label>
-                <div className="flex bg-zinc-100 dark:bg-zinc-900 border border-border/50 p-1 rounded-xl">
-                  {(["single", "mosaic"] as const).map((g) => (
-                    <button
-                      key={g}
-                      onClick={() => { setGrid(g); setWatermarkedBlob(null); }}
-                      className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer text-center ${
-                        grid === g ? "bg-surface shadow text-accent" : "text-ink-secondary"
-                      }`}
-                    >
-                      {g === "single" ? "Single Center" : "Mosaic (3x3)"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Page Range (From Page {fromPage} to Page {toPage})</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <span className="text-[10px] text-ink-muted block mb-1">Start Page</span>
-                    <input
-                      type="number"
-                      min={1}
-                      max={totalPages}
-                      value={fromPage}
-                      onChange={(e) => { setFromPage(Math.max(1, Math.min(totalPages, +e.target.value || 1))); setWatermarkedBlob(null); }}
-                      className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent font-mono"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-ink-muted block mb-1">End Page</span>
-                    <input
-                      type="number"
-                      min={1}
-                      max={totalPages}
-                      value={toPage}
-                      onChange={(e) => { setToPage(Math.max(1, Math.min(totalPages, +e.target.value || 1))); setWatermarkedBlob(null); }}
-                      className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent font-mono"
-                    />
+                <div>
+                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Layer Option</label>
+                  <div className="flex bg-zinc-100 dark:bg-zinc-900 border border-border/50 p-1 rounded-xl">
+                    {(["above", "below"] as const).map((l) => (
+                      <button
+                        key={l}
+                        onClick={() => { setLayer(l); setWatermarkedBlob(null); }}
+                        className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer text-center ${
+                          layer === l ? "bg-surface shadow text-accent" : "text-ink-secondary"
+                        }`}
+                      >
+                        {l === "above" ? "Over Content" : "Below Content"}
+                      </button>
+                    ))}
                   </div>
                 </div>
-              </div>
 
-              <div>
-                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Layer Option</label>
-                <div className="flex bg-zinc-100 dark:bg-zinc-900 border border-border/50 p-1 rounded-xl">
-                  {(["above", "below"] as const).map((l) => (
-                    <button
-                      key={l}
-                      onClick={() => { setLayer(l); setWatermarkedBlob(null); }}
-                      className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all cursor-pointer text-center ${
-                        layer === l ? "bg-surface shadow text-accent" : "text-ink-secondary"
-                      }`}
-                    >
-                      {l === "above" ? "Over Content" : "Below Content"}
-                    </button>
-                  ))}
+                <div>
+                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Scale Size: {size}</label>
+                  <input
+                    type="range"
+                    min={12}
+                    max={120}
+                    value={size}
+                    onChange={(e) => { setSize(+e.target.value); setWatermarkedBlob(null); }}
+                    className="w-full accent-accent cursor-pointer"
+                  />
                 </div>
-              </div>
 
-              <div>
-                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Scale Size: {size}</label>
-                <input
-                  type="range"
-                  min={12}
-                  max={120}
-                  value={size}
-                  onChange={(e) => { setSize(+e.target.value); setWatermarkedBlob(null); }}
-                  className="w-full accent-accent cursor-pointer"
-                />
-              </div>
+                <div>
+                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Opacity</label>
+                  <select
+                    value={Math.round(opacity * 100)}
+                    onChange={(e) => { setOpacity(+e.target.value / 100); setWatermarkedBlob(null); }}
+                    className="w-full rounded-lg border border-border bg-surface-elevated px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent cursor-pointer font-mono"
+                  >
+                    <option value={100}>No Transparency (100%)</option>
+                    <option value={75}>75%</option>
+                    <option value={50}>50%</option>
+                    <option value={25}>25%</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Opacity: {Math.round(opacity * 100)}%</label>
-                <input
-                  type="range"
-                  min={5}
-                  max={95}
-                  value={opacity * 100}
-                  onChange={(e) => { setOpacity(+e.target.value / 100); setWatermarkedBlob(null); }}
-                  className="w-full accent-accent cursor-pointer"
-                />
-              </div>
+                <div>
+                  <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Rotation Angle</label>
+                  <select
+                    value={angle}
+                    onChange={(e) => { setAngle(+e.target.value); setWatermarkedBlob(null); }}
+                    className="w-full rounded-lg border border-border bg-surface-elevated px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent cursor-pointer font-mono"
+                  >
+                    <option value={0}>Do Not Rotate (0°)</option>
+                    <option value={45}>45°</option>
+                    <option value={90}>90°</option>
+                    <option value={180}>180°</option>
+                    <option value={270}>270°</option>
+                    <option value={315}>315°</option>
+                  </select>
+                </div>
 
-              <div>
-                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5 font-mono">Rotation angle: {angle}°</label>
-                <input
-                  type="range"
-                  min={-180}
-                  max={180}
-                  value={angle}
-                  onChange={(e) => { setAngle(+e.target.value); setWatermarkedBlob(null); }}
-                  className="w-full accent-accent cursor-pointer"
-                />
+                {type === "text" && (
+                  <div>
+                    <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-2 font-mono">Watermark Color</label>
+                    <div className="flex items-center gap-3">
+                      {(["red", "black", "blue", "gray"] as const).map((c) => (
+                        <button
+                          key={c}
+                          type="button"
+                          onClick={() => { setColor(c); setWatermarkedBlob(null); }}
+                          className={`w-8 h-8 rounded-full border-2 transition-all cursor-pointer shadow-sm relative flex items-center justify-center`}
+                          style={{
+                            backgroundColor: getWatermarkHexColor(c),
+                            borderColor: color === c ? "var(--color-accent, #3b82f6)" : "transparent",
+                          }}
+                          title={c.charAt(0).toUpperCase() + c.slice(1)}
+                        >
+                          {color === c && (
+                            <span className={`w-2 h-2 rounded-full ${c === "black" ? "bg-white" : "bg-black"}`} />
+                          )}
+                        </button>
+                      ))}
+
+                      {/* Custom Color Selector Swatch */}
+                      <div className="relative w-8 h-8">
+                        <input
+                          type="color"
+                          value={!["red", "black", "blue", "gray"].includes(color) ? color : "#ef4444"}
+                          onChange={(e) => { setColor(e.target.value); setWatermarkedBlob(null); }}
+                          className="absolute inset-0 opacity-0 w-full h-full cursor-pointer z-10"
+                          id="custom-color-picker"
+                        />
+                        <label
+                          htmlFor="custom-color-picker"
+                          className="absolute inset-0 rounded-full border-2 transition-all cursor-pointer shadow-sm flex items-center justify-center bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500"
+                          style={{
+                            borderColor: !["red", "black", "blue", "gray"].includes(color) ? "var(--color-accent, #3b82f6)" : "transparent",
+                          }}
+                          title="Custom Color Picker"
+                        >
+                          {!["red", "black", "blue", "gray"].includes(color) && (
+                            <span className="w-2 h-2 rounded-full bg-white" style={{ mixBlendMode: 'difference' }} />
+                          )}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+
+            {/* Right Column: Visual Position Editor */}
+            {grid === "single" && (
+              <div className="lg:col-span-4 rounded-2xl border border-border bg-surface-elevated/40 p-5 flex flex-col items-center">
+                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-3 font-mono self-start">
+                  Drag to Position Watermark
+                </label>
+                
+                <div
+                  ref={positionPreviewRef}
+                  onMouseDown={handlePositionMouseDown}
+                  onMouseMove={handlePositionMouseMove}
+                  onMouseUp={handlePositionMouseUp}
+                  onMouseLeave={handlePositionMouseUp}
+                  onTouchStart={(e) => {
+                    isDraggingRef.current = true;
+                    handleTouchUpdate(e);
+                  }}
+                  onTouchMove={(e) => {
+                    if (isDraggingRef.current) handleTouchUpdate(e);
+                  }}
+                  onTouchEnd={() => {
+                    isDraggingRef.current = false;
+                  }}
+                  className="relative w-full max-w-[240px] bg-white dark:bg-zinc-900 border border-border rounded-lg shadow-inner overflow-hidden select-none cursor-crosshair flex items-center justify-center"
+                  style={{
+                    aspectRatio: pageSize ? pageSize.width / pageSize.height : 1 / 1.414,
+                    backgroundImage: thumbnailUrl ? `url(${thumbnailUrl})` : 'none',
+                    backgroundSize: '100% 100%',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                >
+                  {/* Draggable Watermark indicator */}
+                  <div
+                    className="absolute pointer-events-none select-none flex items-center justify-center whitespace-nowrap"
+                    style={{
+                      left: `${position.xPct}%`,
+                      top: `${position.yPct}%`,
+                      transform: `translate(-50%, -50%) rotate(${angle}deg)`,
+                      opacity: opacity,
+                      fontSize: `${Math.max(8, size * (240 / (pageSize?.width || 612)))}px`,
+                      color: getWatermarkHexColor(color),
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {type === "text" ? (
+                      text || "CONFIDENTIAL"
+                    ) : imagePreview ? (
+                      <img
+                        src={imagePreview}
+                        alt="watermark preview"
+                        style={{
+                          maxHeight: `${size}px`,
+                          maxWidth: `${size * 2}px`,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    ) : (
+                      "IMAGE"
+                    )}
+                  </div>
+                  
+                  {/* Target reticle / overlay handle */}
+                  <div
+                    className="absolute pointer-events-none select-none w-4 h-4 border-2 border-dashed border-accent rounded-full bg-accent/10"
+                    style={{
+                      left: `${position.xPct}%`,
+                      top: `${position.yPct}%`,
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  />
+                </div>
+                
+                <div className="text-[10px] text-ink-muted font-mono mt-3 text-center">
+                  Position: X: {Math.round(position.xPct)}%, Y: {Math.round(position.yPct)}%
+                </div>
+              </div>
+            )}
           </div>
 
           {error && <p className="text-xs text-red-500 font-mono">{error}</p>}
@@ -618,7 +873,7 @@ export function WatermarkPDFWorkspace() {
                   className="rounded-lg bg-accent hover:bg-accent-hover text-white px-5 py-2.5 text-sm font-medium active:scale-[0.98] transition-all shadow-sm flex items-center gap-2 font-mono uppercase tracking-wider"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                   </svg>
                   Download Watermarked PDF
                 </button>
