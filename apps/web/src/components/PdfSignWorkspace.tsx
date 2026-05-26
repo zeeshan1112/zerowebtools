@@ -326,7 +326,7 @@ export default function PdfSignWorkspace() {
   const handleSaveDocument = async () => {
     if (!file || placedSignatures.length === 0) return;
 
-    setLoadingText("Applying signature to PDF pages...");
+    setLoadingText("Applying signatures to PDF pages...");
     setShowProcessing(true);
 
     try {
@@ -347,13 +347,16 @@ export default function PdfSignWorkspace() {
         // Map percentages to actual PDF coordinates
         const { width: pageW, height: pageH } = page.getSize();
         
-        // Calculate HTML overlay values
-        const sigW_pdf = (sig.width / 400) * pageW; // base scale factor of 400px page preview width
-        const sigH_pdf = (sig.height / 550) * pageH; // base scale factor of 550px page preview height
+        // Uniform scaling based on width of 400px
+        const scale = pageW / 400;
+        
+        const sigW_pdf = sig.width * scale;
+        const sigH_pdf = sig.height * scale;
 
-        const posX_pdf = (sig.x / 100) * pageW;
-        // Convert HTML Y coordinate (top-down) to PDF coordinate (bottom-up)
-        const posY_pdf = pageH - ((sig.y / 100) * pageH) - sigH_pdf;
+        // Coordinates based on centering of the signature box
+        const posX_pdf = (sig.x / 100) * pageW - (sigW_pdf / 2);
+        // Convert top-down percentage to bottom-up PDF coordinates
+        const posY_pdf = pageH - ((sig.y / 100) * pageH) - (sigH_pdf / 2);
 
         page.drawImage(embeddedImg, {
           x: posX_pdf,
@@ -558,13 +561,13 @@ export default function PdfSignWorkspace() {
                     </div>
                     
                     <div
-                      className="relative border border-border bg-white shadow-md overflow-hidden flex items-center justify-center w-[400px] h-[550px] rounded-2xl"
+                      className="relative border border-border bg-white shadow-md overflow-hidden w-[400px] rounded-2xl"
                     >
-                      {/* PDF Page Image Preview */}
+                      {/* PDF Page Image Preview - full width, dynamic height */}
                       <img
                         src={preview}
                         alt={`PDF page ${idx + 1}`}
-                        className="max-w-full max-h-full object-contain pointer-events-none"
+                        className="w-full h-auto block pointer-events-none"
                       />
 
                       {/* Placed signature overlays on this page */}
