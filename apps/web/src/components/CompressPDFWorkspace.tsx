@@ -3,6 +3,8 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { downloadBlob, formatBytes, getFilename, compressPDF, renderPDFThumbnail, loadPDFDoc } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 const COMPRESS_STEPS = [
   "Analyzing PDF content stream structures...",
@@ -53,6 +55,13 @@ export default function CompressPDFWorkspace() {
       setError("Could not read PDF");
     }
   }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      handleFile(shared);
+    }
+  }, [handleFile]);
 
   const handleLevelChange = useCallback((newLevel: "recommended" | "extreme" | "lossless") => {
     setLevel(newLevel);
@@ -284,6 +293,14 @@ export default function CompressPDFWorkspace() {
             )}
           </div>
         </div>
+      )}
+
+      {file && compressedBlob && (
+        <MicroChainLinks
+          blob={compressedBlob}
+          filename={getFilename("pdf-compress", file.name)}
+          currentToolId="pdf-compress"
+        />
       )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}

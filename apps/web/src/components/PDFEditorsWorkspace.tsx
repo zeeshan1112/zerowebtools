@@ -4,6 +4,8 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename, StandardFonts, rgb, PDFDocument, renderPDFThumbnail, renderAllPDFPages } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 const PROTECT_STEPS = [
   "Analyzing PDF catalog stream elements...",
@@ -55,6 +57,13 @@ export function ProtectPDFWorkspace() {
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      setFile(shared);
+    }
+  }, []);
 
   // Simulated processing delay state for labor illusion & dwell time
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
@@ -299,6 +308,13 @@ export function WatermarkPDFWorkspace() {
       setError("Could not read PDF");
     }
   }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      handleFile(shared);
+    }
+  }, [handleFile]);
 
   const handleImageFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -896,6 +912,14 @@ export function WatermarkPDFWorkspace() {
             )}
           </div>
         </div>
+      )}
+
+      {file && watermarkedBlob && (
+        <MicroChainLinks
+          blob={watermarkedBlob}
+          filename={getFilename("pdf-watermark", file.name)}
+          currentToolId="pdf-watermark"
+        />
       )}
 
       {/* Preview Modal (portal to body) */}

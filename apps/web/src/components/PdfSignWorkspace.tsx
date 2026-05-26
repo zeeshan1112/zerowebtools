@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { loadPDFDoc, savePDFDoc, downloadBlob, renderAllPDFPages, getFilename } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 const SIGN_STEPS = [
   "Parsing PDF document catalog...",
@@ -25,6 +27,30 @@ export default function PdfSignWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [pagePreviews, setPagePreviews] = useState<string[]>([]);
   const [showProcessing, setShowProcessing] = useState(false);
+  const [signedBlob, setSignedBlob] = useState<Blob | null>(null);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      const loadShared = async () => {
+        setFile(shared);
+        setPlacedSignatures([]);
+        setSignatureImage(null);
+        setPagePreviews([]);
+        setLoadingText("Rendering PDF pages...");
+        setShowProcessing(true);
+        try {
+          const previews = await renderAllPDFPages(shared);
+          setPagePreviews(previews);
+        } catch (err) {
+          console.error("Failed to render PDF previews:", err);
+        } finally {
+          setShowProcessing(false);
+        }
+      };
+      loadShared();
+    }
+  }, []);
   const [loadingText, setLoadingText] = useState("Loading PDF document...");
 
   // Signature states
@@ -390,6 +416,7 @@ export default function PdfSignWorkspace() {
       }
 
       const outBlob = await savePDFDoc(doc);
+      setSignedBlob(outBlob);
       const outName = getFilename("pdf-watermark", file.name).replace("-watermarked.pdf", "-signed.pdf");
       downloadBlob(outBlob, outName);
     } catch (err) {
@@ -624,6 +651,14 @@ export default function PdfSignWorkspace() {
                 </button>
               </div>
             </div>
+
+            {file && signedBlob && (
+              <MicroChainLinks
+                blob={signedBlob}
+                filename={getFilename("pdf-watermark", file.name).replace("-watermarked.pdf", "-signed.pdf")}
+                currentToolId="pdf-sign"
+              />
+            )}
           </div>
 
           {/* Right Column: PDF Preview Render & Place signature */}
