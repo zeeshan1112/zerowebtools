@@ -64,6 +64,14 @@ export default function PdfSignWorkspace() {
     }
   };
 
+  const handleClearDocument = () => {
+    setFile(null);
+    setPagePreviews([]);
+    setPlacedSignatures([]);
+    setSignatureImage(null);
+    setTypedName("");
+  };
+
   // Add signature to a specific page
   const addSignatureToPage = (pageIndex: number, customImg?: string) => {
     const img = customImg || signatureImage;
@@ -512,6 +520,12 @@ export default function PdfSignWorkspace() {
                 <div className="text-[10px] text-ink-secondary font-medium">
                   Scroll to any page on the right and click <strong>"+ Place Signature"</strong> to apply it.
                 </div>
+                <button
+                  onClick={() => setSignatureImage(null)}
+                  className="mt-1 text-[10px] underline text-accent/80 hover:text-accent font-bold cursor-pointer block mx-auto"
+                >
+                  Clear Template
+                </button>
               </div>
             )}
 
@@ -526,17 +540,34 @@ export default function PdfSignWorkspace() {
                 <p><span className="font-bold text-ink-muted">Placed Signatures:</span> {placedSignatures.length}</p>
               </div>
 
-              {placedSignatures.length > 0 && (
+              <div className="space-y-2">
+                {placedSignatures.length > 0 && (
+                  <>
+                    <button
+                      onClick={handleSaveDocument}
+                      className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m0 0l-6-6m6 6l6-6" />
+                      </svg>
+                      Save Signed PDF
+                    </button>
+                    <button
+                      onClick={() => setPlacedSignatures([])}
+                      className="w-full py-2 border border-border text-ink-muted hover:text-red-500 rounded-xl text-xs font-bold hover:bg-red-500/5 transition-colors cursor-pointer"
+                    >
+                      Clear Placed Signatures
+                    </button>
+                  </>
+                )}
+                
                 <button
-                  onClick={handleSaveDocument}
-                  className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  onClick={handleClearDocument}
+                  className="w-full py-2 border border-dashed border-border text-ink-muted hover:text-red-500 rounded-xl text-xs font-bold hover:bg-red-500/5 transition-colors cursor-pointer"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m0 0l-6-6m6 6l6-6" />
-                  </svg>
-                  Save Signed PDF
+                  Clear Document & Start Over
                 </button>
-              )}
+              </div>
             </div>
           </div>
 
