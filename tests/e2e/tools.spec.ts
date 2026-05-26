@@ -162,8 +162,13 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Compress PDF")');
+
+    // Wait for the compression metrics to appear (which shows processing completed)
+    await expect(page.locator("text=Compression Metrics")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Compressed PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-compressed.pdf");
   });
