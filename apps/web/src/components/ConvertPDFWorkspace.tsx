@@ -43,6 +43,7 @@ export function JpgToPdfWorkspace() {
   const [files, setFiles] = useState<ImageItem[]>([]);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   // Result and Preview states
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -85,18 +86,21 @@ export function JpgToPdfWorkspace() {
     setPdfBlob(null);
   }, []);
 
-  const move = useCallback((index: number, direction: "prev" | "next") => {
+  const handleDragStart = useCallback((index: number) => {
+    setDraggedIndex(index);
+  }, []);
+
+  const handleDrop = useCallback((targetIndex: number) => {
+    if (draggedIndex === null || draggedIndex === targetIndex) return;
     setFiles((p) => {
       const nextList = [...p];
-      const targetIndex = direction === "prev" ? index - 1 : index + 1;
-      if (targetIndex < 0 || targetIndex >= nextList.length) return p;
-      const temp = nextList[index];
-      nextList[index] = nextList[targetIndex];
-      nextList[targetIndex] = temp;
+      const [draggedItem] = nextList.splice(draggedIndex, 1);
+      nextList.splice(targetIndex, 0, draggedItem);
       return nextList;
     });
+    setDraggedIndex(null);
     setPdfBlob(null);
-  }, []);
+  }, [draggedIndex]);
 
   const handleClear = useCallback(() => {
     files.forEach((item) => URL.revokeObjectURL(item.url));
@@ -106,6 +110,7 @@ export function JpgToPdfWorkspace() {
     setPreviewPages([]);
     setShowPreview(false);
     setError(null);
+    setDraggedIndex(null);
   }, [files, previewPages]);
 
   const convert = useCallback(async () => {
@@ -212,61 +217,57 @@ export function JpgToPdfWorkspace() {
         <div className="space-y-4">
           <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">Image Order ({files.length} file{files.length !== 1 ? "s" : ""})</div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {files.map((item, i) => (
-              <div key={item.id} className="relative rounded-xl border border-border bg-surface-elevated/70 p-2 group flex flex-col justify-between shadow-sm select-none">
-                {/* Image Box */}
-                <div className="relative aspect-[4/3] rounded-lg bg-zinc-100 dark:bg-zinc-800 overflow-hidden border border-border/50">
-                  <img src={item.url} alt={item.file.name} className="w-full h-full object-cover" />
-                  <span className="absolute top-1.5 left-1.5 bg-black/60 text-white text-[10px] font-bold font-mono px-2 py-0.5 rounded shadow-sm">
-                    {i + 1}
-                  </span>
-                </div>
-                {/* Detail and controls */}
-                <div className="mt-2 space-y-1.5">
-                  <div className="text-xs text-ink font-medium truncate font-sans px-1" title={item.file.name}>
-                    {item.file.name}
+            {files.map((item, i) => {
+              const isDragged = draggedIndex === i;
+              const canDrag = !processing && pdfBlob === null;
+              return (
+                <div
+                  key={item.id}
+                  draggable={canDrag}
+                  onDragStart={() => handleDragStart(i)}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={() => handleDrop(i)}
+                  className={`relative rounded-xl border p-2 group flex flex-col justify-between shadow-sm select-none transition-all duration-200 ${
+                    canDrag ? "cursor-grab active:cursor-grabbing hover:border-accent/40" : ""
+                  } ${
+                    isDragged
+                      ? "opacity-40 border-dashed border-accent bg-accent-surface/30 scale-95"
+                      : "border-border bg-surface-elevated/70"
+                  }`}
+                >
+                  {/* Image Box */}
+                  <div className="relative aspect-[4/3] rounded-lg bg-zinc-100 dark:bg-zinc-800 overflow-hidden border border-border/50">
+                    <img src={item.url} alt={item.file.name} className="w-full h-full object-cover pointer-events-none" />
+                    <span className="absolute top-1.5 left-1.5 bg-black/60 text-white text-[10px] font-bold font-mono px-2 py-0.5 rounded shadow-sm">
+                      {i + 1}
+                    </span>
                   </div>
-                  <div className="text-[10px] text-ink-muted font-mono px-1">
-                    {formatBytes(item.file.size)}
-                  </div>
-                  {/* Actions row */}
-                  <div className="flex items-center justify-between border-t border-border/40 pt-2 px-1">
-                    <div className="flex items-center gap-1.5">
+                  {/* Detail and controls */}
+                  <div className="mt-2 space-y-1.5">
+                    <div className="text-xs text-ink font-medium truncate font-sans px-1" title={item.file.name}>
+                      {item.file.name}
+                    </div>
+                    <div className="text-[10px] text-ink-muted font-mono px-1">
+                      {formatBytes(item.file.size)}
+                    </div>
+                    {/* Actions row */}
+                    <div className="flex items-center justify-between border-t border-border/40 pt-2 px-1">
+                      <span className="text-[9px] text-zinc-400 font-mono tracking-wider">DRAG TO SORT</span>
                       <button
-                        onClick={() => move(i, "prev")}
-                        disabled={i === 0 || processing || pdfBlob !== null}
-                        className="p-1 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-ink-secondary disabled:opacity-30 disabled:hover:bg-zinc-100 transition-colors"
-                        title="Move Up/Left"
+                        onClick={() => remove(item.id)}
+                        disabled={processing || pdfBlob !== null}
+                        className="p-1 rounded hover:bg-red-50 dark:hover:bg-red-950/20 text-zinc-400 hover:text-red-500 transition-colors"
+                        title="Remove Image"
                       >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
-                        </svg>
-                      </button>
-                      <button
-                        onClick={() => move(i, "next")}
-                        disabled={i === files.length - 1 || processing || pdfBlob !== null}
-                        className="p-1 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-ink-secondary disabled:opacity-30 disabled:hover:bg-zinc-100 transition-colors"
-                        title="Move Down/Right"
-                      >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" strokeWidth={2.5} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                       </button>
                     </div>
-                    <button
-                      onClick={() => remove(item.id)}
-                      disabled={processing || pdfBlob !== null}
-                      className="p-1 rounded hover:bg-red-50 dark:hover:bg-red-950/20 text-zinc-400 hover:text-red-500 transition-colors"
-                      title="Remove Image"
-                    >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                      </svg>
-                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
