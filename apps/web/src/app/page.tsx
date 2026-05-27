@@ -175,9 +175,68 @@ export default function HomePage() {
 
   const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id));
   const totalLive = ALL_TOOLS.filter((t) => t.status === "live").length;
+  const liveTools = ALL_TOOLS.filter((t) => t.status === "live");
+  const baseUrl = "https://zerowebtools.com";
+
+  // WebSite Schema definition
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
+    "url": `${baseUrl}/`,
+    "name": "ZeroWebTools",
+    "description": "Free, fast, and completely secure client-side web utilities to edit PDFs, convert formats, check SaaS growth, and resize images. 100% private.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ZeroWebTools",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${baseUrl}/icon.png`
+      }
+    }
+  };
+
+  // ItemList Schema (Catalog of tools)
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${baseUrl}/#itemlist`,
+    "name": "ZeroWebTools Directory",
+    "description": "A collection of 100% private browser-based tools.",
+    "numberOfItems": liveTools.length,
+    "itemListElement": liveTools.map((tool, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "url": `${baseUrl}/tools/${tool.id}`,
+      "name": tool.title
+    }))
+  };
+
+  // SiteNavigationElement Schema
+  const navigationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "@id": `${baseUrl}/#navigation`,
+    "name": liveTools.map(t => t.title),
+    "url": liveTools.map(t => `${baseUrl}/tools/${t.id}`)
+  };
 
   return (
     <div className="min-h-screen relative pb-28">
+      {/* Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }}
+      />
+
        {/* Immersive Full-Screen Premium Hero with Covered Background Image Glow */}
       <section className="relative min-h-[60vh] md:min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-12 md:pt-16 pb-14 md:pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
         
