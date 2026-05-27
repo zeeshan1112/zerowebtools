@@ -97,7 +97,7 @@ export default function MicroChainLinks({
           <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
         </span>
         <h4 className="text-xs font-bold text-ink uppercase tracking-wider">
-          🔗 In-Memory Workflow Chaining (Instant & Private)
+          🔗 Next Steps (Fast & Private)
         </h4>
       </div>
       <p className="text-xs text-ink-muted leading-relaxed">
