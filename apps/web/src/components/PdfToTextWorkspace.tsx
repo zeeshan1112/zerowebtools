@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
 
 const EXTRACT_STEPS = [
   "Opening local PDF document stream...",
@@ -18,6 +19,14 @@ export default function PdfToTextWorkspace() {
   const [loadingText, setLoadingText] = useState("Extracting PDF text...");
   const [copied, setCopied] = useState(false);
   const [stats, setStats] = useState({ pages: 0, characters: 0, words: 0 });
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      setFile(shared);
+      setExtractedText("");
+    }
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

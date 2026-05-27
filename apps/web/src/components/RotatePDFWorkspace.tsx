@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename, renderPDFThumbnail, renderAllPDFPages } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 const ROTATE_STEPS = [
   "Reading document catalog page structures...",
@@ -56,6 +58,13 @@ export default function RotatePDFWorkspace() {
       setError("Could not read PDF");
     }
   }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      handleFile(shared);
+    }
+  }, [handleFile]);
 
   const handleClear = useCallback(() => {
     if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
@@ -227,6 +236,14 @@ export default function RotatePDFWorkspace() {
             )}
           </div>
         </div>
+      )}
+
+      {file && rotatedBlob && (
+        <MicroChainLinks
+          blob={rotatedBlob}
+          filename={getFilename("pdf-rotate", file.name)}
+          currentToolId="pdf-rotate"
+        />
       )}
 
       {/* Preview Modal (portal to body) */}

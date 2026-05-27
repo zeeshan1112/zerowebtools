@@ -57,6 +57,7 @@ export function ProtectPDFWorkspace() {
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [protectedBlob, setProtectedBlob] = useState<Blob | null>(null);
 
   useEffect(() => {
     const shared = getSharedFile();
@@ -89,6 +90,7 @@ export function ProtectPDFWorkspace() {
       isGeneratingRef.current = false;
 
       if (animationFinishedRef.current) {
+        setProtectedBlob(blob);
         downloadBlob(blob, getFilename("pdf-protect", file.name));
         setShowProcessingOverlay(false);
         setProcessing(false);
@@ -104,6 +106,7 @@ export function ProtectPDFWorkspace() {
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
     if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      setProtectedBlob(pendingBlobRef.current);
       downloadBlob(pendingBlobRef.current, getFilename("pdf-protect", file.name));
       setShowProcessingOverlay(false);
       setProcessing(false);
@@ -112,13 +115,20 @@ export function ProtectPDFWorkspace() {
 
   return (
     <div className="relative space-y-5">
-      <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a PDF to protect" accept=".pdf" />
+      <SZ onFile={(f) => { setFile(f); setError(null); setProtectedBlob(null); }} label="Drop a PDF to protect" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
         <div><label className="text-xs font-medium text-ink-muted uppercase tracking-wider block mb-1">Password</label><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter a strong password" className="w-full rounded-lg border border-border bg-surface-elevated px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent" /></div>
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={protect} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Encrypting..." : "Protect PDF"}</button>
       </div>}
+      {file && protectedBlob && (
+        <MicroChainLinks
+          blob={protectedBlob}
+          filename={getFilename("pdf-protect", file.name)}
+          currentToolId="pdf-protect"
+        />
+      )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
         steps={PROTECT_STEPS}
@@ -135,6 +145,14 @@ export function UnlockPDFWorkspace() {
   const [password, setPassword] = useState("");
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [unlockedBlob, setUnlockedBlob] = useState<Blob | null>(null);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      setFile(shared);
+    }
+  }, []);
 
   // Simulated processing delay state for labor illusion & dwell time
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
@@ -161,6 +179,7 @@ export function UnlockPDFWorkspace() {
       isGeneratingRef.current = false;
 
       if (animationFinishedRef.current) {
+        setUnlockedBlob(blob);
         downloadBlob(blob, getFilename("pdf-unlock", file.name));
         setShowProcessingOverlay(false);
         setProcessing(false);
@@ -176,6 +195,7 @@ export function UnlockPDFWorkspace() {
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
     if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      setUnlockedBlob(pendingBlobRef.current);
       downloadBlob(pendingBlobRef.current, getFilename("pdf-unlock", file.name));
       setShowProcessingOverlay(false);
       setProcessing(false);
@@ -184,13 +204,20 @@ export function UnlockPDFWorkspace() {
 
   return (
     <div className="relative space-y-5">
-      <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a protected PDF" accept=".pdf" />
+      <SZ onFile={(f) => { setFile(f); setError(null); setUnlockedBlob(null); }} label="Drop a protected PDF" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
         <div><label className="text-xs font-medium text-ink-muted uppercase tracking-wider block mb-1">Password</label><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter the PDF password" className="w-full rounded-lg border border-border bg-surface-elevated px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent" /></div>
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={unlock} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Unlocking..." : "Unlock PDF"}</button>
       </div>}
+      {file && unlockedBlob && (
+        <MicroChainLinks
+          blob={unlockedBlob}
+          filename={getFilename("pdf-unlock", file.name)}
+          currentToolId="pdf-unlock"
+        />
+      )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
         steps={UNLOCK_STEPS}
@@ -1015,6 +1042,14 @@ export function PageNumbersPDFWorkspace() {
   const [start, setStart] = useState(1);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [numberedBlob, setNumberedBlob] = useState<Blob | null>(null);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      setFile(shared);
+    }
+  }, []);
 
   // Simulated processing delay state for labor illusion & dwell time
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
@@ -1047,6 +1082,7 @@ export function PageNumbersPDFWorkspace() {
       isGeneratingRef.current = false;
 
       if (animationFinishedRef.current) {
+        setNumberedBlob(blob);
         downloadBlob(blob, getFilename("pdf-page-numbers", file.name));
         setShowProcessingOverlay(false);
         setProcessing(false);
@@ -1062,6 +1098,7 @@ export function PageNumbersPDFWorkspace() {
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
     if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      setNumberedBlob(pendingBlobRef.current);
       downloadBlob(pendingBlobRef.current, getFilename("pdf-page-numbers", file.name));
       setShowProcessingOverlay(false);
       setProcessing(false);
@@ -1070,7 +1107,7 @@ export function PageNumbersPDFWorkspace() {
 
   return (
     <div className="relative space-y-5">
-      <SZ onFile={(f) => { setFile(f); setError(null); }} label="Drop a PDF" accept=".pdf" />
+      <SZ onFile={(f) => { setFile(f); setError(null); setNumberedBlob(null); }} label="Drop a PDF" accept=".pdf" />
       {file && <div className="space-y-4">
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
         <div className="space-y-3">
@@ -1084,6 +1121,13 @@ export function PageNumbersPDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={add} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Adding..." : "Add Page Numbers"}</button>
       </div>}
+      {file && numberedBlob && (
+        <MicroChainLinks
+          blob={numberedBlob}
+          filename={getFilename("pdf-page-numbers", file.name)}
+          currentToolId="pdf-page-numbers"
+        />
+      )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
         steps={PAGINATE_STEPS}
@@ -1101,17 +1145,25 @@ export function OrganizePDFWorkspace() {
   const [order, setOrder] = useState("");
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [organizedBlob, setOrganizedBlob] = useState<Blob | null>(null);
+
+  const handleFile = useCallback(async (f: File) => {
+    setFile(f); setError(null); setOrganizedBlob(null);
+    try { const doc = await loadPDFDoc(f); setTotal(doc.getPageCount()); } catch { setError("Could not read PDF"); }
+  }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      handleFile(shared);
+    }
+  }, [handleFile]);
 
   // Simulated processing delay state for labor illusion & dwell time
   const [showProcessingOverlay, setShowProcessingOverlay] = useState(false);
   const pendingBlobRef = useRef<Blob | null>(null);
   const isGeneratingRef = useRef(false);
   const animationFinishedRef = useRef(false);
-
-  const handleFile = useCallback(async (f: File) => {
-    setFile(f); setError(null);
-    try { const doc = await loadPDFDoc(f); setTotal(doc.getPageCount()); } catch { setError("Could not read PDF"); }
-  }, []);
 
   const organize = useCallback(async () => {
     if (!file || !order.trim()) { setError("Enter page order"); return; }
@@ -1133,6 +1185,7 @@ export function OrganizePDFWorkspace() {
       isGeneratingRef.current = false;
 
       if (animationFinishedRef.current) {
+        setOrganizedBlob(blob);
         downloadBlob(blob, getFilename("pdf-organize", file.name));
         setShowProcessingOverlay(false);
         setProcessing(false);
@@ -1148,6 +1201,7 @@ export function OrganizePDFWorkspace() {
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
     if (!isGeneratingRef.current && pendingBlobRef.current && file) {
+      setOrganizedBlob(pendingBlobRef.current);
       downloadBlob(pendingBlobRef.current, getFilename("pdf-organize", file.name));
       setShowProcessingOverlay(false);
       setProcessing(false);
@@ -1164,6 +1218,13 @@ export function OrganizePDFWorkspace() {
         {error && <p className="text-xs text-red-500">{error}</p>}
         <button onClick={organize} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Organizing..." : "Organize PDF"}</button>
       </div>}
+      {file && organizedBlob && (
+        <MicroChainLinks
+          blob={organizedBlob}
+          filename={getFilename("pdf-organize", file.name)}
+          currentToolId="pdf-organize"
+        />
+      )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
         steps={ORGANIZE_STEPS}

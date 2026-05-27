@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename, renderPDFPageToJPG, renderAllPDFPages } from "@/lib/pdf-utils";
 import JSZip from "jszip";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 const JPG_TO_PDF_STEPS = [
   "Loading input image sources...",
@@ -324,6 +326,14 @@ export function JpgToPdfWorkspace() {
         </div>
       )}
 
+      {pdfBlob && (
+        <MicroChainLinks
+          blob={pdfBlob}
+          filename={getFilename("jpg-to-pdf")}
+          currentToolId="jpg-to-pdf"
+        />
+      )}
+
       {/* Preview Modal (portal to body) */}
       {typeof document !== "undefined" &&
         createPortal(
@@ -435,6 +445,13 @@ export function PdfToJpgWorkspace() {
     setFile(f); setError(null);
     try { const doc = await loadPDFDoc(f); setPages(doc.getPageCount()); } catch { setError("Could not read PDF"); }
   }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      handleFile(shared);
+    }
+  }, [handleFile]);
 
   const convert = useCallback(async () => {
     if (!file || !pages) return;

@@ -529,8 +529,11 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
     // Test cropping mode
+    await page.click('button:has-text("Apply Crop & Resize")');
+    await expect(page.locator("text=Applying changes to PDF document...")).not.toBeVisible({ timeout: 5000 });
+
     const downloadPromise = page.waitForEvent("download");
-    await page.click('button:has-text("Apply Crop & Download")');
+    await page.click('button:has-text("Download Cropped PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-cropped.pdf");
 
@@ -538,8 +541,11 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.click('button:has-text("Page Resize")');
     await page.selectOption("select#resize-page-size", "Letter");
     
+    await page.click('button:has-text("Apply Crop & Resize")');
+    await expect(page.locator("text=Applying changes to PDF document...")).not.toBeVisible({ timeout: 5000 });
+
     const resizeDownloadPromise = page.waitForEvent("download");
-    await page.click('button:has-text("Apply Crop & Download")');
+    await page.click('button:has-text("Download Resized PDF")');
     const resizeDownload = await resizeDownloadPromise;
     expect(resizeDownload.suggestedFilename()).toBe("dummy-resized.pdf");
   });
