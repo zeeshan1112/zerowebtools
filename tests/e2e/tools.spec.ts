@@ -265,8 +265,11 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     await page.locator('input[placeholder*="e.g."]').fill("1");
 
-    const downloadPromise = page.waitForEvent("download");
     await page.click('button:has-text("Organize PDF")');
+    await expect(page.locator("text=Reorganizing your PDF pages...")).not.toBeVisible({ timeout: 5000 });
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.click('button:has-text("Download Organized PDF")');
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-organized.pdf");
   });
