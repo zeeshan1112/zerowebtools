@@ -18,7 +18,7 @@ export interface ToolCategory {
 export const CATEGORIES: ToolCategory[] = [
   {
     slug: "pdf-tools",
-    title: "PDF Suite Pro",
+    title: "PDF Tools",
     description: "Merge, split, compress, rotate, convert, sign, and secure PDFs — all securely in your browser.",
     tools: [
       { id: "pdf-merge", title: "Merge PDF", description: "Combine multiple PDFs into a single document in any order.", status: "live", metaDescription: "Merge PDF files into one — free, instant, and 100% private. No signup, no upload to servers. Rearrange pages and download in seconds." },
@@ -57,7 +57,7 @@ export const CATEGORIES: ToolCategory[] = [
   },
   {
     slug: "text-tools",
-    title: "Writing & Content Utilities",
+    title: "Text Tools",
     description: "Clean, format, count, and convert text contents instantly in your browser.",
     tools: [
       {
@@ -105,9 +105,9 @@ export const CATEGORIES: ToolCategory[] = [
     ],
   },
   {
-    slug: "converters",
-    title: "Developer Workspaces",
-    description: "Validate, format, parse, and convert your data structures client-side.",
+    slug: "developer-tools",
+    title: "Developer Tools",
+    description: "Validate, format, parse, and check your code and data structures client-side.",
     tools: [
       {
         id: "json-formatter",
@@ -115,13 +115,6 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Validate, beautify, and minify JSON data with real-time tree structure explorer.",
         status: "live",
         metaDescription: "Validate, format, and explore JSON data visually — free, instant, and 100% private. Tree view, syntax highlighting, and live error detection. No server uploads.",
-      },
-      {
-        id: "base64-encoder",
-        title: "Base64 Cipher Modeler",
-        description: "Encode text or files to Base64 and decode Base64 back to readable format instantly.",
-        status: "live",
-        metaDescription: "Encode and decode Base64 instantly — free and private. Convert text or files to and from Base64 right in your browser. No server uploads.",
       },
       {
         id: "diff-checker",
@@ -138,13 +131,6 @@ export const CATEGORIES: ToolCategory[] = [
         metaDescription: "Decode, parse, and validate JSON Web Tokens (JWT) locally. Review algorithms, payload claims, and expiration details with 100% client-side privacy.",
       },
       {
-        id: "url-encoder",
-        title: "URL Encoder/Decoder & Parameter Grid",
-        description: "Percent-encode or decode strings and edit query parameters interactively in a tabular grid layout.",
-        status: "live",
-        metaDescription: "Encode and decode URLs instantly. Parse URL query parameters into an editable tabular grid to add, delete, or modify keys and reassemble them. 100% client-side.",
-      },
-      {
         id: "regex-tester",
         title: "Interactive Regex Tester",
         description: "Test regular expressions, highlight matches, and inspect capturing groups.",
@@ -157,6 +143,27 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Format, beautify, and capitalize SQL dialect statements client-side.",
         status: "live",
         metaDescription: "Beautify and format SQL statements instantly — free and private. Capitalize SQL keywords, format clauses, and clean indentation. No server uploads.",
+      },
+    ],
+  },
+  {
+    slug: "generators",
+    title: "Generators",
+    description: "Generate passwords, cron expressions, CSS shadows, hashes, and encodings instantly.",
+    tools: [
+      {
+        id: "base64-encoder",
+        title: "Base64 Cipher Modeler",
+        description: "Encode text or files to Base64 and decode Base64 back to readable format instantly.",
+        status: "live",
+        metaDescription: "Encode and decode Base64 instantly — free and private. Convert text or files to and from Base64 right in your browser. No server uploads.",
+      },
+      {
+        id: "url-encoder",
+        title: "URL Encoder/Decoder & Parameter Grid",
+        description: "Percent-encode or decode strings and edit query parameters interactively in a tabular grid layout.",
+        status: "live",
+        metaDescription: "Encode and decode URLs instantly. Parse URL query parameters into an editable tabular grid to add, delete, or modify keys and reassemble them. 100% client-side.",
       },
       {
         id: "file-hasher",
@@ -197,8 +204,8 @@ export const CATEGORIES: ToolCategory[] = [
   },
   {
     slug: "image-tools",
-    title: "Creative Utilities",
-    description: "Convert, resize, and optimize images directly in your browser.",
+    title: "Image Tools",
+    description: "Convert, resize, crop, and optimize images directly in your browser.",
     tools: [
       {
         id: "heic-to-jpg",
@@ -239,8 +246,8 @@ export const CATEGORIES: ToolCategory[] = [
   },
   {
     slug: "financial-growth",
-    title: "Financial & Growth Modelers",
-    description: "Model growth, option vesting schedules, and company valuation dilution with professional interactive tools.",
+    title: "Calculators",
+    description: "Model growth, option vesting schedules, and company valuation dilution with interactive tools.",
     tools: [
       {
         id: "saas-mrr",

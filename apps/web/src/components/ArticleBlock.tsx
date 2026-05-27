@@ -12,9 +12,10 @@ interface ArticleBlockProps {
     paragraphs?: string[];
     listItems?: string[];
   }[];
+  faqs?: { question: string; answer: string; }[];
 }
 
-export default function ArticleBlock({ title, sections }: ArticleBlockProps) {
+export default function ArticleBlock({ title, sections, faqs }: ArticleBlockProps) {
   const [feedback, setFeedback] = useState<"none" | "yes" | "no">("none");
 
   // Helper to slugify heading text for jump links
@@ -141,6 +142,33 @@ export default function ArticleBlock({ title, sections }: ArticleBlockProps) {
           );
         })}
       </div>
+
+
+      {/* FAQ Schema Visual Accordion */}
+      {faqs && faqs.length > 0 && (
+        <div className="mt-12 pt-8 border-t border-border/40 space-y-6">
+          <div className="space-y-1">
+            <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-ink">Frequently Asked Questions</h3>
+          </div>
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => (
+              <details key={idx} className="group rounded-xl border border-border/50 bg-surface hover:bg-surface-elevated transition-colors open:bg-surface-elevated">
+                <summary className="cursor-pointer list-none flex items-center justify-between p-5 font-bold text-ink hover:text-accent transition-colors select-none text-sm sm:text-base">
+                  <span>{faq.question}</span>
+                  <span className="transition group-open:rotate-180">
+                    <svg fill="none" height="20" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" viewBox="0 0 24 24" width="20">
+                      <path d="M6 9l6 6 6-6"></path>
+                    </svg>
+                  </span>
+                </summary>
+                <div className="px-5 pb-5 text-sm text-ink-secondary leading-relaxed">
+                  {faq.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Dwell-Time-Optimized BrainRank Feedback Widget */}
       <div className="mt-12 pt-8 border-t border-border/40 flex flex-col items-center text-center space-y-4">

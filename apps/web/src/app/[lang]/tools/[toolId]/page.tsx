@@ -6,6 +6,8 @@ import MergePDFWorkspace from "@/components/MergePDFWorkspace";
 import SplitPDFWorkspace from "@/components/SplitPDFWorkspace";
 import CompressPDFWorkspace from "@/components/CompressPDFWorkspace";
 import RotatePDFWorkspace from "@/components/RotatePDFWorkspace";
+import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { notFound } from "next/navigation";
 import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNumbersPDFWorkspace, OrganizePDFWorkspace } from "@/components/PDFEditorsWorkspace";
 import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
 import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
@@ -52,24 +54,32 @@ import {
 } from "@/lib/tools";
 
 interface ToolPageProps {
-  params: Promise<{ toolId: string }>;
+  params: Promise<{ toolId: string; lang: string }>;
 }
 
 export async function generateStaticParams() {
   const liveTools = CATEGORIES.flatMap((c) =>
-    c.tools.filter((t) => t.status === "live").map((t) => ({ toolId: t.id }))
+    c.tools.filter((t) => t.status === "live").map((t) => t.id)
   );
-  return liveTools;
+  const params = [];
+  for (const lang of LOCALES.filter(l => l !== "en")) {
+    for (const toolId of liveTools) {
+      params.push({ lang, toolId });
+    }
+  }
+  return params;
 }
 
 const BASE_URL = "https://zerowebtools.com";
 
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
-  const { toolId } = await params;
-  const tool = getToolById(toolId);
-  if (!tool) return { title: "Tool Not Found" };
-
-  const canonicalUrl = `${BASE_URL}/tools/${toolId}`;
+  const { toolId, lang } = await params;
+  if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") return {};
+  
+  const rawTool = getToolById(toolId);
+  if (!rawTool) return { title: "Tool Not Found" };
+  const tool = getLocalizedTool(rawTool, lang);
+  const canonicalUrl = `${BASE_URL}/${lang}/tools/${toolId}`;
   const pageTitle = `${tool.title} — 100% Free & Private | ZeroWebTools`;
   const ogDescription = tool.metaDescription;
 
@@ -1203,8 +1213,10 @@ function generateFallbackArticle(tool: Tool, category?: ToolCategory) {
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
-  const { toolId } = await params;
-  const tool = getToolById(toolId);
+  const { toolId, lang } = await params;
+  if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") notFound();
+  const rawTool = getToolById(toolId);
+  const tool = rawTool ? getLocalizedTool(rawTool, lang) : undefined;
   const category = getCategoryForTool(toolId);
 
   if (!tool) {
