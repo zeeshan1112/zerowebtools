@@ -194,11 +194,65 @@ cp node_modules/pdfjs-dist/wasm/* apps/web/public/wasm/
 | `npm run dev:web` | Start Next.js dev server on localhost:3000 |
 | `npm run build:web` | Production build + static export |
 | `npm run build:tools-core` | Compile `@hub/tools-core` TypeScript |
+| `npm run build:extension` | Bundle, package, and zip the Chrome Extension popup assets |
 | `npm run test` | Run all tests (Vitest unit + Playwright E2E) |
 | `npm run test:unit` | Vitest unit tests only |
 | `npm run test:e2e` | Playwright E2E tests (requires Chrome) |
 | `npm run lint` | Lint all workspace packages |
 | `npm run typecheck` | Type-check all workspace packages |
+
+---
+
+## 📦 Chrome Extension Companion
+
+ZeroWebTools includes a lightweight Chrome Extension companion that wraps our core developer utilities into a quick, offline-first toolbar popup menu.
+
+### Included Tools:
+- **JSON Formatter:** Validate, format, and navigate JSON data via an interactive tree walker.
+- **Diff Checker:** Stacked inline difference comparator for quick code and text diffing.
+- **JWT Decoder:** Real-time decoding of header parameters, claim payloads, and tokens signatures.
+- **Case Converter:** Change text variables between camelCase, snake_case, PascalCase, and kebab-case.
+- **Base64 Cipher:** Simple local data encoding/decoding.
+- **URL Encoder:** Decode percent-encoding and check query parameters offline.
+
+The extension code is located at `apps/extensions/developertools`. It leverages workspace dependencies to share type-safe code directly from the `@hub/tools-core` package.
+
+### 🛠️ Build & Package
+
+To compile and package the extension:
+1. Ensure dependencies are installed in the monorepo root:
+   ```bash
+   npm install
+   ```
+2. Run the build script from the root directory:
+   ```bash
+   npm run build:extension
+   ```
+
+This command automatically:
+- Bundles the entry script (`popup.js`) and its `@hub/tools-core` module imports into a single browser-runnable script in `dist/` using `esbuild`.
+- Copies `popup.html`, `manifest.json`, and the branded `icons/` folder into `apps/extensions/developertools/dist/`.
+- Compresses the contents of the `dist/` directory into `apps/extensions/developertools/developertools-extension.zip` for final distribution.
+
+### 🧪 Local Testing (Developer Mode)
+
+1. Open Google Chrome and type `chrome://extensions/` in the address bar.
+2. Toggle on **Developer mode** in the upper-right corner.
+3. Click the **Load unpacked** button in the upper-left corner.
+4. Select the build directory: `/Users/zee/zeeshanahmad-io/zeelancebox/apps/extensions/developertools/dist/`.
+
+The ZeroWebTools extension icon will now appear in your browser toolbar, letting you run panel actions locally.
+
+### 🚀 Production Deployment
+
+To publish the packaged extension:
+1. Sign in to the [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole).
+2. Create a new listing or click into your draft.
+3. Upload the packaged ZIP archive: `apps/extensions/developertools/developertools-extension.zip`.
+4. Upload promotional assets. Monochromatic themed tile designs with colored CWS badges are located at:
+   - Small Tile (440x280): `apps/extensions/developertools/small-promo-tile.png`
+   - Marquee Tile (1400x560): `apps/extensions/developertools/marquee-promo-tile.png`
+5. Save your changes and click **Submit for review**.
 
 ---
 
