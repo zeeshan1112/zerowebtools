@@ -1,52 +1,49 @@
-# ZeroWebTools: Future Feature Blueprints
+# ZeroWebTools: Future Execution Roadmap
 
-This document outlines the architecture, code schemas, and implementation plans for features to be added in the future. These features have been deferred to align with business requirements and ad-revenue strategies.
+This document serves as the roadmap for the launch, analytical telemetry, programmatic content scaling, monetization, and offline support of the ZeroWebTools platform.
 
 ---
 
-## 📊 Feature Blueprint: Supabase & GA4 Telemetry
+## 📅 Phase 1: Store Approvals & Directory Launches (Target: June 5)
 
-This blueprint details how to track anonymous tool usage (load, start, success, error) to both Google Analytics (GA4) and a Supabase database. This will help analyze file sizes processed, speed performance, and tool failure rates.
+### 1. Monitor Store Reviews
+*   **Chrome Web Store:** Monitor the developer console for approval of **ZeroWebTools - Developer Utilities**. Retrieve your extension URL.
+*   **Firefox AMO:** Upload `developertools-extension.zip` and `source-code.zip`. Monitor for approval.
 
-### 1. Database Table Schema (PostgreSQL / Supabase)
-Run the following SQL in your Supabase SQL Editor to provision the tracking table with Row Level Security (RLS) policies allowing public anonymous insertions:
+### 2. AlternativeTo Submission (Post June 4)
+*   **Timing:** Submit after June 4 at 9:37 PM Stockholm time (to clear the 7-day account restriction).
+*   **Action:** Submit the site, associate the extensions, and target the **10 competitors** with custom differentiators (refer to `launch_assets.md`).
 
+### 3. Product Hunt & Hacker News
+*   **HN (Show HN):** Submit a technical text post explaining how you built 43+ WASM and client-side utilities with pipeline microchaining.
+*   **Product Hunt:** Schedule a Tuesday or Wednesday morning launch. Focus the tagline around offline-first privacy and chaining.
+
+---
+
+## 📊 Phase 2: Analytics & Telemetry (1-2 Weeks Post-Launch)
+
+To monitor tool success rates, error counts (like encrypted PDFs), and processing times without storing user files or injecting heavy libraries.
+
+### 1. Supabase Event Log Table Schema
+Run the following SQL in your Supabase SQL Editor to support public anonymous metric writes:
 ```sql
--- Create the anonymous tool usage metrics table
 create table public.tool_metrics (
   id uuid default gen_random_uuid() primary key,
   tool_id text not null,
-  event_type text not null, -- 'load', 'start', 'success', or 'error'
-  file_size_bytes bigint,   -- optional size tracking (in bytes)
-  processing_time_ms int,   -- operation speed tracking (in milliseconds)
-  error_message text,       -- error traceback for bug debugging
+  event_type text not null, -- 'load', 'start', 'success', 'error'
+  file_size_bytes bigint,
+  processing_time_ms int,
+  error_message text,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- Enable Row Level Security (RLS)
 alter table public.tool_metrics enable row level security;
-
--- Allow public anonymous inserts (clients writing telemetry directly)
-create policy "Allow anonymous inserts"
-on public.tool_metrics
-for insert
-with check (true);
-
--- Restrict reading access to authenticated administrator accounts only
-create policy "Restrict reading/writing to authenticated admins only"
-on public.tool_metrics
-for select
-using (auth.role() = 'authenticated');
+create policy "Allow anonymous inserts" on public.tool_metrics for insert with check (true);
+create policy "Restrict reading to admins" on public.tool_metrics for select using (auth.role() = 'authenticated');
 ```
 
-### 2. Environment Variables
-Add these keys to Vercel/Netlify or your `.env.local` to enable logging:
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
-### 3. Telemetry Engine Implementation (`src/lib/telemetry.ts`)
+### 2. Telemetry Engine Implementation (`apps/web/src/lib/telemetry.ts`)
+Create this file to log event tracks to GA4 and Supabase:
 ```typescript
 export type TelemetryEventType = "load" | "start" | "success" | "error";
 
@@ -56,17 +53,12 @@ export interface TelemetryDetails {
   errorMessage?: string;
 }
 
-export function trackToolEvent(
-  toolId: string,
-  eventType: TelemetryEventType,
-  details?: TelemetryDetails
-) {
-  // Console logging in development
+export function trackToolEvent(toolId: string, eventType: TelemetryEventType, details?: TelemetryDetails) {
   if (process.env.NODE_ENV !== "production") {
     console.log(`[TELEMETRY] [${toolId}] [${eventType}]`, details || "");
   }
 
-  // Google Analytics integrations
+  // Google Analytics Event
   if (typeof window !== "undefined" && (window as any).gtag) {
     (window as any).gtag("event", `tool_${eventType}`, {
       tool_id: toolId,
@@ -76,13 +68,12 @@ export function trackToolEvent(
     });
   }
 
-  // Supabase direct REST post (zero dependency client)
+  // Supabase Rest API Logging
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (supabaseUrl && supabaseAnonKey) {
     const endpoint = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/tool_metrics`;
-    
     fetch(endpoint, {
       method: "POST",
       headers: {
@@ -99,23 +90,47 @@ export function trackToolEvent(
         error_message: details?.errorMessage,
       }),
       keepalive: true
-    }).catch((err) => {
-      if (process.env.NODE_ENV !== "production") {
-        console.warn("Supabase log failed:", err);
-      }
-    });
+    }).catch(() => {});
   }
 }
 ```
 
 ---
 
-## 📶 Feature Blueprint: PWA Service Worker (Offline Support)
+## ✍️ Phase 3: Programmatic SEO & How-To Guides (1-2 Months)
+
+Currently, only **5 out of 43 tools** have dynamic articles. To rank for high-intent organic terms, write guides for the remaining **38 tools** in 4 batches:
+
+1.  **Batch 1: PDF Tools (13 Articles):** Focus on offline workflows (`pdf-split`, `pdf-rotate`, `pdf-protect`, `pdf-sign`, etc.).
+2.  **Batch 2: Dev & Generator Tools (13 Articles):** Focus on formatting and local ciphers (`diff-checker`, `jwt-debugger`, `regex-tester`, `base64-encoder`, etc.).
+3.  **Batch 3: Image & Text Tools (6 Articles):** Focus on optimization (`bulk-image-resizer`, `svg-minifier`, `case-converter`, `text-cleaner`, etc.).
+4.  **Batch 4: Financial Calculators (5 Articles):** Focus on equity and loan schedules (`saas-mrr`, `cap-table`, `mortgage-calculator`, etc.).
+
+*Note: Ensure all new guides are registered in `apps/web/src/lib/articles.ts` so they automatically generate dynamic paths and multi-lingual alternate sitemap links.*
+
+---
+
+## 📈 Phase 4: AdSense Approval & Soft Rollout (3-4 Weeks)
+
+Apply for Google AdSense only after the site has gathered traffic history and domain authority.
+
+### Monetization Guidelines:
+1.  **Traffic Threshold:** Apply for AdSense after consistently hitting **50–100 daily visitors** on GA4.
+2.  **Soft Launch Placement:**
+    *   Enable sticky vertical ad rails (e.g. 300x600 px) in tool workspaces. These yield higher viewability CPMs without obstructing user operations.
+    *   Do not spam banners. Keep the core workspaces clean.
+3.  **Replace Publisher ID:** Once approved, replace the default AdSense publisher tag in `src/app/layout.tsx`.
+
+---
+
+## 📶 Phase 5: PWA Service Worker (Offline Cache)
+
+Offline cache capability will allow pages and compiled tool components to load instantly without a network.
 
 > [!WARNING]
-> **Business Note:** Offering offline capability will prevent Google AdSense scripts from loading (as ads require real-time auctions over the network). This will result in zero ad-impression revenue for offline sessions. Implementing this is recommended only if a premium license/payment model is added to monetize offline use.
+> **AdSense Revenue Warning:** Enabling offline support blocks AdSense crawler auction scripts during offline use. This will result in zero ad revenues for offline sessions. Consider caching assets only if you plan to launch a premium license/payment model for offline access.
 
-### 1. Service Worker Caching Logic (`public/sw.js`)
+### 1. Cache Service Worker Caching Logic (`public/sw.js`)
 ```javascript
 const CACHE_NAME = "zerowebtools-v1";
 const OFFLINE_URL = "/";
@@ -124,28 +139,22 @@ const PRECACHE_ASSETS = [
   "/",
   "/logo.png",
   "/favicon.ico",
-  "/pdf.worker.min.js", // Crucial for offline PDF utilities
+  "/pdf.worker.min.js",
   "/manifest.webmanifest",
   "/privacy",
   "/terms",
+  "/extensions"
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)).then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((names) => {
-      return Promise.all(
-        names.map((name) => {
-          if (name !== CACHE_NAME) return caches.delete(name);
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys().then((names) => Promise.all(names.map(name => name !== CACHE_NAME && caches.delete(name)))).then(() => self.clients.claim())
   );
 });
 
@@ -153,71 +162,34 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
-  if (
-    url.origin !== self.location.origin ||
-    url.pathname.startsWith("/_next/webpack-hmr") ||
-    url.pathname.startsWith("/api/")
-  ) {
-    return;
-  }
+  if (url.origin !== self.location.origin || url.pathname.startsWith("/api/")) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      const isStaticAsset =
-        url.pathname.startsWith("/_next/static/") ||
-        url.pathname.endsWith(".js") ||
-        url.pathname.endsWith(".css") ||
-        url.pathname.endsWith(".png") ||
-        url.pathname.endsWith(".jpg") ||
-        url.pathname.endsWith(".svg") ||
-        url.pathname.endsWith(".wasm");
-
-      if (cachedResponse && isStaticAsset) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request)
-        .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
-            return networkResponse;
-          }
-
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
-          return networkResponse;
-        })
-        .catch(() => {
-          if (cachedResponse) return cachedResponse;
-          if (event.request.mode === "navigate") return caches.match(OFFLINE_URL);
-        });
+      if (cachedResponse) return cachedResponse;
+      return fetch(event.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200) return networkResponse;
+        const cacheClone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheClone));
+        return networkResponse;
+      }).catch(() => caches.match(OFFLINE_URL));
     })
   );
 });
 ```
 
-### 2. Service Worker Registration Component (`src/components/ServiceWorkerRegister.tsx`)
+### 2. Service Worker Registration Component
+Render this client-side loader inside `layout.tsx` to launch the worker script:
 ```typescript
 "use client";
-
 import { useEffect } from "react";
 
 export default function ServiceWorkerRegister() {
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      "serviceWorker" in navigator &&
-      process.env.NODE_ENV === "production"
-    ) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/sw.js")
-          .then((reg) => console.log("SW registered:", reg.scope))
-          .catch((err) => console.warn("SW failed:", err));
-      });
+    if (typeof window !== "undefined" && "serviceWorker" in navigator && process.env.NODE_ENV === "production") {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
     }
   }, []);
-
   return null;
 }
 ```
-*Note: Render `<ServiceWorkerRegister />` inside your root layout (`src/app/layout.tsx`) under production environments to activate registration.*
