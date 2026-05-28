@@ -4,12 +4,14 @@
   "private": true,
   "workspaces": [
     "apps/*",
+    "apps/extensions/*",
     "packages/*"
   ],
   "scripts": {
     "dev:web": "npm run dev --workspace=apps/web",
     "build:web": "npm run build --workspace=apps/web",
     "build:tools-core": "npm run build --workspace=@hub/tools-core",
+    "build:extension": "mkdir -p apps/extensions/developertools/dist && esbuild apps/extensions/developertools/popup.js --bundle --loader:.js=ts --outfile=apps/extensions/developertools/dist/popup.js && cp apps/extensions/developertools/popup.html apps/extensions/developertools/dist/ && cp apps/extensions/developertools/manifest.json apps/extensions/developertools/dist/ && cp -r apps/extensions/developertools/icons apps/extensions/developertools/dist/ && cd apps/extensions/developertools/dist && zip -r ../developertools-extension.zip . -x \"*.zip\"",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test:unit": "vitest run",
@@ -30,6 +32,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
+    "@vitest/coverage-v8": "^4.1.7",
+    "esbuild": "^0.25.0",
     "vitest": "^4.1.7"
   }
 }

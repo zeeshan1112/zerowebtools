@@ -48,7 +48,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     launch: "Launch",
     comingSoon: "Coming",
     toolFilter: "Tool Filter",
-    privateBadge: "100% Private • free online tools compiled",
+    privateBadge: "100% Private • {count} free online tools",
     faqTitle: "Frequently Asked Questions",
     faqSubtitle: "Everything you need to know about ZeroWebTools privacy and usage."
   },
@@ -72,7 +72,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     launch: "Abrir",
     comingSoon: "Próximamente",
     toolFilter: "Filtro",
-    privateBadge: "100% Privado • herramientas gratuitas",
+    privateBadge: "100% Privado • {count} herramientas gratuitas",
     faqTitle: "Preguntas Frecuentes",
     faqSubtitle: "Todo lo que necesita saber sobre la privacidad de ZeroWebTools."
   },
@@ -96,7 +96,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     launch: "Starten",
     comingSoon: "Demnächst",
     toolFilter: "Filter",
-    privateBadge: "100% Privat • kostenlose Tools",
+    privateBadge: "100% Privat • {count} kostenlose Tools",
     faqTitle: "Häufig gestellte Fragen",
     faqSubtitle: "Alles, was Sie über die ZeroWebTools wissen müssen."
   },
@@ -120,7 +120,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     launch: "Lancer",
     comingSoon: "Bientôt",
     toolFilter: "Filtre",
-    privateBadge: "100% Privé • outils gratuits",
+    privateBadge: "100% Privé • {count} outils gratuits",
     faqTitle: "Foire Aux Questions",
     faqSubtitle: "Tout ce que vous devez savoir sur ZeroWebTools."
   },
@@ -144,7 +144,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     launch: "Abrir",
     comingSoon: "Em Breve",
     toolFilter: "Filtro",
-    privateBadge: "100% Privado • ferramentas gratuitas",
+    privateBadge: "100% Privado • {count} ferramentas gratuitas",
     faqTitle: "Perguntas Frequentes",
     faqSubtitle: "Tudo o que você precisa saber sobre o ZeroWebTools."
   }

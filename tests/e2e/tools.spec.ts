@@ -516,9 +516,16 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     const placedSignature = page.locator('img[alt="Placed Signature"]');
     await expect(placedSignature).toBeVisible();
 
-    // Save document and verify download
-    const downloadPromise = page.waitForEvent("download");
+    // Save document (compiles signatures, doesn't auto-download anymore)
     await page.click('button:has-text("Save Signed PDF")');
+
+    // Wait for the new Download Signed PDF button to become visible
+    const downloadButton = page.locator('button:has-text("Download Signed PDF")').first();
+    await expect(downloadButton).toBeVisible({ timeout: 6000 });
+
+    // Catch download event
+    const downloadPromise = page.waitForEvent("download");
+    await downloadButton.click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toBe("dummy-signed.pdf");
   });

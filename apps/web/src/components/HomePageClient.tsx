@@ -259,7 +259,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/25 bg-accent/5 text-[10px] font-bold text-accent uppercase tracking-wider select-none">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              {totalLive} {t.privateBadge}
+              {t.privateBadge.replace("{count}", String(totalLive))}
             </div>
 
             {/* Screen reader only H1 for SEO compliance */}
