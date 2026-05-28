@@ -79,7 +79,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const arrow = document.createElement("span");
     arrow.className = "tree-arrow";
     if (node.expandable) {
-      arrow.innerHTML = `<svg width="6" height="6" viewBox="0 0 10 10" fill="currentColor"><path d="M3 1l5 4-5 4V1z" /></svg>`;
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("width", "6");
+      svg.setAttribute("height", "6");
+      svg.setAttribute("viewBox", "0 0 10 10");
+      svg.setAttribute("fill", "currentColor");
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M3 1l5 4-5 4V1z");
+      svg.appendChild(path);
+      arrow.appendChild(svg);
     }
     row.appendChild(arrow);
 
@@ -157,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const parseResult = parseJsonToTree(val);
     if (parseResult.success) {
       const nodeMap = new Map(parseResult.tree.map(n => [n.id, n]));
-      jsonTreeContainer.innerHTML = "";
+      jsonTreeContainer.textContent = "";
       
       const rootNode = nodeMap.get("root");
       if (rootNode) {
@@ -234,7 +242,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (result.success) {
         // Cache minified version, render plain minified text, and keep input unchanged
         latestFormattedJson = result.data;
-        jsonTreeContainer.innerHTML = `<pre style="white-space: pre-wrap; word-break: break-all; font-family: inherit; margin: 0; color: var(--ink);">${result.data}</pre>`;
+        jsonTreeContainer.textContent = "";
+        const pre = document.createElement("pre");
+        pre.style.whiteSpace = "pre-wrap";
+        pre.style.wordBreak = "break-all";
+        pre.style.fontFamily = "inherit";
+        pre.style.margin = "0";
+        pre.style.color = "var(--ink)";
+        pre.textContent = result.data;
+        jsonTreeContainer.appendChild(pre);
         jsonTreeContainer.style.color = "var(--ink)";
       } else {
         jsonTreeContainer.textContent = "Invalid JSON: " + (result.error || "Unknown error");
@@ -324,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("diff-analyze").addEventListener("click", () => {
     try {
       const rows = computeLineDiff(diffOrig.value, diffMod.value);
-      diffOutput.innerHTML = "";
+      diffOutput.textContent = "";
       
       rows.forEach(row => {
         // Since space is limited in popup, we render it inline (like Github unified diff)
