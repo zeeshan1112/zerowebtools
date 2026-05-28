@@ -1,12 +1,24 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Link from "next/link";
+import { Geist, Geist_Mono } from "next/font/google";
 import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
 import CommandCenter from "@/components/CommandCenter";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ScrollToTop from "@/components/ScrollToTop";
 import MobileDrawer from "@/components/MobileDrawer";
 import Analytics from "@/components/Analytics";
 import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 
 export const metadata: Metadata = {
@@ -87,6 +99,7 @@ function Header() {
 
           <div className="flex items-center gap-2 sm:gap-4">
             <CommandCenter />
+            <LanguageSwitcher />
             <Link
               href="/privacy"
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
@@ -113,12 +126,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="antialiased" suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
