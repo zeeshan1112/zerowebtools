@@ -131,6 +131,16 @@ export default function RootLayout({
                   } else {
                     document.documentElement.classList.remove('dark');
                   }
+                  
+                  // Dynamic RTL & Lang adjustment for Arabic
+                  var p = window.location.pathname;
+                  if (p.indexOf('/ar') === 0 || p.indexOf('/ar/') === 0) {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                  } else {
+                    document.documentElement.removeAttribute('dir');
+                    document.documentElement.setAttribute('lang', 'en');
+                  }
                 } catch (_) {}
               })();
             `,

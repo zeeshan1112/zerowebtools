@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { CATEGORIES } from "@/lib/tools";
 import { HOW_TO_ARTICLES } from "@/lib/articles";
 import { LOCALES } from "@/lib/i18n";
+import { COMPARISONS } from "@/lib/comparisons";
+import { RECIPES } from "@/lib/recipes";
+import { CONVERSIONS } from "@/lib/conversions";
 
 export const dynamic = "force-static";
 
@@ -45,6 +48,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }));
 
+  const comparePages: MetadataRoute.Sitemap = COMPARISONS.map((matchup) => ({
+    url: `${baseUrl}/compare/${matchup.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+    alternates: {
+      languages: buildLanguages(`/compare/${matchup.slug}`, baseUrl)
+    }
+  }));
+
+  const recipePages: MetadataRoute.Sitemap = RECIPES.map((recipe) => ({
+    url: `${baseUrl}/recipes/${recipe.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+    alternates: {
+      languages: buildLanguages(`/recipes/${recipe.slug}`, baseUrl)
+    }
+  }));
+
+  const conversionPages: MetadataRoute.Sitemap = CONVERSIONS.map((pairing) => ({
+    url: `${baseUrl}/conversions/${pairing.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+    alternates: {
+      languages: buildLanguages(`/conversions/${pairing.slug}`, baseUrl)
+    }
+  }));
+
   return [
     {
       url: baseUrl,
@@ -62,6 +95,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       alternates: {
         languages: buildLanguages("/how-to", baseUrl)
+      }
+    },
+    {
+      url: `${baseUrl}/compare`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+      alternates: {
+        languages: buildLanguages("/compare", baseUrl)
+      }
+    },
+    {
+      url: `${baseUrl}/recipes`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+      alternates: {
+        languages: buildLanguages("/recipes", baseUrl)
       }
     },
     {
@@ -84,5 +135,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...toolPages,
     ...guidePages,
+    ...comparePages,
+    ...recipePages,
+    ...conversionPages,
   ];
 }
