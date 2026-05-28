@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZeroWebTools</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --ink: #18181b; --ink-muted: #71717a; --surface: #f9fafb; --surface-elevated: #ffffff;
+        --accent: #059669; --border: #e4e4e7;
+        --error: #ef4444; --success: #10b981;
+      }
+      body {
+        width: 480px; min-height: 520px;
+        font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+        background: var(--surface); color: var(--ink); font-size: 14px; line-height: 1.5;
+      }
+      .header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+      .header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+      .header p { font-size: 12px; color: var(--ink-muted); margin-top: 4px; }
+      .tabs { display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+      .tab {
+        flex: 1; padding: 10px 8px; text-align: center; font-size: 12px; font-weight: 500;
+        color: var(--ink-muted); cursor: pointer; border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none;
+        white-space: nowrap;
+      }
+      .tab:hover { color: var(--ink); }
+      .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+      .panel { padding: 16px 20px; display: none; }
+      .panel.active { display: block; }
+      textarea, input[type="text"] {
+        width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+        font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px;
+        background: var(--surface-elevated); color: var(--ink);
+      }
+      textarea { height: 100px; resize: vertical; }
+      textarea:focus, input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.15); }
+      .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+      button {
+        padding: 8px 16px; border-radius: 10px; font-size: 12px; font-weight: 500;
+        cursor: pointer; border: none; transition: transform 0.15s, background 0.2s;
+      }
+      button:active { transform: scale(0.98); }
+      .btn-primary { background: var(--ink); color: var(--surface-elevated); }
+      .btn-secondary { background: var(--surface-elevated); color: var(--ink); border: 1px solid var(--border); }
+      .output {
+        width: 100%; min-height: 80px; border: 1px solid var(--border); border-radius: 10px;
+        padding: 12px; margin-top: 12px; font-family: "Geist Mono", ui-monospace, monospace;
+        font-size: 12px; background: var(--surface); color: var(--ink-muted);
+        white-space: pre-wrap; word-break: break-all; position: relative;
+      }
+      .copy-btn {
+        padding: 4px 8px; font-size: 10px; border-radius: 6px; cursor: pointer;
+      }
+      .output > .copy-btn, .case-result > .copy-btn {
+        position: absolute; top: 8px; right: 8px;
+      }
+      /* Case Grid */
+      .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+      .case-result { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; background: var(--surface-elevated); position: relative; }
+      .case-result label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-muted); margin-bottom: 4px; }
+      .case-result output { display: block; font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink); padding-right: 40px; }
+      /* Diff */
+      .diff-row { display: block; font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; }
+      .diff-row.added { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+      .diff-row.removed { background: rgba(239, 68, 68, 0.1); color: var(--error); text-decoration: line-through; }
+      /* JWT */
+      .jwt-section { margin-top: 12px; }
+      .jwt-section label { display: block; font-size: 11px; font-weight: 600; color: var(--ink-muted); margin-bottom: 4px; text-transform: uppercase; }
+      .error-text { color: var(--error); font-weight: 500; }
+      
+      /* Tree Explorer Styles */
+      .tree-node-wrapper { display: block; }
+      .tree-row { 
+        display: flex; 
+        align-items: center; 
+        gap: 6px; 
+        padding: 4px 6px; 
+        font-family: "Geist Mono", ui-monospace, monospace; 
+        font-size: 12px; 
+        cursor: pointer; 
+        user-select: none; 
+        border-radius: 4px;
+        transition: background 0.15s;
+      }
+      .tree-row:hover { background: rgba(0, 0, 0, 0.03); }
+      .tree-arrow { 
+        width: 14px; 
+        height: 14px; 
+        display: inline-flex; 
+        align-items: center; 
+        justify-content: center; 
+        color: var(--ink-muted); 
+        transition: transform 0.2s; 
+        font-size: 8px;
+        flex-shrink: 0;
+      }
+      .tree-arrow.expanded { transform: rotate(90deg); }
+      .tree-key { color: var(--ink); font-weight: 600; }
+      .tree-val-string { color: #059669; } /* emerald-600 */
+      .tree-val-number { color: #0284c7; } /* sky-600 */
+      .tree-val-boolean { color: #d97706; } /* amber-600 */
+      .tree-val-null { color: #71717a; } /* zinc-500 */
+      .tree-val-bracket { color: #059669; font-weight: 700; } /* emerald-600 */
+      .tree-children { display: none; }
+      .tree-children.expanded { display: block; }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <h1>ZeroWebTools</h1>
+        <p>Developer tools, running locally.</p>
+      </div>
+      <a href="https://zerowebtools.com" target="_blank" style="font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 500;">Visit Site</a>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-panel="json-formatter">JSON</button>
+      <button class="tab" data-panel="case-converter">Case</button>
+      <button class="tab" data-panel="diff-checker">Diff</button>
+      <button class="tab" data-panel="jwt-debugger">JWT</button>
+      <button class="tab" data-panel="base64-cipher">Base64</button>
+      <button class="tab" data-panel="url-encoder">URL</button>
+    </div>
+
+    <!-- JSON Formatter Panel -->
+    <div class="panel active" id="json-formatter">
+      <textarea id="json-input" placeholder="Paste JSON here...">{
+  "firstName": "John",
+  "lastName": "Smith",
+  "gender": "man",
+  "age": 32,
+  "address": {
+    "streetAddress": "21 2nd Street",
+    "city": "New York",
+    "state": "NY",
+    "postalCode": "10021"
+  },
+  "phoneNumbers": [
+    {
+      "type": "home",
+      "number": "212 555-1234"
+    },
+    {
+      "type": "fax",
+      "number": "646 555-4567"
+    }
+  ]
+}</textarea>
+      <div class="actions">
+        <button class="btn-primary" id="json-format">Format</button>
+        <button class="btn-secondary" id="json-minify">Minify</button>
+        <button class="btn-secondary" id="json-expand-all">Expand All</button>
+        <button class="btn-secondary" id="json-collapse-all">Collapse All</button>
+        <button class="btn-secondary" id="json-clear">Clear</button>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; margin-bottom: 4px;">
+        <span style="font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase;">Output</span>
+        <button class="btn-secondary copy-btn" style="padding: 2px 6px; font-size: 10px; border-radius: 4px;" id="json-copy-btn">Copy</button>
+      </div>
+      <div class="output" id="json-output" style="min-height: 180px; max-height: 250px; overflow-y: auto; margin-top: 0; padding: 8px 10px;">
+        <div id="json-tree-container" style="color: var(--ink);">Interactive tree explorer will appear here.</div>
+      </div>
+    </div>
+
+    <!-- Case Converter Panel -->
+    <div class="panel" id="case-converter">
+      <textarea id="case-input" placeholder="Type text to convert..." style="height: 60px;">hello world example</textarea>
+      <div class="case-grid">
+        <div class="case-result">
+          <label>camelCase</label>
+          <output id="out-camel">helloWorldExample</output>
+          <button class="btn-secondary copy-btn" data-target="out-camel">Copy</button>
+        </div>
+        <div class="case-result">
+          <label>snake_case</label>
+          <output id="out-snake">hello_world_example</output>
+          <button class="btn-secondary copy-btn" data-target="out-snake">Copy</button>
+        </div>
+        <div class="case-result">
+          <label>kebab-case</label>
+          <output id="out-kebab">hello-world-example</output>
+          <button class="btn-secondary copy-btn" data-target="out-kebab">Copy</button>
+        </div>
+        <div class="case-result">
+          <label>PascalCase</label>
+          <output id="out-pascal">HelloWorldExample</output>
+          <button class="btn-secondary copy-btn" data-target="out-pascal">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diff Checker Panel -->
+    <div class="panel" id="diff-checker">
+      <textarea id="diff-original" placeholder="Original text..." style="height: 80px;"></textarea>
+      <textarea id="diff-modified" placeholder="Modified text..." style="height: 80px; margin-top: 8px;"></textarea>
+      <div class="actions">
+        <button class="btn-primary" id="diff-analyze">Analyze Diff</button>
+      </div>
+      <div class="output" id="diff-output" style="padding: 8px; overflow-x: auto;">
+        Diff output will appear here.
+      </div>
+    </div>
+
+    <!-- JWT Debugger Panel -->
+    <div class="panel" id="jwt-debugger">
+      <textarea id="jwt-input" placeholder="Paste JWT token (ey...)" style="height: 60px;"></textarea>
+      
+      <div class="jwt-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; margin-bottom: 4px;">
+          <label style="font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; margin: 0;">Header</label>
+          <button class="btn-secondary copy-btn" style="padding: 2px 6px; font-size: 10px; border-radius: 4px;" data-target="jwt-header-text">Copy</button>
+        </div>
+        <div class="output" id="jwt-header" style="min-height: 40px; margin-top: 0; padding: 8px 10px;">
+          <pre id="jwt-header-text" style="white-space: pre-wrap; font-family: inherit; margin: 0; color: var(--ink);"></pre>
+        </div>
+      </div>
+      
+      <div class="jwt-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; margin-bottom: 4px;">
+          <label style="font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; margin: 0;">Payload</label>
+          <button class="btn-secondary copy-btn" style="padding: 2px 6px; font-size: 10px; border-radius: 4px;" data-target="jwt-payload-text">Copy</button>
+        </div>
+        <div class="output" id="jwt-payload" style="margin-top: 0; padding: 8px 10px;">
+          <pre id="jwt-payload-text" style="white-space: pre-wrap; font-family: inherit; margin: 0; color: var(--ink);"></pre>
+        </div>
+      </div>
+
+      <div class="jwt-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; margin-bottom: 4px;">
+          <label style="font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; margin: 0;">Signature</label>
+          <button class="btn-secondary copy-btn" style="padding: 2px 6px; font-size: 10px; border-radius: 4px;" data-target="jwt-signature-text">Copy</button>
+        </div>
+        <div class="output" id="jwt-signature" style="min-height: 40px; margin-top: 0; padding: 8px 10px;">
+          <pre id="jwt-signature-text" style="white-space: pre-wrap; font-family: inherit; margin: 0; color: var(--ink); word-break: break-all;"></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Base64 Cipher Panel -->
+    <div class="panel" id="base64-cipher">
+      <textarea id="base64-input" placeholder="Text or Base64 string..."></textarea>
+      <div class="actions">
+        <button class="btn-primary" id="base64-encode">Encode to Base64</button>
+        <button class="btn-secondary" id="base64-decode">Decode from Base64</button>
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; margin-bottom: 4px;">
+        <span style="font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase;">Result</span>
+        <button class="btn-secondary copy-btn" style="padding: 2px 6px; font-size: 10px; border-radius: 4px;" data-target="base64-output-text">Copy</button>
+      </div>
+      <div class="output" id="base64-output" style="margin-top: 0; padding: 8px 10px;">
+        <pre id="base64-output-text" style="white-space: pre-wrap; font-family: inherit; margin: 0; color: var(--ink);">Result will appear here.</pre>
+      </div>
+    </div>
+
+    <!-- URL Encoder Panel -->
+    <div class="panel" id="url-encoder">
+      <textarea id="url-input" placeholder="URL or parameter string..."></textarea>
+      <div class="actions">
+        <button class="btn-primary" id="url-encode">URL Encode</button>
+        <button class="btn-secondary" id="url-decode">URL Decode</button>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; margin-bottom: 4px;">
+        <span style="font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase;">Result</span>
+        <button class="btn-secondary copy-btn" style="padding: 2px 6px; font-size: 10px; border-radius: 4px;" data-target="url-output-text">Copy</button>
+      </div>
+      <div class="output" id="url-output" style="margin-top: 0; padding: 8px 10px;">
+        <pre id="url-output-text" style="white-space: pre-wrap; font-family: inherit; margin: 0; color: var(--ink);">Result will appear here.</pre>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
