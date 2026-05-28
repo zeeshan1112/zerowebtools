@@ -1,28 +1,44 @@
 import HomePageClient from "@/components/HomePageClient";
 import { ALL_TOOLS } from "@/lib/tools";
 import { Metadata } from "next";
-import { getTranslations } from "@/lib/i18n";
+import { getTranslations, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "ZeroWebTools | 100% Private Client-Side Web Utilities",
-  description: "Free, fast, and completely secure client-side web utilities to edit PDFs, convert formats, check SaaS growth, and resize images. 100% private.",
-  alternates: {
-    canonical: "https://zerowebtools.com",
-    languages: {
-      "en": "https://zerowebtools.com",
-      "es": "https://zerowebtools.com/es",
-      "de": "https://zerowebtools.com/de",
-      "fr": "https://zerowebtools.com/fr",
-      "pt": "https://zerowebtools.com/pt",
-      "x-default": "https://zerowebtools.com",
-    },
-  },
-};
+export function generateStaticParams() {
+  return LOCALES.filter(lang => lang !== "en").map((lang) => ({
+    lang,
+  }));
+}
 
-export default function Page() {
-  const lang = "en";
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") return {};
+  
   const t = getTranslations(lang);
-  const baseUrl = "https://zerowebtools.com";
+  const canonicalUrl = `https://zerowebtools.com/${lang}`;
+  
+  return {
+    title: t.homeTitle,
+    description: t.homeDesc,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "en": "https://zerowebtools.com",
+        "es": "https://zerowebtools.com/es",
+        "de": "https://zerowebtools.com/de",
+        "fr": "https://zerowebtools.com/fr",
+        "pt": "https://zerowebtools.com/pt",
+        "x-default": "https://zerowebtools.com",
+      },
+    },
+  };
+}
+
+export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") notFound();
+
+  const t = getTranslations(lang);
   
   const faqSchema = {
     "@context": "https://schema.org",

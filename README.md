@@ -88,9 +88,26 @@
 ## ✨ Key Pillars
 
 1. **Absolute Privacy & Sandboxing** — All processing runs completely in the browser. No server uploads, ever.
-2. **Swiss Minimalist Aesthetic** — Grayscale design tokens, dash-bordered grids, premium micro-interactions.
-3. **High-Performance WebAssembly** — Client-side decoders for JPEG 2000 (`/JPXDecode`) streams and complex document formats.
-4. **Instant Offline Speed** — Loads in milliseconds. Works without a network connection.
+2. **In-Memory Workflow Chaining (Micro-Chaining)** — Chain multiple operations (e.g. compress, sign, watermark, encrypt) sequentially in-memory without downloading and re-uploading the file between each step.
+3. **Swiss Minimalist Aesthetic** — Grayscale design tokens, dash-bordered grids, premium micro-interactions.
+4. **High-Performance WebAssembly** — Client-side decoders for JPEG 2000 (`/JPXDecode`) streams and complex document formats.
+5. **Instant Offline Speed** — Loads in milliseconds. Works without a network connection.
+
+---
+
+## 🔗 In-Memory Workflow Chaining (Micro-Chaining)
+
+ZeroWebTools introduces a high-performance **Micro-Chaining** system that allows users to pass processed file buffers dynamically from one workspace to another in-memory.
+
+### Traditional Online Tools vs. ZeroWebTools:
+* **The Traditional Way:** Upload to Server A ➡️ Compress ➡️ Download ➡️ Upload to Server B ➡️ Add Watermark ➡️ Download ➡️ Upload to Server C ➡️ Protect ➡️ Download. (Slow, high bandwidth use, security risks).
+* **The ZeroWebTools Way:** Upload PDF ➡️ Compress ➡️ Watermark ➡️ Protect ➡️ Download Once.
+
+### How It Works:
+Because all tools execute locally in-browser using client-side JavaScript, passing files through a pipeline is done by transferring the standard byte arrays (`Uint8Array` / `Blob`) in-memory using an ephemeral client-side file buffer (`src/lib/fileBuffer.ts`). This is:
+* **Instantaneous:** Zero network latency or upload wait time between steps.
+* **100% Private:** The file never leaves your browser's local memory.
+* **Bandwidth & Server-Friendly:** Costs $0 in backend computation and requires no file uploads.
 
 ---
 

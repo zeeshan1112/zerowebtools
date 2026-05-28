@@ -6,6 +6,8 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, getFilename, renderPDFThumbnail, renderAllPDFPages } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 const SPLIT_STEPS = [
   "Analyzing PDF page layout tree...",
@@ -37,7 +39,6 @@ export default function SplitPDFWorkspace() {
   const isGeneratingRef = useRef(false);
   const animationFinishedRef = useRef(false);
 
-  // Revoke object URLs to prevent memory leaks
   useEffect(() => {
     return () => {
       if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
@@ -63,6 +64,13 @@ export default function SplitPDFWorkspace() {
       setError("Could not read PDF");
     }
   }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      handleFile(shared);
+    }
+  }, [handleFile]);
 
   const handleClear = () => {
     if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
@@ -269,9 +277,16 @@ export default function SplitPDFWorkspace() {
           </div>
 
           {splitBlob && (
-            <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium select-none">
-              ✓ PDF split successfully — {formatBytes(splitBlob.size)}
-            </p>
+            <div className="space-y-4">
+              <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium select-none">
+                ✓ PDF split successfully — {formatBytes(splitBlob.size)}
+              </p>
+              <MicroChainLinks
+                blob={splitBlob}
+                filename={getFilename(mode === "extract" ? "pdf-split" : "pdf-organize", file.name)}
+                currentToolId="pdf-split"
+              />
+            </div>
           )}
         </div>
       )}

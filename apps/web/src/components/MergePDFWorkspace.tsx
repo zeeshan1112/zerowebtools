@@ -4,8 +4,10 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import { PDFDocument } from "pdf-lib";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, renderPDFThumbnail, renderAllPDFPages } from "@/lib/pdf-utils";
+import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, renderPDFThumbnail, renderAllPDFPages, getFilename } from "@/lib/pdf-utils";
 import ProcessingOverlay from "./ProcessingOverlay";
+import { getSharedFile } from "@/lib/fileBuffer";
+import MicroChainLinks from "./MicroChainLinks";
 
 interface MergeJob {
   id: string;
@@ -104,6 +106,13 @@ export default function MergePDFWorkspace() {
       })();
     }
   }, []);
+
+  useEffect(() => {
+    const shared = getSharedFile();
+    if (shared) {
+      addFiles([shared]);
+    }
+  }, [addFiles]);
 
   const removeFile = useCallback((id: string) => {
     setJobs((prev) => {
@@ -425,9 +434,16 @@ export default function MergePDFWorkspace() {
           </div>
 
           {mergedBlob && (
-            <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-              Merged successfully — {formatBytes(mergedBlob.size)}
-            </p>
+            <div className="space-y-4">
+              <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                Merged successfully — {formatBytes(mergedBlob.size)}
+              </p>
+              <MicroChainLinks
+                blob={mergedBlob}
+                filename={getFilename("pdf-merge", jobs[0]?.name || "document.pdf")}
+                currentToolId="pdf-merge"
+              />
+            </div>
           )}
         </div>
       )}

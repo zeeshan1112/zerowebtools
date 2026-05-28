@@ -24,6 +24,16 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
     </svg>
   ),
+  "developer-tools": (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+    </svg>
+  ),
+  generators: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.098-3.098L2.25 12l2.846-.813a4.5 4.5 0 003.098-3.098L9 5.25l.813 2.846a4.5 4.5 0 003.098 3.098L15.75 12l-2.846.813a4.5 4.5 0 00-3.098 3.098zM19.078 19.078l-.228.798-.228-.798a3.185 3.185 0 00-2.19-2.19l-.798-.228.798-.228a3.185 3.185 0 002.19-2.19l.228-.798.228.798a3.185 3.185 0 002.19 2.19l.798.228-.798.228a3.185 3.185 0 00-2.19 2.19zM19.385 4.615l-.097.338-.097-.338a1.35 1.35 0 00-.927-.927l-.338-.097.338-.097a1.35 1.35 0 00.927-.927l.097-.338.097.338a1.35 1.35 0 00.927.927l.338.097-.338.097a1.35 1.35 0 00-.927.927z" />
+    </svg>
+  ),
   "image-tools": (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
