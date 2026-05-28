@@ -277,17 +277,15 @@ export default function MobileDrawer() {
                 
                 {/* Chrome Extension CTA */}
                 <div className="pt-2">
-                  <a
-                    href="https://chromewebstore.google.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href="/extensions"
                     className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-accent text-white shadow-md hover:bg-accent/90 active:scale-95 transition-all w-full"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
-                    <span className="text-xs font-extrabold uppercase tracking-widest">Install Extension</span>
-                  </a>
+                    <span className="text-xs font-extrabold uppercase tracking-widest">Extensions</span>
+                  </Link>
                 </div>
               </div>
 
