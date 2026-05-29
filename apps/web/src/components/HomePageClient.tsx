@@ -80,6 +80,23 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<"all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators">("all");
 
+  const getLocalizedHref = (path: string) => {
+    if (!lang || lang === "en") return path;
+    return `/${lang}${path === "/" ? "" : path}`;
+  };
+
+  const getCategoryTitle = (slug: string, fallback: string) => {
+    switch (slug) {
+      case "pdf-tools": return t.pdfTools;
+      case "text-tools": return t.textTools;
+      case "developer-tools": return t.developerTools;
+      case "generators": return t.generators;
+      case "image-tools": return t.imageTools;
+      case "financial-growth": return t.calculators;
+      default: return fallback;
+    }
+  };
+
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace("#", "");
@@ -362,7 +379,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
               return (
                 <Link
                   key={tool.id}
-                  href={`/tools/${tool.id}`}
+                  href={getLocalizedHref(`/tools/${tool.id}`)}
                   className="group relative block p-6 rounded-2xl border border-dashed border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden shadow-sm"
                 >
                   {/* Hydration-safe grid background */}
@@ -426,7 +443,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 return (
                   <Link
                     key={tool.id}
-                    href={`/tools/${tool.id}`}
+                    href={getLocalizedHref(`/tools/${tool.id}`)}
                     className="group relative block p-6 rounded-2xl border border-dashed border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden shadow-sm"
                   >
                     {/* Hydration-safe grid background */}
@@ -520,7 +537,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 <div key={category.slug} className="space-y-6">
                   <div className="flex items-baseline justify-between border-b border-border/30 pb-2.5 select-none">
                     <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider">
-                      {category.title}
+                      {getCategoryTitle(category.slug, category.title)}
                     </h3>
                     <span className="text-[9px] text-ink-muted font-bold">
                       {liveCount} OF {category.tools.length} LIVE
@@ -543,7 +560,7 @@ const tool = getLocalizedTool(rawTool, lang);
                       return (
                         <motion.div variants={staggerItem} key={tool.id} className="h-full">
                           <Link
-                            href={isLive ? `/tools/${tool.id}` : "#"}
+                            href={isLive ? getLocalizedHref(`/tools/${tool.id}`) : "#"}
                             className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm ${
                               isLive
                                 ? "border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer"
