@@ -110,19 +110,19 @@ export default async function HowToPage({ params }: HowToPageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `${BASE_URL}/`,
+        "item": `${BASE_URL}/${lang}`,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Guides",
-        "item": `${BASE_URL}/how-to`,
+        "item": `${BASE_URL}/${lang}/how-to`,
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": article.title,
-        "item": `${BASE_URL}/how-to/${slug}`,
+        "item": `${BASE_URL}/${lang}/how-to/${slug}`,
       },
     ],
   };

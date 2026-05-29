@@ -1322,6 +1322,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         "@type": "ListItem",
         "position": 2,
         "name": category?.title || "Tools",
+        "item": `${BASE_URL}/#${category?.slug || ""}`,
       },
       {
         "@type": "ListItem",

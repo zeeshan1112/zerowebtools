@@ -1336,18 +1336,19 @@ export default async function ToolPage({ params }: ToolPageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `${BASE_URL}/`,
+        "item": `${BASE_URL}/${lang}`,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": category?.title || "Tools",
+        "item": `${BASE_URL}/${lang}/#${category?.slug || ""}`,
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": tool.title,
-        "item": `${BASE_URL}/tools/${toolId}`,
+        "item": `${BASE_URL}/${lang}/tools/${toolId}`,
       },
     ],
   };
