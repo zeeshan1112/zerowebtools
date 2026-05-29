@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ZeroWebTools - Developer Utilities",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Free developer utility tools: JSON formatter, case converter, and more. All processing runs locally in the browser.",
   "permissions": [],
   "action": {
