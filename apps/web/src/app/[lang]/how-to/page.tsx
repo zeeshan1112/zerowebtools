@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LOCALES, SupportedLocale, getTranslations, getAlternateLanguages } from "@/lib/i18n";
+import { getTranslations, getAlternateLanguages, LOCALES, SupportedLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import GuidesIndexClient from "@/components/GuidesIndexClient";
 

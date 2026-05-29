@@ -11,6 +11,18 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/how-to`,
     languages: getAlternateLanguages("/how-to"),
   },
+  openGraph: {
+    title: "Web Utility Guides & Resources | ZeroWebTools",
+    description: "Learn how to compress PDFs, convert HEIC images, model startup equity, and more with our free 100% private web utilities.",
+    type: "website",
+    url: `${BASE_URL}/how-to`,
+    siteName: "ZeroWebTools",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Utility Guides & Resources | ZeroWebTools",
+    description: "Learn how to compress PDFs, convert HEIC images, model startup equity, and more with our free 100% private web utilities.",
+  },
 };
 
 export const dynamic = "force-static";

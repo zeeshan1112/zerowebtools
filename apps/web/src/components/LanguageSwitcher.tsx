@@ -37,30 +37,35 @@ export default function LanguageSwitcher() {
     }
 
     let newPathname = "";
+    const hasLocalePrefix = LOCALES.includes(firstSegment) && firstSegment !== "en";
+
+    // Check if the current page is English-only (compare, recipes, conversions, privacy, terms, extensions)
     const englishOnlyPaths = ["/compare", "/recipes", "/conversions", "/privacy", "/terms", "/extensions"];
     const isEnglishOnly = englishOnlyPaths.some(p => pathname.startsWith(p));
-    const hasLocalePrefix = LOCALES.includes(firstSegment) && firstSegment !== "en";
 
     if (isEnglishOnly) {
       if (newLocale === "en") {
         newPathname = pathname;
       } else {
+        // Redirect to the localized homepage since this page is English-only
         newPathname = `/${newLocale}`;
       }
-    } else if (hasLocalePrefix) {
-      if (newLocale === "en") {
-        // Remove locale prefix
-        newPathname = "/" + segments.slice(2).join("/");
-      } else {
-        // Replace locale prefix
-        newPathname = "/" + [newLocale, ...segments.slice(2)].join("/");
-      }
     } else {
-      if (newLocale === "en") {
-        newPathname = pathname;
+      if (hasLocalePrefix) {
+        if (newLocale === "en") {
+          // Remove locale prefix
+          newPathname = "/" + segments.slice(2).join("/");
+        } else {
+          // Replace locale prefix
+          newPathname = "/" + [newLocale, ...segments.slice(2)].join("/");
+        }
       } else {
-        // Prepend locale prefix
-        newPathname = "/" + [newLocale, ...segments.slice(1)].join("/");
+        if (newLocale === "en") {
+          newPathname = pathname;
+        } else {
+          // Prepend locale prefix
+          newPathname = "/" + [newLocale, ...segments.slice(1)].join("/");
+        }
       }
     }
 
