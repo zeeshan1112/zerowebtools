@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getAlternateLanguages } from "@/lib/i18n";
 import GuidesIndexClient from "@/components/GuidesIndexClient";
 
 const BASE_URL = "https://zerowebtools.com";
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   description: "Learn how to compress PDFs, convert HEIC images, model startup equity, and more with our free 100% private web utilities.",
   alternates: {
     canonical: `${BASE_URL}/how-to`,
+    languages: getAlternateLanguages("/how-to"),
   },
 };
 

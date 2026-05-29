@@ -53,9 +53,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.6,
-    alternates: {
-      languages: buildLanguages(`/compare/${matchup.slug}`, baseUrl)
-    }
   }));
 
   const recipePages: MetadataRoute.Sitemap = RECIPES.map((recipe) => ({
@@ -63,9 +60,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.6,
-    alternates: {
-      languages: buildLanguages(`/recipes/${recipe.slug}`, baseUrl)
-    }
   }));
 
   const conversionPages: MetadataRoute.Sitemap = CONVERSIONS.map((pairing) => ({
@@ -73,9 +67,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.6,
-    alternates: {
-      languages: buildLanguages(`/conversions/${pairing.slug}`, baseUrl)
-    }
   }));
 
   return [
@@ -102,18 +93,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
-      alternates: {
-        languages: buildLanguages("/compare", baseUrl)
-      }
     },
     {
       url: `${baseUrl}/recipes`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
-      alternates: {
-        languages: buildLanguages("/recipes", baseUrl)
-      }
     },
     {
       url: `${baseUrl}/privacy`,

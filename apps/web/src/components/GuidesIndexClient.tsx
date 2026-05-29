@@ -5,6 +5,8 @@ import Link from "next/link";
 import { HOW_TO_ARTICLES } from "@/lib/articles";
 import { RECIPES } from "@/lib/recipes";
 import { COMPARISONS } from "@/lib/comparisons";
+import { LOCALES_DATA } from "@/lib/locales";
+import { getTranslations, SupportedLocale } from "@/lib/i18n";
 
 interface GuidesIndexClientProps {
   lang?: string;
@@ -15,6 +17,20 @@ type TabType = "guides" | "recipes" | "compare";
 export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
   const [activeTab, setActiveTab] = useState<TabType>("guides");
   const langPrefix = lang && lang !== "en" ? `/${lang}` : "";
+  const translations = getTranslations(lang);
+
+  const localizedArticles = HOW_TO_ARTICLES.map((article) => {
+    if (!lang || lang === "en") return article;
+    const translated = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">]?.articles?.[article.toolId];
+    if (translated) {
+      return {
+        ...article,
+        title: translated.title || article.title,
+        metaDescription: translated.metaDescription || article.metaDescription,
+      };
+    }
+    return article;
+  });
 
   return (
     <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 select-none">
@@ -24,10 +40,10 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
           Knowledge Base
         </span>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mt-4 mb-3">
-          Guides & Resources
+          {translations.guidesResources}
         </h1>
         <p className="text-base sm:text-lg text-ink-secondary max-w-2xl leading-relaxed">
-          Explore quick-start tutorials, visual multi-tool chaining recipes, and detailed privacy-first competitor comparisons.
+          {translations.howToDesc}
         </p>
       </div>
 
@@ -41,7 +57,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
               : "border-transparent text-ink-secondary hover:text-ink"
           }`}
         >
-          <span>Tool Guides</span>
+          <span>{lang === "es" ? "Guías de herramientas" : lang === "de" ? "Tool-Anleitungen" : lang === "fr" ? "Guides d'outils" : lang === "pt" ? "Guias de Ferramentas" : "Tool Guides"}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
             activeTab === "guides" ? "bg-accent/10 text-accent" : "bg-surface-muted border border-border/40 text-ink-muted"
           }`}>
@@ -57,7 +73,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
               : "border-transparent text-ink-secondary hover:text-ink"
           }`}
         >
-          <span>Workflow Recipes</span>
+          <span>{lang === "es" ? "Recetas de flujo" : lang === "de" ? "Workflow-Rezepte" : lang === "fr" ? "Recettes de flux" : lang === "pt" ? "Receitas de Fluxo" : "Workflow Recipes"}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
             activeTab === "recipes" ? "bg-accent/10 text-accent" : "bg-surface-muted border border-border/40 text-ink-muted"
           }`}>
@@ -73,7 +89,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
               : "border-transparent text-ink-secondary hover:text-ink"
           }`}
         >
-          <span>Alternatives & Matchups</span>
+          <span>{lang === "es" ? "Comparaciones" : lang === "de" ? "Alternativen & Vergleiche" : lang === "fr" ? "Alternatives" : lang === "pt" ? "Alternativas" : "Alternatives & Matchups"}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
             activeTab === "compare" ? "bg-accent/10 text-accent" : "bg-surface-muted border border-border/40 text-ink-muted"
           }`}>
@@ -87,7 +103,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
         {/* Tab 1: Tool Guides */}
         <div className={activeTab === "guides" ? "block" : "hidden"}>
           <div className="grid gap-4">
-            {HOW_TO_ARTICLES.map((article) => (
+            {localizedArticles.map((article) => (
               <Link
                 key={article.slug}
                 href={`${langPrefix}/how-to/${article.slug}`}
@@ -110,7 +126,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
             {RECIPES.map((recipe) => (
               <Link
                 key={recipe.slug}
-                href={`${langPrefix}/recipes/${recipe.slug}`}
+                href={`/recipes/${recipe.slug}`}
                 className="group block p-6 rounded-2xl border border-border/40 bg-surface hover:bg-surface-elevated/40 transition-all duration-200 hover:shadow-sm"
               >
                 <div className="flex flex-wrap items-center gap-1.5 mb-3">
@@ -140,7 +156,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
             {COMPARISONS.map((matchup) => (
               <Link
                 key={matchup.slug}
-                href={`${langPrefix}/compare/${matchup.slug}`}
+                href={`/compare/${matchup.slug}`}
                 className="group block p-6 rounded-2xl border border-border/40 bg-surface hover:bg-surface-elevated/40 transition-all duration-200 hover:shadow-sm"
               >
                 <div className="flex justify-between items-center mb-3">

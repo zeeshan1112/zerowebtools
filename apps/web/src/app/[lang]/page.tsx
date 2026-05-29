@@ -1,7 +1,7 @@
 import HomePageClient from "@/components/HomePageClient";
 import { ALL_TOOLS } from "@/lib/tools";
 import { Metadata } from "next";
-import { getTranslations, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { getTranslations, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
@@ -22,14 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     description: t.homeDesc,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "en": "https://zerowebtools.com",
-        "es": "https://zerowebtools.com/es",
-        "de": "https://zerowebtools.com/de",
-        "fr": "https://zerowebtools.com/fr",
-        "pt": "https://zerowebtools.com/pt",
-        "x-default": "https://zerowebtools.com",
-      },
+      languages: getAlternateLanguages(""),
     },
   };
 }

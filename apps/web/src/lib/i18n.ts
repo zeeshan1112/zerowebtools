@@ -25,6 +25,7 @@ export interface TranslationDictionary {
   privateBadge: string;
   faqTitle: string;
   faqSubtitle: string;
+  howToDesc: string;
 }
 
 const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
@@ -50,7 +51,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "Tool Filter",
     privateBadge: "100% Private • {count} free online tools",
     faqTitle: "Frequently Asked Questions",
-    faqSubtitle: "Everything you need to know about ZeroWebTools privacy and usage."
+    faqSubtitle: "Everything you need to know about ZeroWebTools privacy and usage.",
+    howToDesc: "Explore quick-start tutorials, visual multi-tool chaining recipes, and detailed privacy-first competitor comparisons."
   },
   es: {
     homeTitle: "Herramientas web simples y privadas en su navegador.",
@@ -74,7 +76,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "Filtro",
     privateBadge: "100% Privado • {count} herramientas gratuitas",
     faqTitle: "Preguntas Frecuentes",
-    faqSubtitle: "Todo lo que necesita saber sobre la privacidad de ZeroWebTools."
+    faqSubtitle: "Todo lo que necesita saber sobre la privacidad de ZeroWebTools.",
+    howToDesc: "Explore tutoriales de inicio rápido, recetas visuales de encadenamiento de herramientas y comparaciones detalladas de competidores que priorizan la privacidad."
   },
   de: {
     homeTitle: "Einfache, private Web-Tools in Ihrem Browser.",
@@ -98,7 +101,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "Filter",
     privateBadge: "100% Privat • {count} kostenlose Tools",
     faqTitle: "Häufig gestellte Fragen",
-    faqSubtitle: "Alles, was Sie über die ZeroWebTools wissen müssen."
+    faqSubtitle: "Alles, was Sie über die ZeroWebTools wissen müssen.",
+    howToDesc: "Entdecken Sie Schnellstart-Anleitungen, visuelle Rezepte zur Tool-Verkettung und detaillierte, datenschutzfreundliche Vergleiche mit Mitbewerbern."
   },
   fr: {
     homeTitle: "Des outils web simples et privés dans votre navigateur.",
@@ -122,7 +126,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "Filtre",
     privateBadge: "100% Privé • {count} outils gratuits",
     faqTitle: "Foire Aux Questions",
-    faqSubtitle: "Tout ce que vous devez savoir sur ZeroWebTools."
+    faqSubtitle: "Tout ce que vous devez savoir sur ZeroWebTools.",
+    howToDesc: "Explorez des tutoriels de démarrage rapide, des recettes visuelles d'enchaînement d'outils et des comparaisons détaillées de concurrents respectant la vie privée."
   },
   pt: {
     homeTitle: "Ferramentas web simples e privadas no seu navegador.",
@@ -146,7 +151,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "Filtro",
     privateBadge: "100% Privado • {count} ferramentas gratuitas",
     faqTitle: "Perguntas Frequentes",
-    faqSubtitle: "Tudo o que você precisa saber sobre o ZeroWebTools."
+    faqSubtitle: "Tudo o que você precisa saber sobre o ZeroWebTools.",
+    howToDesc: "Explore tutoriais de início rápido, receitas visuais de encadeamento de ferramentas e comparações detalhadas de concorrentes com foco na privacidade."
   },
   ja: {
     homeTitle: "ブラウザで動くシンプルでプライベートなWebツール。",
@@ -170,7 +176,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "フィルター",
     privateBadge: "100% プライベート • {count} 個の無料オンラインツール",
     faqTitle: "よくある質問",
-    faqSubtitle: "ZeroWebToolsのプライバシーと使用方法に関するすべての情報。"
+    faqSubtitle: "ZeroWebToolsのプライバシーと使用方法に関するすべての情報。",
+    howToDesc: "プライバシーを重視したクイックスタートチュートリアル、複数のツールを組み合わせたビジュアルレシピ、競合他社との詳細な比較をご覧ください。"
   },
   zh: {
     homeTitle: "在浏览器中运行的简单、隐私网页工具。",
@@ -194,7 +201,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "筛选器",
     privateBadge: "100% 本地隐私 • {count} 个免费在线工具",
     faqTitle: "常见问题",
-    faqSubtitle: "您需要了解的关于 ZeroWebTools 隐私和使用的所有信息。"
+    faqSubtitle: "您需要了解的关于 ZeroWebTools 隐私和使用的所有信息。",
+    howToDesc: "探索快速入门教程、可视化多工具链配方以及详细的隐私第一竞争对手比较。"
   },
   hi: {
     homeTitle: "आपके ब्राउज़र में सरल और निजी वेब टूल्स।",
@@ -218,7 +226,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "फिल्टर",
     privateBadge: "100% निजी • {count} मुफ़्त ऑनलाइन टूल्स",
     faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
-    faqSubtitle: "ZeroWebTools गोपनीयता और उपयोग के बारे में वह सब कुछ जो आपको जानना आवश्यक है।"
+    faqSubtitle: "ZeroWebTools गोपनीयता और उपयोग के बारे में वह सब कुछ जो आपको जानना आवश्यक है।",
+    howToDesc: "त्वरित-प्रारंभ ट्यूटोरियल, विज़ुअल मल्टी-टूल चेनिंग रेसिपी और विस्तृत गोपनीयता-प्रथम प्रतियोगी तुलनाओं का अन्वेषण करें।"
   },
   it: {
     homeTitle: "Strumenti web semplici e privati nel tuo browser.",
@@ -242,7 +251,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "Filtra",
     privateBadge: "100% Privato • {count} strumenti online gratuiti",
     faqTitle: "Domande Frequenti",
-    faqSubtitle: "Tutto quello che c'è da sapere sulla privacy e l'uso di ZeroWebTools."
+    faqSubtitle: "Tutto quello che c'è da sapere sulla privacy e l'uso di ZeroWebTools.",
+    howToDesc: "Esplora tutorial rapidi, ricette visive per concatenare più strumenti e confronti dettagliati dei concorrenti orientati alla privacy."
   },
   ar: {
     homeTitle: "أدوات ويب بسيطة وخاصة في متصفحك مباشرة.",
@@ -266,7 +276,8 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     toolFilter: "تصفية",
     privateBadge: "خصوصية 100% • {count} أداة مجانية عبر الإنترنت",
     faqTitle: "الأسئلة الشائعة",
-    faqSubtitle: "كل ما تحتاج لمعرفته حول خصوصية واستخدام ZeroWebTools."
+    faqSubtitle: "كل ما تحتاج لمعرفته حول خصوصية واستخدام ZeroWebTools.",
+    howToDesc: "استكشف البرامج التعليمية لبدء التشغيل السريع، ووصفات تسلسل الأدوات المتعددة المرئية، والمقارنات التفصيلية للمنافسين التي تعطي الأولوية للخصوصية."
   }
 };
 
@@ -2308,3 +2319,17 @@ export function getLocalizedTool(tool: any, lang: string | undefined): any {
   }
   return tool;
 }
+
+export function getAlternateLanguages(path: string): Record<string, string> {
+  const languages: Record<string, string> = {};
+  const baseUrl = "https://zerowebtools.com";
+  languages["en"] = `${baseUrl}${path}`;
+  languages["x-default"] = `${baseUrl}${path}`;
+  
+  LOCALES.filter(l => l !== "en").forEach(lang => {
+    languages[lang] = `${baseUrl}/${lang}${path}`;
+  });
+  
+  return languages;
+}
+

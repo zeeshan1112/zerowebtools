@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getAlternateLanguages } from "@/lib/i18n";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HOW_TO_ARTICLES } from "@/lib/articles";
@@ -29,10 +30,7 @@ export async function generateMetadata({ params }: HowToPageProps): Promise<Meta
     description: article.metaDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "en": canonicalUrl,
-        "x-default": canonicalUrl,
-      },
+      languages: getAlternateLanguages(`/how-to/${slug}`),
     },
     openGraph: {
       title: article.title,
@@ -90,7 +88,7 @@ export default async function HowToPage({ params }: HowToPageProps) {
   const faqSchema = article.faqs && article.faqs.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": article.faqs.map(faq => ({
+    "mainEntity": article.faqs.map((faq: any) => ({
       "@type": "Question",
       "name": faq.question,
       "acceptedAnswer": {

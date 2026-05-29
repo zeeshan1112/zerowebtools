@@ -1,21 +1,14 @@
 import HomePageClient from "@/components/HomePageClient";
 import { ALL_TOOLS } from "@/lib/tools";
 import { Metadata } from "next";
-import { getTranslations } from "@/lib/i18n";
+import { getTranslations, getAlternateLanguages } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "ZeroWebTools | 100% Private Client-Side Web Utilities",
   description: "Free, fast, and completely secure client-side web utilities to edit PDFs, convert formats, check SaaS growth, and resize images. 100% private.",
   alternates: {
     canonical: "https://zerowebtools.com",
-    languages: {
-      "en": "https://zerowebtools.com",
-      "es": "https://zerowebtools.com/es",
-      "de": "https://zerowebtools.com/de",
-      "fr": "https://zerowebtools.com/fr",
-      "pt": "https://zerowebtools.com/pt",
-      "x-default": "https://zerowebtools.com",
-    },
+    languages: getAlternateLanguages(""),
   },
 };
 

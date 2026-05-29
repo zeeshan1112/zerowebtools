@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getAlternateLanguages } from "@/lib/i18n";
 import Link from "next/link";
 import JsonViewerWorkspace from "@/components/JsonViewerWorkspace";
 import HeicConverterWorkspace from "@/components/HeicConverterWorkspace";
@@ -78,10 +79,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     description: tool.metaDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "en": canonicalUrl,
-        "x-default": canonicalUrl,
-      },
+      languages: getAlternateLanguages(`/tools/${toolId}`),
     },
     openGraph: {
       title: pageTitle,

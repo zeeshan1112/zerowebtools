@@ -314,7 +314,7 @@ export default function MobileDrawer() {
                 {/* Chrome Extension CTA */}
                 <div className="pt-2">
                   <Link
-                    href={getLocalizedHref("/extensions")}
+                    href="/extensions"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-accent text-white shadow-md hover:bg-accent/90 active:scale-95 transition-all w-full"
                   >
@@ -332,14 +332,14 @@ export default function MobileDrawer() {
                   <ThemeToggle />
                   <div className="flex items-center gap-3">
                     <Link
-                      href={getLocalizedHref("/privacy")}
+                      href="/privacy"
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
                       {translations.privacy}
                     </Link>
                     <Link
-                      href={getLocalizedHref("/terms")}
+                      href="/terms"
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >

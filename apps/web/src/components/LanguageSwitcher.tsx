@@ -37,9 +37,17 @@ export default function LanguageSwitcher() {
     }
 
     let newPathname = "";
+    const englishOnlyPaths = ["/compare", "/recipes", "/conversions", "/privacy", "/terms", "/extensions"];
+    const isEnglishOnly = englishOnlyPaths.some(p => pathname.startsWith(p));
     const hasLocalePrefix = LOCALES.includes(firstSegment) && firstSegment !== "en";
 
-    if (hasLocalePrefix) {
+    if (isEnglishOnly) {
+      if (newLocale === "en") {
+        newPathname = pathname;
+      } else {
+        newPathname = `/${newLocale}`;
+      }
+    } else if (hasLocalePrefix) {
       if (newLocale === "en") {
         // Remove locale prefix
         newPathname = "/" + segments.slice(2).join("/");

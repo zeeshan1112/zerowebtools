@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import { HOW_TO_ARTICLES } from "@/lib/articles";
 import { getToolById } from "@/lib/tools";
 import ArticleBlock from "@/components/ArticleBlock";
+import { LOCALES_DATA } from "@/lib/locales";
 
 interface HowToPageProps {
   params: Promise<{ slug: string; lang: string }>;
@@ -26,8 +27,20 @@ export async function generateMetadata({ params }: HowToPageProps): Promise<Meta
   const { slug, lang } = await params;
   if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") return {};
   
-  const article = HOW_TO_ARTICLES.find((a) => a.slug === slug);
-  if (!article) return { title: "Not Found" };
+  const englishArticle = HOW_TO_ARTICLES.find((a) => a.slug === slug);
+  if (!englishArticle) return { title: "Not Found" };
+
+  const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
+  const translated = localeData?.articles?.[englishArticle.toolId];
+
+  const article = translated
+    ? {
+        ...englishArticle,
+        title: translated.title || englishArticle.title,
+        metaDescription: translated.metaDescription || englishArticle.metaDescription,
+      }
+    : englishArticle;
+
   const canonicalUrl = `${BASE_URL}/${lang}/how-to/${slug}`;
 
   return {
@@ -35,10 +48,7 @@ export async function generateMetadata({ params }: HowToPageProps): Promise<Meta
     description: article.metaDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "en": canonicalUrl,
-        "x-default": canonicalUrl,
-      },
+      languages: getAlternateLanguages(`/how-to/${slug}`),
     },
     openGraph: {
       title: article.title,
@@ -59,14 +69,37 @@ export default async function HowToPage({ params }: HowToPageProps) {
   const { slug, lang } = await params;
   if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") notFound();
   
-  const article = HOW_TO_ARTICLES.find((a) => a.slug === slug);
+  const englishArticle = HOW_TO_ARTICLES.find((a) => a.slug === slug);
 
-  if (!article) {
+  if (!englishArticle) {
     notFound();
   }
 
+  const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
+  const translated = localeData?.articles?.[englishArticle.toolId];
+
+  const article = translated
+    ? {
+        ...englishArticle,
+        title: translated.title || englishArticle.title,
+        metaDescription: translated.metaDescription || englishArticle.metaDescription,
+        sections: (translated.sections || englishArticle.sections).map((sec: any, idx: number) => ({
+          ...englishArticle.sections[idx],
+          heading: sec.heading || englishArticle.sections[idx]?.heading,
+          paragraphs: sec.paragraphs || englishArticle.sections[idx]?.paragraphs,
+          listItems: sec.listItems || englishArticle.sections[idx]?.listItems,
+        })),
+        faqs: (translated.faqs || englishArticle.faqs || []).map((faq: any, idx: number) => ({
+          ...englishArticle.faqs?.[idx],
+          question: faq.question || englishArticle.faqs?.[idx]?.question,
+          answer: faq.answer || englishArticle.faqs?.[idx]?.answer,
+        })),
+      }
+    : englishArticle;
+
   const targetTool = getToolById(article.toolId);
-  const toolTitle = targetTool?.title || "Tool";
+  const localizedTool = targetTool ? getLocalizedTool(targetTool, lang) : null;
+  const toolTitle = localizedTool?.title || "Tool";
 
   // Generate Schemas
   const breadcrumbSchema = {
@@ -98,7 +131,7 @@ export default async function HowToPage({ params }: HowToPageProps) {
   const faqSchema = article.faqs && article.faqs.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": article.faqs.map(faq => ({
+    "mainEntity": article.faqs.map((faq: any) => ({
       "@type": "Question",
       "name": faq.question,
       "acceptedAnswer": {

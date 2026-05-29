@@ -293,7 +293,7 @@ export default function Sidebar() {
       {/* Chrome Extension CTA */}
       <div className={`shrink-0 px-3 py-3 transition-all duration-300 ${isExpanded ? "" : "opacity-75"}`}>
         <Link
-          href={getLocalizedHref("/extensions")}
+          href="/extensions"
           className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-accent text-white shadow-md hover:bg-accent/90 hover:shadow-lg active:scale-95 transition-all w-full"
           title="Browser Extensions"
         >

@@ -43,14 +43,14 @@ export default function Header() {
             <CommandCenter />
             <LanguageSwitcher />
             <Link
-              href={getLocalizedHref("/privacy")}
+              href="/privacy"
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
               Privacy
             </Link>
             <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
-              href={getLocalizedHref("/terms")}
+              href="/terms"
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
               Terms

@@ -6,7 +6,7 @@ import MergePDFWorkspace from "@/components/MergePDFWorkspace";
 import SplitPDFWorkspace from "@/components/SplitPDFWorkspace";
 import CompressPDFWorkspace from "@/components/CompressPDFWorkspace";
 import RotatePDFWorkspace from "@/components/RotatePDFWorkspace";
-import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNumbersPDFWorkspace, OrganizePDFWorkspace } from "@/components/PDFEditorsWorkspace";
 import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
@@ -91,10 +91,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     description: tool.metaDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "en": canonicalUrl,
-        "x-default": canonicalUrl,
-      },
+      languages: getAlternateLanguages(`/tools/${toolId}`),
     },
     openGraph: {
       title: pageTitle,
