@@ -5,15 +5,17 @@ import { downloadBlob, formatBytes, getFilename, compressPDF, renderPDFThumbnail
 import ProcessingOverlay from "./ProcessingOverlay";
 import { getSharedFile } from "@/lib/fileBuffer";
 import MicroChainLinks from "./MicroChainLinks";
-
-const COMPRESS_STEPS = [
-  "Analyzing PDF content stream structures...",
-  "Extracting and downscaling embedded raster images...",
-  "Re-compressing vector objects and coordinates...",
-  "Optimizing font references and page metadata...",
-];
+import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
 export default function CompressPDFWorkspace() {
+  const t = useWorkspaceTranslation();
+
+  const compressSteps = [
+    t("step_1", "Analyzing PDF content stream structures..."),
+    t("step_2", "Extracting and downscaling embedded raster images..."),
+    t("step_3", "Re-compressing vector objects and coordinates..."),
+    t("step_4", "Optimizing font references and page metadata..."),
+  ];
   const [file, setFile] = useState<File | null>(null);
   const [before, setBefore] = useState(0);
   const [after, setAfter] = useState<number | null>(null);
@@ -130,7 +132,7 @@ export default function CompressPDFWorkspace() {
 
   return (
     <div className="relative space-y-6">
-      <DropZone ref={ref} onFile={handleFile} label="Drop a PDF to compress" accept=".pdf" />
+      <DropZone ref={ref} onFile={handleFile} label={t("drop_zone_prompt", "Drop a PDF to compress")} accept=".pdf" />
       {file && (
         <div className="space-y-6">
           {/* Thumbnail / Meta card */}
@@ -154,7 +156,7 @@ export default function CompressPDFWorkspace() {
           </div>
 
           <div className="space-y-4">
-            <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">Compression Level</div>
+            <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider font-mono">{t("level", "Compression Level")}</div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button
                 type="button"
@@ -171,13 +173,13 @@ export default function CompressPDFWorkspace() {
                     <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 01</span>
                     <span className="text-[9px] px-2 py-0.5 rounded bg-accent text-white font-semibold font-mono tracking-wider">BEST VALUE</span>
                   </div>
-                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">Balanced Compression</span>
+                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">{t("option_1", "Balanced Compression")}</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
-                    Balanced quality & resolution (150 DPI). Reduces scanned files up to 90%. Best for standard uses.
+                    {t("option_1_desc", "Balanced quality & resolution (150 DPI). Reduces scanned files up to 90%. Best for standard uses.")}
                   </p>
                 </div>
               </button>
-
+ 
               <button
                 type="button"
                 onClick={() => handleLevelChange("extreme")}
@@ -193,13 +195,13 @@ export default function CompressPDFWorkspace() {
                     <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 02</span>
                     <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-semibold font-mono tracking-wider">SMALLEST</span>
                   </div>
-                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">Extreme Compression</span>
+                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">{t("option_2", "Extreme Compression")}</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
-                    Maximum compression (100 DPI) at lower image quality. Perfect for strict portal size limits.
+                    {t("option_2_desc", "Maximum compression (100 DPI) at lower image quality. Perfect for strict portal size limits.")}
                   </p>
                 </div>
               </button>
-
+ 
               <button
                 type="button"
                 onClick={() => handleLevelChange("lossless")}
@@ -215,9 +217,9 @@ export default function CompressPDFWorkspace() {
                     <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-500 font-mono font-medium uppercase">OPTION 03</span>
                     <span className="text-[9px] px-2 py-0.5 rounded border border-border text-ink-muted font-semibold font-mono tracking-wider">LOSSLESS</span>
                   </div>
-                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">Lossless Optimization</span>
+                  <span className="font-semibold text-sm text-ink block mb-1.5 font-sans">{t("option_3", "Lossless Optimization")}</span>
                   <p className="text-xs text-ink-muted leading-relaxed">
-                    Cleans PDF structures & removes metadata. Preserves original visual quality, vectors, & selectable text.
+                    {t("option_3_desc", "Cleans PDF structures & removes metadata. Preserves original visual quality, vectors, & selectable text.")}
                   </p>
                 </div>
               </button>
@@ -226,18 +228,18 @@ export default function CompressPDFWorkspace() {
 
           {after !== null && (
             <div className="rounded-xl border border-dashed border-border bg-surface-elevated p-5 space-y-4">
-              <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider border-b border-border pb-2 font-mono">Compression Metrics</div>
+              <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider border-b border-border pb-2 font-mono">{t("metrics", "Compression Metrics")}</div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="text-[10px] font-mono text-ink-muted uppercase">Original Size</div>
+                  <div className="text-[10px] font-mono text-ink-muted uppercase">{t("original_size", "Original Size")}</div>
                   <div className="text-sm font-semibold text-ink mt-0.5 font-mono">{formatBytes(before)}</div>
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono text-ink-muted uppercase">Compressed Size</div>
+                  <div className="text-[10px] font-mono text-ink-muted uppercase">{t("compressed_size", "Compressed Size")}</div>
                   <div className="text-sm font-semibold text-accent mt-0.5 font-mono">{formatBytes(after)}</div>
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono text-ink-muted uppercase">Saved Space</div>
+                  <div className="text-[10px] font-mono text-ink-muted uppercase">{t("saved_space", "Saved Space")}</div>
                   <div className="text-sm font-semibold text-ink mt-0.5 font-mono">
                     {formatBytes(before - after)} ({((1 - after / before) * 100).toFixed(1)}%)
                   </div>
@@ -246,8 +248,8 @@ export default function CompressPDFWorkspace() {
 
               {isLosslessFallback && (
                 <div className="p-3 bg-accent-surface border border-accent/20 rounded-lg text-xs text-ink-secondary leading-relaxed">
-                  <span className="font-semibold text-accent block mb-1">ℹ️ Lossless Fallback Applied</span>
-                  This PDF is text- and vector-based (not scanned). Standard image compression would make the text blurry and actually increase the file size. To prevent a larger file size, a metadata and structural optimization was automatically performed, preserving vector and text clarity.
+                  <span className="font-semibold text-accent block mb-1">{t("lossless_fallback_title", "ℹ️ Lossless Fallback Applied")}</span>
+                  {t("lossless_fallback_desc", "This PDF is text- and vector-based (not scanned). Standard image compression would make the text blurry and actually increase the file size. To prevent a larger file size, a metadata and structural optimization was automatically performed, preserving vector and text clarity.")}
                 </div>
               )}
             </div>
@@ -264,12 +266,12 @@ export default function CompressPDFWorkspace() {
               >
                 {processing ? (
                   progress ? (
-                    `Compressing page ${progress.current} of ${progress.total}...`
+                    t("compressing_page_n_of_m", "Compressing page {current} of {total}...").replace("{current}", String(progress.current)).replace("{total}", String(progress.total))
                   ) : (
-                    "Compressing..."
+                    t("compressing", "Compressing...")
                   )
                 ) : (
-                  "Compress PDF"
+                  t("compress_pdf", "Compress PDF")
                 )}
               </button>
             ) : (
@@ -281,13 +283,13 @@ export default function CompressPDFWorkspace() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                   </svg>
-                  Download Compressed PDF
+                  {t("download_compressed_pdf", "Download Compressed PDF")}
                 </button>
                 <button
                   onClick={handleClear}
                   className="text-xs text-ink-muted hover:text-ink transition-colors font-mono uppercase tracking-wider ml-2"
                 >
-                  Start Over
+                  {t("start_over", "Start Over")}
                 </button>
               </>
             )}
@@ -304,8 +306,8 @@ export default function CompressPDFWorkspace() {
       )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
-        steps={COMPRESS_STEPS}
-        loadingText="Compressing your PDF document..."
+        steps={compressSteps}
+        loadingText={t("compressing_overlay_title", "Compressing your PDF document...")}
         duration={3500}
         onFinished={handleProcessingFinished}
       />

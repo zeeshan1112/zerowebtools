@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import Link from "next/link";
+import { Geist, Geist_Mono } from "next/font/google";
 import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
-import CommandCenter from "@/components/CommandCenter";
 import ScrollToTop from "@/components/ScrollToTop";
-import MobileDrawer from "@/components/MobileDrawer";
 import Analytics from "@/components/Analytics";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 
 export const metadata: Metadata = {
@@ -66,59 +76,14 @@ export const metadata: Metadata = {
 
 const ADSENSE_CLIENT_ID = "ca-pub-XXXXXXXXXXXXXXXX";
 
-function Header() {
-  return (
-    <header className="relative z-40 bg-surface border-b border-border/40 shrink-0 select-none">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-2">
-          {/* Left side: hamburger + logo on mobile */}
-          <div className="flex items-center gap-1">
-            <MobileDrawer />
-            <Link
-              href="/"
-              className="flex md:hidden items-center gap-2 group active:scale-[0.98] transition-transform duration-200"
-            >
-              <img src="/logo.png" alt="ZeroWebTools" className="w-7 h-7 rounded-lg shadow-sm object-contain" />
-              <span className="font-bold tracking-tight text-sm text-ink">ZeroWebTools</span>
-            </Link>
-          </div>
-          
-          <div className="hidden md:block" />
-
-          <div className="flex items-center gap-2 sm:gap-4">
-            <CommandCenter />
-            <Link
-              href="/privacy"
-              className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
-            >
-              Privacy
-            </Link>
-            <span className="hidden sm:block w-px h-3 bg-border/80" />
-            <Link
-              href="/terms"
-              className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
-            >
-              Terms
-            </Link>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="antialiased" suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -130,6 +95,16 @@ export default function RootLayout({
                     document.documentElement.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');
+                  }
+                  
+                  // Dynamic RTL & Lang adjustment for Arabic
+                  var p = window.location.pathname;
+                  if (p.indexOf('/ar') === 0 || p.indexOf('/ar/') === 0) {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                  } else {
+                    document.documentElement.removeAttribute('dir');
+                    document.documentElement.setAttribute('lang', 'en');
                   }
                 } catch (_) {}
               })();
@@ -147,31 +122,7 @@ export default function RootLayout({
           <Header />
           <div className="flex-1 overflow-y-auto page-scroll-container">
             <main className="flex-grow">{children}</main>
-            
-            {/* Global Footer */}
-            <footer className="mt-auto border-t border-border/40 py-8 px-6 text-center select-none bg-surface">
-              <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-ink-secondary">
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 uppercase tracking-wider font-bold">
-                  <Link href="/how-to" className="hover:text-accent transition-colors duration-200">
-                    Guides & Resources
-                  </Link>
-                  <Link href="/privacy" className="hover:text-accent transition-colors duration-200">
-                    Privacy
-                  </Link>
-                  <Link href="/terms" className="hover:text-accent transition-colors duration-200">
-                    Terms
-                  </Link>
-                </div>
-                <div className="flex items-center gap-2 group">
-                  <svg className="w-4 h-4 text-ink-muted group-hover:text-accent transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <a href="mailto:support@zerowebtools.com" className="font-mono hover:text-ink transition-colors duration-200">
-                    support@zerowebtools.com
-                  </a>
-                </div>
-              </div>
-            </footer>
+            <Footer />
           </div>
         </div>
 

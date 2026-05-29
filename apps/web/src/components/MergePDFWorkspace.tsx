@@ -8,6 +8,7 @@ import { loadPDFDoc, savePDFDoc, downloadBlob, formatBytes, renderPDFThumbnail, 
 import ProcessingOverlay from "./ProcessingOverlay";
 import { getSharedFile } from "@/lib/fileBuffer";
 import MicroChainLinks from "./MicroChainLinks";
+import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
 interface MergeJob {
   id: string;
@@ -18,14 +19,15 @@ interface MergeJob {
   pageCount: number | null;
 }
 
-const MERGE_STEPS = [
-  "Reading and parsing PDF file structures...",
-  "Merging document catalogs and page pools...",
-  "Optimizing resource dictionaries...",
-  "Generating final combined PDF...",
-];
-
 export default function MergePDFWorkspace() {
+  const t = useWorkspaceTranslation();
+
+  const mergeSteps = [
+    t("step_1", "Reading and parsing PDF file structures..."),
+    t("step_2", "Merging document catalogs and page pools..."),
+    t("step_3", "Optimizing resource dictionaries..."),
+    t("step_4", "Generating final combined PDF..."),
+  ];
   const [jobs, setJobs] = useState<MergeJob[]>([]);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
@@ -244,7 +246,7 @@ export default function MergePDFWorkspace() {
     const fileToPreview = targetFile || mergedBlob;
     if (!fileToPreview) return;
     setIsPreviewingMerged(isMerged);
-    setPreviewTitle(isMerged ? "Preview merged PDF" : `Preview: ${fileName || "Individual PDF"}`);
+    setPreviewTitle(isMerged ? t("preview_merged_pdf", "Preview merged PDF") : t("preview_individual_pdf", "Preview: {name}").replace("{name}", fileName || "Individual PDF"));
     setShowPreview(true);
     setPreviewLoading(true);
     try {
@@ -254,7 +256,7 @@ export default function MergePDFWorkspace() {
       setPreviewPages([]);
     }
     setPreviewLoading(false);
-  }, [mergedBlob]);
+  }, [mergedBlob, t]);
 
   const closePreview = useCallback(() => {
     setShowPreview(false);
@@ -290,8 +292,8 @@ export default function MergePDFWorkspace() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
             </svg>
           </div>
-          <p className="text-sm font-medium text-ink">Drop PDF files here or click to browse</p>
-          <p className="text-xs text-ink-muted">Add at least 2 PDFs — drag to reorder after upload</p>
+          <p className="text-sm font-medium text-ink">{t("drop_zone_prompt", "Drop PDF files here or click to browse")}</p>
+          <p className="text-xs text-ink-muted">{t("add_at_least_2_pdfs", "Add at least 2 PDFs — drag to reorder after upload")}</p>
         </div>
       </div>
 
@@ -300,7 +302,7 @@ export default function MergePDFWorkspace() {
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs text-ink-muted px-1">
             <span>{jobs.length} file{jobs.length > 1 ? "s" : ""} — {totalPages} total pages</span>
-            <button onClick={clearAll} className="hover:text-red-500 transition-colors">Clear all</button>
+            <button onClick={clearAll} className="hover:text-red-500 transition-colors">{t("clear_all", "Clear all")}</button>
           </div>
 
           <div className="space-y-2">
@@ -397,10 +399,10 @@ export default function MergePDFWorkspace() {
                 {processing ? (
                   <span className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin"/>
-                    Merging...
+                    {t("merging", "Merging...")}
                   </span>
                 ) : (
-                  `Merge ${jobs.length} PDFs`
+                  t("merge_n_pdfs", "Merge {count} PDFs").replace("{count}", String(jobs.length))
                 )}
               </button>
             ) : (
@@ -412,7 +414,7 @@ export default function MergePDFWorkspace() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                   </svg>
-                  Download
+                  {t("download", "Download")}
                 </button>
                 <button
                   onClick={() => openPreview(undefined, true, "Merged PDF")}
@@ -421,13 +423,13 @@ export default function MergePDFWorkspace() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178zM15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
-                  Preview
+                  {t("preview", "Preview")}
                 </button>
                 <button
                   onClick={clearAll}
                   className="text-xs text-ink-muted hover:text-ink transition-colors"
                 >
-                  Start over
+                  {t("start_over", "Start over")}
                 </button>
               </>
             )}
@@ -436,7 +438,7 @@ export default function MergePDFWorkspace() {
           {mergedBlob && (
             <div className="space-y-4">
               <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                Merged successfully — {formatBytes(mergedBlob.size)}
+                {t("merged_success", "Merged successfully")} — {formatBytes(mergedBlob.size)}
               </p>
               <MicroChainLinks
                 blob={mergedBlob}
@@ -509,17 +511,17 @@ export default function MergePDFWorkspace() {
                     {previewLoading ? (
                       <div className="h-64 flex flex-col items-center justify-center space-y-3">
                         <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin"/>
-                        <p className="text-xs text-ink-muted">Rendering preview pages...</p>
+                        <p className="text-xs text-ink-muted">{t("rendering_preview", "Rendering preview pages...")}</p>
                       </div>
                     ) : previewPages.length > 0 ? (
                       <div className="flex flex-col gap-6 items-center w-full max-w-2xl mx-auto">
                         {previewPages.map((url, idx) => (
                           <div key={idx} className="relative group w-full flex flex-col items-center">
                             <img
-                              src={url}
-                              alt={`Page ${idx + 1}`}
-                              className="max-w-full h-auto rounded-lg shadow-md border border-border bg-white dark:bg-zinc-900 transition-shadow duration-200 hover:shadow-lg"
-                              style={{ maxHeight: "75vh" }}
+                               src={url}
+                               alt={`Page ${idx + 1}`}
+                               className="max-w-full h-auto rounded-lg shadow-md border border-border bg-white dark:bg-zinc-900 transition-shadow duration-200 hover:shadow-lg"
+                               style={{ maxHeight: "75vh" }}
                             />
                             <span className="absolute bottom-3 right-3 px-2 py-0.5 text-[9px] font-bold text-ink-secondary bg-surface/90 border border-border rounded shadow-sm select-none opacity-80 group-hover:opacity-100 transition-opacity">
                               Page {idx + 1} of {previewPages.length}
@@ -529,7 +531,7 @@ export default function MergePDFWorkspace() {
                       </div>
                     ) : (
                       <div className="h-64 flex items-center justify-center">
-                        <p className="text-xs text-ink-muted">Failed to render preview</p>
+                        <p className="text-xs text-ink-muted">{t("failed_to_render_preview", "Failed to render preview")}</p>
                       </div>
                     )}
                   </div>
@@ -541,10 +543,10 @@ export default function MergePDFWorkspace() {
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                         </svg>
-                        Download merged PDF
+                        {t("download_merged_pdf", "Download merged PDF")}
                       </button>
                     )}
-                    <div className="text-[9px] text-ink-muted font-medium uppercase tracking-wider font-mono">Esc to close · Scroll to view all pages</div>
+                    <div className="text-[9px] text-ink-muted font-medium uppercase tracking-wider font-mono">{t("esc_to_close", "Esc to close · Scroll to view all pages")}</div>
                   </div>
                 </motion.div>
               </div>
@@ -554,8 +556,8 @@ export default function MergePDFWorkspace() {
         )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
-        steps={MERGE_STEPS}
-        loadingText="Merging your PDF documents..."
+        steps={mergeSteps}
+        loadingText={t("merging_overlay_title", "Merging your PDF documents...")}
         duration={3500}
         onFinished={handleProcessingFinished}
       />

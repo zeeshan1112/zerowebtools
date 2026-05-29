@@ -6,7 +6,7 @@ import MergePDFWorkspace from "@/components/MergePDFWorkspace";
 import SplitPDFWorkspace from "@/components/SplitPDFWorkspace";
 import CompressPDFWorkspace from "@/components/CompressPDFWorkspace";
 import RotatePDFWorkspace from "@/components/RotatePDFWorkspace";
-import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNumbersPDFWorkspace, OrganizePDFWorkspace } from "@/components/PDFEditorsWorkspace";
 import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
@@ -44,6 +44,9 @@ import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
 import MobileToolActions from "@/components/MobileToolActions";
+import { LOCALES_DATA } from "@/lib/locales";
+import { WorkspaceTranslationProvider } from "@/components/WorkspaceTranslationContext";
+import { HowToArticle } from "@/lib/articles";
 import {
   CATEGORIES,
   getToolById,
@@ -88,10 +91,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
     description: tool.metaDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "en": canonicalUrl,
-        "x-default": canonicalUrl,
-      },
+      languages: getAlternateLanguages(`/tools/${toolId}`),
     },
     openGraph: {
       title: pageTitle,
@@ -1272,7 +1272,13 @@ export default async function ToolPage({ params }: ToolPageProps) {
   }
 
   const WorkspaceComponent = WORKSPACE_MAP[toolId];
-  const article = TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined);
+  const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
+  const article = (localeData?.articles?.[toolId] || TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined)) as HowToArticle | undefined;
+  const toolKey = toolId.replace(/-/g, "_");
+  const workspaceDictionary = {
+    ...(localeData?.common || {}),
+    ...(localeData?.[toolKey] || {}),
+  };
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";
@@ -1330,18 +1336,19 @@ export default async function ToolPage({ params }: ToolPageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `${BASE_URL}/`,
+        "item": `${BASE_URL}/${lang}`,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": category?.title || "Tools",
+        "item": `${BASE_URL}/${lang}/#${category?.slug || ""}`,
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": tool.title,
-        "item": `${BASE_URL}/tools/${toolId}`,
+        "item": `${BASE_URL}/${lang}/tools/${toolId}`,
       },
     ],
   };
@@ -1427,7 +1434,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
             <MobileToolActions toolId={toolId} />
             <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
-              {WorkspaceComponent && <WorkspaceComponent />}
+              {WorkspaceComponent && (
+                <WorkspaceTranslationProvider dictionary={workspaceDictionary}>
+                  <WorkspaceComponent />
+                </WorkspaceTranslationProvider>
+              )}
             </section>
 
             {/* Below Workspace Leaderboard Ad */}

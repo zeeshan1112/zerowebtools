@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { CATEGORIES } from "@/lib/tools";
 import { HOW_TO_ARTICLES } from "@/lib/articles";
 import { LOCALES } from "@/lib/i18n";
+import { COMPARISONS } from "@/lib/comparisons";
+import { RECIPES } from "@/lib/recipes";
+import { CONVERSIONS } from "@/lib/conversions";
 
 export const dynamic = "force-static";
 
@@ -45,6 +48,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }));
 
+  const comparePages: MetadataRoute.Sitemap = COMPARISONS.map((matchup) => ({
+    url: `${baseUrl}/compare/${matchup.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const recipePages: MetadataRoute.Sitemap = RECIPES.map((recipe) => ({
+    url: `${baseUrl}/recipes/${recipe.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  const conversionPages: MetadataRoute.Sitemap = CONVERSIONS.map((pairing) => ({
+    url: `${baseUrl}/conversions/${pairing.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -65,6 +89,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     },
     {
+      url: `${baseUrl}/compare`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/recipes`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/privacy`,
       lastModified: now,
       changeFrequency: "monthly" as const,
@@ -76,7 +112,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/extensions`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    },
     ...toolPages,
     ...guidePages,
+    ...comparePages,
+    ...recipePages,
+    ...conversionPages,
   ];
 }

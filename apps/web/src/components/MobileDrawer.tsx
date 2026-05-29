@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
 import ThemeToggle from "./ThemeToggle";
 import { getToolIcon } from "@/lib/icons";
+import { LOCALES, SupportedLocale, getLocalizedTool, getTranslations } from "@/lib/i18n";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   "pdf-tools": (
@@ -51,6 +52,31 @@ export default function MobileDrawer() {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [recents, setRecents] = useState<string[]>([]);
   const pathname = usePathname();
+
+  const segments = pathname ? pathname.split("/") : [];
+  const firstSegment = segments[1] as SupportedLocale;
+  const currentLocale = LOCALES.includes(firstSegment) && firstSegment !== "en"
+    ? firstSegment
+    : "";
+
+  const getLocalizedHref = (path: string) => {
+    if (!currentLocale) return path;
+    return `/${currentLocale}${path === "/" ? "" : path}`;
+  };
+
+  const translations = getTranslations(currentLocale || "en");
+
+  const getCategoryTitle = (slug: string, fallback: string) => {
+    switch (slug) {
+      case "pdf-tools": return translations.pdfTools;
+      case "text-tools": return translations.textTools;
+      case "developer-tools": return translations.developerTools;
+      case "generators": return translations.generators;
+      case "image-tools": return translations.imageTools;
+      case "financial-growth": return translations.calculators;
+      default: return fallback;
+    }
+  };
 
   // Load Bookmarks & Recents
   useEffect(() => {
@@ -100,8 +126,9 @@ export default function MobileDrawer() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [isOpen]);
 
-  const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id));
-  const recentTools = ALL_TOOLS.filter((t) => recents.includes(t.id));
+  const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id)).map((t) => getLocalizedTool(t, currentLocale));
+  const recentTools = ALL_TOOLS.filter((t) => recents.includes(t.id)).map((t) => getLocalizedTool(t, currentLocale));
+  const liveTools = ALL_TOOLS.filter((t) => t.status === "live").map((t) => getLocalizedTool(t, currentLocale));
 
   return (
     <>
@@ -148,7 +175,7 @@ export default function MobileDrawer() {
               {/* Header */}
               <div className="flex items-center justify-between h-16 px-5 border-b border-border/40 shrink-0">
                 <Link
-                  href="/"
+                  href={getLocalizedHref("/")}
                   className="flex items-center gap-2.5 group active:scale-[0.98] transition-transform duration-200"
                   onClick={() => setIsOpen(false)}
                 >
@@ -173,25 +200,28 @@ export default function MobileDrawer() {
                 {bookmarkedTools.length > 0 && (
                   <div className="space-y-2">
                     <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
-                      Saved Tools
+                      {translations.savedTools}
                     </h4>
                     <ul className="space-y-0.5">
-                      {bookmarkedTools.map((t) => (
-                        <li key={t.id}>
-                          <Link
-                            href={`/tools/${t.id}`}
-                            onClick={() => setIsOpen(false)}
-                            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
-                              pathname === `/tools/${t.id}`
-                                ? "bg-accent-surface text-accent font-bold"
-                                : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
-                            }`}
-                          >
-                            {getToolIcon(t.id)}
-                            <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
-                          </Link>
-                        </li>
-                      ))}
+                      {bookmarkedTools.map((t) => {
+                        const isToolActive = pathname === `/tools/${t.id}` || pathname === `/${currentLocale}/tools/${t.id}`;
+                        return (
+                          <li key={t.id}>
+                            <Link
+                              href={getLocalizedHref(`/tools/${t.id}`)}
+                              onClick={() => setIsOpen(false)}
+                              className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
+                                isToolActive
+                                  ? "bg-accent-surface text-accent font-bold"
+                                  : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
+                              }`}
+                            >
+                              {getToolIcon(t.id)}
+                              <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 )}
@@ -203,22 +233,25 @@ export default function MobileDrawer() {
                       Recents
                     </h4>
                     <ul className="space-y-0.5">
-                      {recentTools.map((t) => (
-                        <li key={t.id}>
-                          <Link
-                            href={`/tools/${t.id}`}
-                            onClick={() => setIsOpen(false)}
-                            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
-                              pathname === `/tools/${t.id}`
-                                ? "bg-accent-surface text-accent font-bold"
-                                : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
-                            }`}
-                          >
-                            {getToolIcon(t.id)}
-                            <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
-                          </Link>
-                        </li>
-                      ))}
+                      {recentTools.map((t) => {
+                        const isToolActive = pathname === `/tools/${t.id}` || pathname === `/${currentLocale}/tools/${t.id}`;
+                        return (
+                          <li key={t.id}>
+                            <Link
+                              href={getLocalizedHref(`/tools/${t.id}`)}
+                              onClick={() => setIsOpen(false)}
+                              className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
+                                isToolActive
+                                  ? "bg-accent-surface text-accent font-bold"
+                                  : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
+                              }`}
+                            >
+                              {getToolIcon(t.id)}
+                              <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 )}
@@ -232,7 +265,7 @@ export default function MobileDrawer() {
                     {CATEGORIES.map((cat) => (
                       <li key={cat.slug}>
                         <a
-                          href={`/#${cat.slug}`}
+                          href={getLocalizedHref(`/#${cat.slug}`)}
                           onClick={() => setIsOpen(false)}
                           className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface min-h-[44px]"
                         >
@@ -243,7 +276,7 @@ export default function MobileDrawer() {
                               </svg>
                             )}
                           </span>
-                          <span className="truncate text-xs font-bold uppercase tracking-wide">{cat.title}</span>
+                          <span className="truncate text-xs font-bold uppercase tracking-wide">{getCategoryTitle(cat.slug, cat.title)}</span>
                         </a>
                       </li>
                     ))}
@@ -253,25 +286,28 @@ export default function MobileDrawer() {
                 {/* All Live Tools quick list */}
                 <div className="space-y-2">
                   <h4 className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-1 mb-1.5">
-                    All Live Tools
+                    {translations.allTools}
                   </h4>
                   <ul className="space-y-0.5">
-                    {ALL_TOOLS.filter((t) => t.status === "live").map((t) => (
-                      <li key={t.id}>
-                        <Link
-                          href={`/tools/${t.id}`}
-                          onClick={() => setIsOpen(false)}
-                          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
-                            pathname === `/tools/${t.id}`
-                              ? "bg-accent-surface text-accent font-bold"
-                              : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
-                          }`}
-                        >
-                          {getToolIcon(t.id)}
-                          <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
-                        </Link>
-                      </li>
-                    ))}
+                    {liveTools.map((t) => {
+                      const isToolActive = pathname === `/tools/${t.id}` || pathname === `/${currentLocale}/tools/${t.id}`;
+                      return (
+                        <li key={t.id}>
+                          <Link
+                            href={getLocalizedHref(`/tools/${t.id}`)}
+                            onClick={() => setIsOpen(false)}
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all min-h-[44px] ${
+                              isToolActive
+                                ? "bg-accent-surface text-accent font-bold"
+                                : "text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface"
+                            }`}
+                          >
+                            {getToolIcon(t.id)}
+                            <span className="truncate text-xs font-bold uppercase tracking-wide">{t.title}</span>
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
                 
@@ -279,6 +315,7 @@ export default function MobileDrawer() {
                 <div className="pt-2">
                   <Link
                     href="/extensions"
+                    onClick={() => setIsOpen(false)}
                     className="flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-accent text-white shadow-md hover:bg-accent/90 active:scale-95 transition-all w-full"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
@@ -299,14 +336,14 @@ export default function MobileDrawer() {
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
-                      Privacy
+                      {translations.privacy}
                     </Link>
                     <Link
                       href="/terms"
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
-                      Terms
+                      {translations.terms}
                     </Link>
                   </div>
                 </div>
