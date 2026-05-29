@@ -1,0 +1,2393 @@
+{
+  "common": {
+    "drop_files_here_or_click": "Trascina i file qui o fai clic per sfogliarli",
+    "drag_to_reorder": "trascina per riordinare dopo il caricamento",
+    "clear_all": "Cancella tutto",
+    "start_over": "Ricominciare",
+    "download": "Scaricamento",
+    "preview": "Anteprima",
+    "close": "Vicino",
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "copy": "Copia",
+    "copied": "Copiato!"
+  },
+  "pdf_merge": {
+    "drop_zone_prompt": "Trascina qui i file PDF o fai clic per sfogliarli",
+    "add_at_least_2_pdfs": "Aggiungi almeno 2 PDF: trascina per riordinare dopo il caricamento",
+    "merge_n_pdfs": "Unisci {count} PDF",
+    "merging": "Fusione...",
+    "merged_success": "PDF uniti con successo!",
+    "preview_merged_pdf": "Anteprima del PDF unito",
+    "preview_individual_pdf": "Anteprima: {nome}",
+    "rendering_preview": "Rendering delle pagine di anteprima...",
+    "failed_to_render_preview": "Impossibile eseguire il rendering dell'anteprima",
+    "download_merged_pdf": "Scarica il PDF unito",
+    "esc_to_close": "Esc per chiudere · Scorri per visualizzare tutte le pagine",
+    "merging_overlay_title": "Unione dei tuoi documenti PDF...",
+    "step_1": "Lettura e analisi delle strutture dei file PDF...",
+    "step_2": "Unione di cataloghi di documenti e pool di pagine in corso...",
+    "step_3": "Ottimizzazione dei dizionari risorse...",
+    "step_4": "Generazione del PDF combinato finale in corso..."
+  },
+  "pdf_compress": {
+    "drop_zone_prompt": "Trascina un PDF da comprimere",
+    "compress_pdf": "Comprimi PDF",
+    "compressing": "Compressione...",
+    "compressing_page_n_of_m": "Compressione della pagina {current} di {total}...",
+    "download_compressed_pdf": "Scarica PDF compresso",
+    "compressing_overlay_title": "Compressione del documento PDF in corso...",
+    "level": "Livello di compressione",
+    "option_1": "Compressione bilanciata",
+    "option_1_desc": "Qualità e risoluzione bilanciate (150 DPI). Riduce i file scansionati fino al 90%. Ideale per usi standard.",
+    "option_2": "Compressione estrema",
+    "option_2_desc": "Compressione massima (100 DPI) con qualità dell'immagine inferiore. Perfetto per limiti rigorosi di dimensioni del portale.",
+    "option_3": "Ottimizzazione senza perdite",
+    "option_3_desc": "Pulisce le strutture PDF e rimuove i metadati. Conserva la qualità visiva originale, i vettori e il testo selezionabile.",
+    "metrics": "Metriche di compressione",
+    "original_size": "Dimensione originale",
+    "compressed_size": "Dimensioni compresse",
+    "saved_space": "Spazio risparmiato",
+    "lossless_fallback_title": "ℹ️ Fallback senza perdita applicato",
+    "lossless_fallback_desc": "Questo PDF è basato su testo e vettoriale (non scansionato). La compressione standard delle immagini renderebbe il testo sfocato e aumenterebbe effettivamente le dimensioni del file. Per evitare dimensioni del file maggiori, è stata eseguita automaticamente un'ottimizzazione strutturale e dei metadati, preservando la chiarezza del vettore e del testo.",
+    "step_1": "Analisi delle strutture del flusso di contenuti PDF...",
+    "step_2": "Estrazione e ridimensionamento delle immagini raster incorporate...",
+    "step_3": "Ricompressione di oggetti vettoriali e coordinate...",
+    "step_4": "Ottimizzazione dei riferimenti ai caratteri e dei metadati della pagina..."
+  },
+  "heic_to_jpg": {
+    "drop_zone_prompt": "Rilascia qui i file HEIC o fai clic per sfogliare",
+    "add_heic_files": "Aggiungi file HEIC da convertire",
+    "output_format": "Formato di uscita",
+    "image_quality": "Qualità dell'immagine",
+    "convert_heic": "Converti foto HEIC",
+    "converting": "Conversione...",
+    "converted_success": "Foto convertite con successo!",
+    "download_all_zip": "Scarica tutto (ZIP)",
+    "download_file": "Scarica file",
+    "converting_overlay_title": "Conversione delle tue foto...",
+    "step_1": "Inizializzazione del decodificatore HEIF/HEIC WebAssembly in corso...",
+    "step_2": "Caricamento dei flussi binari dell'immagine di origine...",
+    "step_3": "Decodifica pixel immagine e profili colore...",
+    "step_4": "Codifica formato di output (JPG/PNG)...",
+    "drop_zone_prompt_empty": "Trascina qui i file HEIC o di immagine oppure fai clic per sfogliare",
+    "drop_zone_prompt_sub": "Supporta HEIC, HEIF, PNG, JPEG, WebP: tutta l'elaborazione è lato client",
+    "drop_zone_prompt_active": "Rilascia più file o sfoglia",
+    "browse": "sfogliare",
+    "converted_status": "{convertito} su {totale} convertito",
+    "saved_savings": "{dimensione} salvata",
+    "download_all_zip_btn": "Scarica tutto come ZIP",
+    "clear_all_btn": "Cancella tutto",
+    "convert_files_btn": "Converti {count} file",
+    "convert_file_btn": "Converti {count} file"
+  },
+  "json_formatter": {
+    "placeholder": "Incolla qui il tuo codice JSON grezzo...",
+    "format": "Formato JSON",
+    "minify": "Minimizza JSON",
+    "clear": "Chiaro",
+    "copy": "Copia JSON",
+    "tree_view": "Visualizzazione ad albero JSON",
+    "valid_status": "JSON è valido",
+    "invalid_status": "JSON non valido: {errore}",
+    "search_placeholder": "Cerca chiavi e valori...",
+    "expand_all": "Espandi tutto",
+    "collapse_all": "Comprimi tutto",
+    "editor": "Editore",
+    "load_file": "Carica file",
+    "paste": "Impasto",
+    "copy_btn": "Copia",
+    "tree_view_label": "Visualizzazione ad albero",
+    "stats_nodes": "{count} nodi",
+    "stats_depth": "profondità {profondità}",
+    "stats_chars": "{count} caratteri",
+    "empty_prompt": "Incolla JSON per visualizzare l'albero",
+    "invalid_json": "JSON non valido"
+  },
+  "case_converter": {
+    "placeholder": "Inserisci il testo per convertire maiuscole e minuscole...",
+    "camel_case": "camelCase",
+    "snake_case": "serpente_case",
+    "kebab_case": "custodia per kebab",
+    "upper_case": "MAIUSCOLO",
+    "lower_case": "minuscolo",
+    "title_case": "Caso del titolo",
+    "input_label": "Inserisci testo"
+  },
+  "articles": {
+    "pdf-compress": {
+      "title": "Come comprimere un PDF inferiore a 1 MB gratuitamente online",
+      "metaDescription": "Scopri come ridurre facilmente file PDF di grandi dimensioni a meno di 100 KB, 500 KB o 1 MB senza perdere la qualità. Strumento browser privato e gratuito al 100%.",
+      "sections": [
+        {
+          "heading": "Perché è necessario comprimere i file PDF",
+          "level": "h2",
+          "paragraphs": [
+            "Può essere incredibilmente frustrante gestire documenti PDF di grandi dimensioni. Che tu stia tentando di condividere un documento via e-mail, caricarlo su un portale governativo o allegarlo a una domanda di lavoro, probabilmente hai riscontrato rigidi limiti di dimensione del file. Molti siti Web impongono dimensioni massime di caricamento di 1 MB o 2 MB, rifiutando completamente i file più grandi.",
+            "Comprimendo i tuoi file PDF, riduci in modo significativo le dimensioni dei file garantendo al tempo stesso che il testo rimanga nitido e il layout intatto. Il nostro strumento di compressione avanzato ottimizza i flussi di documenti interni, rimuove i dati ridondanti e comprime le immagini incorporate per ottenere una riduzione fino al 90% delle dimensioni del file."
+          ]
+        },
+        {
+          "heading": "Come comprimere un PDF passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Carica il tuo documento PDF: trascina e rilascia semplicemente il file direttamente nell'interfaccia dello strumento di compressione.",
+            "Seleziona il livello di compressione desiderato: scegli tra compressione bassa, media o alta in base alle tue esigenze. Un'elevata compressione produrrà la dimensione del file più piccola possibile (spesso scendendo ben al di sotto di 100 KB) ma potrebbe ridurre leggermente la qualità delle immagini incorporate.",
+            "Elabora il documento localmente: lo strumento analizza il PDF interamente all'interno del tuo browser per rimuovere oggetti ridondanti e comprimere i flussi di dati.",
+            "Scarica istantaneamente: salva il PDF appena ottimizzato e notevolmente più piccolo direttamente sul tuo dispositivo con un solo clic."
+          ]
+        },
+        {
+          "heading": "I miei documenti sono tenuti al sicuro e privati?",
+          "level": "h2",
+          "paragraphs": [
+            "Assolutamente. La privacy è la nostra massima priorità. A differenza dei tradizionali compressori PDF online gratuiti che caricano i tuoi documenti sensibili su server remoti (lasciando copie dei tuoi dati nel cloud), ZeroWebTools funziona al 100% localmente nel tuo browser web.",
+            "I tuoi file non lasciano mai il tuo dispositivo. L'intero processo di compressione avviene sul tuo hardware, garantendo la completa riservatezza dei tuoi documenti finanziari, contratti legali, moduli medici o dati personali."
+          ]
+        },
+        {
+          "heading": "Casi d'uso comuni per la compressione PDF",
+          "level": "h2",
+          "listItems": [
+            "Allegati e-mail: evita di respingere le e-mail mantenendo gli allegati ben al di sotto dei limiti standard (solitamente 20 MB-25 MB).",
+            "Domande di lavoro: i sistemi di tracciamento dei candidati (ATS) spesso rifiutano curriculum troppo grandi.",
+            "Caricamenti Web: i moduli governativi, le domande universitarie e i portali per i visti applicano rigorosamente le dimensioni dei file.",
+            "Visualizzazione mobile: i file più piccoli vengono caricati in modo esponenzialmente più veloce sui dispositivi mobili e salvano i dati cellulari."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo strumento di compressione PDF è completamente gratuito?",
+          "answer": "Sì, il nostro compressore PDF è gratuito al 100% senza costi nascosti, abbonamenti o requisiti di registrazione."
+        },
+        {
+          "question": "Lo strumento carica i miei documenti PDF su un server?",
+          "answer": "No. ZeroWebTools funziona interamente all'interno del tuo browser web. I tuoi file non lasciano mai il tuo computer, garantendo la privacy assoluta per i tuoi documenti sensibili."
+        },
+        {
+          "question": "Posso comprimere file PDF sul mio cellulare?",
+          "answer": "Sì, lo strumento è completamente ottimizzato per i dispositivi mobili e funziona perfettamente sui browser iOS e Android senza installare un'app."
+        }
+      ]
+    },
+    "pdf-merge": {
+      "title": "Come combinare più file PDF all'istante",
+      "metaDescription": "Unisci, combina e riordina gratuitamente i documenti PDF in un unico file. Uno strumento privato al 100% basato su browser per organizzare i tuoi PDF.",
+      "sections": [
+        {
+          "heading": "Perché combinare più documenti PDF?",
+          "level": "h2",
+          "paragraphs": [
+            "Che tu stia compilando un portfolio di progetti professionali, unendo ricevute scansionate in una nota spese di fine mese o combinando vari contratti legali, l'unione dei PDF è un compito amministrativo quotidiano essenziale.",
+            "Inviare un unico documento consolidato è sempre molto più professionale e più facile da gestire per il destinatario rispetto ad allegare 15 file separati e non organizzati a un'e-mail."
+          ]
+        },
+        {
+          "heading": "Come unire PDF gratuitamente",
+          "level": "h2",
+          "listItems": [
+            "Carica i tuoi file: seleziona i documenti PDF che desideri combinare. Puoi trascinare e rilasciare più file contemporaneamente direttamente nell'area di lavoro.",
+            "Riordina visivamente le pagine: una volta caricate, trascina e rilascia semplicemente le miniature dei file per riorganizzarle nell'ordine di lettura desiderato.",
+            "Unisci localmente: lo strumento utilizza WebAssembly avanzato lato client per unire in modo pulito i file PDF direttamente nel tuo browser.",
+            "Scarica immediatamente: scarica immediatamente il tuo nuovo documento PDF unificato."
+          ]
+        },
+        {
+          "heading": "Privacy garantita dei dati",
+          "level": "h2",
+          "paragraphs": [
+            "Il rischio maggiore con la maggior parte dei combinatori PDF online è che ti costringono a caricare i tuoi documenti sensibili su server remoti. Ciò lascia copie dei tuoi dati nel cloud.",
+            "ZeroWebTools risolve questo problema elaborando tutto interamente sulla tua macchina. I tuoi file non vengono mai caricati su Internet, mai condivisi con terze parti e mai archiviati su un server. È completamente sicuro per documenti legali e aziendali riservati."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Quanti file PDF posso unire contemporaneamente?",
+          "answer": "Non esiste un limite rigido. Poiché l'unione avviene interamente sul tuo computer locale, è limitata solo dalla memoria del tuo dispositivo."
+        },
+        {
+          "question": "Posso modificare l'ordine delle pagine dopo aver caricato i miei PDF?",
+          "answer": "Sì, puoi trascinare e rilasciare visivamente le miniature dei file PDF per riorganizzarle nella sequenza esatta che desideri prima di generare il file combinato finale."
+        }
+      ]
+    },
+    "pdf-split": {
+      "title": "Come dividere ed estrarre pagine PDF online",
+      "metaDescription": "Dividi file PDF ed estrai pagine specifiche gratuitamente online. Strumenti privati ​​al 100% basati su browser che mantengono i tuoi documenti al sicuro senza caricamenti sul server.",
+      "sections": [
+        {
+          "heading": "Perché potresti aver bisogno di dividere un PDF",
+          "level": "h2",
+          "paragraphs": [
+            "PDF di grandi dimensioni e multipagina possono essere incredibilmente difficili da gestire, soprattutto quando è necessario accedere o condividere solo una piccola parte del documento. Ad esempio, potresti avere un enorme rapporto finanziario, un denso libro di testo accademico o un contratto legale di più pagine, ma devi inviare solo una singola pagina o sezione a un collega o cliente. La divisione di un PDF consente di isolare ed estrarre solo le pagine pertinenti, creando documenti più piccoli e più mirati che sono più facili da inviare tramite e-mail, caricare e archiviare.",
+            "Gli editor PDF tradizionali in genere richiedono costosi abbonamenti mensili o installazioni di software desktop che rallentano il computer. ZeroWebTools fornisce un'alternativa basata sul Web veloce, gratuita e semplice. Con il nostro strumento puoi estrarre intervalli specifici di pagine, dividere un documento per intervalli o salvare ogni singola pagina come file autonomo, il tutto in pochi clic."
+          ]
+        },
+        {
+          "heading": "Come dividere un PDF passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Seleziona e carica il tuo PDF: trascina e rilascia il file nella finestra degli strumenti o fai clic per selezionare un documento dall'unità locale del tuo computer.",
+            "Scegli la modalità di divisione desiderata: scegli di estrarre intervalli di pagine personalizzate (come le pagine 1-3, 5), dividere il documento in segmenti di pagina uguali o stampare ogni singola pagina come PDF separato.",
+            "Elabora il documento localmente: fai clic sul pulsante di divisione per consentire allo strumento lato client di dividere istantaneamente le pagine all'interno del tuo browser web.",
+            "Scarica i file risultanti: salva i documenti PDF appena generati direttamente nella cartella di download locale individualmente o come un singolo archivio ZIP."
+          ]
+        },
+        {
+          "heading": "Sicurezza senza compromessi e privacy lato client",
+          "level": "h2",
+          "paragraphs": [
+            "Il rischio maggiore derivante dall'utilizzo degli splitter PDF online standard è che richiedono il caricamento dei file sui loro server esterni. Ciò espone le tue informazioni sensibili a perdite di sicurezza, raccolta di dati o rischi di archiviazione sul server. ZeroWebTools opera secondo un rigoroso modello incentrato sulla privacy, garantendo che i tuoi file non lascino mai il tuo dispositivo.",
+            "Tutte le operazioni di suddivisione ed estrazione dei documenti vengono eseguite localmente nel browser Web utilizzando l'elaborazione avanzata lato client. Ciò garantisce la massima sicurezza e riservatezza per i tuoi contratti privati, fatture finanziarie, estratti conto e documenti di identità personale."
+          ]
+        },
+        {
+          "heading": "Opzioni di estrazione flessibili per ogni situazione",
+          "level": "h2",
+          "listItems": [
+            "Selezione intervallo personalizzato: ideale per estrarre capitoli, clausole o sezioni specifiche di un documento.",
+            "Divisione a intervalli uguali: perfetta per suddividere un ebook o un documento di grandi dimensioni in parti più piccole e gestibili.",
+            "Esportazione di singole pagine: utile quando è necessario separare un batch di fatture o ricevute di più pagine in singoli documenti di una sola pagina."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Quanti file posso dividere contemporaneamente?",
+          "answer": "Non c'è limite al numero di divisioni che puoi eseguire. Poiché l'intera operazione viene eseguita localmente all'interno del tuo browser utilizzando le risorse hardware del tuo computer, la velocità è limitata solo dalla memoria del tuo dispositivo."
+        },
+        {
+          "question": "È sicuro suddividere contratti riservati su ZeroWebTools?",
+          "answer": "Sì, assolutamente. ZeroWebTools elabora tutti i file localmente all'interno del tuo browser utilizzando JavaScript lato client. Nessun dato dei documenti viene mai inviato ai nostri server, garantendo che i tuoi file altamente riservati rimangano completamente sicuri."
+        },
+        {
+          "question": "La divisione di un PDF riduce la qualità della pagina?",
+          "answer": "No. Il processo di estrazione legge la struttura del documento e copia direttamente gli oggetti della pagina senza ricomprimerli. Ciò preserva il testo originale, la formattazione del layout, i caratteri e le immagini con un degrado della qualità pari a zero."
+        }
+      ]
+    },
+    "pdf-rotate": {
+      "title": "Come ruotare le pagine PDF online gratuitamente",
+      "metaDescription": "Ruota istantaneamente e gratuitamente le pagine PDF capovolte o lateralmente. Uno strumento privato al 100%, basato su browser, per regolare l'orientamento dei documenti senza caricamenti sul server.",
+      "sections": [
+        {
+          "heading": "Correggere l'orientamento del documento PDF",
+          "level": "h2",
+          "paragraphs": [
+            "I documenti scansionati, le ricevute e le foto dei moduli vengono spesso salvati con l'orientamento sbagliato. Leggere le pagine di lato o capovolte è incredibilmente frustrante e appare altamente poco professionale quando si condividono documenti con clienti, università o entità legali. La correzione dell'allineamento delle pagine è un compito amministrativo comune che dovrebbe essere facile e veloce.",
+            "Con ZeroWebTools puoi modificare facilmente il layout del tuo file. Il nostro strumento di rotazione PDF ti consente di selezionare visivamente singole pagine o ruotare l'intero documento con un solo clic. È il modo perfetto per ripulire le tue scansioni e assicurarti che i file siano formattati correttamente prima di inviarli."
+          ]
+        },
+        {
+          "heading": "Come ruotare le pagine PDF online",
+          "level": "h2",
+          "listItems": [
+            "Aggiungi il tuo file PDF: trascina e rilascia il documento PDF che desideri ruotare direttamente nell'area degli strumenti del browser.",
+            "Seleziona pagine specifiche: visualizza le miniature delle pagine e scegli di ruotare pagine specifiche o applicare la modifica all'intero documento contemporaneamente.",
+            "Imposta l'angolo di rotazione: fai clic sui pulsanti di rotazione per ruotare le pagine di 90 gradi in senso orario, 90 gradi in senso antiorario o 180 gradi.",
+            "Scarica il PDF corretto: fai clic sul pulsante Salva per applicare la rotazione lato client e scaricare immediatamente il documento orientato correttamente."
+          ]
+        },
+        {
+          "heading": "Elaborazione lato client al 100% per una privacy assoluta",
+          "level": "h2",
+          "paragraphs": [
+            "Molti convertitori online ti costringono a caricare i tuoi PDF su server cloud remoti per elaborare le modifiche all'orientamento. Ciò presenta un rischio serio se si ha a che fare con documenti personali sensibili, referti medici o contratti commerciali. ZeroWebTools esegue tutte le operazioni localmente all'interno del tuo browser web.",
+            "I tuoi file non toccano mai Internet e da noi non vengono effettuate copie. Questo approccio lato client garantisce che i tuoi dati privati ​​rimangano completamente riservati, dandoti il ​​controllo assoluto sui tuoi documenti digitali."
+          ]
+        },
+        {
+          "heading": "Quando utilizzare lo strumento Ruota PDF",
+          "level": "h2",
+          "listItems": [
+            "Allineamento dei contratti scansionati: correggi le pagine capovolte causate dal posizionamento errato dello scanner fisico.",
+            "Combinazione di presentazioni: allinea le diapositive orizzontali e i documenti verticali in un formato di presentazione coerente e leggibile.",
+            "Acquisizioni di documenti su smartphone: regola le foto dei documenti scattati lateralmente sui dispositivi mobili prima di compilarli in un PDF finale."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso ruotare solo una singola pagina in un file PDF di grandi dimensioni?",
+          "answer": "SÌ. L'editor visivo mostra le anteprime in miniatura di tutte le pagine, consentendoti di selezionare e ruotare solo le pagine specifiche che sono disallineate lasciando intatto il resto del documento."
+        },
+        {
+          "question": "La rotazione delle pagine ridurrà la qualità del mio PDF?",
+          "answer": "No. La rotazione delle pagine modifica solo i tag di orientamento dei metadati del documento. Il testo, i caratteri, il layout e le immagini non vengono compressi o modificati, preservando la qualità originale."
+        },
+        {
+          "question": "Devo installare qualche software per ruotare i miei PDF?",
+          "answer": "Non è richiesta l'installazione di software. Lo strumento funziona direttamente in qualsiasi browser Web moderno sul tuo computer, tablet o smartphone, rendendolo accessibile da qualsiasi luogo."
+        }
+      ]
+    },
+    "pdf-to-jpg": {
+      "title": "Come convertire immagini PDF in JPG offline",
+      "metaDescription": "Converti pagine PDF in immagini JPG di alta qualità gratuitamente. Conversione del browser offline privata al 100% senza caricamento di file o perdita di qualità.",
+      "sections": [
+        {
+          "heading": "Perché convertire immagini PDF in JPG?",
+          "level": "h2",
+          "paragraphs": [
+            "I PDF sono eccellenti per la condivisione di documenti, ma non sono sempre il formato più versatile. A volte è necessario incorporare una pagina da un report in una presentazione di PowerPoint, caricare un certificato sui social media o visualizzare una pagina su un dispositivo che non dispone di un lettore PDF. Convertendo il tuo PDF in immagini JPG, trasformi ogni pagina in un formato immagine universale che può essere facilmente condiviso, ritagliato e integrato in altri progetti.",
+            "I convertitori tradizionali richiedono il download di software o rischiano di caricare file sensibili su server online. ZeroWebTools fornisce una soluzione completamente offline, basata su browser, che estrae ogni pagina del tuo PDF come immagine JPG ad alta risoluzione, mantenendo una perfetta chiarezza visiva."
+          ]
+        },
+        {
+          "heading": "Come convertire PDF in JPG passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Aggiungi il tuo file PDF: trascina e rilascia il PDF che desideri convertire direttamente nell'area degli strumenti del browser.",
+            "Seleziona Impostazioni immagine: scegli la qualità di risoluzione preferita (ad esempio, standard o alta definizione) per le immagini esportate.",
+            "Avvia la conversione: fai clic su Converti e il browser eseguirà il rendering ed esporterà le pagine PDF come file immagine.",
+            "Scarica i tuoi JPG: salva le pagine come singoli file JPG o scaricale tutte raggruppate in un comodo file ZIP."
+          ]
+        },
+        {
+          "heading": "Conversione lato client per la massima sicurezza dei dati",
+          "level": "h2",
+          "paragraphs": [
+            "Molti convertitori online richiedono l'invio dei documenti a server cloud esterni, il che presenta un rischio significativo per la sicurezza dei record personali o finanziari. ZeroWebTools converte i tuoi file localmente sul tuo computer. Il PDF viene visualizzato direttamente nella finestra del browser, garantendo che i tuoi dati rimangano completamente privati.",
+            "Poiché il rendering avviene sul tuo hardware locale, la conversione è eccezionalmente veloce e non dipende dalla velocità di caricamento su Internet. I tuoi file riservati sono tenuti al sicuro da intercettatori e archivi di terze parti."
+          ]
+        },
+        {
+          "heading": "Vantaggi comuni della conversione da PDF a immagine",
+          "level": "h2",
+          "listItems": [
+            "Presentazione pronta: fai scorrere facilmente gli screenshot delle pagine in presentazioni, report o diapositive.",
+            "Condivisione sui social media: carica moduli di documenti di una sola pagina su piattaforme che supportano solo il caricamento di immagini.",
+            "Modifica semplice: ritaglia, annota o dipingi sull'immagine risultante utilizzando un software di editing standard."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Le mie immagini convertite perderanno qualità?",
+          "answer": "No. Puoi scegliere impostazioni di alta qualità per garantire che il testo rimanga nitido e che le immagini all'interno del PDF vengano visualizzate con eccezionale chiarezza."
+        },
+        {
+          "question": "Posso convertire PDF multipagina in JPG?",
+          "answer": "SÌ. Lo strumento convertirà ogni pagina del documento in un file JPG separato e le impacchetterà in un archivio ZIP per un facile download."
+        },
+        {
+          "question": "Questo strumento funziona senza Internet?",
+          "answer": "SÌ. Una volta caricato il sito Web nel browser, il motore di rendering funziona completamente offline sul tuo computer."
+        }
+      ]
+    },
+    "jpg-to-pdf": {
+      "title": "Come convertire immagini JPG in documenti PDF",
+      "metaDescription": "Converti gratuitamente JPG, PNG e altre immagini in un unico documento PDF. Strumento browser locale privato al 100% per compilare foto in un PDF.",
+      "sections": [
+        {
+          "heading": "Perché compilare immagini JPG in un PDF?",
+          "level": "h2",
+          "paragraphs": [
+            "Avere una serie di file di foto separati può rendere difficile la loro condivisione professionale. Che tu abbia scansionato ricevute, pagine di un incarico scritto a mano o prove fotografiche per una richiesta di indennizzo assicurativo, inviarle come allegati di più immagini individuali è scomodo e disorganizzato.",
+            "La conversione delle tue immagini JPG in un singolo documento PDF riunisce tutte le immagini in un unico file organizzato e di facile lettura. Garantisce che il destinatario possa scorrere le pagine nella sequenza corretta, rendendolo altamente professionale e conveniente."
+          ]
+        },
+        {
+          "heading": "Come convertire JPG in PDF passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Carica le tue immagini: seleziona e carica una o più immagini JPG o PNG dal tuo dispositivo.",
+            "Organizza l'ordine delle pagine: trascina e rilascia le miniature delle immagini per ordinare le pagine esattamente come desideri nel documento finale.",
+            "Configura impostazioni: regola i parametri del layout della pagina come margini, orientamento della pagina (verticale/orizzontale) e dimensioni della pagina (A4/Lettera).",
+            "Genera e scarica: fai clic sul pulsante Converti per compilare le immagini localmente e scaricare il PDF risultante."
+          ]
+        },
+        {
+          "heading": "Perché ZeroWebTools è sicuro al 100%.",
+          "level": "h2",
+          "paragraphs": [
+            "I convertitori web standard caricano le tue foto su server esterni, il che può rappresentare un enorme problema di sicurezza, soprattutto per foto personali, ricevute o contratti. ZeroWebTools elabora tutte le conversioni di immagini localmente sul tuo computer. I tuoi file non attraversano mai la rete, garantendo la totale riservatezza.",
+            "Evitando completamente i caricamenti sul server, elimini anche i tempi di attesa associati al caricamento di file di immagini di grandi dimensioni. La generazione del tuo documento avviene quasi istantaneamente, mantenendo il tuo flusso di lavoro rapido e sicuro."
+          ]
+        },
+        {
+          "heading": "Caratteristiche principali del nostro convertitore da immagini a PDF",
+          "level": "h2",
+          "listItems": [
+            "Supporto multi-immagine: seleziona più file contemporaneamente e uniscili insieme in pochi secondi.",
+            "Compatibilità dei formati: funziona con JPG, JPEG, PNG, WebP e altri formati di immagine popolari.",
+            "Personalizzazione del layout: imposta i margini e le dimensioni della pagina per adattarli perfettamente alle dimensioni standard del documento."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "C'è un limite al numero di immagini che posso convertire?",
+          "answer": "Non esiste un limite rigido. La conversione viene eseguita localmente utilizzando le risorse del tuo dispositivo, quindi puoi unire dozzine di immagini a seconda della RAM del tuo computer."
+        },
+        {
+          "question": "Le mie immagini verranno compresse o perderanno risoluzione?",
+          "answer": "Lo strumento incorpora le immagini nel PDF senza compressione aggressiva, mantenendo la qualità originale delle tue foto."
+        },
+        {
+          "question": "Posso combinare diversi formati di immagine?",
+          "answer": "Sì, puoi caricare un mix di JPG, PNG e altri tipi di immagini e compilarli insieme in un unico PDF."
+        }
+      ]
+    },
+    "pdf-protect": {
+      "title": "Come proteggere con password i file PDF in modo sicuro",
+      "metaDescription": "Proteggi i tuoi file PDF con protezione tramite password e crittografia gratuitamente. Strumento lato client privato al 100% per bloccare localmente i documenti sensibili.",
+      "sections": [
+        {
+          "heading": "L'importanza di proteggere i tuoi PDF",
+          "level": "h2",
+          "paragraphs": [
+            "I documenti PDF spesso contengono dati altamente sensibili, come dettagli finanziari, segreti aziendali, documenti fiscali e informazioni di identificazione personale. L'invio di questi documenti tramite e-mail o il caricamento su un archivio cloud senza crittografia li rende vulnerabili all'intercettazione o all'accesso non autorizzato.",
+            "L'aggiunta della protezione tramite password crea un forte livello di difesa. ZeroWebTools provides a secure, web-based tool to lock your PDF files with industrial-grade encryption, ensuring that only users with the correct password can open and view the content."
+          ]
+        },
+        {
+          "heading": "Come proteggere con password un PDF passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Seleziona il tuo documento: scegli il file PDF che desideri proteggere e trascinalo nell'area dell'applicazione.",
+            "Imposta la tua password: digita una password complessa e univoca nel campo di immissione. Ti consigliamo di utilizzare un mix di lettere, numeri e simboli.",
+            "Crittografa il PDF: lo strumento applica la crittografia PDF sicura al tuo documento completamente all'interno del tuo browser.",
+            "Salva il file protetto: scarica immediatamente il PDF protetto da password sul tuo dispositivo."
+          ]
+        },
+        {
+          "heading": "Perché la crittografia del browser locale è importante",
+          "level": "h2",
+          "paragraphs": [
+            "Quando utilizzi i tipici strumenti online per bloccare i file, stai inviando i tuoi PDF non crittografati su Internet a un server di terze parti. Questo è controproducente per la sicurezza. ZeroWebTools esegue il processo di crittografia interamente lato client utilizzando JavaScript, il che significa che la password e il documento vengono elaborati localmente e mai esposti al web.",
+            "Poiché il tuo file non viene mai elaborato sui nostri server, non esiste alcun registro o registrazione della tua password o dei tuoi dati da nessuna parte su Internet. Ciò fornisce il massimo livello di protezione in assoluto per i documenti personali e professionali."
+          ]
+        },
+        {
+          "heading": "Suggerimenti per creare password complesse per i documenti",
+          "level": "h2",
+          "listItems": [
+            "Evita combinazioni semplici: non utilizzare parole, nomi o sequenze semplici facilmente indovinabili come \"123456\".",
+            "Mix di tipi di caratteri: combina lettere maiuscole, lettere minuscole, numeri e caratteri speciali.",
+            "Lunghezza del documento: scegli una password lunga almeno da 8 a 12 caratteri per massimizzare la sicurezza."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Quale standard di crittografia viene utilizzato per proteggere il mio PDF?",
+          "answer": "Il nostro strumento utilizza protocolli di crittografia PDF standard compatibili con i lettori PDF più diffusi come Adobe Acrobat, garantendo una protezione solida."
+        },
+        {
+          "question": "ZeroWebTools può recuperare la mia password se la dimentico?",
+          "answer": "No. Poiché la crittografia avviene localmente e non archiviamo i tuoi file o le tue password su nessun server, non abbiamo assolutamente modo di recuperare le password dimenticate. Mantieni la tua password al sicuro."
+        },
+        {
+          "question": "La protezione tramite password funzionerà su tutti i dispositivi?",
+          "answer": "SÌ. Il PDF bloccato può essere aperto con la password corretta su qualsiasi dispositivo, inclusi smartphone, tablet e computer, utilizzando qualsiasi visualizzatore PDF standard."
+        }
+      ]
+    },
+    "pdf-watermark": {
+      "title": "Come aggiungere filigrane di testo o immagini al PDF",
+      "metaDescription": "Aggiungi gratuitamente filigrane di testo o immagini personalizzate ai tuoi documenti PDF online. Strumento browser privato al 100% per proteggere la tua proprietà intellettuale.",
+      "sections": [
+        {
+          "heading": "Perché dovresti filigranare i tuoi PDF",
+          "level": "h2",
+          "paragraphs": [
+            "Proteggere la tua proprietà intellettuale e prevenire la ridistribuzione non autorizzata dei tuoi documenti è essenziale nel panorama digitale di oggi. Che tu stia distribuendo bozze aziendali riservate, visualizzando in anteprima modelli di progettazione o condividendo libri digitali sensibili, l'aggiunta di una filigrana contrassegna chiaramente la proprietà e scoraggia l'uso improprio.",
+            "La filigrana aiuta anche a stabilire lo stato del documento, ad esempio etichettando un contratto come \"BOZZA\", \"CONFIDENZIALE\" o \"APPROVATO\". Il nostro strumento gratuito per la filigrana PDF ti consente di personalizzare testo o sovrapporre immagini in modo rapido e sicuro."
+          ]
+        },
+        {
+          "heading": "Come aggiungere una filigrana a un PDF",
+          "level": "h2",
+          "listItems": [
+            "Carica il tuo PDF: seleziona il file che desideri proteggere e trascinalo nello strumento di filigrana.",
+            "Seleziona tipo di filigrana: scegli tra una filigrana di testo (digitando testo personalizzato) o una filigrana di immagine (caricando un logo o un sigillo).",
+            "Personalizza l'aspetto: regola impostazioni come opacità, stile del carattere, dimensione, colore, angolo di rotazione e posizionamento della pagina.",
+            "Applica e scarica: fai clic per visualizzare la filigrana localmente e scaricare il tuo PDF personalizzato."
+          ]
+        },
+        {
+          "heading": "Privacy dei documenti senza eguali",
+          "level": "h2",
+          "paragraphs": [
+            "La maggior parte degli editor di filigrane online caricano il tuo lavoro su database remoti, il che rappresenta un grave rischio per il copyright e la privacy. ZeroWebTools esegue l'intero motore di filigrana direttamente nel tuo browser web. I tuoi PDF e i loghi delle immagini non vengono mai inviati a server esterni, garantendo la massima sicurezza per le tue risorse creative.",
+            "Puoi filigranare proposte finanziarie sensibili, cartelle cliniche o manoscritti non pubblicati con la certezza che nessuna terza parte archivia o visualizza i tuoi file. Tutto viene elaborato localmente nella memoria del tuo browser."
+          ]
+        },
+        {
+          "heading": "Opzioni di personalizzazione della filigrana",
+          "level": "h2",
+          "listItems": [
+            "Sovrapposizione testo: digita facilmente indicatori come \"Esempio\" o \"Proprietà di [Nome]\" nel documento.",
+            "Inserimento logo: carica un logo PNG trasparente per visualizzare un marchio professionale su ogni pagina.",
+            "Controlli di opacità: mantieni le filigrane visibili ma discrete in modo che non blocchino il testo principale."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso applicare la filigrana a pagine specifiche?",
+          "answer": "SÌ. Puoi scegliere di posizionare la filigrana su tutte le pagine, solo sulla prima pagina o su un intervallo specifico di pagine nel tuo PDF."
+        },
+        {
+          "question": "La filigrana può essere facilmente rimossa da altri?",
+          "answer": "Il nostro strumento appiattisce il livello della filigrana direttamente sul contenuto della pagina, rendendone difficile la rimozione senza un software avanzato di editing PDF."
+        },
+        {
+          "question": "Posso utilizzare il logo della mia azienda come filigrana?",
+          "answer": "SÌ. Puoi caricare un'immagine JPG o PNG (il PNG trasparente funziona meglio) e regolarne le dimensioni e la trasparenza per adattarle al tuo marchio."
+        }
+      ]
+    },
+    "pdf-page-numbers": {
+      "title": "Come aggiungere numeri di pagina ai documenti PDF",
+      "metaDescription": "Aggiungi facilmente e gratuitamente i numeri di pagina ai file PDF. Posizioni, caratteri e intervalli personalizzati in un organizzatore PDF privato al 100% basato su browser.",
+      "sections": [
+        {
+          "heading": "Organizzare i documenti con i numeri di pagina",
+          "level": "h2",
+          "paragraphs": [
+            "Documenti lunghi e non numerati possono essere incredibilmente difficili da navigare, consultare o leggere. Che tu stia assemblando una tesi, una memoria legale, una proposta commerciale o un libro digitale, i numeri di pagina sono essenziali per mantenere la struttura e consentire ai lettori di trovare rapidamente le sezioni.",
+            "Quando si combinano più scansioni o file, i numeri di pagina possono risultare disorganizzati o scomparire. ZeroWebTools offre un'utilità intuitiva per aggiungere istantaneamente una numerazione delle pagine pulita e professionale ai tuoi documenti PDF, rendendoli pronti per l'invio accademico o professionale."
+          ]
+        },
+        {
+          "heading": "Come aggiungere i numeri di pagina passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Trascina e rilascia il tuo PDF: carica il tuo documento nell'utilità di numerazione delle pagine online.",
+            "Configura le impostazioni di numerazione: scegli la posizione (intestazione, piè di pagina, sinistra, centro, destra), il formato (ad esempio \"Pagina X\" o \"X di Y\"), la pagina iniziale e i parametri del carattere.",
+            "Elabora localmente: applica le impostazioni per inserire i numeri di pagina nel layout del documento.",
+            "Scarica il tuo file: salva il documento PDF numerato direttamente sul tuo dispositivo."
+          ]
+        },
+        {
+          "heading": "Elaborazione sicura e senza server",
+          "level": "h2",
+          "paragraphs": [
+            "L'aggiunta di numeri di pagina a rapporti finanziari sensibili o ricerche accademiche non dovrebbe compromettere la tua privacy. Il nostro strumento funziona completamente lato client. Il tuo documento viene elaborato rigorosamente nella finestra del browser locale. Non ci sono caricamenti sul server, il che significa che le tue ricerche o i tuoi segreti commerciali sono completamente al sicuro.",
+            "Poiché l'applicazione funziona completamente nel browser, non devi preoccuparti di velocità di caricamento lente o perdite di dati. Lo strumento legge la struttura del file localmente, aggiunge le sovrapposizioni ed esporta immediatamente il PDF."
+          ]
+        },
+        {
+          "heading": "Funzionalità di personalizzazione",
+          "level": "h2",
+          "listItems": [
+            "Posizionamento flessibile: posiziona i numeri di pagina in alto (intestazione) o in basso (piè di pagina) con allineamento a sinistra, al centro o a destra.",
+            "Intervalli personalizzati: salta la numerazione sulla copertina e inizia la numerazione sulla pagina due o tre.",
+            "Stile professionale: scegli caratteri, dimensioni e formati che si adattano al design del tuo documento."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso saltare la numerazione della copertina?",
+          "answer": "SÌ. È possibile specificare il numero esatto della pagina da cui deve iniziare la numerazione, consentendo di saltare le pagine dei titoli o i sommari."
+        },
+        {
+          "question": "Questo strumento supporta la formattazione come \"Pagina X di Y\"?",
+          "answer": "Sì, puoi scegliere tra più formati standard, inclusi numeri semplici o testo dinamico come \"Pagina 1 di 10\"."
+        },
+        {
+          "question": "L'inserimento dei numeri di pagina danneggerà il layout del mio PDF?",
+          "answer": "No. I numeri di pagina vengono aggiunti come una sovrapposizione pulita sui margini, lasciando intatti il ​​testo originale e la posizione dell'immagine."
+        }
+      ]
+    },
+    "pdf-organize": {
+      "title": "Come riordinare e organizzare le pagine PDF online",
+      "metaDescription": "Riordina, elimina e organizza visivamente le pagine PDF gratuitamente. Uno strumento lato client privato al 100% per gestire documenti PDF senza caricare file.",
+      "sections": [
+        {
+          "heading": "La necessità di organizzare le pagine PDF",
+          "level": "h2",
+          "paragraphs": [
+            "I documenti scansionati e i file combinati spesso si ritrovano con pagine nell'ordine sbagliato, pagine vuote o diapositive ridondanti. Cercare di leggere o presentare un PDF disorganizzato sembra poco professionale e interrompe il flusso di informazioni. Organizzare correttamente i file è fondamentale per presentazioni aziendali, contributi accademici e applicazioni ufficiali.",
+            "ZeroWebTools fornisce un organizzatore visivo che visualizza il tuo PDF come una griglia di miniature di pagina. Ciò rende incredibilmente facile riorganizzare, ruotare, eliminare o aggiungere pagine, permettendoti di perfezionare i tuoi file finché non saranno puliti e ordinati."
+          ]
+        },
+        {
+          "heading": "Come organizzare e riordinare le pagine PDF",
+          "level": "h2",
+          "listItems": [
+            "Importa il tuo PDF: seleziona e carica il file PDF che desideri organizzare nella finestra del browser.",
+            "Riorganizza visivamente le pagine: trascina e rilascia le immagini in miniatura della pagina per riordinarle esattamente nel layout di cui hai bisogno.",
+            "Elimina o ruota singole pagine: passa il mouse su qualsiasi miniatura per eliminare le pagine non necessarie o ruotare le pagine disallineate.",
+            "Scarica documento organizzato: applica le modifiche per compilare il PDF localmente e scaricare il file finito."
+          ]
+        },
+        {
+          "heading": "Privacy senza compromessi lato client",
+          "level": "h2",
+          "paragraphs": [
+            "Comprendiamo che i tuoi documenti contengono dati riservati. La maggior parte degli organizzatori online richiede il caricamento di file su server di terze parti, il che introduce vulnerabilità di sicurezza. Il nostro organizzatore funziona interamente all'interno del tuo browser utilizzando WebAssembly. I tuoi file vengono elaborati localmente sul tuo computer e non vengono mai inviati sul Web.",
+            "Ciò garantisce che le dichiarazioni dei redditi, i briefing aziendali o le trascrizioni accademiche vengano elaborate in un ambiente altamente sicuro. Non c'è alcun rischio che i tuoi file rimangano archiviati su un server."
+          ]
+        },
+        {
+          "heading": "Funzionalità chiave del nostro organizzatore PDF",
+          "level": "h2",
+          "listItems": [
+            "Ordinamento tramite trascinamento: modifica istantaneamente le sequenze di pagine con semplici azioni visive.",
+            "Eliminazione rapida: rimuovi pagine vuote, copertine o pagine non pertinenti con un clic.",
+            "Correzioni dell'orientamento della pagina: ruota le pagine orizzontali per allinearle al resto del documento verticale."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso combinare l'organizzatore della pagina con l'eliminazione della pagina?",
+          "answer": "SÌ. Puoi riorganizzare le sequenze di pagine ed eliminare le pagine indesiderate durante la stessa sessione prima di scaricare il file finale."
+        },
+        {
+          "question": "I miei documenti sono archiviati sui vostri server?",
+          "answer": "No. Tutte le operazioni avvengono nel tuo browser. Una volta chiusa la scheda, i dati vengono cancellati dalla memoria temporanea del tuo browser."
+        },
+        {
+          "question": "Esiste un limite di pagine per l'organizzatore visivo?",
+          "answer": "Non esiste un limite rigido, anche se documenti molto grandi (centinaia di pagine) dipenderanno dalla memoria del tuo computer e dalla potenza della CPU per un rendering uniforme."
+        }
+      ]
+    },
+    "pdf-unlock": {
+      "title": "Come rimuovere le password e sbloccare i file PDF",
+      "metaDescription": "Rimuovi la protezione tramite password e sblocca gratuitamente le restrizioni sui PDF. Uno strumento privato al 100% basato su browser per decrittografare i PDF localmente (è necessario conoscere la password).",
+      "sections": [
+        {
+          "heading": "Quando è necessario sbloccare un PDF?",
+          "level": "h2",
+          "paragraphs": [
+            "I PDF protetti da password sono altamente sicuri, ma inserire la password ogni volta che si apre il documento può diventare noioso, soprattutto se è necessario accedervi frequentemente. Se disponi di un documento legittimo e autorizzato (come una bolletta, un estratto conto o un contratto) e desideri rimuovere la password per un accesso più semplice, sbloccarlo è la soluzione migliore.",
+            "ZeroWebTools ti consente di decrittografare e salvare una versione senza password del tuo documento PDF. Ciò ti consente di archiviare, leggere o stampare il documento senza digitare ogni volta le credenziali. Tieni presente che devi conoscere la password per sbloccare il file; questo strumento non viola le password."
+          ]
+        },
+        {
+          "heading": "Come sbloccare un PDF passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Carica il PDF protetto: trascina e rilascia il documento PDF bloccato nell'area di lavoro del browser.",
+            "Inserisci la password del documento: inserisci la password corretta quando richiesto dall'interfaccia di sicurezza.",
+            "Rimuovi crittografia: lo strumento decrittografa il file lato client, rimuovendo tutte le restrizioni di sicurezza.",
+            "Scarica il PDF sbloccato: salva il file PDF appena sbloccato direttamente sul tuo sistema."
+          ]
+        },
+        {
+          "heading": "Decrittografia sicura, protetta e locale",
+          "level": "h2",
+          "paragraphs": [
+            "Il caricamento di un documento bloccato e della relativa password su un server online rappresenta un grave rischio per la sicurezza. ZeroWebTools elimina questa minaccia elaborando la decrittazione interamente all'interno del tuo browser web. La tua password e il PDF non vengono mai inviati su Internet, garantendo che le tue credenziali rimangano private.",
+            "Questo approccio basato solo sul browser significa che i tuoi dati bancari o le password delle dichiarazioni fiscali non attraversano mai la rete. Tutta la memoria viene cancellata non appena chiudi la scheda, mantenendo la tua impronta digitale al sicuro."
+          ]
+        },
+        {
+          "heading": "Quali restrizioni PDF vengono rimosse?",
+          "level": "h2",
+          "listItems": [
+            "Apri password: rimuove la richiesta di password necessaria per visualizzare il contenuto del documento.",
+            "Restrizioni di stampa: abilita le opzioni di stampa se erano state precedentemente bloccate.",
+            "Copia e modifica: consente di copiare testo e modificare liberamente la struttura del PDF."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso sbloccare un PDF se non conosco la password?",
+          "answer": "No. Il nostro strumento è progettato per consentire ai legittimi proprietari di rimuovere le password dai file a cui hanno già accesso. Non esegue attacchi di forza bruta né ignora le password."
+        },
+        {
+          "question": "Questo strumento memorizza la mia password?",
+          "answer": "Mai. Tutte le operazioni di verifica e decrittografia della password vengono eseguite localmente nel tuo browser web. Nessuna credenziale o file viene mai inviato ai nostri server."
+        },
+        {
+          "question": "La qualità del PDF sbloccato cambierà?",
+          "answer": "No. Lo sblocco di un PDF decrittografa solo il livello di sicurezza del file. Il contenuto, il layout, i caratteri e le immagini vengono conservati esattamente come nell'originale."
+        }
+      ]
+    },
+    "pdf-sign": {
+      "title": "Come firmare documenti PDF online gratuitamente",
+      "metaDescription": "Firma documenti PDF online gratuitamente. Disegna, digita o carica la tua firma utilizzando uno strumento lato client privato al 100%. Nessun caricamento o registrazione sul server.",
+      "sections": [
+        {
+          "heading": "Firme elettroniche moderne semplificate",
+          "level": "h2",
+          "paragraphs": [
+            "Stampare, firmare, scansionare e inviare tramite e-mail una pagina fisica solo per ottenere una firma è un processo noioso e obsoleto. Le firme elettroniche sono diventate uno standard per contratti moderni, contratti di locazione, schede attività e moduli di domanda. Risparmia tempo, carta e spazio di archiviazione fisico, semplificando al tempo stesso la conclusione delle trattative da remoto.",
+            "ZeroWebTools offre uno strumento di firma semplice e gratuito che ti consente di firmare digitalmente i tuoi documenti. Puoi disegnare la tua firma, scriverla con caratteri calligrafici o caricare un'immagine della tua firma fisica, aggiungendola direttamente alle tue pagine PDF. È una soluzione di firma elettronica tutto in uno."
+          ]
+        },
+        {
+          "heading": "Come firmare un PDF passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Carica il tuo PDF: seleziona il contratto o il modulo che devi firmare e trascinalo nell'editor visivo.",
+            "Crea la tua firma: scegli di disegnare la tua firma utilizzando il mouse/trackpad, digita il tuo nome o carica un file immagine.",
+            "Posiziona e ridimensiona: trascina la tua firma nell'area del segno designata e regolane le dimensioni per adattarla alla linea.",
+            "Applica e scarica: unisci la firma sul PDF e scarica il documento completato."
+          ]
+        },
+        {
+          "heading": "Sicurezza senza compromessi per i documenti firmati",
+          "level": "h2",
+          "paragraphs": [
+            "La firma dei contratti coinvolge dati personali e legali altamente sensibili. Le piattaforme di firma online standard conservano copie dei tuoi documenti e delle tue firme sui loro server cloud. ZeroWebTools protegge i tuoi dati eseguendo il rendering e la firma del PDF interamente all'interno del tuo browser, garantendo che nulla venga caricato.",
+            "Poiché i tuoi documenti e le tue firme non lasciano mai il tuo dispositivo, sei completamente protetto dal furto di identità e dall'uso improprio dei dati. Ciò è particolarmente cruciale per le pratiche finanziarie e gli NDA legali."
+          ]
+        },
+        {
+          "heading": "Modi per creare la tua firma",
+          "level": "h2",
+          "listItems": [
+            "Disegna firma: disegna direttamente sullo schermo utilizzando un touch screen, un mouse o un trackpad.",
+            "Digita firma: digita il tuo nome e scegli tra diversi stili di corsivo professionali.",
+            "Carica firma: carica un'immagine scansionata della tua firma scritta a mano per un aspetto tradizionale."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Le firme elettroniche sono giuridicamente vincolanti?",
+          "answer": "Sì, le firme elettroniche sono legalmente riconosciute in molti paesi per le transazioni commerciali generali, anche se i requisiti legali specifici possono variare in base alla regione."
+        },
+        {
+          "question": "È sicuro firmare i miei contratti utilizzando ZeroWebTools?",
+          "answer": "Assolutamente. A differenza di altre piattaforme, ZeroWebTools elabora tutto sul tuo dispositivo, il che significa che il tuo contratto e la tua firma non vengono mai inviati a server esterni."
+        },
+        {
+          "question": "Posso aggiungere campi di testo come date o nomi?",
+          "answer": "Sì, il nostro editor ti consente di digitare campi di testo personalizzati come date, nomi stampati o titoli insieme alla tua firma."
+        }
+      ]
+    },
+    "pdf-crop": {
+      "title": "Come ritagliare e ridimensionare i margini dei PDF online",
+      "metaDescription": "Ritaglia le pagine PDF e regola i margini online gratuitamente. Strumento browser privato al 100% per tagliare i bordi delle pagine e ritagliare i documenti PDF localmente.",
+      "sections": [
+        {
+          "heading": "Perché ritagliare i margini del PDF?",
+          "level": "h2",
+          "paragraphs": [
+            "I documenti PDF spesso presentano margini eccessivamente ampi, bordi di pagina vuoti o testo di intestazione e piè di pagina indesiderato. Questo spazio bianco aggiuntivo può rendere molto difficile la lettura di documenti su schermi più piccoli (come tablet o smartphone), poiché costringe il contenuto principale ad apparire più piccolo e più difficile da leggere.",
+            "Ritagliare i tuoi PDF aiuta a ottimizzare l'area visualizzabile, rimuovendo i bordi ridondanti o ritagliando sezioni specifiche di una pagina. È anche molto utile per preparare diapositive, modificare file per e-reader o ripulire le pagine scansionate prima della stampa."
+          ]
+        },
+        {
+          "heading": "Come ritagliare le pagine PDF",
+          "level": "h2",
+          "listItems": [
+            "Carica il tuo documento: trascina e rilascia il PDF che desideri ritagliare nell'interfaccia del browser.",
+            "Regola la casella di ritaglio: utilizza la casella di selezione interattiva per inquadrare l'area esatta della pagina che desideri conservare.",
+            "Scegli Impostazioni pagina: scegli se applicare il ritaglio alla pagina corrente, a tutte le pagine o a intervalli di pagine specifici.",
+            "Salva e scarica: fai clic sul pulsante Ritaglia per tagliare i margini sul lato client e scaricare il file modificato."
+          ]
+        },
+        {
+          "heading": "Ritaglio locale lato client per motivi di sicurezza",
+          "level": "h2",
+          "paragraphs": [
+            "Gli strumenti di ritaglio web standard caricano i tuoi documenti su server esterni. Se stai gestendo fogli di lavoro finanziari o bozze legali, questa esposizione non è sicura. ZeroWebTools esegue il rendering e ritaglia il tuo documento nella scheda del browser locale, garantendo che i tuoi file privati ​​non vengano mai archiviati o visualizzati da nessuno.",
+            "L'elaborazione locale significa inoltre che non si verificano tempi di attesa lenti per il caricamento/download. Il rendering e il taglio dei PDF di grandi dimensioni vengono eseguiti istantaneamente, utilizzando la capacità di elaborazione locale del browser per un'esperienza di modifica fluida."
+          ]
+        },
+        {
+          "heading": "Vantaggi del ritaglio dei PDF",
+          "level": "h2",
+          "listItems": [
+            "Ottimizzazione dell'e-reader: ritaglia i margini vuoti in modo che il testo riempia lo schermo su Kindle o sugli schermi dei dispositivi mobili.",
+            "Rimozione di intestazioni/piè di pagina: ritaglia intestazioni, piè di pagina o numeri di pagina non necessari.",
+            "Concentrati sui dettagli: isola particolari grafici, tabelle o sezioni di una pagina per l'estrazione."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso ritagliare tutte le pagine del PDF contemporaneamente?",
+          "answer": "SÌ. Lo strumento consente di impostare i limiti di ritaglio su una pagina e applicare le stesse impostazioni dei margini a tutte le pagine del documento."
+        },
+        {
+          "question": "Ritagliare il mio PDF ridurrà la risoluzione del documento?",
+          "answer": "No. Il ritaglio modifica solo i limiti della pagina (riquadro di delimitazione) del PDF. Il testo, la grafica e le immagini rimangono nitidi e non compressi."
+        },
+        {
+          "question": "Il mio file PDF originale è stato modificato sul computer?",
+          "answer": "No. Lo strumento crea una nuova copia ritagliata per il download, lasciando il file locale originale completamente intatto."
+        }
+      ]
+    },
+    "pdf-to-text": {
+      "title": "Come estrarre testo da documenti PDF offline",
+      "metaDescription": "Estrai testo semplice dai tuoi documenti PDF gratuitamente online. Strumento browser offline privato al 100% per convertire PDF in TXT senza caricamenti sul server.",
+      "sections": [
+        {
+          "heading": "Perché estrarre testo da PDF?",
+          "level": "h2",
+          "paragraphs": [
+            "I file PDF sono progettati per preservare il layout, ma ciò rende difficile l'estrazione del testo per la modifica o la ricerca. Copiare paragrafi pagina per pagina da un documento PDF di grandi dimensioni può essere lento e noioso e spesso comporta una formattazione disordinata. Estraendo tutto il testo in un semplice file TXT, puoi facilmente riutilizzare i contenuti, eseguire analisi automatizzate o indicizzare il testo.",
+            "Che tu stia elaborando trascrizioni, memorie legali, e-book o documenti di ricerca, un estrattore di testo veloce ha un valore inestimabile. ZeroWebTools fornisce un'utilità di estrazione diretta lato client che estrae il contenuto di testo dai file PDF in pochi secondi, risparmiando ore di lavoro manuale e di copia e incolla."
+          ]
+        },
+        {
+          "heading": "Come estrarre il testo passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Seleziona il file PDF: carica il documento PDF da cui desideri estrarre il testo.",
+            "Avvia estrazione: lo strumento analizza i dati dei caratteri PDF direttamente nel tuo browser.",
+            "Anteprima o copia: visualizza l'anteprima del testo estratto sullo schermo e copiala negli appunti.",
+            "Scarica come file di testo: fare clic per salvare l'intero contenuto di testo normale come documento `.txt`."
+          ]
+        },
+        {
+          "heading": "Analisi lato client sicura al 100%.",
+          "level": "h2",
+          "paragraphs": [
+            "Il caricamento di ricerche riservate o corrispondenza privata su server online per la conversione del testo rappresenta un rischio significativo per la sicurezza. ZeroWebTools esegue l'intero processo di analisi localmente sul tuo hardware. Il contenuto del tuo file non viene mai inviato a nessun server, mantenendo i tuoi dati riservati.",
+            "Mantenendo l'elaborazione lato client, eviti il ​​furto di dati e i rischi di archiviazione nel cloud. I tuoi documenti vengono letti nella memoria del browser e i risultati vengono scaricati direttamente nella memoria locale."
+          ]
+        },
+        {
+          "heading": "Quando utilizzare l'estrazione del testo",
+          "level": "h2",
+          "listItems": [
+            "Analisi dei dati: converte report strutturati in file di testo per l'elaborazione in strumenti di script.",
+            "Prendere appunti: estrai appunti di studio e diapositive delle lezioni in un documento modificabile.",
+            "Archiviazione documenti: risparmia spazio indicizzando il testo del documento in formati di testo leggeri."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo strumento supporta i PDF scansionati (OCR)?",
+          "answer": "Questo strumento estrae il testo selezionabile incorporato nei PDF standard. Non supporta il riconoscimento ottico dei caratteri (OCR) per le immagini di testo scansionate."
+        },
+        {
+          "question": "La formattazione in grassetto o in tabelle verrà preservata?",
+          "answer": "No. L'estrazione del testo converte il contenuto in testo semplice (.txt), rimuovendo la formattazione, i caratteri e le griglie della tabella ma mantenendo i caratteri."
+        },
+        {
+          "question": "I dettagli del mio documento vengono condivisi sul Web?",
+          "answer": "Mai. Tutto il rendering e l'estrazione del testo avvengono localmente nella memoria del tuo browser, garantendo che la tua privacy sia completamente protetta."
+        }
+      ]
+    },
+    "heic-to-jpg": {
+      "title": "Come convertire le foto HEIC dell'iPhone in JPG",
+      "metaDescription": "Converti facilmente i file immagine Apple HEIC nei formati JPG o PNG standard per compatibilità. Convertitore batch gratuito che funziona direttamente nel tuo browser.",
+      "sections": [
+        {
+          "heading": "Cos'è esattamente un file HEIC?",
+          "level": "h2",
+          "paragraphs": [
+            "HEIC (High-Efficiency Image Container) è il formato fotografico predefinito di Apple per iPhone e iPad. È stato introdotto per risparmiare spazio di archiviazione, offrendo un'incredibile qualità dell'immagine a circa la metà delle dimensioni del file di un'immagine JPG tradizionale.",
+            "Sebbene siano fantastici per risparmiare spazio sul tuo iCloud, i file HEIC sono notoriamente difficili da lavorare al di fuori dell'ecosistema Apple. Spesso non si aprono su PC Windows, dispositivi Android e vengono spesso rifiutati da siti Web meno recenti, piattaforme di social media e moduli online che richiedono rigorosamente i formati JPG o PNG."
+          ]
+        },
+        {
+          "heading": "Come convertire gratuitamente HEIC in JPG",
+          "level": "h2",
+          "listItems": [
+            "Seleziona le tue foto: scegli una o più immagini HEIC direttamente dal tuo dispositivo Apple o computer.",
+            "Scegli il formato di output: seleziona JPG per la massima compatibilità universale oppure scegli PNG se richiedi una qualità completamente senza perdite con sfondi trasparenti.",
+            "Converti localmente: lo strumento decodifica rapidamente il contenitore HEIC direttamente nel tuo browser utilizzando l'elaborazione locale, il che significa che non devi caricare le tue foto personali su un server cloud casuale.",
+            "Scarica le tue immagini: scarica le tue foto convertite singolarmente o acquisiscile tutte in una volta in un comodo archivio ZIP."
+          ]
+        },
+        {
+          "heading": "I vantaggi della conversione delle immagini lato client",
+          "level": "h2",
+          "paragraphs": [
+            "Quando utilizzi convertitori di immagini online standard, sei costretto a caricare le tue foto personali su un server di terze parti. Ciò comporta notevoli rischi per la privacy, soprattutto per le foto di famiglia o i documenti sensibili.",
+            "Il nostro convertitore da HEIC a JPG funziona interamente nel tuo browser web. Ciò significa che la conversione avviene sul processore del tuo dispositivo. È più veloce perché non devi attendere il caricamento e il download di file di grandi dimensioni ed è infinitamente più sicuro perché le tue immagini non lasciano mai il tuo computer."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso convertire più foto HEIC contemporaneamente?",
+          "answer": "Sì, il nostro convertitore da HEIC a JPG supporta l'elaborazione batch. Puoi selezionare e convertire più file contemporaneamente."
+        },
+        {
+          "question": "La conversione da HEIC a JPG riduce la qualità dell'immagine?",
+          "answer": "Puoi scegliere tra formati di output JPG di alta qualità o PNG completamente senza perdita di dati per preservare la qualità della foto originale."
+        },
+        {
+          "question": "Le mie foto sono al sicuro durante la conversione?",
+          "answer": "SÌ. Tutta la conversione viene elaborata sul lato client nel browser utilizzando WebAssembly locale. Le tue foto personali non vengono mai caricate sui nostri server."
+        }
+      ]
+    },
+    "bulk-image-resizer": {
+      "title": "Come ridimensionare e comprimere più immagini in blocco",
+      "metaDescription": "Scopri come ridimensionare e comprimere più immagini contemporaneamente online. Ridimensionatore batch gratuito, sicuro, lato client senza caricamenti sul server per una privacy totale.",
+      "sections": [
+        {
+          "heading": "Perché utilizzare un ridimensionatore di immagini in blocco?",
+          "level": "h2",
+          "paragraphs": [
+            "Gestire più immagini può essere un compito arduo, soprattutto quando si preparano contenuti multimediali per siti Web, allegati e-mail o post sui social media. Le foto ad alta risoluzione dei moderni smartphone e fotocamere sono spesso troppo grandi per un utilizzo online efficiente. Un ridimensionatore di immagini in blocco ti consente di elaborare decine o centinaia di immagini contemporaneamente, risparmiando ore di ritaglio, ridimensionamento e compressione manuale.",
+            "Il nostro strumento gestisce formati standard come JPEG, PNG, WEBP e AVIF, ottimizzandoli per caricamenti di pagina più rapidi. Riducendo le dimensioni dei pixel e comprimendo le dimensioni dei file in batch, puoi migliorare notevolmente le prestazioni web, i tempi di caricamento delle e-mail e l'efficienza di archiviazione di tutte le tue risorse digitali."
+          ]
+        },
+        {
+          "heading": "Come ridimensionare e comprimere in blocco le immagini online",
+          "level": "h2",
+          "listItems": [
+            "Carica file: trascina e rilascia o sfoglia per selezionare più immagini dalla memoria del dispositivo locale direttamente nell'area di lavoro del browser.",
+            "Configura impostazioni: imposta le dimensioni di output desiderate in base a larghezza, altezza o percentuale e scegli il formato file preferito come JPG o PNG.",
+            "Regola qualità: utilizza il cursore della qualità per impostare il livello di compressione, trovando il perfetto equilibrio tra dimensione del file e chiarezza visiva.",
+            "Elabora e scarica: fai clic sul pulsante Elabora per ridimensionare automaticamente le immagini localmente, quindi scaricale immediatamente come archivio zip."
+          ]
+        },
+        {
+          "heading": "Privacy completa con il ridimensionamento delle immagini lato client",
+          "level": "h2",
+          "paragraphs": [
+            "I tradizionali ridimensionatori di immagini online richiedono il caricamento dei file sui loro server esterni, creando rischi per la privacy e utilizzando la larghezza di banda Internet. Il nostro ridimensionatore di immagini in blocco si basa sulla moderna tecnologia del browser che elabora i file completamente offline.",
+            "Tutte le operazioni vengono eseguite localmente utilizzando l'accelerazione hardware e le API web del browser. Le tue fotografie private, screenshot e documenti riservati non lasciano mai il tuo computer, offrendo privacy al 100% e velocità di ridimensionamento offline rapidissime."
+          ]
+        },
+        {
+          "heading": "Ottimizzazione delle immagini per prestazioni Web e SEO",
+          "level": "h2",
+          "paragraphs": [
+            "Le immagini di grandi dimensioni sono la causa principale del caricamento lento delle pagine Web, che influisce negativamente sull'esperienza utente e sull'ottimizzazione dei motori di ricerca (SEO). Comprimendo e ridimensionando le immagini, riduci i byte che gli utenti devono scaricare per visualizzare il tuo sito web.",
+            "L'utilizzo di formati web moderni come WEBP insieme a dimensioni adeguate garantisce che il tuo sito web soddisfi gli obiettivi Core Web Vitals, come Largest Contentful Paint (LCP). Il nostro strumento ti consente di ottimizzare rapidamente i file, mantenendo il tuo sito veloce e degno di nota."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Quante immagini posso ridimensionare contemporaneamente?",
+          "answer": "Poiché l'elaborazione avviene localmente sul tuo dispositivo, non esistono limiti artificiali. Puoi ridimensionare dozzine di immagini contemporaneamente, limitato solo dalle capacità della RAM e della CPU del tuo computer."
+        },
+        {
+          "question": "La compressione in blocco delle immagini ne ridurrà la qualità?",
+          "answer": "Hai il pieno controllo sulle impostazioni di qualità. Scegliendo una percentuale di alta qualità (ad esempio, 80-90%), è possibile ridurre significativamente le dimensioni del file con una perdita visibile quasi pari a zero nella nitidezza dell'immagine."
+        },
+        {
+          "question": "Questo ridimensionatore supporta diversi formati?",
+          "answer": "Sì, lo strumento supporta la conversione e il ridimensionamento dei formati di immagine più comuni tra cui JPEG, PNG, WEBP e SVG, rendendolo incredibilmente versatile per tutte le esigenze di ottimizzazione web."
+        }
+      ]
+    },
+    "image-cropper": {
+      "title": "Come ritagliare e ridimensionare le immagini online gratuitamente",
+      "metaDescription": "Ritaglia e ridimensiona istantaneamente le tue immagini utilizzando il nostro ritaglio di immagini gratuito basato su browser. Proporzioni perfette, privacy assoluta e prestazioni offline.",
+      "sections": [
+        {
+          "heading": "Perché utilizzare un ritaglio di immagini basato su browser?",
+          "level": "h2",
+          "paragraphs": [
+            "Il ritaglio è il processo di rimozione delle aree esterne indesiderate da un'immagine per migliorare la composizione, enfatizzare un soggetto o adattare dimensioni specifiche. Che tu stia creando un'immagine del profilo, un banner per i social media o le miniature del blog, il ritaglio preciso è essenziale per un aspetto professionale.",
+            "I tradizionali software di editing desktop sono spesso pesanti e lenti da caricare, mentre gli strumenti standard basati sul Web richiedono caricamenti su server cloud. Il nostro ritaglio di immagini basato su browser offre la soluzione perfetta, combinando facilità d'uso, rendering istantaneo e sicurezza assoluta senza installare nulla."
+          ]
+        },
+        {
+          "heading": "Come ritagliare e ridimensionare le immagini passo dopo passo",
+          "level": "h2",
+          "listItems": [
+            "Importa immagine: apri lo strumento e seleziona un file immagine dal tuo dispositivo, che verrà caricato immediatamente nell'area di disegno dell'editor di ritaglio locale.",
+            "Regola le proporzioni: scegli tra le impostazioni predefinite più popolari come quadrato 1:1, schermo panoramico 16:9, standard 4:3 oppure trascina liberamente la casella di ritaglio per dimensioni personalizzate.",
+            "Perfeziona e ridimensiona: regola il riquadro di delimitazione per inquadrare perfettamente il soggetto e utilizza i controlli dello zoom per ritagliare i dettagli.",
+            "Salva ed esporta: visualizza l'anteprima dell'area ritagliata e scarica l'immagine ottimizzata nel formato scelto (PNG o JPG) direttamente sul tuo dispositivo locale."
+          ]
+        },
+        {
+          "heading": "Elaborazione lato client al 100% per la massima privacy",
+          "level": "h2",
+          "paragraphs": [
+            "La privacy è una preoccupazione crescente quando si utilizzano servizi online gratuiti. Molte app Web caricano i tuoi file su server remoti, dove potrebbero essere archiviati a tempo indeterminato. Il nostro ritaglio di immagini elabora tutto rigorosamente all'interno del tuo browser.",
+            "Utilizzando l'API HTML5 Canvas e le moderne tecnologie del motore del browser, tutte le operazioni di ritaglio, ridimensionamento e rendering dei file vengono eseguite sul tuo sistema locale. Nessun dato viene inviato a server esterni, garantendo che le tue foto e screenshot personali rimangano completamente confidenziali."
+          ]
+        },
+        {
+          "heading": "Crea immagini perfette per i social media e il web",
+          "level": "h2",
+          "paragraphs": [
+            "Ogni piattaforma di social media ha requisiti specifici sulla dimensione delle immagini. Ad esempio, le immagini del profilo sono generalmente quadrate, mentre le immagini di copertina sono widescreen. Le immagini distorte o di dimensioni errate appaiono poco professionali e possono ridurre il coinvolgimento dell'utente.",
+            "La nostra troncatrice semplifica la conformità a queste linee guida specifiche. Selezionando proporzioni predefinite, puoi assicurarti che le tue immagini abbiano un bell'aspetto su LinkedIn, Twitter, Instagram o sul tuo blog personale senza allungamenti o pixelazioni."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Lo strumento di ritaglio è completamente gratuito?",
+          "answer": "Sì, il ritaglio di immagini è gratuito al 100% senza costi nascosti, limiti di prova o filigrane applicate alle immagini esportate."
+        },
+        {
+          "question": "Posso ritagliare documenti sensibili o riservati?",
+          "answer": "Assolutamente. Poiché l'app viene eseguita interamente nella sandbox del browser locale, i tuoi file non vengono mai trasmessi su Internet, rendendola sicura per i documenti sensibili."
+        },
+        {
+          "question": "Quali formati di immagine sono supportati dal ritaglio?",
+          "answer": "Lo strumento supporta formati comuni come JPEG, PNG, WEBP e GIF, garantendoti la possibilità di modificare quasi tutti i tipi di immagine che possiedi."
+        }
+      ]
+    },
+    "svg-minifier": {
+      "title": "Come minimizzare e ottimizzare i file vettoriali SVG offline",
+      "metaDescription": "Minimizza e ottimizza i file vettoriali SVG offline. Pulisci il codice XML, rimuovi i metadati e riduci le dimensioni dei file direttamente nel tuo browser in completa privacy.",
+      "sections": [
+        {
+          "heading": "Comprendere i file SVG e perché necessitano di ottimizzazione",
+          "level": "h2",
+          "paragraphs": [
+            "Scalable Vector Graphics (SVG) sono file basati su XML utilizzati per descrivere immagini vettoriali bidimensionali. A differenza dei formati raster, gli SVG possono scalare all'infinito senza perdere qualità. Tuttavia, programmi di progettazione come Adobe Illustrator o Figma spesso esportano SVG con markup, metadati, cronologia dell'editor e gruppi nidificati ridondanti.",
+            "Questo codice aggiuntivo aumenta inutilmente le dimensioni del file, rallentando i tempi di caricamento della pagina web. Minimizzando i tuoi file SVG rimuovi questo gonfiore digitale mantenendo intatta la grafica visiva. Ciò si traduce in un codice più pulito che si carica più velocemente ed è più facile da modellare con i CSS."
+          ]
+        },
+        {
+          "heading": "Come minimizzare e ottimizzare i file SVG",
+          "level": "h2",
+          "listItems": [
+            "Carica SVG: trascina il file SVG non elaborato nella finestra di minimizzazione o selezionalo dal selettore di file del sistema locale.",
+            "Configura opzioni: attiva/disattiva le impostazioni di ottimizzazione come la rimozione degli spazi dei nomi XML, la pulizia degli ID, l'eliminazione dei metadati dell'editor o l'arrotondamento dei punti decimali.",
+            "Anteprima dal vivo: confronta le dimensioni del file originale e ottimizzato fianco a fianco e visualizza l'anteprima della grafica vettoriale per garantire l'assenza di regressioni visive.",
+            "Esporta SVG pulito: scarica immediatamente il file SVG minimizzato o copia il codice XML pulito direttamente negli appunti per utilizzarlo nel codice."
+          ]
+        },
+        {
+          "heading": "Sicurezza basata su browser e ottimizzazione offline",
+          "level": "h2",
+          "paragraphs": [
+            "Sviluppatori e progettisti attenti alla sicurezza evitano di caricare la grafica sorgente su server remoti. Gli ottimizzatori standard basati sul Web comportano il rischio di esporre la proprietà intellettuale o vettori personalizzati. Il nostro minimizzatore SVG risolve questo problema elaborando tutti i dati offline.",
+            "Costruito su algoritmi di analisi lato client, lo script di minimizzazione viene eseguito direttamente nel tuo browser web. Non viene effettuata alcuna richiesta di rete e i tuoi file non vengono mai caricati. Puoi anche utilizzare lo strumento completamente offline senza una connessione Internet attiva."
+          ]
+        },
+        {
+          "heading": "Migliorare le prestazioni del sito web con vettori minimizzati",
+          "level": "h2",
+          "paragraphs": [
+            "Lo sviluppo web moderno privilegia la velocità e il peso leggero delle pagine. I file SVG sono spesso incorporati direttamente nell'HTML per ridurre le richieste HTTP, rendendo la dimensione del file ancora più critica. La grafica vettoriale pulita aiuta a ottenere punteggi di prestazioni eccellenti.",
+            "Riducendo le dimensioni SVG fino al 60-80% utilizzando il nostro ottimizzatore, migliori la velocità di rendering e riduci la larghezza di banda. Ciò garantisce che icone, loghi e illustrazioni vengano caricati istantaneamente, mantenendo i visitatori coinvolti e migliorando il posizionamento nelle ricerche."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "La minimizzazione di un SVG ne modificherà l'aspetto visivo?",
+          "answer": "In quasi tutti i casi, no. Il processo di ottimizzazione rimuove solo metadati nascosti, commenti e percorsi ridondanti. Puoi anche regolare la precisione decimale per garantire che le curve rimangano uniformi."
+        },
+        {
+          "question": "Posso copiare direttamente il codice minimizzato?",
+          "answer": "Sì, lo strumento fornisce una funzione di copia diretta negli appunti per il codice XML ottimizzato, semplificandone l'incollaggio direttamente nei tuoi progetti HTML o React."
+        },
+        {
+          "question": "Questo strumento memorizza i miei progetti SVG?",
+          "answer": "No. Tutta la minimizzazione dei vettori avviene nella memoria del tuo browser. I tuoi file non vengono mai caricati su alcun database backend o server esterno."
+        }
+      ]
+    },
+    "qr-code-generator": {
+      "title": "Come generare codici QR personalizzati con logo gratuitamente",
+      "metaDescription": "Genera codici QR personalizzati con loghi, colori personalizzati e cornici. Generatore QR gratuito, sicuro, lato client senza tracciamento del server per una privacy completa.",
+      "sections": [
+        {
+          "heading": "La potenza dei codici QR personalizzati con branding",
+          "level": "h2",
+          "paragraphs": [
+            "I codici Quick Response (QR) sono diventati uno strumento essenziale per collegare il mondo fisico alle esperienze digitali. Sono ampiamente utilizzati per menu di ristoranti, biglietti da visita, confezioni di prodotti e marketing di eventi. Tuttavia, i codici QR standard in bianco e nero vengono spesso ignorati o appaiono sconnessi.",
+            "Personalizzare i tuoi codici QR con i colori del tuo marchio, cornici personalizzate e un logo centrale può aumentare le scansioni fino al 30%. Crea riconoscimento e fiducia immediati, garantendo che il tuo pubblico target si senta sicuro scansionando il codice con i propri dispositivi mobili."
+          ]
+        },
+        {
+          "heading": "Come generare il tuo codice QR personalizzato",
+          "level": "h2",
+          "listItems": [
+            "Inserisci URL o testo: inserisci il collegamento di destinazione, l'indirizzo e-mail, il numero di telefono, i dettagli Wi-Fi o il testo semplice che desideri che il codice QR contenga.",
+            "Personalizza lo stile: seleziona i colori del tuo marchio per il primo piano e lo sfondo e scegli stili o forme degli occhi personalizzati.",
+            "Aggiungi il tuo logo: carica il logo o l'icona della tua attività per posizionarlo perfettamente al centro del codice QR generato.",
+            "Scarica vettoriale o raster: esporta il codice QR finito in formato PNG ad alta risoluzione o formato vettoriale SVG scalabile per la stampa."
+          ]
+        },
+        {
+          "heading": "Generazione QR lato client per la totale privacy dei dati",
+          "level": "h2",
+          "paragraphs": [
+            "La maggior parte dei generatori di codici QR online fungono da intermediari, generando brevi collegamenti che reindirizzano attraverso i loro server per tenere traccia delle scansioni. Ciò comporta rischi per la privacy degli utenti e consente ai servizi di terze parti di raccogliere dati sui tuoi clienti.",
+            "Il nostro generatore di codici QR personalizzato è diverso perché è completamente lato client. La matrice del codice QR viene calcolata e visualizzata direttamente nel tuo browser. Ciò significa che i tuoi URL sono incorporati in modo grezzo, senza reindirizzamento, impedendo il tracciamento e mantenendo privati ​​i tuoi dati."
+          ]
+        },
+        {
+          "heading": "Creazione di codici QR pronti per la stampa e ottimizzati per la scansione",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si progetta un codice QR personalizzato, è importante assicurarsi che rimanga facile da leggere per le fotocamere degli smartphone. L'elevato contrasto cromatico tra il codice e il suo sfondo è essenziale per scansioni rapide, soprattutto in ambienti con scarsa illuminazione.",
+            "Il nostro generatore è dotato di convalida in tempo reale per aiutarti a evitare errori di progettazione comuni. Esportando in formato SVG vettoriale, ti assicuri che il codice QR rimanga nitido e pronto per la scansione, sia stampato su una piccola etichetta che su un enorme cartellone pubblicitario."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questi codici QR scadono o hanno limiti di scansione?",
+          "answer": "No. I codici QR generati sono statici e incorporano direttamente i tuoi dati. Non scadranno mai e potranno essere scansionati un numero illimitato di volte."
+        },
+        {
+          "question": "Posso aggiungere qualsiasi immagine come logo al centro?",
+          "answer": "Sì, puoi caricare formati di immagine comuni come PNG o JPEG. Il generatore ridimensiona e centra automaticamente il logo, regolando la correzione degli errori per garantire che il codice sia ancora scansionabile."
+        },
+        {
+          "question": "È previsto il monitoraggio o il reindirizzamento?",
+          "answer": "Assolutamente no. I codici QR contengono gli esatti dati che inserisci, senza collegamenti di reindirizzamento o tracciamento, garantendo la completa privacy per te e i tuoi utenti."
+        }
+      ]
+    },
+    "json-formatter": {
+      "title": "Come formattare e abbellire i dati JSON online",
+      "metaDescription": "Convalida, esegui il debug e abbellisci istantaneamente le stringhe JSON minimizzate. Uno strumento di sviluppo privato al 100% per formattare i dati JSON nel tuo browser.",
+      "sections": [
+        {
+          "heading": "La sfida con i dati JSON minimizzati",
+          "level": "h2",
+          "paragraphs": [
+            "JSON (JavaScript Object Notation) è il formato standard per lo scambio di dati sul web. Tuttavia, quando si ha a che fare con risposte API, dump di database o log di applicazioni, i dati JSON vengono quasi sempre minimizzati (compressi in un'unica riga continua) per risparmiare larghezza di banda.",
+            "Questa minimizzazione rende incredibilmente difficile, se non impossibile, per gli sviluppatori leggere, eseguire il debug o comprendere la struttura dei dati.",
+            "Un formattatore JSON (spesso chiamato abbellitore) analizza il testo non elaborato e applica automaticamente il rientro corretto, le interruzioni di riga, l'evidenziazione della sintassi e la formattazione strutturale per renderlo immediatamente leggibile dall'uomo."
+          ]
+        },
+        {
+          "heading": "Caratteristiche essenziali di un formattatore JSON professionale",
+          "level": "h2",
+          "listItems": [
+            "Convalida della sintassi: un buon formattatore non si limita a rendere le cose belle; rileva immediatamente errori come virgole finali, virgolette mancanti o strutture di nidificazione non valide, risparmiando ore di debug.",
+            "Esploratore interattivo della visualizzazione ad albero: consente di comprimere ed espandere oggetti e array profondamente annidati, facilitando la navigazione di enormi payload API.",
+            "Elaborazione lato client al 100%: questo è fondamentale. Non dovresti mai incollare dati API proprietari, informazioni sui clienti o credenziali sensibili in uno strumento basato su server. Gli strumenti lato client garantiscono che i tuoi dati rimangano sul tuo computer."
+          ]
+        },
+        {
+          "heading": "Come formattare il tuo JSON in modo sicuro",
+          "level": "h2",
+          "paragraphs": [
+            "Usare il nostro strumento è semplice: incolla il tuo JSON grezzo e non formattato direttamente nell'editor. Lo strumento analizzerà automaticamente la sintassi, applicherà il rientro standard a 2 o 4 spazi ed evidenzierà chiavi e valori per una lettura semplice.",
+            "Se è presente un errore di sintassi, lo strumento contrassegnerà immediatamente la riga e il carattere esatti in cui si è verificato il problema."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "È sicuro incollare qui le chiavi API private o i dati di produzione?",
+          "answer": "Assolutamente. Poiché il nostro formattatore JSON elabora i dati localmente sul tuo dispositivo, le tue risposte API private o i file di configurazione non vengono mai trasmessi su Internet."
+        },
+        {
+          "question": "Cosa fa il validatore JSON?",
+          "answer": "Verifica la presenza di problemi di sintassi come virgolette mancanti, virgole finali o mancate corrispondenze tra parentesi ed evidenzia l'esatta riga di errore in modo da poterla correggere."
+        }
+      ]
+    },
+    "diff-checker": {
+      "title": "Come confrontare file di testo e di codice online",
+      "metaDescription": "Confronta file di testo e codice online con il nostro strumento di verifica delle differenze locale al 100%, basato su browser. Evidenzia istantaneamente le differenze in modo sicuro senza caricare i tuoi dati.",
+      "sections": [
+        {
+          "heading": "Comprendere la necessità di un controllo delle differenze",
+          "level": "h2",
+          "paragraphs": [
+            "Durante la programmazione, la gestione delle configurazioni o la scrittura della documentazione, tenere traccia delle modifiche tra le diverse versioni dei file è una sfida frequente. Il confronto manuale di due documenti riga per riga è lento e altamente soggetto a errori. Un controllo differenze automatizza questo processo eseguendo la scansione di entrambi gli input, identificando le linee aggiunte, cancellate o modificate e evidenziandole visivamente.",
+            "Che tu stia esaminando le modifiche al codice prima di confermarle, confrontando le risposte dell'API JSON o facendo riferimenti incrociati alle configurazioni di testo, un confronto visivo pulito consente di risparmiare tempo prezioso di debug. I tradizionali sistemi di controllo delle differenze online inviano i tuoi dati a server remoti, il che solleva seri problemi di conformità e sicurezza. Ecco perché una soluzione lato client è essenziale."
+          ]
+        },
+        {
+          "heading": "Perché scegliere un controllo differenze lato client?",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools offre un controllo delle differenze basato su browser che elabora tutto direttamente sul tuo computer. Poiché l'applicazione viene eseguita interamente nell'ambiente del browser locale, il codice sorgente, i file di configurazione e il testo privato non attraversano mai la rete. Questo approccio lato client garantisce che i tuoi dati rimangano completamente privati.",
+            "Oltre alla sicurezza, l'elaborazione locale significa zero ritardi di rete. Puoi confrontare file di grandi dimensioni istantaneamente poiché non devi attendere il caricamento dei file o le risposte del server. Lo strumento sfrutta le API Web per eseguire calcoli localmente, offrendoti un'esperienza di editing fluida e reattiva."
+          ]
+        },
+        {
+          "heading": "Funzionalità e modalità di utilizzo dello strumento",
+          "level": "h2",
+          "listItems": [
+            "Incollare e caricare file: copia e incolla il testo nei riquadri originale (a sinistra) e modificato (a destra) oppure carica i file di testo direttamente nell'editor.",
+            "Opzioni di visualizzazione in linea e divisa: scegli tra una visualizzazione a schermo diviso affiancato per un chiaro confronto affiancato o una visualizzazione in linea per visualizzare le modifiche impilate verticalmente.",
+            "Evidenziazione intelligente a livello di parola: il controllo delle differenze non mostra solo le linee modificate; evidenzia modifiche specifiche di caratteri e parole per far risaltare le modifiche sottili."
+          ]
+        },
+        {
+          "heading": "Miglioramento sicuro dei flussi di lavoro degli sviluppatori",
+          "level": "h2",
+          "paragraphs": [
+            "Eliminando il rischio di fuga di dati, gli sviluppatori possono confrontare liberamente variabili di ambiente, algoritmi proprietari e dump sensibili del database. Ciò consente un ciclo di feedback più rapido pur mantenendo la conformità con rigorose policy di sicurezza."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Il mio codice sorgente viene caricato su qualsiasi server durante l'esecuzione di una differenza?",
+          "answer": "No, l'algoritmo di controllo delle differenze viene eseguito interamente nella memoria del tuo browser. Nessun testo viene inviato ai nostri server o archiviato ovunque al di fuori del tuo computer locale."
+        },
+        {
+          "question": "Posso confrontare file di grandi dimensioni con questo strumento?",
+          "answer": "Sì, lo strumento è ottimizzato per confrontare rapidamente file di testo di grandi dimensioni o file di codice sorgente utilizzando algoritmi di differenza efficienti per i browser."
+        },
+        {
+          "question": "Quali formati di file sono supportati per il confronto?",
+          "answer": "Puoi confrontare qualsiasi file di testo semplice, inclusi formati di codice come JavaScript, HTML, CSS, JSON, Python e YAML, incollando direttamente il contenuto."
+        }
+      ]
+    },
+    "jwt-debugger": {
+      "title": "Come decodificare ed eseguire il debug dei token Web JSON (JWT) a livello locale",
+      "metaDescription": "Decodifica ed esegui il debug dei token Web JSON (JWT) in modo sicuro nel tuo browser. Ispeziona localmente i dati di intestazione, payload e firma senza inviare token a un server.",
+      "sections": [
+        {
+          "heading": "Cos'è un token Web JSON e perché ispezionarlo?",
+          "level": "h2",
+          "paragraphs": [
+            "I token Web JSON (JWT) sono ampiamente utilizzati nelle moderne applicazioni Web per trasmettere in modo sicuro i dettagli di autenticazione e autorizzazione tra un client e un server. Un JWT è strutturato come una stringa compatta e sicura per l'URL divisa in tre parti distinte separate da punti: l'intestazione, il payload e la firma. Queste parti sono codificate Base64Url, rendendo il token illeggibile ad occhio nudo.",
+            "Quando creano o eseguono il debug dei flussi di autenticazione, gli sviluppatori spesso devono controllare il contenuto di questi token. Il controllo della data di scadenza, la verifica dei ruoli utente o l'ispezione delle attestazioni personalizzate richiedono la decodifica della stringa Base64Url. L'utilizzo di strumenti online standard può esporre informazioni o credenziali sensibili dell'utente a server di terze parti, creando gravi vulnerabilità della sicurezza."
+          ]
+        },
+        {
+          "heading": "Perché il debug JWT locale è fondamentale per la sicurezza",
+          "level": "h2",
+          "paragraphs": [
+            "Molti decoder JWT pubblici inviano token ai server backend per l'analisi, il che significa che le credenziali di autenticazione, i token di sessione e le attestazioni vengono trasmessi sul Web. Se qualcuno intercetta questi dati o se lo strumento registra i token in entrata, i tuoi account utente potrebbero essere compromessi. ZeroWebTools risolve questo problema eseguendo l'intero processo di decodifica localmente all'interno del tuo browser web.",
+            "Il nostro strumento garantisce che nessun dato token venga mai caricato su un server. La decodifica, la convalida e lo stile dell'intestazione e del payload avvengono istantaneamente utilizzando JavaScript lato client. Questa esecuzione lato client significa che puoi ispezionare token di produzione, sessioni amministrative e ambiti di autorizzazione sensibili in assoluta sicurezza."
+          ]
+        },
+        {
+          "heading": "Come utilizzare il debugger JWT locale",
+          "level": "h2",
+          "listItems": [
+            "Incolla il tuo token: copia il tuo JWT codificato Base64Url e incollalo nell'area di input. Lo strumento lo analizzerà immediatamente senza che tu debba fare clic su Invia.",
+            "Ispeziona intestazione e payload: esamina il payload JSON decodificato, inclusi identificatori utente, tempi di emissione, timestamp di scadenza e ruoli, in visualizzatori strutturati e con sintassi evidenziata.",
+            "Verifica firma: analizza il blocco della firma per comprendere come il token è stato crittografato o firmato, aiutandoti a identificare gli errori di configurazione nel tuo sistema di autenticazione."
+          ]
+        },
+        {
+          "heading": "Ottimizzazione dei flussi di lavoro di autenticazione",
+          "level": "h2",
+          "paragraphs": [
+            "Utilizzando un'utilità veloce lato client, gli sviluppatori possono ispezionare i token in millisecondi. Puoi verificare la struttura del token, gli stati di scadenza e l'accuratezza delle rivendicazioni senza interrompere il flusso di sviluppo o violare le linee guida sulla privacy."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo debugger JWT invia i miei token a un database?",
+          "answer": "Assolutamente no. Il token viene analizzato completamente nella memoria del browser. I tuoi token di autenticazione rimangono privati ​​e non lasciano mai la tua macchina."
+        },
+        {
+          "question": "Posso decodificare i token con payload JSON personalizzati?",
+          "answer": "Sì, lo strumento decodifica qualsiasi JWT codificato Base64Url valido, analizzando la struttura del payload e visualizzandola in un formato JSON pulito e leggibile indipendentemente dalle affermazioni."
+        },
+        {
+          "question": "Lo strumento verifica la firma crittografica del token?",
+          "answer": "Lo strumento decodifica e visualizza i dettagli della firma per aiutarti a controllare le variabili di configurazione, ma tutta l'elaborazione viene eseguita sul lato client per motivi di privacy."
+        }
+      ]
+    },
+    "regex-tester": {
+      "title": "Come testare ed eseguire il debug delle espressioni regolari online",
+      "metaDescription": "Testa ed esegui il debug delle espressioni regolari online con corrispondenza visiva istantanea. Esegui i test completamente nel tuo browser senza caricare stringhe di test o modelli regex.",
+      "sections": [
+        {
+          "heading": "La potenza e la complessità delle espressioni regolari",
+          "level": "h2",
+          "paragraphs": [
+            "Le espressioni regolari (regex) sono strumenti incredibilmente potenti per la corrispondenza dei modelli, l'estrazione dei dati e la convalida dell'input. Dalla convalida degli indirizzi e-mail all'analisi dei log e alla sostituzione di modelli di testo, le espressioni regolari sono un punto fermo nel toolkit di uno sviluppatore. Tuttavia, poiché la sintassi regex è altamente compatta e astratta, scrivere modelli corretti può essere difficile e soggetto a errori.",
+            "Un piccolo errore in un'espressione regolare può portare a bug, colli di bottiglia nelle prestazioni o problemi di sicurezza come il Denial of Service (ReDoS) delle espressioni regolari. Un tester regex dedicato ti consente di scrivere modelli in modo interattivo, inserire testo di esempio e vedere immediatamente i termini corrispondenti evidenziati in tempo reale, rendendo il debug veloce e diretto."
+          ]
+        },
+        {
+          "heading": "Privacy assoluta per i tuoi dati di test",
+          "level": "h2",
+          "paragraphs": [
+            "Molti sviluppatori testano le espressioni regolari utilizzando testo di esempio contenente dati reali, come nomi utente, log, script di configurazione o query di database. Se utilizzi un tester regex remoto basato su server, questi dati sensibili vengono trasmessi su Internet, esponendo la tua proprietà intellettuale o i dati dell'utente. ZeroWebTools esegue il motore regex interamente all'interno del tuo browser.",
+            "Eseguendo il processo di corrispondenza lato client, i tuoi modelli e le stringhe di destinazione non lasceranno mai il tuo dispositivo. Ciò garantisce la completa riservatezza, assicurando che il codice sorgente proprietario, le credenziali del database e le informazioni personali rimangano al sicuro durante il debug."
+          ]
+        },
+        {
+          "heading": "Funzionalità principali del Regex Tester",
+          "level": "h2",
+          "listItems": [
+            "Corrispondenza in tempo reale: visualizza corrispondenze, gruppi di acquisizione e indici aggiornati istantaneamente mentre digiti il ​​modello o modifichi la stringa di test.",
+            "Controllo dei flag Regex: attiva/disattiva facilmente i flag di corrispondenza come Globale (g), Senza distinzione tra maiuscole e minuscole (i), Multilinea (m) e Linea singola (s) per controllare il comportamento dell'espressione.",
+            "Evidenziazione visiva dei gruppi: visualizza i gruppi di acquisizione e non di acquisizione colorati in modo diverso nei risultati per mappare facilmente le strutture di dati corrispondenti."
+          ]
+        },
+        {
+          "heading": "Migliorare la velocità di sviluppo",
+          "level": "h2",
+          "paragraphs": [
+            "Con un tester regex interattivo lato client, puoi eseguire rapidamente iterazioni su pattern, testare casi limite e ottimizzare le espressioni in una frazione del tempo. I cicli di feedback immediati ti aiutano a scrivere codice più pulito e a creare modelli di convalida robusti."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Quale motore regex utilizza questo strumento?",
+          "answer": "Lo strumento utilizza il motore delle espressioni regolari JavaScript nativo nel tuo browser, rendendolo ideale per gli sviluppatori Web e Node.js."
+        },
+        {
+          "question": "I miei modelli regex o le stringhe di test vengono caricati su un server?",
+          "answer": "No, tutta l'elaborazione viene eseguita localmente sul tuo computer. I tuoi dati di test e i modelli di espressione regolare rimangono privati ​​al 100%."
+        },
+        {
+          "question": "Posso utilizzare flag come la ricerca senza distinzione tra maiuscole e minuscole o su più righe?",
+          "answer": "Sì, lo strumento fornisce opzioni per attivare/disattivare i flag regex comuni, consentendoti di personalizzare il comportamento di ricerca esattamente secondo necessità."
+        }
+      ]
+    },
+    "sql-formatter": {
+      "title": "Come formattare e abbellire le query sul dialetto SQL",
+      "metaDescription": "Formatta, abbellisci e allinea le query SQL online. Supporta più dialetti SQL con esecuzione locale al 100% basata su browser per la privacy totale dello schema del database.",
+      "sections": [
+        {
+          "heading": "La sfida delle query SQL non formattate",
+          "level": "h2",
+          "paragraphs": [
+            "Structured Query Language (SQL) è il fondamento della gestione e dell'analisi dei database. Durante lo sviluppo, le query SQL vengono spesso generate dinamicamente da Object-Relational Mapper (ORM) o scritte in stringhe a riga singola per adattarsi ai file di codice. Ciò si traduce in istruzioni SQL dense e illeggibili che sono estremamente difficili da controllare, eseguire il debug o ottimizzare.",
+            "Leggere query complesse con join annidati, sottoquery multiple e numerose istruzioni condizionali è estenuante senza un rientro adeguato. Un formattatore SQL risolve questo problema analizzando automaticamente la struttura della query e applicando rientro, regole di maiuscole e minuscole e interruzioni di riga a parole chiave, clausole e variabili."
+          ]
+        },
+        {
+          "heading": "Protezione dello schema del database e privacy delle query",
+          "level": "h2",
+          "paragraphs": [
+            "Le query SQL possono rivelare una grande quantità di informazioni sensibili, inclusi lo schema del database, le strutture delle tabelle, i nomi delle colonne, le strategie di indicizzazione e persino i parametri di filtro riservati. Il caricamento di queste query su formattatori remoti mette a rischio la sicurezza del sistema. Se viene esposto un registro di un server di terze parti, gli aggressori potrebbero ottenere informazioni dettagliate sulla struttura del database.",
+            "ZeroWebTools garantisce la sicurezza assoluta delle query. Il motore di formattazione SQL viene caricato nel browser ed esegue i calcoli di formattazione localmente. I progetti di schemi e le logiche di query non vengono mai inviati su Internet, consentendoti di formattare le query di produzione in modo sicuro."
+          ]
+        },
+        {
+          "heading": "Funzionalità e flussi di lavoro del formattatore SQL",
+          "level": "h2",
+          "listItems": [
+            "Adattamento dialettale: formatta le query ottimizzate per diversi motori di database come PostgreSQL, MySQL, SQL Server e Oracle.",
+            "Inserimento delle parole chiave: standardizza automaticamente le parole chiave (SELECT, FROM, WHERE, JOIN) in maiuscolo o minuscolo per coerenza.",
+            "Controlli di rientro: allinea sottoquery e clausole in modo pulito, semplificando l'identificazione delle condizioni e l'unione dei vincoli."
+          ]
+        },
+        {
+          "heading": "Accelerazione del debug del database",
+          "level": "h2",
+          "paragraphs": [
+            "La standardizzazione dei layout delle query consente agli sviluppatori di individuare rapidamente difetti di sintassi, errori logici o condizioni di join mancanti. Una query allineata è anche molto più semplice da condividere con i membri del team durante le revisioni del codice o le sessioni di debug."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "La mia query o la struttura del database viene inviata a qualche server?",
+          "answer": "No, il motore di formattazione e analisi viene eseguito interamente sul tuo computer locale, mantenendo lo schema e la logica aziendale completamente riservati."
+        },
+        {
+          "question": "Quali dialetti SQL sono supportati?",
+          "answer": "Il formattatore supporta la sintassi SQL standard nonché regole di formattazione specifiche del dialetto per MySQL, PostgreSQL, Transact-SQL e altro."
+        },
+        {
+          "question": "Questo strumento può minimizzare le query SQL?",
+          "answer": "Sì, lo strumento consente di compattare le istruzioni SQL in formati a riga singola per un incorporamento ottimale nel codice sorgente dell'applicazione."
+        }
+      ]
+    },
+    "startup-equity": {
+      "title": "Come calcolare la maturazione del capitale di avvio",
+      "metaDescription": "Modella le opzioni su azioni di avvio, la diluizione del fondatore e i programmi di maturazione quadriennali. Calcolatore finanziario gratuito per fondatori e primi dipendenti.",
+      "sections": [
+        {
+          "heading": "Comprendere il capitale di avvio e le opzioni su azioni",
+          "level": "h2",
+          "paragraphs": [
+            "Che tu sia un fondatore che si prepara a emettere azioni o un dipendente che sta valutando un’offerta di lavoro, comprendere i calcoli dietro l’equità è assolutamente cruciale.",
+            "Le opzioni su azioni rappresentano una percentuale di proprietà di una società, ma il loro vero valore monetario dipende da diversi fattori complessi: la valutazione attuale della società, il prezzo di esercizio, il numero totale di azioni in circolazione e l'inevitabile diluizione dai futuri cicli di finanziamento."
+          ]
+        },
+        {
+          "heading": "Che cos'è un programma di maturazione?",
+          "level": "h2",
+          "paragraphs": [
+            "È importante sapere che la maggior parte del capitale della startup non ti appartiene immediatamente dopo aver firmato il contratto. È soggetto a quello che viene chiamato un \"programma di maturazione\".",
+            "Lo standard del settore in tecnologia è un giubbotto di 4 anni con un cliff di 1 anno. Ciò significa che se lasci l'azienda prima di 12 mesi, non otterrai assolutamente nulla. Tuttavia, nel tuo esatto anniversario di 1 anno (il precipizio), il 25% delle tue azioni totali matura immediatamente. Successivamente, le azioni rimanenti maturano in modo incrementale ogni singolo mese per i successivi tre anni."
+          ]
+        },
+        {
+          "heading": "Come utilizzare il calcolatore del capitale per prevedere il valore",
+          "level": "h2",
+          "listItems": [
+            "Inserisci la tua concessione di opzioni: inserisci il numero totale di opzioni concesse nella tua lettera di offerta.",
+            "Imposta la sequenza temporale: definisci il tuo programma di maturazione specifico (ad esempio, 48 mesi standard).",
+            "Aggiungi dati di valutazione: inserisci la valutazione attuale stimata della società e il prezzo di esercizio per modellare accuratamente il potenziale valore monetario del tuo capitale.",
+            "Visualizza il tuo futuro: visualizza il grafico interattivo per vedere esattamente quante azioni possiedi e quanto potrebbero valere in un dato mese futuro."
+          ]
+        },
+        {
+          "heading": "L'impatto della diluizione",
+          "level": "h2",
+          "paragraphs": [
+            "Man mano che la tua azienda cresce e raccoglie più capitale di rischio (Serie A, Serie B, ecc.), vengono create ed emesse nuove azioni per gli investitori. Ciò aumenta la torta totale, ma significa che la tua fetta specifica di torta diventa una percentuale inferiore.",
+            "Il nostro strumento ti aiuta a modellare questa diluizione in modo da poter stabilire aspettative realistiche sul pagamento finale delle tue opzioni durante un'acquisizione o una IPO."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Che cos'è un programma di maturazione azionaria standard?",
+          "answer": "Lo standard di settore per le startup tecnologiche è un programma di maturazione di 4 anni con un cliff di 1 anno. Assegni il 25% della tua sovvenzione esattamente a 12 mesi e successivamente 1/48 del mese."
+        },
+        {
+          "question": "Cosa significa diluizione del patrimonio netto?",
+          "answer": "La diluizione si verifica quando una società emette nuove azioni per gli investitori in futuri cicli di finanziamento (ad esempio Serie A, Serie B). Ciò diminuisce la percentuale di proprietà di tutti gli azionisti esistenti, il che significa che le tue opzioni rappresentano una fetta più piccola della società."
+        }
+      ]
+    },
+    "saas-mrr": {
+      "title": "Come prevedere l'MRR SaaS e le proiezioni di crescita",
+      "metaDescription": "Prevedi con precisione l'MRR SaaS, la crescita netta e le proiezioni dei ricavi. Utilizza il nostro calcolatore privato al 100% lato client per una modellazione finanziaria sicura.",
+      "sections": [
+        {
+          "heading": "Comprendere la crescita dei ricavi ricorrenti mensili (MRR).",
+          "level": "h2",
+          "paragraphs": [
+            "Che tu stia avviando un nuovo servizio software o raccogliendo capitale di rischio, comprendere le tue entrate ricorrenti mensili (MRR) è essenziale. L'MRR rappresenta il reddito mensile prevedibile e ricorrente che costituisce il fondamento di qualsiasi modello di business SaaS. Prevedere la composizione di questa metrica nel tempo ti aiuta a prendere decisioni aziendali chiave relative ad assunzioni, budget di marketing e tempistiche di sviluppo del prodotto.",
+            "La crescita del SaaS non significa solo acquisire nuovi clienti; si tratta di un delicato equilibrio tra acquisizione, espansione dei clienti e fidelizzazione. Per proiettare la crescita in modo accurato, è necessario tenere traccia di più variabili, tra cui l'MRR dei nuovi clienti, l'MRR di espansione dei clienti esistenti e l'MRR di abbandono dovuto alle cancellazioni. Insieme, questi elementi determinano la tua traiettoria di crescita netta."
+          ]
+        },
+        {
+          "heading": "I calcoli della crescita composta del SaaS",
+          "level": "h2",
+          "paragraphs": [
+            "Per prevedere le entrate ricorrenti, i modelli finanziari utilizzano ipotesi di crescita capitalizzate su un periodo specifico. Il nuovo MRR netto per un dato mese viene calcolato con la formula: Nuovo MRR netto = Nuovo MRR + MRR di espansione - MRR abbandonato. Quando si effettuano proiezioni in avanti, viene applicato un tasso di crescita mensile all'MRR finale del mese precedente, adeguato in base al tasso di abbandono previsto.",
+            "Ad esempio, iniziando con un MRR di $ 10.000 e ipotizzando un tasso di crescita mensile del 10% insieme a un tasso di abbandono mensile delle entrate del 2%, l'MRR previsto per il mese successivo si aggraverebbe fino a circa $ 10.800. L'esecuzione di queste simulazioni nell'arco di 12-24 mesi offre ai fondatori una chiara tabella di marcia di quando la loro attività raggiungerà traguardi critici, come il pareggio o la positività del flusso di cassa."
+          ]
+        },
+        {
+          "heading": "Come modellare le proiezioni MRR a livello locale",
+          "level": "h2",
+          "listItems": [
+            "Inserisci MRR iniziale: inserisci le entrate ricorrenti mensili attuali come base per la simulazione.",
+            "Definisci tasso di crescita: specifica il tasso di crescita percentuale previsto delle entrate ricorrenti su base mensile.",
+            "Modifica la percentuale di abbandono: imposta il tasso di abbandono mensile previsto, riflettendo le perdite di entrate dovute a cancellazioni o downgrade.",
+            "Analizza le previsioni: esegui il calcolatore lato client per visualizzare la curva di crescita composta e le proiezioni del flusso di cassa."
+          ]
+        },
+        {
+          "heading": "Privacy assoluta per metriche SaaS sensibili",
+          "level": "h2",
+          "paragraphs": [
+            "I dati sui ricavi, i tassi di crescita dei clienti e i tassi di fidelizzazione rappresentano segreti commerciali altamente riservati. L'esposizione di queste informazioni a server di terze parti aumenta i rischi per la sicurezza e la privacy. ZeroWebTools protegge i tuoi dati calcolando tutte le proiezioni MRR interamente nel tuo browser web. Nessun dato viene inviato a server esterni, fornendo un'assoluta garanzia di privacy per i dati finanziari della tua startup."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Qual è la differenza tra MRR e ARR?",
+          "answer": "L'MRR è il ricavo ricorrente mensile, che rappresenta il ricavo ricorrente guadagnato ogni mese. ARR è il ricavo ricorrente annuale, ovvero l'MRR moltiplicato per 12, che mostra il tasso di esecuzione annualizzato della tua attività di abbonamento."
+        },
+        {
+          "question": "Come si calcola la crescita netta dell'MRR?",
+          "answer": "La crescita dell'MRR netto viene calcolata aggiungendo l'MRR di nuovi clienti e l'MRR di espansione dagli upgrade dei clienti esistenti, quindi sottraendo l'MRR abbandonato dalle cancellazioni e dai downgrade."
+        },
+        {
+          "question": "I miei dati finanziari SaaS sono archiviati su ZeroWebTools?",
+          "answer": "No. ZeroWebTools esegue tutti i calcoli lato client all'interno della sandbox del browser. Nessuno dei tuoi input, parametri di proiezione o cifre sulle entrate vengono trasmessi o salvati online."
+        }
+      ]
+    },
+    "mortgage-calculator": {
+      "title": "Come calcolare il piano di ammortamento del mutuo ipotecario",
+      "metaDescription": "Genera un piano di ammortamento del mutuo completo con la suddivisione del capitale e degli interessi. Calcola le rate mensili del tuo prestito in modo sicuro nel tuo browser.",
+      "sections": [
+        {
+          "heading": "Comprendere i piani di ammortamento dei mutui",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si richiede un mutuo per la casa, capire come vengono distribuiti i pagamenti mensili nel tempo è fondamentale per la pianificazione finanziaria a lungo termine. L'ammortamento del mutuo è il processo di estinzione di un debito nel tempo attraverso rate regolari e uguali. Mentre l’importo della rata mensile rimane costante per tutta la durata del prestito, la divisione interna di tale rata cambia dinamicamente ad ogni periodo.",
+            "Nei primi anni di un mutuo, una parte significativa di ogni pagamento serve a ripagare gli interessi maturati, mentre solo una piccola parte riduce il saldo del capitale. Man mano che il saldo del prestito in sospeso diminuisce, gli oneri per interessi si riducono, consentendo a una percentuale maggiore del pagamento di andare direttamente verso il capitale, accelerando l'accumulo di capitale."
+          ]
+        },
+        {
+          "heading": "Le formule dietro l'ammortamento del prestito",
+          "level": "h2",
+          "paragraphs": [
+            "Per determinare la rata mensile fissa, la formula di ammortamento è espressa come: P = L * [r(1+r)^n] / [(1+r)^n - 1]. In questa formula, P rappresenta il pagamento periodico, L è l'importo totale del prestito, r è il tasso di interesse mensile (tasso di interesse annuo diviso per 12) e n è il numero totale di pagamenti mensili nel corso della durata (ad esempio, 360 pagamenti per un mutuo di 30 anni).",
+            "Per ogni periodo di pagamento specifico, la quota di interessi viene calcolata moltiplicando il saldo residuo del prestito per il tasso di interesse mensile. La quota capitale viene quindi calcolata sottraendo gli interessi dal pagamento mensile fisso. Sottraendo la quota capitale dal saldo del prestito in essere si ottiene il nuovo saldo del capitale rimanente per il periodo successivo."
+          ]
+        },
+        {
+          "heading": "Come generare e analizzare il programma di prestito",
+          "level": "h2",
+          "listItems": [
+            "Inserisci l'importo del prestito: inserisci il prezzo di acquisto della casa meno l'acconto per stabilire il capitale iniziale.",
+            "Specifica il tasso di interesse: inserisci la percentuale di interesse annuale offerta dal tuo prestatore.",
+            "Seleziona la durata: scegli la durata del mutuo, in genere 15 o 30 anni.",
+            "Ispeziona la ripartizione: esamina la tabella generata per vedere l'esatta distribuzione del capitale e degli interessi per ogni pagamento."
+          ]
+        },
+        {
+          "heading": "Perché calcolare le pianificazioni dei mutui lato client?",
+          "level": "h2",
+          "paragraphs": [
+            "Il budget per l’acquisto della casa, i dettagli del reddito e la capacità di prestito sono questioni finanziarie altamente personali. Molti calcolatori di mutui online trasmettono i tuoi input a database di terze parti, spesso portando a pubblicità indesiderata o profilazione del target. ZeroWebTools esegue tutti i calcoli di ammortamento lato client. I tuoi input rimangono nel tuo browser, proteggendo completamente la tua privacy finanziaria."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Cos'è un piano di ammortamento?",
+          "answer": "Si tratta di una tabella dettagliata che mostra ogni pagamento periodico di un prestito, evidenziando l'importo esatto destinato agli interessi, l'importo destinato al capitale e il saldo residuo del prestito."
+        },
+        {
+          "question": "In che modo i pagamenti aggiuntivi influiscono sull'ammortamento del mutuo?",
+          "answer": "Effettuare ulteriori pagamenti in capitale riduce il saldo dovuto più rapidamente. Poiché gli interessi vengono calcolati in base al saldo residuo, ciò riduce i costi totali degli interessi e accorcia la durata del prestito."
+        },
+        {
+          "question": "I miei input ipotecari vengono caricati su qualche server?",
+          "answer": "No. ZeroWebTools funziona interamente nel tuo browser web. Tutti i calcoli, le tabelle e i grafici vengono generati localmente senza alcuna elaborazione dei dati lato server."
+        }
+      ]
+    },
+    "cap-table": {
+      "title": "Come modellare una tabella di capitalizzazione di avvio con diluizione",
+      "metaDescription": "Modella la tabella di capitalizzazione della tua startup e simula la diluizione del venture capital dal seed alla Serie A. Calcolatore lato client sicuro e privato per i fondatori.",
+      "sections": [
+        {
+          "heading": "L'importanza strategica di una tabella di capitalizzazione",
+          "level": "h2",
+          "paragraphs": [
+            "Una tabella di capitalizzazione, comunemente nota come tabella cap, è un libro mastro fondamentale che registra la struttura proprietaria della tua startup. Descrive in dettaglio chi possiede quale percentuale della società, comprese le azioni ordinarie detenute dai fondatori, i pool di opzioni riservati ai futuri dipendenti e le azioni privilegiate detenute dai venture capitalist. Per i fondatori, mantenere una tabella precisa dei limiti è essenziale per modellare le future raccolte fondi, valutare gli scenari di uscita e gestire il capitale del team.",
+            "La mancata modellazione accurata della tabella dei limiti può portare a una grave diluizione del fondatore, al disallineamento degli incentivi o a complicazioni legali durante la diligenza delle transazioni. Monitorando il modo in cui cambiano le quote di proprietà attraverso i successivi round di finanziamento, è possibile negoziare le distribuzioni azionarie da una posizione di forza e chiarezza."
+          ]
+        },
+        {
+          "heading": "I meccanismi della diluizione del capitale",
+          "level": "h2",
+          "paragraphs": [
+            "La diluizione si verifica quando una società emette nuove azioni per attirare nuovi investitori, con il risultato che gli azionisti esistenti possiedono una percentuale minore della società. La percentuale di proprietà viene calcolata utilizzando la formula: % di proprietà = Azioni possedute / Azioni totali in circolazione. Quando si modella un nuovo round di finanziamento, la valutazione e l’importo dell’investimento determinano quante nuove azioni devono essere coniate.",
+            "Ad esempio, se una società raccoglie un round di serie A di 2 milioni di dollari su una valutazione pre-money di 8 milioni di dollari, la valutazione post-money diventa di 10 milioni di dollari. I nuovi investitori deterranno il 20% della società e le percentuali di proprietà di tutti gli azionisti preesistenti diminuiranno del 20%. L’integrazione dei pool di opzioni dei dipendenti e delle conversioni SAFE aggiunge complessità a questi calcoli, richiedendo strumenti di modellazione robusti."
+          ]
+        },
+        {
+          "heading": "Modellare in modo sicuro la tabella dei limiti di avvio",
+          "level": "h2",
+          "listItems": [
+            "Definisci l'equità del fondatore: inserisci le assegnazioni iniziali delle azioni per ciascun cofondatore per stabilire la proprietà iniziale.",
+            "Metti da parte i pool di opzioni: aggiungi una percentuale del pool di opzioni per i dipendenti per comprenderne l'impatto diluitivo pre-round.",
+            "Simulazione di cicli di investimento: inserisci le valutazioni pre-money e le dimensioni degli investimenti per vedere come i nuovi finanziamenti diluiscono i detentori esistenti.",
+            "Analizzare la tavola post-rotonda: rivedere i conteggi aggiornati delle azioni e la percentuale di proprietà di tutte le parti interessate."
+          ]
+        },
+        {
+          "heading": "Privacy assoluta per la tua struttura di capitale",
+          "level": "h2",
+          "paragraphs": [
+            "La tabella dei limiti di una startup contiene dati altamente sensibili, inclusi nomi dei fondatori, conteggio delle azioni individuali e termini di valutazione riservati. Il caricamento di queste informazioni sui database cloud espone la tua startup a vulnerabilità della sicurezza e esposizione non autorizzata. ZeroWebTools elabora tutta la modellazione delle maiuscole localmente nel tuo browser web. Nessun dato sulla struttura azionaria lascia mai il tuo computer, garantendo la totale riservatezza."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Qual è la differenza tra valutazione pre-money e post-money?",
+          "answer": "La valutazione pre-money è il valore concordato della startup prima di ricevere un nuovo investimento. La valutazione post-money è la valutazione pre-money più l’importo totale del nuovo capitale investito."
+        },
+        {
+          "question": "In che modo un pool di opzioni per i dipendenti influisce sui fondatori?",
+          "answer": "La creazione o l’espansione di un pool di opzioni per i dipendenti prima di un round di finanziamento diluisce i fondatori e gli azionisti esistenti, piuttosto che gli investitori entranti, a seconda dei termini di investimento concordati."
+        },
+        {
+          "question": "I dati della tabella dei limiti della mia azienda vengono salvati online?",
+          "answer": "No. ZeroWebTools viene eseguito al 100% nel browser utilizzando JavaScript lato client. Nessuno dei parametri della tabella dei limiti o dei nomi delle parti interessate viene mai inviato a server esterni."
+        }
+      ]
+    },
+    "saas-ltv": {
+      "title": "Come calcolare l'LTV del cliente SaaS e l'efficienza CAC",
+      "metaDescription": "Calcola il valore della vita del cliente SaaS (LTV), il costo di acquisizione del cliente (CAC) e il rapporto LTV:CAC. Calcolatore lato client gratuito per startup in abbonamento.",
+      "sections": [
+        {
+          "heading": "Sblocco dell'economia dell'unità SaaS",
+          "level": "h2",
+          "paragraphs": [
+            "Per le aziende di software in abbonamento, l’economia unitaria funge da indicatore definitivo della salute finanziaria e dell’efficienza della crescita. Due parametri sono al centro di questa analisi: Customer Lifetime Value (LTV) e Customer Acquisition Cost (CAC). LTV stima il profitto lordo totale che ti aspetti di generare da un singolo cliente nel corso del suo rapporto con la tua attività, mentre CAC rappresenta la spesa media richiesta per acquisire un nuovo cliente.",
+            "Valutare questi parametri isolatamente è utile, ma analizzare la loro relazione è il punto in cui i fondatori trovano chiarezza strategica. Il rapporto tra LTV e CAC rivela se il tuo motore di crescita è efficiente e sostenibile. Un modello economico unitario sano consente alle startup di ridimensionare i budget di marketing con sicurezza, sapendo che ogni nuovo dollaro speso produce rendimenti redditizi a lungo termine."
+          ]
+        },
+        {
+          "heading": "Formule per LTV, CAC e periodo di rimborso",
+          "level": "h2",
+          "paragraphs": [
+            "Per calcolare il LTV è necessario comprendere i ricavi, il margine e il tasso di abbandono. La formula standard è: LTV = (ARPU * Margine lordo %) / Tasso di abbandono mensile, dove ARPU è il ricavo medio per utente. Il CAC viene calcolato dividendo le spese totali di vendita e marketing per il numero di nuovi clienti acquisiti durante lo stesso periodo: CAC = Spesa totale di marketing/Clienti acquisiti.",
+            "Il rapporto LTV:CAC viene quindi trovato dividendo LTV per CAC. Il punto di riferimento accettato dal settore per un business SaaS sano è 3:1 o superiore. Inoltre, il calcolo del periodo di rimborso del CAC (CAC / [ARPU * Margine lordo %]) indica quanti mesi sono necessari affinché un cliente generi un profitto lordo sufficiente per recuperare i costi di acquisizione."
+          ]
+        },
+        {
+          "heading": "Come modellare l'economia unitaria offline",
+          "level": "h2",
+          "listItems": [
+            "Inserisci ARPU e margini: inserisci il prezzo medio di abbonamento e la percentuale di margine lordo del tuo servizio.",
+            "Definisci abbandono e CAC: inserisci il tasso di abbandono mensile dei clienti insieme al costo medio di acquisizione dei clienti.",
+            "Controlla il rapporto LTV:CAC: visualizza il rapporto calcolato per determinare se i costi economici della tua unità soddisfano i parametri di riferimento del settore.",
+            "Esamina le metriche di recupero: osserva quanti mesi sono necessari per pareggiare le spese di marketing e vendita."
+          ]
+        },
+        {
+          "heading": "Proteggi i tuoi clienti e le metriche di marketing",
+          "level": "h2",
+          "paragraphs": [
+            "I dettagli sui budget di marketing, sui costi di acquisizione dei clienti e sui tassi di abbandono sono metriche proprietarie sensibili. Condividerli con piattaforme online o calcolatori cloud espone il tuo modello di business a rischi di intelligence competitiva. ZeroWebTools protegge i tuoi dati calcolando le metriche LTV e CAC localmente nel tuo browser. Tutti gli input rimangono in memoria e non vengono mai caricati su nessun server."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Qual è un buon rapporto LTV:CAC per SaaS?",
+          "answer": "Un rapporto di 3:1 è considerato il punto di riferimento salutare per le startup SaaS. Rapporti inferiori a 3:1 indicano costi elevati di acquisizione dei clienti, mentre rapporti superiori a 5:1 suggeriscono investimenti insufficienti nella crescita."
+        },
+        {
+          "question": "Perché il margine lordo è incluso nei calcoli dell'LTV?",
+          "answer": "Utilizzando le entrate invece del margine lordo si sovrastima l’LTV. Per misurare il vero contributo finanziario, il LTV deve riflettere il profitto effettivo generato dopo aver sottratto i costi per fornire il servizio."
+        },
+        {
+          "question": "I dati relativi alle mie spese di marketing vengono archiviati online?",
+          "answer": "No. Tutti i calcoli finanziari vengono eseguiti localmente all'interno del tuo browser web, garantendo che i costi di acquisizione, i margini e i tassi di abbandono rimangano completamente privati."
+        }
+      ]
+    },
+    "break-even": {
+      "title": "Come calcolare il punto di pareggio aziendale offline",
+      "metaDescription": "Trova il punto di pareggio della tua attività in unità e dollari di vendita. Calcolatore lato client offline e sicuro per aziende di vendita al dettaglio, SaaS e di servizi.",
+      "sections": [
+        {
+          "heading": "Comprendere il punto di pareggio aziendale",
+          "level": "h2",
+          "paragraphs": [
+            "Ogni imprenditore, che gestisca un negozio al dettaglio locale, un'agenzia digitale o un'azienda SaaS, deve identificare la soglia in cui la propria attività diventa redditizia. Il punto di pareggio è il volume preciso delle vendite in corrispondenza del quale i ricavi totali equivalgono ai costi operativi totali. A questo punto, l’azienda genera un utile netto pari a zero, ma subisce anche una perdita finanziaria pari a zero.",
+            "Condurre un'analisi di pareggio è un passaggio essenziale nella pianificazione aziendale. Ti aiuta a impostare i prezzi dei prodotti, valutare la fattibilità, definire le quote di vendita mensili e determinare in che modo le modifiche alle spese generali fisse o ai costi di produzione influiranno sui profitti."
+          ]
+        },
+        {
+          "heading": "Le formule per il calcolo del break-even",
+          "level": "h2",
+          "paragraphs": [
+            "Per calcolare il punto di pareggio, è necessario classificare le spese in costi fissi e costi variabili. I costi fissi sono spese generali che rimangono costanti indipendentemente dal volume delle vendite, come l'affitto e gli stipendi. I costi variabili fluttuano direttamente con il volume delle vendite, come i materiali di produzione e le spese di spedizione. Il margine di contribuzione per unità è calcolato come: Prezzo di vendita unitario - Costo variabile per unità.",
+            "Il punto di pareggio in unità viene calcolato utilizzando la formula: Unità di pareggio = Costi fissi / Margine di contribuzione per unità. Per esprimere questo valore in ricavi di vendita totali anziché in unità fisiche, utilizzare la formula: Vendite di pareggio = Costi fissi/Rapporto margine di contribuzione, dove il rapporto è il margine di contribuzione diviso per il prezzo di vendita unitario."
+          ]
+        },
+        {
+          "heading": "Come simulare scenari di redditività",
+          "level": "h2",
+          "listItems": [
+            "Inserisci costi fissi: inserisci tutte le spese generali ricorrenti, inclusi stipendi, affitto, assicurazioni e utenze.",
+            "Prezzo unitario di input: specifica il prezzo al quale vendi una singola unità del tuo prodotto o servizio.",
+            "Inserisci costi variabili: inserisci il costo di produzione o consegna di una singola unità del tuo prodotto o servizio.",
+            "Analizzare il volume di pareggio: rivedere il numero minimo di unità e i ricavi di vendita richiesti per coprire le spese."
+          ]
+        },
+        {
+          "heading": "Mantieni riservate le tue strategie finanziarie",
+          "level": "h2",
+          "paragraphs": [
+            "Le strutture dei costi aziendali, le spese delle materie prime e i modelli di prezzo dei prodotti sono altamente proprietari. L'inserimento di queste cifre negli strumenti del cloud pubblico espone i tuoi dati operativi a rischi di sicurezza e spionaggio. ZeroWebTools esegue tutti i calcoli di pareggio localmente sul tuo dispositivo. I tuoi dati finanziari sensibili non vengono mai inviati online, garantendo la massima riservatezza."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Qual è la differenza tra costi fissi e variabili?",
+          "answer": "I costi fissi sono spese generali costanti (ad esempio, affitto, buste paga) che non cambiano con il volume di produzione. I costi variabili sono direttamente legati al volume di produzione (ad esempio, materie prime, commissioni di pagamento)."
+        },
+        {
+          "question": "Come posso abbassare il punto di pareggio della mia azienda?",
+          "answer": "Puoi abbassare il tuo punto di pareggio riducendo le spese generali operative fisse, minimizzando i costi variabili per unità o aumentando il prezzo unitario del tuo prodotto."
+        },
+        {
+          "question": "I dati sui costi della mia azienda sono al sicuro su ZeroWebTools?",
+          "answer": "SÌ. Il calcolatore utilizza puro codice lato client per calcolare il punto di pareggio. Nessun dato viene archiviato, tracciato o trasmesso a nessun server esterno."
+        }
+      ]
+    },
+    "base64-encoder": {
+      "title": "Come codificare e decodificare testo e file Base64 online",
+      "metaDescription": "Codifica e decodifica testo o file in Base64 nel tuo browser. Uno strumento privato al 100% lato client con elaborazione locale istantanea e nessun caricamento sul server.",
+      "sections": [
+        {
+          "heading": "Cos'è la codifica Base64 e perché viene utilizzata?",
+          "level": "h2",
+          "paragraphs": [
+            "La codifica Base64 è uno schema di codifica da binario a testo ampiamente utilizzato. Traduce dati binari arbitrari, come immagini, file o caratteri non ASCII, in un set di 64 caratteri ASCII. Questa traduzione consente di trasmettere in modo sicuro i dati su supporti progettati per gestire solo testo semplice, come corpi di posta elettronica, payload JSON o documenti XML.",
+            "Per gli sviluppatori, Base64 è essenziale per incorporare piccole immagini direttamente nei fogli di stile CSS o nei file HTML, trasmettere credenziali di autorizzazione o trasmettere payload arbitrari tramite API basate su testo. Al contrario, è necessaria la decodifica di Base64 nel suo testo originale o nella sua rappresentazione binaria per ispezionare o consumare questo carico utile."
+          ]
+        },
+        {
+          "heading": "Elaborazione completa lato client per dati sensibili",
+          "level": "h2",
+          "paragraphs": [
+            "Molti codificatori e decodificatori online trasmettono i tuoi input a un server remoto. Se stai codificando dati sensibili, come chiavi API, credenziali client o testo di configurazione privato, l'invio di queste informazioni a server di terze parti ti espone a minacce alla sicurezza. ZeroWebTools fornisce un codificatore e decodificatore Base64 lato client locale al 100%.",
+            "Le operazioni di codifica e decodifica vengono eseguite interamente all'interno del browser Web utilizzando API JavaScript lato client. Nessun dato viene inviato in rete, garantendo che i tuoi input riservati, token API e file rimangano privati ​​e sicuri."
+          ]
+        },
+        {
+          "heading": "Caratteristiche principali dello strumento Base64",
+          "level": "h2",
+          "listItems": [
+            "Design a doppio scopo: passa facilmente dalla codifica del testo non elaborato alla decodifica delle stringhe Base64 utilizzando un'interfaccia pulita.",
+            "Supporto per la codifica dei file: carica piccoli file, immagini o documenti per ottenere immediatamente la rappresentazione dell'URL dei dati Base64 senza alcuna memorizzazione sul server.",
+            "Esecuzione istantanea: i risultati vengono calcolati in tempo reale mentre digiti o selezioni un file, fornendo un feedback immediato."
+          ]
+        },
+        {
+          "heading": "Miglioramento dei flussi di lavoro degli sviluppatori",
+          "level": "h2",
+          "paragraphs": [
+            "Eliminando le richieste di rete, puoi codificare o decodificare istantaneamente testo o file in blocco. L'eliminazione della comunicazione con il server rende questo strumento altamente reattivo e completamente funzionale offline, allineandosi ai moderni requisiti di conformità di sicurezza."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "I miei dati vengono inviati a un server quando li codifico su Base64?",
+          "answer": "No. I calcoli di codifica e decodifica vengono eseguiti localmente all'interno del tuo browser web. I tuoi input non vengono mai trasmessi."
+        },
+        {
+          "question": "Posso convertire le immagini in Base64 con questo strumento?",
+          "answer": "Sì, puoi caricare piccoli file o immagini per generare i corrispondenti URL di dati Base64 per l'incorporamento diretto nel codice."
+        },
+        {
+          "question": "Base64 è una forma di crittografia sicura?",
+          "answer": "No, Base64 è solo un formato di codifica per convertire i dati binari in testo. Non crittografa né nasconde i dati a qualcuno che cerca di accedervi."
+        }
+      ]
+    },
+    "url-encoder": {
+      "title": "Come codificare e decodificare gli URL online",
+      "metaDescription": "Codifica e decodifica i parametri URL in modo sicuro. Converti caratteri speciali e stringhe di query localmente nel tuo browser con completa privacy e zero lag.",
+      "sections": [
+        {
+          "heading": "Comprensione della codifica URL e della codifica percentuale",
+          "level": "h2",
+          "paragraphs": [
+            "La codifica URL, nota anche come codifica percentuale, è un meccanismo per convertire caratteri arbitrari in un formato che può essere trasmesso in modo sicuro su Internet. La specifica URI (Uniform Resource Identifier) ​​definisce determinati caratteri come riservati (come ?, &, = e /) perché portano un significato sintattico all'interno di un URL.",
+            "Quando è necessario passare dati contenenti questi caratteri all'interno dei parametri di query, è necessario codificarli. Ad esempio, uno spazio diventa %20 e un punto interrogativo diventa %3F. La standardizzazione di questi valori di query impedisce ai browser e ai server di interpretare erroneamente gli URL e di interrompere il comportamento dell'applicazione."
+          ]
+        },
+        {
+          "heading": "Perché la privacy è importante per i parametri URL",
+          "level": "h2",
+          "paragraphs": [
+            "I parametri di query contengono spesso dati sensibili, inclusi indirizzi e-mail, token di sessione, dettagli utente o ID di monitoraggio. L'utilizzo di strumenti di codifica basati su server espone queste informazioni sensibili a registri di terze parti. ZeroWebTools garantisce la completa privacy eseguendo localmente la logica di codifica e decodifica.",
+            "Il processo di conversione viene eseguito interamente nella memoria del tuo browser. Evitando le chiamate ai server esterni, proteggi i tuoi dati dalle intercettazioni e rispetti le rigide linee guida aziendali sulla privacy, il tutto godendo di prestazioni istantanee e senza ritardi."
+          ]
+        },
+        {
+          "heading": "Utilizzo del codificatore/decodificatore URL",
+          "level": "h2",
+          "listItems": [
+            "Conversione istantanea del testo: incolla i tuoi parametri grezzi per codificarli o incolla una query URL codificata per decodificarla nuovamente in testo semplice.",
+            "Conformità agli standard: lo strumento gestisce gli schemi di codifica standard (incluso RFC 3986), garantendo la compatibilità su tutti i server Web moderni.",
+            "Pulizia visiva: un'interfaccia pulita che formatta input e output separatamente, consentendoti di copiare rapidamente i risultati negli appunti."
+          ]
+        },
+        {
+          "heading": "Ottimizzazione dei flussi di lavoro di sviluppo Web",
+          "level": "h2",
+          "paragraphs": [
+            "Genera rapidamente parametri di query ben formati per richieste API, reindirizzamenti o configurazioni webhook. Avere uno strumento locale istantaneo a portata di mano accelera il debug e garantisce che i parametri siano formattati correttamente per i sistemi backend."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo strumento registra i parametri che codifico?",
+          "answer": "No. Poiché l'applicazione viene eseguita al 100% lato client, le stringhe di input e i parametri URL non vengono mai inviati ai nostri server o registrati."
+        },
+        {
+          "question": "Qual è la differenza tra codifica e decodifica dell'URL?",
+          "answer": "La codifica converte i caratteri speciali in formati con codifica percentuale, mentre la decodifica traduce tali codici in caratteri leggibili dall'uomo."
+        },
+        {
+          "question": "Posso formattare un URL completo con questo strumento?",
+          "answer": "Sì, puoi incollare URL completi con stringhe di query per codificare parametri specifici o decodificare l'intero indirizzo per un'ispezione più semplice."
+        }
+      ]
+    },
+    "file-hasher": {
+      "title": "Come calcolare gli hash e i checksum dei file offline",
+      "metaDescription": "Calcola gli hash dei file e i checksum crittografici (SHA-256, MD5) localmente nel tuo browser. Verifica l'integrità dei file in privato senza caricare file.",
+      "sections": [
+        {
+          "heading": "L'importanza degli hash e dei checksum dei file",
+          "level": "h2",
+          "paragraphs": [
+            "Un hash di file, o checksum, è una stringa crittografica univoca generata dal contenuto di un file utilizzando una funzione hash. Gli algoritmi di hashing comuni includono SHA-256, SHA-1 e MD5. Poiché le funzioni hash sono deterministiche, anche una piccola modifica in un file, come un singolo carattere modificato, produrrà un valore di checksum completamente diverso.",
+            "Questa proprietà rende gli hash dei file preziosi per verificare l'integrità e l'autenticità dei file. Quando scaricano software, immagini del sistema operativo o patch di sicurezza, gli sviluppatori controllano l'hash del file rispetto al checksum ufficiale fornito dall'editore per garantire che il file non sia stato danneggiato o manomesso da soggetti malintenzionati."
+          ]
+        },
+        {
+          "heading": "Privacy assoluta con hashing locale al 100%.",
+          "level": "h2",
+          "paragraphs": [
+            "I tradizionali hash di file online richiedono che tu carichi i tuoi file sui loro server, dove viene calcolato l'hash. Se stai verificando documenti sensibili, codice sorgente privato o file di dati personali, caricarli comporta un grave rischio per la sicurezza e la privacy. ZeroWebTools calcola gli hash crittografici direttamente nel tuo browser.",
+            "Il nostro strumento sfrutta l'API Web Crypto del browser per elaborare i file localmente. Ciò significa che i tuoi file non lasciano mai il tuo dispositivo. Puoi verificare immagini di sistema di grandi dimensioni o archivi di codici riservati in modo privato e sicuro, senza caricare un singolo byte su Internet."
+          ]
+        },
+        {
+          "heading": "Come calcolare i checksum in modo sicuro",
+          "level": "h2",
+          "listItems": [
+            "Seleziona il tuo file: trascina e rilascia il file di destinazione direttamente nel riquadro del browser oppure selezionalo utilizzando l'esplora file nativo.",
+            "Seleziona algoritmo: scegli tra una varietà di algoritmi crittografici sicuri tra cui SHA-256, SHA-512, SHA-1 e MD5.",
+            "Confronta checksum: confronta istantaneamente l'hash generato con un checksum di riferimento per verificare la validità del file."
+          ]
+        },
+        {
+          "heading": "Massimizzare velocità ed efficienza",
+          "level": "h2",
+          "paragraphs": [
+            "Poiché i file vengono elaborati localmente, la velocità è limitata solo dall'unità di archiviazione e dal processore del tuo computer. Non ci sono code di caricamento lente, consentendoti di eseguire l'hashing di gigabyte di dati in pochi secondi, anche quando lavori completamente offline."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo hash di file carica i miei file su qualsiasi server?",
+          "answer": "No. I file vengono letti localmente dal tuo browser utilizzando le API JavaScript. L'hashing viene eseguito sul tuo computer, garantendo la totale privacy dei file."
+        },
+        {
+          "question": "Posso eseguire l'hashing di file di grandi dimensioni con questo strumento?",
+          "answer": "Sì, lo strumento utilizza la lettura di file in blocchi per gestire file di grandi dimensioni in modo efficiente, evitando arresti anomali del browser o sovraccarico di memoria elevato."
+        },
+        {
+          "question": "Quale algoritmo hash è consigliato per la sicurezza?",
+          "answer": "SHA-256 è lo standard del settore per la verifica dell'integrità e la sicurezza crittografica, mentre MD5 è utile per i controlli dei sistemi legacy."
+        }
+      ]
+    },
+    "password-generator": {
+      "title": "Come generare password casuali sicure online",
+      "metaDescription": "Genera password sicure e crittograficamente casuali online. Personalizza lunghezza e caratteri localmente nel tuo browser con il 100% di privacy.",
+      "sections": [
+        {
+          "heading": "Perché le password forti e casuali sono essenziali",
+          "level": "h2",
+          "paragraphs": [
+            "Con l’aumento delle minacce informatiche e degli attacchi automatizzati di credential stuffing, la protezione degli account online richiede password uniche e ad alta entropia. L'utilizzo di modelli deboli, stringhe sequenziali o il riutilizzo di password su più siti è la principale causa di violazioni della sicurezza. Una password robusta deve essere del tutto casuale, in modo che sia impossibile da indovinare per gli aggressori.",
+            "Per essere efficaci, le password dovrebbero combinare lettere maiuscole e minuscole, numeri e simboli speciali evitando schemi prevedibili. Un generatore di password dedicato lo automatizza, producendo stringhe complesse che soddisfano severi requisiti di sicurezza e proteggono le tue identità digitali."
+          ]
+        },
+        {
+          "heading": "Sicurezza crittografica e privacy completa",
+          "level": "h2",
+          "paragraphs": [
+            "La generazione di password utilizzando un server Web remoto rappresenta un serio rischio per la sicurezza. Se il server registra le query o è compromesso, le credenziali appena generate potrebbero essere esposte. ZeroWebTools garantisce la sicurezza assoluta generando tutte le password localmente nel tuo browser web.",
+            "Lo strumento utilizza il generatore di numeri pseudo-casuali crittograficamente sicuro del browser (CSPRNG) tramite l'API Web Crypto. Ciò garantisce che le password generate abbiano la massima casualità e non vengano mai trasmesse su Internet o salvate in alcun database."
+          ]
+        },
+        {
+          "heading": "Come personalizzare e generare password",
+          "level": "h2",
+          "listItems": [
+            "Imposta lunghezza password: regola il dispositivo di scorrimento per definire la lunghezza della password, con un minimo consigliato di 16 caratteri per una maggiore sicurezza.",
+            "Scegli set di caratteri: attiva o disattiva l'inclusione di lettere maiuscole, lettere minuscole, numeri e simboli speciali secondo necessità.",
+            "Evita caratteri simili: esclude facoltativamente i caratteri che si assomigliano (come 1, l, O e 0) per evitare errori di battitura."
+          ]
+        },
+        {
+          "heading": "Gestione sicura delle credenziali",
+          "level": "h2",
+          "paragraphs": [
+            "Generando credenziali localmente, puoi creare password complesse per server, utenti di database e account sensibili. La copia di queste stringhe direttamente nel tuo gestore di password garantisce una configurazione sicura, privata ed efficiente."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Le password generate vengono salvate su ZeroWebTools?",
+          "answer": "No, la logica di generazione viene eseguita interamente nel runtime del tuo browser. Non memorizziamo, tracciamo o non abbiamo accesso ad alcuna password generata."
+        },
+        {
+          "question": "Cosa rende una password crittograficamente sicura?",
+          "answer": "L'uso di un CSPRNG garantisce che i caratteri della password vengano scelti con elevata casualità, rendendoli statisticamente impossibili da prevedere o forzare."
+        },
+        {
+          "question": "Perché dovrei escludere caratteri simili?",
+          "answer": "L'esclusione di caratteri ambigui come \"O\" e \"0\" o \"l\" e \"1\" impedisce confusione quando è necessario leggere o digitare manualmente la password."
+        }
+      ]
+    },
+    "css-box-shadow": {
+      "title": "Come generare visivamente le ombre dei riquadri CSS",
+      "metaDescription": "Crea visivamente bellissime ombre di riquadri CSS con il nostro generatore interattivo in tempo reale. Esporta istantaneamente codice CSS pulito con rendering locale al 100%.",
+      "sections": [
+        {
+          "heading": "Miglioramento della progettazione dell'interfaccia utente con le ombre dei riquadri CSS",
+          "level": "h2",
+          "paragraphs": [
+            "Nel web design moderno, sottili segnali visivi rendono le interfacce più raffinate e intuitive. La proprietà CSS box-shadow è uno strumento chiave per creare profondità, stratificazione e separazione tra gli elementi della pagina. Aggiungendo ombre a schede, pulsanti, modalità e barre di navigazione, gli sviluppatori possono stabilire una chiara gerarchia visiva.",
+            "Tuttavia, scrivere manualmente i valori box-shadow può essere un processo frustrante di tentativi ed errori. La proprietà accetta più parametri, tra cui offset orizzontale, offset verticale, raggio di sfocatura, raggio di diffusione, colore e parole chiave inserite. La regolazione manuale di questi valori all'interno dei file di codice rende difficile visualizzare immediatamente l'anteprima delle modifiche."
+          ]
+        },
+        {
+          "heading": "Editing visivo interattivo nel tuo browser",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools fornisce un generatore visivo di ombre di riquadri che semplifica questo processo di progettazione. I cursori ti consentono di regolare l'offset, la sfocatura, la diffusione e l'opacità delle ombre in tempo reale. Una scheda di anteprima interattiva si aggiorna immediatamente, consentendoti di vedere come le modifiche influiscono sugli elementi prima di copiare il codice.",
+            "L'intero strumento viene eseguito localmente nel tuo browser, il che significa che tutto il rendering e la generazione di CSS avvengono sul tuo dispositivo. Non c'è latenza del server, offrendo un'esperienza di modifica altamente reattiva e fluida che funziona offline e mantiene privati ​​i flussi di lavoro di progettazione."
+          ]
+        },
+        {
+          "heading": "Caratteristiche principali del generatore di ombre della casella CSS",
+          "level": "h2",
+          "listItems": [
+            "Cursori in tempo reale: controlla gli spostamenti orizzontali e verticali, il raggio di sfocatura e le dimensioni di diffusione utilizzando cursori fluidi e reattivi.",
+            "Controlli di colore e opacità: seleziona i colori delle ombre e regola i livelli di opacità con un selettore di colori integrato per un'integrazione perfetta.",
+            "Esportazione CSS istantanea: lo strumento genera codice CSS standard e pulito, inclusi i prefissi dei fornitori, pronto per essere copiato e incollato."
+          ]
+        },
+        {
+          "heading": "Aumentare l'efficienza del frontend",
+          "level": "h2",
+          "paragraphs": [
+            "Eliminando la codifica manuale, puoi progettare, visualizzare in anteprima ed esportare le ombre dei riquadri in pochi secondi. Questo flusso di lavoro accelerato aiuta gli sviluppatori e i progettisti frontend ad abbinare accuratamente le specifiche di layout e a creare esperienze utente coerenti."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo strumento supporta più ombre?",
+          "answer": "Sì, il generatore visivo ti consente di impilare e personalizzare più livelli d'ombra, esportando istantaneamente il valore CSS combinato."
+        },
+        {
+          "question": "Posso generare ombre inserite?",
+          "answer": "Sì, puoi attivare/disattivare l'opzione di inserto per applicare ombre all'interno della cornice dell'elemento, utile per input o pulsanti di moduli."
+        },
+        {
+          "question": "Il CSS esportato è compatibile con tutti i browser?",
+          "answer": "Sì, lo strumento genera codice box-shadow CSS standardizzato supportato da tutti i browser Web moderni, con helper di fallback opzionali."
+        }
+      ]
+    },
+    "unix-timestamp-converter": {
+      "title": "Come convertire il timestamp Unix in una data leggibile dall'uomo",
+      "metaDescription": "Converti timestamp Unix in date leggibili dall'uomo e viceversa. Un convertitore di epoche veloce, privato al 100%, basato su browser, che funziona in tempo reale.",
+      "sections": [
+        {
+          "heading": "Cos'è un timestamp Unix e come funziona?",
+          "level": "h2",
+          "paragraphs": [
+            "Un timestamp Unix, noto anche come tempo POSIX o tempo epoca, è un sistema per tenere traccia del tempo rappresentato come un singolo numero intero. Misura il numero totale di secondi (o millisecondi) trascorsi dall'epoca Unix, avvenuta alle 00:00:00 UTC del 1 gennaio 1970. Questo sistema è ampiamente utilizzato negli schemi di database, nei log, nelle API e nei file system.",
+            "Sebbene i timestamp interi siano ideali per server e calcoli di programmazione, sono illeggibili per gli esseri umani. La conversione di un numero intero epoch (come 1774915200) in un formato di data e ora standard è necessaria per eseguire il debug dei record del database, controllare le intestazioni API o analizzare i file di registro."
+          ]
+        },
+        {
+          "heading": "Perché utilizzare un convertitore di epoca locale?",
+          "level": "h2",
+          "paragraphs": [
+            "I file di registro e i dump del database spesso contengono informazioni sensibili, inclusi timestamp dell'attività dell'utente, eventi di sistema e registri dei pagamenti. L'elaborazione di questi timestamp tramite strumenti lato server può esporre dettagli di telemetria o diagnostica. ZeroWebTools esegue tutte le conversioni di timestamp localmente.",
+            "Il convertitore viene eseguito interamente nel tuo browser utilizzando gli oggetti Date nativi di JavaScript. Questa esecuzione lato client fa sì che i registri eventi, i timestamp e i dati relativi alle date target non lascino mai il tuo dispositivo, garantendo una privacy completa e fornendo risultati istantanei."
+          ]
+        },
+        {
+          "heading": "Funzionalità di conversione e personalizzazione",
+          "level": "h2",
+          "listItems": [
+            "Conversione bidirezionale: converte i timestamp Unix in date leggibili e riconverte facilmente le date del calendario in numeri interi di epoche.",
+            "Regolazioni del fuso orario: visualizza le date convertite nel fuso orario del sistema locale e nel tempo universale coordinato (UTC) per il debug.",
+            "Supporto formato: gestisce automaticamente sia i formati epoch standard basati sui secondi (10 cifre) che quelli basati sui millisecondi (13 cifre)."
+          ]
+        },
+        {
+          "heading": "Semplificazione della diagnostica del sistema",
+          "level": "h2",
+          "paragraphs": [
+            "Un'utilità di timestamp istantanea lato client consente agli sviluppatori e agli amministratori di sistema di analizzare rapidamente i registri delle applicazioni, analizzare le intestazioni API e verificare la pianificazione del database. Lo strumento fornisce un'interfaccia utente pulita per conversioni rapide e offline."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo convertitore carica i registri di timestamp su qualsiasi server?",
+          "answer": "No, tutta la logica di conversione viene eseguita localmente nel tuo browser web. Nessun input di timestamp o dettaglio di registro viene mai inviato ai nostri server."
+        },
+        {
+          "question": "In che modo lo strumento gestisce i millisecondi?",
+          "answer": "Il convertitore rileva automaticamente se il tuo input è in secondi o millisecondi e applica la logica di decodifica appropriata."
+        },
+        {
+          "question": "Posso riconvertire una data in un timestamp Unix?",
+          "answer": "Sì, lo strumento è dotato di supporto bidirezionale, che consente di selezionare la data e l'ora del calendario e ottenere immediatamente il valore dell'epoca Unix."
+        }
+      ]
+    },
+    "cron-generator": {
+      "title": "Come generare e analizzare le espressioni Cron online",
+      "metaDescription": "Genera, pianifica e analizza le espressioni cron online. Verifica le pianificazioni cron localmente nel tuo browser con output visivi privati ​​al 100%.",
+      "sections": [
+        {
+          "heading": "La potenza e la sintassi delle pianificazioni Cron",
+          "level": "h2",
+          "paragraphs": [
+            "Nello sviluppo di software e nell'amministrazione di sistemi, l'automazione è fondamentale per gestire le attività ricorrenti. Cron è un pianificatore di lavori basato sul tempo nei sistemi operativi simili a Unix. Consente agli sviluppatori di eseguire script o comandi automaticamente a intervalli specifici. Queste pianificazioni vengono definite utilizzando le espressioni cron, che consistono in cinque o sei campi separati da spazi bianchi.",
+            "Sebbene potente, la sintassi di cron è notoriamente criptica. Un semplice errore in un campo (che rappresenta minuti, ore, giorni, mesi o giorni feriali) può portare all'esecuzione delle attività nei momenti sbagliati o alla mancata esecuzione completa. Un generatore di cron fornisce un'interfaccia visiva per creare pianificazioni e analizzare le espressioni in descrizioni leggibili dall'uomo."
+          ]
+        },
+        {
+          "heading": "Analisi locale per la privacy totale della pianificazione",
+          "level": "h2",
+          "paragraphs": [
+            "Le configurazioni della pianificazione possono rivelare informazioni dettagliate sulle operazioni di backend, sui carichi di lavoro del server, sulle finestre dei processi batch e sulle architetture delle applicazioni. L'invio di queste pianificazioni a server di terze parti crea un'esposizione non necessaria. ZeroWebTools elabora tutta la formattazione e la generazione di cron localmente nel browser.",
+            "Il generatore di espressioni e il parser vengono eseguiti interamente sul lato client. Nessuna configurazione di pianificazione, percorso di script o dettaglio di pianificazione del server viene mai caricata, garantendo che i modelli di finestre operative e le strategie di configurazione rimangano completamente sicuri e privati."
+          ]
+        },
+        {
+          "heading": "Funzionalità di Visual Cron Builder",
+          "level": "h2",
+          "listItems": [
+            "Generatore di moduli interattivi: seleziona le opzioni di temporizzazione (ad esempio, ogni ora, giorni specifici, intervalli mensili) utilizzando menu a discesa e caselle di controllo intuitivi.",
+            "Spiegazioni leggibili dall'uomo: analizza istantaneamente le espressioni cron esistenti in pianificazioni in linguaggio semplice per ricontrollarne il comportamento.",
+            "Prossimi tempi di esecuzione: visualizza un elenco delle prossime date di esecuzione della pianificazione per verificare che l'espressione cron corrisponda alle aspettative."
+          ]
+        },
+        {
+          "heading": "Miglioramento dei flussi di lavoro di automazione",
+          "level": "h2",
+          "paragraphs": [
+            "Creare modelli di pianificazione robusti non è mai stato così veloce. L'utilizzo di un generatore istantaneo basato su browser ti consente di progettare, ispezionare e distribuire pianificazioni cron per funzioni cloud, script server e pipeline CI/CD in pochi secondi, anche mentre lavori offline."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo generatore di cron supporta espressioni a cinque e sei campi?",
+          "answer": "Sì, lo strumento supporta i formati cron standard a 5 campi (Linux) e i formati a 6 campi (inclusi secondi o anni) per framework come Spring o Quartz."
+        },
+        {
+          "question": "Le mie informazioni di pianificazione sono sicure?",
+          "answer": "Assolutamente. Il parser e il generatore cron vengono eseguiti al 100% localmente nel tuo browser web. Nessuna configurazione o parametro di query viene mai caricato."
+        },
+        {
+          "question": "Come posso verificare quando verrà eseguito il mio lavoro cron?",
+          "answer": "Lo strumento visualizza le successive date e orari di esecuzione pianificati in tempo reale mentre si regolano le impostazioni."
+        }
+      ]
+    },
+    "word-counter": {
+      "title": "Come contare parole e frasi online con Pro Density Analysis",
+      "metaDescription": "Conta parole, caratteri, frasi e paragrafi online. Analizza istantaneamente la densità delle parole chiave e le statistiche nel tuo browser in completa privacy.",
+      "sections": [
+        {
+          "heading": "Perché il conteggio delle parole e l'analisi della densità sono importanti",
+          "level": "h2",
+          "paragraphs": [
+            "Scrivere contenuti di alta qualità richiede un'attenzione particolare alla lunghezza e alla composizione. Che tu stia scrivendo un post su un blog, un saggio scolastico, una didascalia sui social media o un testo professionale, è essenziale rispettare limiti di parole specifici. Tuttavia, il semplice conteggio delle parole spesso non è sufficiente per ottimizzare il testo.",
+            "L’analisi della densità delle parole chiave ti aiuta a capire con quale frequenza vengono utilizzati determinati termini nei tuoi scritti. L'identificazione delle parole abusate previene il linguaggio ripetitivo, migliora la leggibilità ed evita sanzioni da parte dei motori di ricerca per parole chiave in eccesso. Uno strumento di densità professionale fornisce queste informazioni critiche."
+          ]
+        },
+        {
+          "heading": "Come contare le parole e analizzare la densità del testo",
+          "level": "h2",
+          "listItems": [
+            "Incolla il tuo contenuto: digita o incolla il tuo documento direttamente nell'area dell'editor dello strumento contatore basato su browser.",
+            "Controlla i contatori in tempo reale: visualizza immediatamente il conteggio in tempo reale di parole, caratteri, frasi, paragrafi e tempi di lettura.",
+            "Analizza la densità delle parole chiave: esamina la tabella della densità per vedere la percentuale e la frequenza di singole parole o frasi chiave.",
+            "Perfeziona e modifica: modifica il testo direttamente nell'editor del browser e osserva l'aggiornamento dinamico delle statistiche durante la digitazione."
+          ]
+        },
+        {
+          "heading": "Elaborazione lato client per zero rischi per la privacy",
+          "level": "h2",
+          "paragraphs": [
+            "Molti contatori di parole online inviano il testo incollato ai loro server back-end per l'analisi. Questo rappresenta un grave rischio per la sicurezza se si lavora su documenti aziendali sensibili, bozze di articoli o storie riservate. Il nostro contatore di parole risolve completamente questo problema.",
+            "Tutti i calcoli e le statistiche vengono elaborati rigorosamente nella sandbox del browser locale. Nessun dato viene inviato su Internet o registrato su alcun server esterno. Puoi scrivere e analizzare con assoluta certezza che il tuo duro lavoro rimane completamente privato."
+          ]
+        },
+        {
+          "heading": "Aumenta la leggibilità e l'ottimizzazione dei motori di ricerca",
+          "level": "h2",
+          "paragraphs": [
+            "L'ottimizzazione dei motori di ricerca (SEO) richiede il bilanciamento del flusso di lettura naturale con parole chiave mirate. Un testo ad alta densità è difficile da leggere e può compromettere il posizionamento nelle ricerche, mentre un testo a bassa densità potrebbe non riuscire a posizionarsi per i termini desiderati.",
+            "Utilizzando il nostro strumento per monitorare la lunghezza delle frasi e la distribuzione delle parole chiave, puoi ottimizzare la leggibilità dei contenuti. Questo equilibrio mantiene i visitatori sulla tua pagina più a lungo, segnala la qualità agli algoritmi dei motori di ricerca e, in definitiva, indirizza il traffico organico."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Questo contatore di parole supporta lingue diverse dall'inglese?",
+          "answer": "Sì, il contatore di parole utilizza regex compatibile con Unicode per dividere e contare con precisione le parole nella maggior parte delle lingue principali, comprese le scritture non latine."
+        },
+        {
+          "question": "Come viene calcolata la densità delle parole chiave?",
+          "answer": "Lo strumento conta le occorrenze di parole univoche rispetto al conteggio totale delle parole, escludendo le parole chiave comuni per evidenziare le parole chiave principali."
+        },
+        {
+          "question": "Posso utilizzare lo strumento offline?",
+          "answer": "Assolutamente. Una volta caricati, tutti i calcoli JavaScript vengono eseguiti localmente sul tuo computer, consentendoti di contare le parole senza una connessione Internet attiva."
+        }
+      ]
+    },
+    "case-converter": {
+      "title": "Come convertire maiuscole e minuscole di testo Camel Snake e Kebab Case",
+      "metaDescription": "Converti facilmente maiuscole e minuscole tra CamelCase, snake_case, kebab-case, MAIUSCOLO e minuscolo. Strumento browser gratuito per sviluppatori e scrittori.",
+      "sections": [
+        {
+          "heading": "Comprendere le convenzioni delle lettere maiuscole e minuscole",
+          "level": "h2",
+          "paragraphs": [
+            "Nella programmazione e nella scrittura tecnica, i formati delle caselle di testo svolgono un ruolo cruciale negli standard di leggibilità e sintassi. Linguaggi di programmazione e schemi di dati diversi richiedono convenzioni di casi distinte. Ad esempio, gli sviluppatori JavaScript preferiscono camelCase, Python utilizza snake_case e i fogli di stile CSS si affidano a kebab-case.",
+            "La modifica manuale di decine di nomi di variabili, chiavi API o titoli di colonne di database è noiosa e soggetta a errori. Un convertitore di casi automatizza questo flusso di lavoro, consentendoti di cambiare formato con un solo clic, aumentando l'efficienza dello sviluppo e mantenendo la coerenza del codice."
+          ]
+        },
+        {
+          "heading": "Come utilizzare il convertitore di casi",
+          "level": "h2",
+          "listItems": [
+            "Stringa di input: inserisci o incolla il testo di origine nel campo di input della nostra utilità di conversione dei casi.",
+            "Seleziona formato: scegli il caso di output desiderato, ad esempio camelCase, snake_case, kebab-case, titolo maiuscolo, MAIUSCOLO o minuscolo.",
+            "Anteprima conversione: il testo trasformato appare immediatamente nel campo di output, preservando adeguatamente spazi e caratteri speciali.",
+            "Copia risultato: fai clic sul pulsante Copia per trasferire il testo convertito direttamente negli appunti di sistema per l'uso."
+          ]
+        },
+        {
+          "heading": "Conversione di casi sicura e privata offline",
+          "level": "h2",
+          "paragraphs": [
+            "Gli sviluppatori convertono spesso query di database, frammenti di codice o valori di configurazione che potrebbero contenere nomi di strutture sensibili o parole chiave interne. Il caricamento di queste stringhe sui convertitori di database online espone i dettagli dell'architettura.",
+            "Il nostro convertitore di casi opera interamente sul lato client utilizzando JavaScript puro. I tuoi input non toccano mai alcun server esterno, rendendolo uno strumento completamente sicuro e privato per attività di sviluppo e creazione di contenuti."
+          ]
+        },
+        {
+          "heading": "Standardizzazione del testo per formati di dati e basi di codice",
+          "level": "h2",
+          "paragraphs": [
+            "Mantenere convenzioni di denominazione rigorose all'interno della base di codice del team è essenziale per un codice pulito. Quando si importano dati legacy o si integrano API diverse, stili di case non corrispondenti possono portare a errori di runtime o integrazioni disordinate.",
+            "Utilizzando il nostro convertitore, puoi standardizzare gli oggetti del carico utile e le chiavi del database per adattarli alla guida di stile del tuo team. Semplifica il refactoring e garantisce che gli schemi di denominazione rimangano uniformi in tutti i moduli del progetto."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Qual è la differenza tra camelCase e PascalCase?",
+          "answer": "camelCase inizia con una lettera minuscola e rende maiuscolo le parole successive, mentre PascalCase rende maiuscolo la primissima lettera della stringa."
+        },
+        {
+          "question": "Posso convertire più righe di testo contemporaneamente?",
+          "answer": "Sì, lo strumento può elaborare più righe contemporaneamente, convertendo ciascuna riga in modo indipendente per preservare le strutture degli elenchi o gli elenchi delle variabili."
+        },
+        {
+          "question": "I miei snippet vengono inviati a un database?",
+          "answer": "No. Tutte le trasformazioni vengono eseguite localmente nella sessione del browser. I tuoi dati di input vengono elaborati in memoria e mai archiviati."
+        }
+      ]
+    },
+    "text-cleaner": {
+      "title": "Come pulire e formattare testo semplice e tabelle online",
+      "metaDescription": "Pulisci, formatta e ottimizza testo semplice e tabelle. Rimuovi le righe duplicate, ritaglia gli spazi bianchi, rimuovi i tag HTML e converti il ​​testo non elaborato nel tuo browser in privato.",
+      "sections": [
+        {
+          "heading": "Perché la pulizia e la formattazione del testo sono essenziali",
+          "level": "h2",
+          "paragraphs": [
+            "I dati grezzi estratti da pagine Web, documenti PDF o fogli di calcolo spesso contengono formattazione indesiderata. Righe duplicate, spazi finali, tag HTML e interruzioni di riga casuali possono rovinare le importazioni di database e i layout dei contenuti. Pulire manualmente questi dati è incredibilmente noioso.",
+            "Uno strumento di pulizia del testo automatizza il processo di normalizzazione. Elimina i caratteri extra, formatta le colonne e rimuove le incoerenze, trasformando input disordinati in dati puliti e strutturati. Ciò lo rende prezioso per sviluppatori, copywriter e analisti di dati."
+          ]
+        },
+        {
+          "heading": "Come pulire e formattare il testo",
+          "level": "h2",
+          "listItems": [
+            "Inserisci testo non elaborato: incolla il testo non formattato, i dati della tabella non elaborata o i record CSV nell'area di immissione del testo.",
+            "Scegli Regole di pulizia: seleziona opzioni come la rimozione di righe vuote, il taglio di spazi, l'eliminazione di tag HTML o la rimozione di righe duplicate.",
+            "Converti e formatta: applica filtri avanzati per modificare le lettere maiuscole, sostituire modelli specifici o formattare i dati grezzi in tabelle di ribasso.",
+            "Esporta output pulito: copia il testo ripulito direttamente negli appunti o scarica il file ripulito per l'attività successiva."
+          ]
+        },
+        {
+          "heading": "Pulizia sicura lato client per i dati sensibili",
+          "level": "h2",
+          "paragraphs": [
+            "I registri dati, gli elenchi dei contatti dei clienti e gli output del sistema spesso contengono credenziali private o informazioni personali. L'invio di questi dati a strumenti di formattazione tradizionali basati su cloud viola le politiche sulla privacy dei dati e corre il rischio di fughe di dati.",
+            "Il nostro pulitore di testo risolve questo problema funzionando completamente all'interno del tuo browser web. Nessun server remoto viene contattato, garantendo che i tuoi dati rimangano rigorosamente sul tuo computer locale. Pulisci i tuoi registri e le tue tabelle in assoluta tranquillità."
+          ]
+        },
+        {
+          "heading": "Semplificazione dei flussi di lavoro di preparazione e analisi dei dati",
+          "level": "h2",
+          "paragraphs": [
+            "Prima di importare file di testo nelle tabelle del database o nei programmi di analisi, il testo deve essere privo di errori di sintassi e spazi bianchi finali. Strutture non corrispondenti possono interrompere gli script di importazione, causando ritardi nel progetto.",
+            "L'uso del pulitore testo ti consente di preelaborare rapidamente i tuoi file, formattare tabelle e rimuovere righe vuote. Ciò garantisce la compatibilità con piattaforme analitiche come Excel, motori di database SQL e applicazioni web."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Posso rimuovere le righe duplicate dal mio elenco?",
+          "answer": "SÌ. Lo strumento è dotato di un filtro di deduplicazione che confronta le linee e rimuove eventuali duplicati esatti mantenendo l'ordinamento originale."
+        },
+        {
+          "question": "Lo stripper HTML rimuove tutti i tag?",
+          "answer": "Sì, rimuove completamente i tag XML e HTML, lasciando dietro di sé solo il semplice contenuto di testo contenuto in tali elementi."
+        },
+        {
+          "question": "I miei dati verranno caricati su qualche server?",
+          "answer": "No. Tutta l'analisi e la pulizia avvengono nella memoria del tuo browser tramite JavaScript, garantendo che le tue informazioni siano private al 100%."
+        }
+      ]
+    },
+    "voice-dictator": {
+      "title": "Come utilizzare la dettatura vocale per il testo offline",
+      "metaDescription": "Utilizza la dettatura vocale offline per convertire istantaneamente la voce in testo. Dettatura ad alta precisione basata su browser senza audio caricato sui server per una privacy totale.",
+      "sections": [
+        {
+          "heading": "L'efficienza della dettatura da voce a testo",
+          "level": "h2",
+          "paragraphs": [
+            "La digitazione di documenti lunghi può causare sforzo fisico e rallentare il flusso di scrittura creativa. La dettatura vocale offre un'alternativa veloce e a mani libere, permettendoti di parlare in modo naturale mentre lo strumento traduce le tue parole in testo strutturato.",
+            "La tecnologia di sintesi vocale rende la scrittura di e-mail, la stesura di articoli o la presa di appunti molto più veloce rispetto alla digitazione manuale tramite tastiera. L'uso della dettatura vocale può aumentare la velocità di scrittura fino a tre volte, permettendoti di concentrarti sulle idee anziché sulla digitazione."
+          ]
+        },
+        {
+          "heading": "Come utilizzare la dettatura vocale offline",
+          "level": "h2",
+          "listItems": [
+            "Abilita microfono: fai clic sull'icona del microfono e concedi le autorizzazioni nel browser per accedere al dispositivo di registrazione.",
+            "Seleziona lingua: scegli la lingua parlata e l'accento dall'elenco a discesa per garantire una traduzione fonetica accurata.",
+            "Inizia a dettare: parla chiaramente nel microfono, osservando le parole apparire sullo schermo in tempo reale.",
+            "Copia o salva: modifica il testo trascritto all'interno del contenitore dell'editor e copialo negli appunti con un solo clic."
+          ]
+        },
+        {
+          "heading": "Privacy assoluta con il riconoscimento vocale del browser",
+          "level": "h2",
+          "paragraphs": [
+            "I tradizionali servizi di riconoscimento vocale instradano le registrazioni audio ai server aziendali per la trascrizione. Ciò comporta elevati rischi per la sicurezza, poiché le parole pronunciate e le conversazioni private vengono registrate, analizzate e archiviate.",
+            "Il nostro strumento di dettatura utilizza l'API Web Speech integrata nel browser, che elabora l'input vocale localmente, ove supportato. I tuoi flussi audio non vengono salvati, archiviati o inviati ai nostri database, mantenendo le tue idee parlate completamente riservate."
+          ]
+        },
+        {
+          "heading": "Migliorare l'accessibilità per gli scrittori creativi",
+          "level": "h2",
+          "paragraphs": [
+            "L’accessibilità digitale è vitale per gli utenti con difficoltà di battitura, lesioni da sforzi ripetitivi o disabilità motorie. Fornire uno strumento affidabile di trascrizione vocale aiuta a livellare il campo di gioco, rendendo la scrittura digitale accessibile a tutti.",
+            "L'interfaccia pulita è completamente navigabile tramite tastiera e accessibile tramite screen reader. Gli scrittori possono rapidamente abbozzare storie, completare i compiti o dettare appunti senza fare affidamento su complesse interazioni del mouse o comandi da tastiera."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Quali browser supportano la dettatura vocale?",
+          "answer": "L'API Web Speech è supportata dalla maggior parte dei browser moderni, tra cui Google Chrome, Microsoft Edge e Safari su desktop e dispositivi mobili."
+        },
+        {
+          "question": "I miei dati vocali vengono inviati ai vostri server?",
+          "answer": "No. La trascrizione audio viene eseguita localmente dal motore client del tuo browser. Non riceviamo, archiviamo o analizziamo il tuo audio."
+        },
+        {
+          "question": "Posso usare la dettatura in altre lingue?",
+          "answer": "Sì, lo strumento supporta decine di lingue e dialetti regionali, che possono essere selezionati prima di iniziare la sessione di dettatura."
+        }
+      ]
+    },
+    "markdown-converter": {
+      "title": "Come convertire Markdown in HTML e HTML in Markdown",
+      "metaDescription": "Converti Markdown in HTML e HTML in Markdown offline. Convertitore bidirezionale con anteprima dal vivo, output del codice pulito e monitoraggio del server zero.",
+      "sections": [
+        {
+          "heading": "Perché convertire tra Markdown e HTML?",
+          "level": "h2",
+          "paragraphs": [
+            "Markdown è un linguaggio di markup leggero che utilizza la sintassi di formattazione del testo semplice. È preferito da sviluppatori e scrittori perché è facile da leggere e scrivere. Tuttavia, i browser Web non possono visualizzare direttamente Markdown, richiedendo la conversione in HTML.",
+            "Al contrario, potrebbe essere necessario copiare il testo con stile da una pagina Web e riconvertirlo in Markdown per la documentazione o il repository GitHub. Un convertitore bidirezionale ti consente di passare istantaneamente da un formato all'altro, preservando gli elementi di stile come intestazioni, elenchi e collegamenti."
+          ]
+        },
+        {
+          "heading": "Come convertire Markdown in HTML e viceversa",
+          "level": "h2",
+          "listItems": [
+            "Incolla la tua sorgente: inserisci la sintassi Markdown o il codice HTML non elaborato nel pannello di input corrispondente.",
+            "Attiva/disattiva la modalità bidirezionale: seleziona Markdown su HTML o HTML su Markdown a seconda delle esigenze attuali del documento.",
+            "Anteprima del risultato: ispeziona l'output renderizzato in tempo reale e la traduzione del codice fianco a fianco per verificarne l'accuratezza.",
+            "Esporta il tuo codice: copia l'output generato con un clic o salvalo come file di testo sul tuo computer locale."
+          ]
+        },
+        {
+          "heading": "Elaborazione lato client per zero esposizione dei dati",
+          "level": "h2",
+          "paragraphs": [
+            "I convertitori di sintassi online spesso raccolgono e registrano le conversioni di testo per scopi analitici. Questo è un problema quando si scrive documentazione di codice proprietario, bozze di post o layout di sistemi proprietari.",
+            "Il nostro convertitore funziona interamente lato client utilizzando compilatori Markdown localizzati. Tutta l'analisi avviene all'interno della memoria del browser senza effettuare chiamate API esterne. Il tuo codice rimane sicuro, protetto e completamente invisibile a terzi."
+          ]
+        },
+        {
+          "heading": "Semplificare la documentazione e la pubblicazione dei contenuti",
+          "level": "h2",
+          "paragraphs": [
+            "La gestione dei contenuti per le applicazioni Web moderne spesso richiede la traduzione della formattazione avanzata in linguaggi di markup. La conversione fluida del testo tra Markdown e HTML aiuta gli sviluppatori a pubblicare blog tecnici e documentare le API in modo efficiente.",
+            "Lo strumento garantisce un output del codice pulito, eliminando i tag di annidamento e di stile non necessari che ingombrano i layout. Questo HTML pulito è facile da integrare nei sistemi CMS, nei generatori di siti statici e nelle basi di codice personalizzate."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Il convertitore supporta GFM (GitHub Flavored Markdown)?",
+          "answer": "SÌ. Il parser supporta le funzionalità Markdown standard insieme allo stile delle tabelle, ai blocchi di codice, alle barre barrate e agli elenchi di attività."
+        },
+        {
+          "question": "Gli attributi HTML come i nomi delle classi verranno preservati?",
+          "answer": "Gli attributi di formattazione standard vengono preservati, ma gli elementi complessi del foglio di stile possono essere normalizzati per garantire una struttura Markdown pulita."
+        },
+        {
+          "question": "Esiste un limite per il caricamento dei file?",
+          "answer": "No. Poiché l'elaborazione viene eseguita localmente sul tuo computer, puoi convertire documenti di qualsiasi lunghezza senza limiti di prestazioni."
+        }
+      ]
+    },
+    "random-picker": {
+      "title": "Come utilizzare il mescolatore di elenchi e il selettore di nomi casuali online",
+      "metaDescription": "Mescola rapidamente elenchi e scegli nomi casuali online. Selettore di lotterie sicuro e basato su browser e randomizzatore di elenchi senza registri del server per una privacy totale.",
+      "sections": [
+        {
+          "heading": "Perché utilizzare un mescolatore di elenchi e un selettore di nomi casuali?",
+          "level": "h2",
+          "paragraphs": [
+            "Selezionare gli elementi in modo casuale è essenziale per omaggi, scelta delle attività in classe, assegnazione di ruoli nel progetto e presa di decisioni imparziali. Farlo manualmente può essere lento e soggetto a pregiudizi consci o subconsci.",
+            "Un selettore di nomi digitale garantisce la completa equità. Utilizza algoritmi matematici di casualità per scegliere nomi, numeri o attività, garantendo che ogni voce abbia pari opportunità. Mescolare gli elenchi è utile anche per il campionamento casuale o per ordinare gli articoli in modo equo."
+          ]
+        },
+        {
+          "heading": "Come mescolare elenchi e scegliere nomi",
+          "level": "h2",
+          "listItems": [
+            "Inserisci le voci dell'elenco: incolla l'elenco di nomi, elementi o numeri nella casella di testo principale, con ciascun elemento su una nuova riga.",
+            "Seleziona modalità di azione: scegli tra mescolare l'intero ordine dell'elenco o scegliere un singolo vincitore casuale dall'elenco.",
+            "Esegui algoritmo: fare clic sul pulsante di azione per elaborare l'elenco localmente utilizzando le API di randomizzazione del browser crittografico.",
+            "Salva risultati: copia l'elenco casuale o visualizza immediatamente il vincitore evidenziato sullo schermo."
+          ]
+        },
+        {
+          "heading": "Selezione sicura lato client per una privacy assoluta",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si organizzano omaggi, concorsi o estrazioni interne all'azienda, gli elenchi dei nomi spesso contengono dettagli privati ​​degli utenti. I mescolatori online standard caricano i tuoi elenchi su server cloud, rischiando l'esposizione dei dati riservati dei partecipanti.",
+            "Il nostro randomizzatore calcola tutte le permutazioni localmente sul tuo dispositivo. Gli elenchi dei partecipanti vengono archiviati solo nella memoria della sessione attiva del browser e vengono immediatamente cancellati quando chiudi la scheda, mantenendo tutte le voci private."
+          ]
+        },
+        {
+          "heading": "Migliorare il coinvolgimento in classe e nelle riunioni",
+          "level": "h2",
+          "paragraphs": [
+            "Gli istruttori e i team leader spesso necessitano di modalità interattive per invitare i partecipanti o assegnare compiti. Un selettore visivo di nomi casuali aumenta il coinvolgimento e previene denunce di favoritismi o trattamenti ingiusti.",
+            "Lo strumento presenta un design pulito e altamente accessibile. Con il supporto della navigazione da tastiera, chiunque può presentare facilmente il selettore sullo schermo durante le videochiamate o le presentazioni di persona per mantenere attivo il pubblico."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "La casualità è matematicamente giusta?",
+          "answer": "SÌ. Lo strumento utilizza generatori di numeri pseudo-casuali (PRNG) standard del browser per garantire che ogni elemento dell'elenco abbia la stessa probabilità di selezione."
+        },
+        {
+          "question": "Posso mescolare elenchi contenenti migliaia di elementi?",
+          "answer": "SÌ. La manipolazione dell'array lato client è altamente ottimizzata e può mescolare migliaia di nomi istantaneamente senza ritardi."
+        },
+        {
+          "question": "Gli elenchi vengono salvati per uso futuro?",
+          "answer": "No. Per motivi di sicurezza e privacy, i tuoi elenchi non vengono archiviati sui nostri server. È necessario copiare l'elenco prima di aggiornare la pagina."
+        }
+      ]
+    }
+  }
+}

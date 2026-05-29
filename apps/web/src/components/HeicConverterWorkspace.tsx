@@ -1,13 +1,7 @@
 "use client";
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import ProcessingOverlay from "./ProcessingOverlay";
-
-const CONVERT_STEPS = [
-  "Initializing WebAssembly HEIF/HEIC decoder...",
-  "Loading source image binary streams...",
-  "Decoding image pixels & color profiles...",
-  "Encoding output format (JPG/PNG)...",
-];
+import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
 interface ImageFile {
   id: string;
@@ -56,6 +50,15 @@ async function getHeicToConverter(): Promise<HeicToFn> {
 }
 
 export default function HeicConverterWorkspace() {
+  const t = useWorkspaceTranslation();
+
+  const convertSteps = [
+    t("step_1", "Initializing WebAssembly HEIF/HEIC decoder..."),
+    t("step_2", "Loading source image binary streams..."),
+    t("step_3", "Decoding image pixels & color profiles..."),
+    t("step_4", "Encoding output format (JPG/PNG)..."),
+  ];
+
   const [files, setFiles] = useState<ImageFile[]>([]);
   const [targetFormat, setTargetFormat] = useState<"image/jpeg" | "image/png">("image/jpeg");
   const [quality, setQuality] = useState(85);
@@ -297,7 +300,7 @@ export default function HeicConverterWorkspace() {
     <div className="relative space-y-5">
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-ink-muted uppercase tracking-wider">Format</label>
+          <label className="text-xs font-medium text-ink-muted uppercase tracking-wider">{t("output_format", "Format")}</label>
           <div className="flex rounded-lg border border-border overflow-hidden">
             <button
               onClick={() => setTargetFormat("image/jpeg")}
@@ -319,7 +322,7 @@ export default function HeicConverterWorkspace() {
         </div>
 
         <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-ink-muted uppercase tracking-wider">Quality</label>
+          <label className="text-xs font-medium text-ink-muted uppercase tracking-wider">{t("image_quality", "Quality")}</label>
           <input
             type="range"
             min={10}
@@ -337,13 +340,17 @@ export default function HeicConverterWorkspace() {
             disabled={isConverting}
             className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isConverting ? "Converting..." : `Convert ${files.length} file${files.length > 1 ? "s" : ""}`}
+            {isConverting 
+              ? t("converting", "Converting...") 
+              : files.length > 1 
+                ? t("convert_files_btn", "Convert {count} files").replace("{count}", String(files.length))
+                : t("convert_file_btn", "Convert {count} file").replace("{count}", String(files.length))}
           </button>
         )}
 
         {files.length > 0 && (
           <button onClick={clearAll} className="rounded-lg border border-border px-3.5 py-2 text-xs font-medium text-ink-muted hover:text-ink transition-colors">
-            Clear all
+            {t("clear_all_btn", "Clear all")}
           </button>
         )}
       </div>
@@ -370,11 +377,15 @@ export default function HeicConverterWorkspace() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
             </div>
-            <p className="text-sm text-ink font-medium">Drop HEIC or image files here, or click to browse</p>
-            <p className="text-xs text-ink-muted">Supports HEIC, HEIF, PNG, JPEG, WebP &mdash; all processing is client-side</p>
+            <p className="text-sm text-ink font-medium">{t("drop_zone_prompt_empty", "Drop HEIC or image files here, or click to browse")}</p>
+            <p className="text-xs text-ink-muted">{t("drop_zone_prompt_sub", "Supports HEIC, HEIF, PNG, JPEG, WebP — all processing is client-side")}</p>
           </div>
         ) : (
-          <p className="text-sm text-ink-muted">Drop more files or <span className="text-accent font-medium">browse</span></p>
+          <p className="text-sm text-ink-muted">
+            {t("drop_zone_prompt_active", "Drop more files or browse").split("browse")[0]}
+            <span className="text-accent font-medium">{t("browse", "browse")}</span>
+            {t("drop_zone_prompt_active", "Drop more files or browse").split("browse")[1]}
+          </p>
         )}
       </div>
 
@@ -382,15 +393,17 @@ export default function HeicConverterWorkspace() {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs text-ink-muted">
             <span>
-              {files.filter((f) => f.convertedBlob).length} of {files.length} converted
-              {totalSavings > 0 && ` (saved ${formatSize(totalSavings)})`}
+              {t("converted_status", "{converted} of {total} converted")
+                .replace("{converted}", String(files.filter((f) => f.convertedBlob).length))
+                .replace("{total}", String(files.length))}
+              {totalSavings > 0 && ` (${t("saved_savings", "saved {size}").replace("{size}", formatSize(totalSavings))})`}
             </span>
             {hasConversion && (
               <button onClick={downloadAll} className="flex items-center gap-1.5 text-accent font-medium hover:text-accent-hover transition-colors">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                 </svg>
-                Download All as ZIP
+                {t("download_all_zip_btn", "Download All as ZIP")}
               </button>
             )}
           </div>
@@ -421,7 +434,7 @@ export default function HeicConverterWorkspace() {
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                       </svg>
-                      Download
+                      {t("download", "Download")}
                     </button>
                   ) : null}
 
@@ -438,8 +451,8 @@ export default function HeicConverterWorkspace() {
       )}
       <ProcessingOverlay
         isOpen={showProcessingOverlay}
-        steps={CONVERT_STEPS}
-        loadingText="Converting your photos..."
+        steps={convertSteps}
+        loadingText={t("converting_overlay_title", "Converting your photos...")}
         duration={3500}
         onFinished={handleProcessingFinished}
       />

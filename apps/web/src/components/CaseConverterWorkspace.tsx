@@ -2,27 +2,30 @@
 
 import React, { useState } from "react";
 import { toCamelCase, toSnakeCase, toKebabCase } from "@hub/tools-core";
+import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
 export default function CaseConverterWorkspace() {
+  const t = useWorkspaceTranslation();
   const [text, setText] = useState("hello world example");
 
   return (
     <div className="space-y-4">
       <label className="block text-sm font-medium text-ink" htmlFor="text-input">
-        Input Text
+        {t("input_label", "Input Text")}
       </label>
       <input
         id="text-input"
         type="text"
         className="w-full rounded-xl border border-border bg-surface-elevated px-4 py-3 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
         value={text}
+        placeholder={t("placeholder", "Enter text to convert case...")}
         onChange={(e) => setText(e.target.value)}
       />
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
         {[
-          { label: "camelCase", value: toCamelCase(text) },
-          { label: "snake_case", value: toSnakeCase(text) },
-          { label: "kebab-case", value: toKebabCase(text) },
+          { label: t("camel_case", "camelCase"), value: toCamelCase(text) },
+          { label: t("snake_case", "snake_case"), value: toSnakeCase(text) },
+          { label: t("kebab_case", "kebab-case"), value: toKebabCase(text) },
         ].map((conversion) => (
           <div
             key={conversion.label}
