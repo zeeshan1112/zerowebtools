@@ -349,43 +349,45 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
       fs.writeFileSync(dummyTextFixturePath, "Hello world. This is a local text file load test.");
     }
 
-    await page.goto("/tools/word-counter");
-    await expect(page.locator("h1")).toContainText("Word Counter Pro");
+    try {
+      await page.goto("/tools/word-counter");
+      await expect(page.locator("h1")).toContainText("Word Counter Pro");
 
-    // Target the main textarea
-    const textarea = page.locator("textarea#word-counter-input");
-    await expect(textarea).toBeVisible();
+      // Target the main textarea
+      const textarea = page.locator("textarea#word-counter-input");
+      await expect(textarea).toBeVisible();
 
-    // Type text into editor
-    await textarea.fill("ZeroWebTools is awesome. ZeroWebTools is private.");
+      // Type text into editor
+      await textarea.fill("ZeroWebTools is awesome. ZeroWebTools is private.");
 
-    // Check stats metrics cards
-    await expect(page.locator("#stat-words")).toHaveText("6");
-    await expect(page.locator("#stat-chars")).toHaveText("49");
-    await expect(page.locator("#stat-sentences")).toHaveText("2");
-    await expect(page.locator("#stat-paragraphs")).toHaveText("1");
-    await expect(page.locator("#stat-lines")).toHaveText("1");
+      // Check stats metrics cards
+      await expect(page.locator("#stat-words")).toHaveText("6");
+      await expect(page.locator("#stat-chars")).toHaveText("49");
+      await expect(page.locator("#stat-sentences")).toHaveText("2");
+      await expect(page.locator("#stat-paragraphs")).toHaveText("1");
+      await expect(page.locator("#stat-lines")).toHaveText("1");
 
-    // Check case conversions
-    await page.click('button:has-text("UPPERCASE")');
-    await expect(textarea).toHaveValue("ZEROWEBTOOLS IS AWESOME. ZEROWEBTOOLS IS PRIVATE.");
+      // Check case conversions
+      await page.click('button:has-text("UPPERCASE")');
+      await expect(textarea).toHaveValue("ZEROWEBTOOLS IS AWESOME. ZEROWEBTOOLS IS PRIVATE.");
 
-    await page.click('button:has-text("lowercase")');
-    await expect(textarea).toHaveValue("zerowebtools is awesome. zerowebtools is private.");
+      await page.click('button:has-text("lowercase")');
+      await expect(textarea).toHaveValue("zerowebtools is awesome. zerowebtools is private.");
 
-    // Check file upload loading
-    const fileInput = page.locator("input#word-counter-file-input");
-    await fileInput.setInputFiles(dummyTextFixturePath);
+      // Check file upload loading
+      const fileInput = page.locator("input#word-counter-file-input");
+      await fileInput.setInputFiles(dummyTextFixturePath);
 
-    // Wait for the loading overlay to finish
-    await expect(page.locator("text=Reading dummy-text.txt...")).not.toBeVisible({ timeout: 5000 });
-    
-    // Verify file content is loaded in textarea
-    await expect(textarea).toHaveValue("Hello world. This is a local text file load test.");
-    
-    // Clean up temporary text file
-    if (fs.existsSync(dummyTextFixturePath)) {
-      fs.unlinkSync(dummyTextFixturePath);
+      // Wait for the loading overlay to finish
+      await expect(page.locator("text=Reading dummy-text.txt...")).not.toBeVisible({ timeout: 5000 });
+      
+      // Verify file content is loaded in textarea
+      await expect(textarea).toHaveValue("Hello world. This is a local text file load test.");
+    } finally {
+      // Clean up temporary text file
+      if (fs.existsSync(dummyTextFixturePath)) {
+        fs.unlinkSync(dummyTextFixturePath);
+      }
     }
   });
 
