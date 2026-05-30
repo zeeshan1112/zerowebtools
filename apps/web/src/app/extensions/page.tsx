@@ -56,7 +56,7 @@ const EXTENSIONS: ExtensionCard[] = [
       "Format conversion (camelCase, snake_case, PascalCase, etc.)",
       "Instant offline Base64 and URL encoding/decoding"
     ],
-    chromeUrl: "https://chromewebstore.google.com/", // Swap with live URL once approved
+    chromeUrl: "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb",
     firefoxUrl: "#", // Add Firefox Add-ons URL once uploaded
   },
   {
