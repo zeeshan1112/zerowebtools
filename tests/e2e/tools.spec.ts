@@ -143,8 +143,8 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
 
-    // Fill in range value
-    await page.locator('input[placeholder*="e.g."]').fill("1");
+    // Select pages using the visual grid (Select All)
+    await page.click('button:has-text("Select All")');
 
     // Process pages
     await page.click('button:has-text("Extract Pages")');
