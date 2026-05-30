@@ -19,11 +19,13 @@ const SPLIT_STEPS = [
 export default function SplitPDFWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [totalPages, setTotalPages] = useState(0);
-  const [ranges, setRanges] = useState("");
+  const [selectedPages, setSelectedPages] = useState<Set<number>>(new Set());
   const [mode, setMode] = useState<"extract" | "remove">("extract");
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+  const [allThumbnails, setAllThumbnails] = useState<string[]>([]);
+  const [isGeneratingThumbnails, setIsGeneratingThumbnails] = useState(false);
 
   // Split results
   const [splitBlob, setSplitBlob] = useState<Blob | null>(null);
@@ -42,11 +44,10 @@ export default function SplitPDFWorkspace() {
   useEffect(() => {
     return () => {
       if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
-      for (const url of previewPages) {
-        URL.revokeObjectURL(url);
-      }
+      for (const url of previewPages) URL.revokeObjectURL(url);
+      for (const url of allThumbnails) URL.revokeObjectURL(url);
     };
-  }, [thumbnailUrl, previewPages]);
+  }, [thumbnailUrl, previewPages, allThumbnails]);
 
   const handleFile = useCallback(async (f: File) => {
     setFile(f);
@@ -57,9 +58,20 @@ export default function SplitPDFWorkspace() {
       const doc = await loadPDFDoc(f);
       setTotalPages(doc.getPageCount());
 
-      // Generate page thumbnail
+      // Clear previous
+      for (const url of allThumbnails) URL.revokeObjectURL(url);
+      setAllThumbnails([]);
+      setSelectedPages(new Set());
+
+      // Generate page thumbnail for header
       const thumb = await renderPDFThumbnail(f);
       setThumbnailUrl(thumb);
+
+      // Generate all thumbnails for grid
+      setIsGeneratingThumbnails(true);
+      const allThumbs = await renderAllPDFPages(f, 0.4);
+      setAllThumbnails(allThumbs);
+      setIsGeneratingThumbnails(false);
     } catch {
       setError("Could not read PDF");
     }
@@ -74,16 +86,18 @@ export default function SplitPDFWorkspace() {
 
   const handleClear = () => {
     if (thumbnailUrl) URL.revokeObjectURL(thumbnailUrl);
+    for (const url of allThumbnails) URL.revokeObjectURL(url);
     setFile(null);
     setTotalPages(0);
-    setRanges("");
+    setSelectedPages(new Set());
+    setAllThumbnails([]);
     setSplitBlob(null);
     setThumbnailUrl(null);
     setError(null);
   };
 
   const process = useCallback(async () => {
-    if (!file || !ranges.trim()) { setError("Enter page ranges"); return; }
+    if (!file || selectedPages.size === 0) { setError("Select at least one page"); return; }
     setError(null);
     setProcessing(true);
     setShowProcessingOverlay(true);
@@ -93,18 +107,7 @@ export default function SplitPDFWorkspace() {
 
     try {
       const doc = await loadPDFDoc(file);
-      const indices: number[] = [];
-      for (const part of ranges.split(",")) {
-        const trimmed = part.trim();
-        if (trimmed.includes("-")) {
-          const [a, b] = trimmed.split("-").map(Number);
-          for (let i = Math.max(1, a) - 1; i < Math.min(b, totalPages); i++) indices.push(i);
-        } else {
-          const n = Number(trimmed) - 1;
-          if (n >= 0 && n < totalPages) indices.push(n);
-        }
-      }
-      const unique = [...new Set(indices)].sort((a, b) => a - b);
+      const unique = Array.from(selectedPages).sort((a, b) => a - b);
       const outDoc = await PDFDocument.create();
       if (mode === "extract") {
         for (const i of unique) {
@@ -133,7 +136,7 @@ export default function SplitPDFWorkspace() {
       setProcessing(false);
       isGeneratingRef.current = false;
     }
-  }, [file, ranges, mode, totalPages]);
+  }, [file, selectedPages, mode, totalPages]);
 
   const handleProcessingFinished = useCallback(() => {
     animationFinishedRef.current = true;
@@ -222,15 +225,57 @@ export default function SplitPDFWorkspace() {
             </div>
           </div>
 
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-ink-muted uppercase tracking-wider block font-mono">Page ranges</label>
-            <input
-              value={ranges}
-              onChange={(e) => { setRanges(e.target.value); setSplitBlob(null); }}
-              placeholder="e.g. 1-3, 5, 7-9"
-              className="w-full rounded-xl border border-border bg-surface-elevated/70 px-3.5 py-2.5 text-xs text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent font-mono"
-            />
-            <p className="text-[10px] text-ink-muted">Comma-separated range. Allowed index: 1-{totalPages}</p>
+          <div className="space-y-3 pt-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-ink-muted uppercase tracking-wider block font-mono">Select Pages</label>
+              <div className="flex items-center gap-2">
+                <button onClick={() => setSelectedPages(new Set(Array.from({length: totalPages}, (_, i) => i)))} className="text-[10px] font-semibold uppercase text-accent hover:text-accent-hover transition-colors">Select All</button>
+                <span className="text-border">|</span>
+                <button onClick={() => setSelectedPages(new Set())} className="text-[10px] font-semibold uppercase text-ink-secondary hover:text-ink transition-colors">Deselect All</button>
+                <span className="text-border">|</span>
+                <button onClick={() => {
+                  const newSet = new Set<number>();
+                  for(let i=0; i<totalPages; i++) if(!selectedPages.has(i)) newSet.add(i);
+                  setSelectedPages(newSet);
+                }} className="text-[10px] font-semibold uppercase text-ink-secondary hover:text-ink transition-colors">Invert</button>
+              </div>
+            </div>
+
+            {isGeneratingThumbnails ? (
+              <div className="flex flex-col items-center justify-center p-12 border border-border/50 bg-zinc-50 dark:bg-zinc-900/30 rounded-xl">
+                <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin mb-3"></div>
+                <p className="text-xs text-ink-muted">Rendering page thumbnails...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {allThumbnails.map((thumbUrl, idx) => {
+                  const isSelected = selectedPages.has(idx);
+                  return (
+                    <div 
+                      key={idx} 
+                      onClick={() => {
+                        const newSet = new Set(selectedPages);
+                        if(isSelected) newSet.delete(idx);
+                        else newSet.add(idx);
+                        setSelectedPages(newSet);
+                        setSplitBlob(null);
+                      }}
+                      className={`relative group cursor-pointer rounded-xl border-2 transition-all overflow-hidden flex flex-col select-none ${isSelected ? "border-accent bg-accent/5" : "border-border/60 hover:border-accent/40 bg-surface-elevated"}`}
+                    >
+                      <div className="flex-1 w-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center overflow-hidden aspect-[1/1.4]">
+                        <img src={thumbUrl} alt={`Page ${idx + 1}`} className="w-full h-full object-cover" />
+                      </div>
+                      <div className={`p-2 flex items-center justify-between border-t ${isSelected ? "border-accent/20" : "border-border/60"}`}>
+                        <span className={`text-[10px] font-bold font-mono ${isSelected ? "text-accent" : "text-ink-secondary"}`}>Page {idx + 1}</span>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center border transition-colors ${isSelected ? "bg-accent border-accent" : "border-ink-muted/50 group-hover:border-accent/50"}`}>
+                          {isSelected && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" strokeWidth="3" stroke="white"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {error && (
@@ -244,7 +289,7 @@ export default function SplitPDFWorkspace() {
             {!splitBlob ? (
               <button
                 onClick={process}
-                disabled={processing || !ranges.trim()}
+                disabled={processing || selectedPages.size === 0}
                 className="rounded-lg bg-accent text-white px-5 py-2.5 text-sm font-semibold hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {processing ? "Processing..." : mode === "extract" ? "Extract Pages" : "Remove Pages"}
