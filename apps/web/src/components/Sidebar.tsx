@@ -152,7 +152,9 @@ export default function Sidebar() {
       transition={{ type: "spring", stiffness: 220, damping: 24 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="absolute top-0 left-0 h-screen bg-surface-elevated/75 backdrop-blur-xl border-r border-border/40 shadow-xl z-50 select-none overflow-hidden flex flex-col"
+      className={`absolute top-0 h-screen bg-surface-elevated/75 backdrop-blur-xl shadow-xl z-50 select-none overflow-hidden flex flex-col ${
+        currentLocale === "ar" ? "right-0 border-l border-border/40" : "left-0 border-r border-border/40"
+      }`}
     >
       {/* Brand Header */}
       <div className="flex items-center gap-3 h-16 px-4 border-b border-border/40 shrink-0">
@@ -164,9 +166,9 @@ export default function Sidebar() {
           <AnimatePresence mode="wait">
             {isExpanded && (
               <motion.span
-                initial={{ opacity: 0, x: -6 }}
+                initial={{ opacity: 0, x: currentLocale === "ar" ? 6 : -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -6 }}
+                exit={{ opacity: 0, x: currentLocale === "ar" ? 6 : -6 }}
                 className="font-extrabold tracking-tight text-xs uppercase tracking-wider text-ink whitespace-nowrap"
               >
                 ZeroWebTools
