@@ -191,6 +191,18 @@ export default function DiceRollerWorkspace() {
       window.speechSynthesis.speak(primeUtterance);
     }
     
+    // Play high quality dice rolling sound effect
+    if (soundEnabled && typeof window !== "undefined") {
+      try {
+        const audio = new Audio("/dice-roll.mp3");
+        // Optional: you can slightly randomize playback rate for variety
+        audio.playbackRate = 0.9 + Math.random() * 0.2;
+        audio.play().catch(e => console.warn("Audio playback failed", e));
+      } catch (e) {
+        console.warn("Audio not supported", e);
+      }
+    }
+    
     // Set rolling state and calculate new results immediately so the Dice3D component
     // can calculate the target rotations before starting the animation.
     setRolling(true);
