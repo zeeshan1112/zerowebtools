@@ -23,7 +23,20 @@ export default function CoinFlipperWorkspace() {
   const [rotationX, setRotationX] = useState(0);
   const [rotationY, setRotationY] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
+  const [currency, setCurrency] = useState<"classic" | "indian">("classic");
   
+  useEffect(() => {
+    const saved = localStorage.getItem("coinFlipperCurrency");
+    if (saved === "classic" || saved === "indian") {
+      setCurrency(saved);
+    }
+  }, []);
+
+  const handleCurrencyChange = (newCurrency: "classic" | "indian") => {
+    setCurrency(newCurrency);
+    localStorage.setItem("coinFlipperCurrency", newCurrency);
+  };
+
   const [stats, setStats] = useState({ heads: 0, tails: 0 });
 
   const speakResult = (outcome: "heads" | "tails") => {
@@ -73,6 +86,20 @@ export default function CoinFlipperWorkspace() {
         
         {/* Header Options */}
         <div className="absolute top-6 right-6 z-10 flex gap-2">
+          <div className="flex bg-surface border border-border/30 rounded-xl overflow-hidden p-1 shadow-sm hidden sm:flex">
+            <button
+              onClick={() => handleCurrencyChange("classic")}
+              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "classic" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
+            >
+              Classic
+            </button>
+            <button
+              onClick={() => handleCurrencyChange("indian")}
+              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "indian" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
+            >
+              ₹ Indian
+            </button>
+          </div>
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
             className="p-2.5 text-ink-secondary hover:text-ink hover:bg-surface rounded-xl transition-colors border border-border/30 shadow-sm"
@@ -103,16 +130,16 @@ export default function CoinFlipperWorkspace() {
           >
             {/* Heads (Front) */}
             <img 
-              src="/images/coin/heads.png" 
+              src={currency === "indian" ? "/images/coin/indian_heads.png" : "/images/coin/heads.png"} 
               alt="Heads" 
-              className="absolute inset-0 w-full h-full object-cover rounded-full backface-hidden shadow-2xl shadow-amber-500/20 pointer-events-none border-[3px] border-[#D4AF37]" 
+              className="absolute inset-0 w-full h-full object-cover rounded-full backface-hidden shadow-2xl pointer-events-none" 
             />
 
             {/* Tails (Back) */}
             <img 
-              src="/images/coin/tails.png" 
+              src={currency === "indian" ? "/images/coin/indian_tails.png" : "/images/coin/tails.png"} 
               alt="Tails" 
-              className="absolute inset-0 w-full h-full object-cover rounded-full backface-hidden shadow-2xl shadow-amber-500/20 pointer-events-none border-[3px] border-[#D4AF37]" 
+              className="absolute inset-0 w-full h-full object-cover rounded-full backface-hidden shadow-2xl pointer-events-none" 
               style={{ transform: "rotateY(180deg)" }}
             />
             
@@ -120,6 +147,22 @@ export default function CoinFlipperWorkspace() {
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none" style={{ transform: "translateZ(-1px)" }}></div>
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none" style={{ transform: "translateZ(-2px)" }}></div>
           </div>
+        </div>
+
+        {/* Mobile Currency Options (below coin, only on small screens) */}
+        <div className="flex sm:hidden bg-surface border border-border/30 rounded-xl overflow-hidden p-1 shadow-sm w-fit mx-auto mb-6">
+            <button
+              onClick={() => handleCurrencyChange("classic")}
+              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "classic" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
+            >
+              Classic
+            </button>
+            <button
+              onClick={() => handleCurrencyChange("indian")}
+              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "indian" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
+            >
+              ₹ Indian
+            </button>
         </div>
 
         {/* Action Button */}
