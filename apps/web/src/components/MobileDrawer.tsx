@@ -169,11 +169,11 @@ export default function MobileDrawer() {
             {/* Drawer panel */}
             <motion.nav
               id="mobile-nav-drawer"
-              initial={{ x: "-100%" }}
+              initial={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 left-0 bottom-0 z-[95] w-[min(20rem,80vw)] bg-surface-elevated/95 backdrop-blur-xl border-r border-border/40 shadow-2xl flex flex-col md:hidden overflow-hidden"
+              className="fixed top-0 start-0 bottom-0 z-[95] w-[min(20rem,80vw)] bg-surface-elevated/95 backdrop-blur-xl border-e border-border/40 shadow-2xl flex flex-col md:hidden overflow-hidden"
               role="dialog"
               aria-modal="true"
               aria-label="Navigation menu"
