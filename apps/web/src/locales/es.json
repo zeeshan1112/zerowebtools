@@ -11,7 +11,21 @@
     "error": "Error",
     "success": "Éxito",
     "copy": "Copiar",
-    "copied": "¡Copiado!"
+    "copied": "¡Copiado!",
+    "fbTitle": "{toolTitle} Online: herramienta gratuita del lado del cliente",
+    "fbQ1": "¿Qué es la herramienta {toolTitle}?",
+    "fbA1P1": "La herramienta {toolTitle} es una utilidad en línea gratuita que le permite {toolDesc} instantáneamente en su navegador. Como parte de la suite ZeroWebTools, no requiere instalación de software, carga de servidor ni registro de cuenta.",
+    "fbA1P2": "Esta herramienta está diseñada para funcionar en el lado del cliente, lo que significa que todas las operaciones de análisis, conversión y representación de datos ocurren estrictamente en el contexto de la sesión de su navegador. Esto garantiza privacidad absoluta y proporciona velocidades de ejecución inmediatas.",
+    "fbQ2": "Cómo utilizar {toolTitle} sin conexión",
+    "fbA2P1": "El funcionamiento de este espacio de trabajo está diseñado para ser sencillo y accesible:",
+    "fbL1": "Abra la página {toolTitle} en cualquier navegador web moderno.",
+    "fbL2": "Cargue sus archivos, pegue su código o ingrese parámetros en el área de pruebas del espacio de trabajo.",
+    "fbL3": "Ajuste las opciones o configuraciones para adaptarlas a sus requisitos de salida objetivo.",
+    "fbL4": "Haga clic en el botón de procesamiento para activar los cálculos localmente en su CPU.",
+    "fbL5": "Guarde el archivo generado o copie el resultado de texto formateado al instante.",
+    "fbQ3": "Procesamiento local 100% seguro y privado",
+    "fbA3P1": "La seguridad es el pilar central de ZeroWebTools. Cuando utiliza la herramienta {toolTitle}, sus archivos de entrada, parámetros y resultados nunca se transmiten a servidores externos.",
+    "fbA3P2": "Su navegador ejecuta localmente todo el entorno de pruebas de cálculo. Una vez que cierra la pestaña, se borra toda la memoria activa, lo que garantiza que sus datos permanezcan completamente bajo su control."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Suelte los archivos PDF aquí o haga clic para explorar",

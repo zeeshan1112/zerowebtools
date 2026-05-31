@@ -11,7 +11,21 @@
     "error": "Erro",
     "success": "Sucesso",
     "copy": "Cópia",
-    "copied": "Copiado!"
+    "copied": "Copiado!",
+    "fbTitle": "{toolTitle} Online: ferramenta gratuita do lado do cliente",
+    "fbQ1": "O que é a ferramenta {toolTitle}?",
+    "fbA1P1": "A ferramenta {toolTitle} é um utilitário online gratuito que permite {toolDesc} instantaneamente em seu navegador. Como parte do pacote ZeroWebTools, não requer instalação de software, upload de servidor e registro de conta.",
+    "fbA1P2": "Esta ferramenta foi projetada para funcionar no lado do cliente, o que significa que todas as operações de análise, conversão e renderização de dados acontecem estritamente no contexto da sessão do seu navegador. Isto garante privacidade absoluta e proporciona velocidades de execução imediatas.",
+    "fbQ2": "Como usar {toolTitle} off-line",
+    "fbA2P1": "A operação deste espaço de trabalho foi projetada para ser simples e acessível:",
+    "fbL1": "Abra a página {toolTitle} em qualquer navegador moderno.",
+    "fbL2": "Carregue seus arquivos, cole seu código ou insira parâmetros na área de sandbox do espaço de trabalho.",
+    "fbL3": "Ajuste as opções ou configurações para atender aos requisitos de saída desejados.",
+    "fbL4": "Clique no botão de processamento para acionar cálculos localmente em sua CPU.",
+    "fbL5": "Salve o arquivo gerado ou copie o texto formatado instantaneamente.",
+    "fbQ3": "Processamento local 100% seguro e privado",
+    "fbA3P1": "A segurança é o pilar central do ZeroWebTools. Quando você usa a ferramenta {toolTitle}, seus arquivos de entrada, parâmetros e resultados nunca são transmitidos para servidores externos.",
+    "fbA3P2": "Seu navegador executa todo o sandbox de cálculo localmente. Depois de fechar a guia, toda a memória ativa é apagada, garantindo que seus dados permaneçam completamente sob seu controle."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Solte os arquivos PDF aqui ou clique para navegar",

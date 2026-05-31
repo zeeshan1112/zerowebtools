@@ -14,6 +14,7 @@ export interface TranslationDictionary {
   generators: string;
   textTools: string;
   calculators: string;
+  fun: string;
   savedTools: string;
   spotlightUtilities: string;
   guidesResources: string;
@@ -26,6 +27,12 @@ export interface TranslationDictionary {
   faqTitle: string;
   faqSubtitle: string;
   howToDesc: string;
+  faqQ1: string;
+  faqA1: string;
+  faqQ2: string;
+  faqA2: string;
+  faqQ3: string;
+  faqA3: string;
 }
 
 const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
@@ -41,6 +48,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generators",
     textTools: "Text Tools",
     calculators: "Calculators",
+    fun: "Fun",
     savedTools: "Your Saved Tools",
     spotlightUtilities: "Spotlight Utilities",
     guidesResources: "Guides & Resources",
@@ -52,7 +60,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Private • {count} free online tools",
     faqTitle: "Frequently Asked Questions",
     faqSubtitle: "Everything you need to know about ZeroWebTools privacy and usage.",
-    howToDesc: "Explore quick-start tutorials, visual multi-tool chaining recipes, and detailed privacy-first competitor comparisons."
+        howToDesc: "Explore quick-start tutorials, visual multi-tool chaining recipes, and detailed privacy-first competitor comparisons.",
+    faqQ1: "Is it completely free?",
+    faqA1: "Yes, ZeroWebTools is 100% free. No subscriptions, no hidden fees, and no sign-up required.",
+    faqQ2: "Are my files uploaded to a server?",
+    faqA2: "No. All tools execute entirely client-side using WebAssembly in your browser. Your files never leave your device.",
+    faqQ3: "Do I need to download anything?",
+    faqA3: "No, you do not need to install any apps or software. Everything works securely inside your web browser."
   },
   es: {
     homeTitle: "Herramientas web simples y privadas en su navegador.",
@@ -66,6 +80,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generadores",
     textTools: "Texto",
     calculators: "Calculadoras",
+    fun: "Diversión",
     savedTools: "Tus Herramientas Guardadas",
     spotlightUtilities: "Destacadas",
     guidesResources: "Guías y Recursos",
@@ -77,7 +92,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privado • {count} herramientas gratuitas",
     faqTitle: "Preguntas Frecuentes",
     faqSubtitle: "Todo lo que necesita saber sobre la privacidad de ZeroWebTools.",
-    howToDesc: "Explore tutoriales de inicio rápido, recetas visuales de encadenamiento de herramientas y comparaciones detalladas de competidores que priorizan la privacidad."
+        howToDesc: "Explore tutoriales de inicio rápido, recetas visuales de encadenamiento de herramientas y comparaciones detalladas de competidores que priorizan la privacidad.",
+    faqQ1: "¿Es completamente gratis?",
+    faqA1: "Sí, ZeroWebTools es 100% gratuito. Sin suscripciones, sin tarifas ocultas y sin necesidad de registrarse.",
+    faqQ2: "¿Mis archivos se cargan en un servidor?",
+    faqA2: "No. Todas las herramientas se ejecutan completamente en el lado del cliente mediante WebAssembly en su navegador. Tus archivos nunca salen de tu dispositivo.",
+    faqQ3: "¿Necesito descargar algo?",
+    faqA3: "No, no es necesario instalar ninguna aplicación o software. Todo funciona de forma segura dentro de su navegador web."
   },
   de: {
     homeTitle: "Einfache, private Web-Tools in Ihrem Browser.",
@@ -91,6 +112,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generatoren",
     textTools: "Text-Tools",
     calculators: "Rechner",
+    fun: "Spaß",
     savedTools: "Gespeicherte Tools",
     spotlightUtilities: "Im Rampenlicht",
     guidesResources: "Anleitungen",
@@ -102,7 +124,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privat • {count} kostenlose Tools",
     faqTitle: "Häufig gestellte Fragen",
     faqSubtitle: "Alles, was Sie über die ZeroWebTools wissen müssen.",
-    howToDesc: "Entdecken Sie Schnellstart-Anleitungen, visuelle Rezepte zur Tool-Verkettung und detaillierte, datenschutzfreundliche Vergleiche mit Mitbewerbern."
+        howToDesc: "Entdecken Sie Schnellstart-Anleitungen, visuelle Rezepte zur Tool-Verkettung und detaillierte, datenschutzfreundliche Vergleiche mit Mitbewerbern.",
+    faqQ1: "Ist es völlig kostenlos?",
+    faqA1: "Ja, ZeroWebTools ist 100 % kostenlos. Keine Abonnements, keine versteckten Gebühren und keine Anmeldung erforderlich.",
+    faqQ2: "Werden meine Dateien auf einen Server hochgeladen?",
+    faqA2: "Nein. Alle Tools werden vollständig clientseitig mit WebAssembly in Ihrem Browser ausgeführt. Ihre Dateien verlassen niemals Ihr Gerät.",
+    faqQ3: "Muss ich etwas herunterladen?",
+    faqA3: "Nein, Sie müssen keine Apps oder Software installieren. Alles funktioniert sicher in Ihrem Webbrowser."
   },
   fr: {
     homeTitle: "Des outils web simples et privés dans votre navigateur.",
@@ -116,6 +144,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Générateurs",
     textTools: "Texte",
     calculators: "Calculatrices",
+    fun: "Amusement",
     savedTools: "Vos Outils Sauvegardés",
     spotlightUtilities: "À La Une",
     guidesResources: "Guides et Ressources",
@@ -127,7 +156,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privé • {count} outils gratuits",
     faqTitle: "Foire Aux Questions",
     faqSubtitle: "Tout ce que vous devez savoir sur ZeroWebTools.",
-    howToDesc: "Explorez des tutoriels de démarrage rapide, des recettes visuelles d'enchaînement d'outils et des comparaisons détaillées de concurrents respectant la vie privée."
+        howToDesc: "Explorez des tutoriels de démarrage rapide, des recettes visuelles d'enchaînement d'outils et des comparaisons détaillées de concurrents respectant la vie privée.",
+    faqQ1: "Est-ce totalement gratuit ?",
+    faqA1: "Oui, ZeroWebTools est 100 % gratuit. Aucun abonnement, aucun frais caché et aucune inscription requise.",
+    faqQ2: "Mes fichiers sont-ils téléchargés sur un serveur ?",
+    faqA2: "Non. Tous les outils s'exécutent entièrement côté client à l'aide de WebAssembly dans votre navigateur. Vos fichiers ne quittent jamais votre appareil.",
+    faqQ3: "Dois-je télécharger quelque chose ?",
+    faqA3: "Non, vous n'avez pas besoin d'installer d'applications ou de logiciels. Tout fonctionne en toute sécurité dans votre navigateur Web."
   },
   pt: {
     homeTitle: "Ferramentas web simples e privadas no seu navegador.",
@@ -141,6 +176,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Geradores",
     textTools: "Texto",
     calculators: "Calculadoras",
+    fun: "Diversão",
     savedTools: "Ferramentas Salvas",
     spotlightUtilities: "Destaques",
     guidesResources: "Guias e Recursos",
@@ -152,7 +188,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privado • {count} ferramentas gratuitas",
     faqTitle: "Perguntas Frequentes",
     faqSubtitle: "Tudo o que você precisa saber sobre o ZeroWebTools.",
-    howToDesc: "Explore tutoriais de início rápido, receitas visuais de encadeamento de ferramentas e comparações detalhadas de concorrentes com foco na privacidade."
+        howToDesc: "Explore tutoriais de início rápido, receitas visuais de encadeamento de ferramentas e comparações detalhadas de concorrentes com foco na privacidade.",
+    faqQ1: "É totalmente gratuito?",
+    faqA1: "Sim, ZeroWebTools é 100% gratuito. Sem assinaturas, sem taxas ocultas e sem necessidade de inscrição.",
+    faqQ2: "Meus arquivos são enviados para um servidor?",
+    faqA2: "Não. Todas as ferramentas são executadas inteiramente no lado do cliente usando WebAssembly em seu navegador. Seus arquivos nunca saem do seu dispositivo.",
+    faqQ3: "Preciso baixar alguma coisa?",
+    faqA3: "Não, você não precisa instalar nenhum aplicativo ou software. Tudo funciona de forma segura dentro do seu navegador."
   },
   ja: {
     homeTitle: "ブラウザで動くシンプルでプライベートなWebツール。",
@@ -166,6 +208,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "ジェネレーター",
     textTools: "テキストツール",
     calculators: "計算ツール",
+    fun: "楽しいツール",
     savedTools: "保存したツール",
     spotlightUtilities: "注目のユーティリティ",
     guidesResources: "ガイドとリソース",
@@ -177,7 +220,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% プライベート • {count} 個の無料オンラインツール",
     faqTitle: "よくある質問",
     faqSubtitle: "ZeroWebToolsのプライバシーと使用方法に関するすべての情報。",
-    howToDesc: "プライバシーを重視したクイックスタートチュートリアル、複数のツールを組み合わせたビジュアルレシピ、競合他社との詳細な比較をご覧ください。"
+        howToDesc: "プライバシーを重視したクイックスタートチュートリアル、複数のツールを組み合わせたビジュアルレシピ、競合他社との詳細な比較をご覧ください。",
+    faqQ1: "完全に無料ですか?",
+    faqA1: "はい、ZeroWebTools は完全に無料です。サブスクリプション、隠れた料金、サインアップは必要ありません。",
+    faqQ2: "私のファイルはサーバーにアップロードされていますか?",
+    faqA2: "いいえ。すべてのツールはブラウザーの WebAssembly を使用して完全にクライアント側で実行されます。ファイルがデバイスの外に出ることはありません。",
+    faqQ3: "何かをダウンロードする必要がありますか?",
+    faqA3: "いいえ、アプリやソフトウェアをインストールする必要はありません。 Web ブラウザ内ではすべてが安全に動作します。"
   },
   zh: {
     homeTitle: "在浏览器中运行的简单、隐私网页工具。",
@@ -191,6 +240,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "生成器",
     textTools: "文本工具",
     calculators: "计算器",
+    fun: "趣味工具",
     savedTools: "已保存的工具",
     spotlightUtilities: "精选工具",
     guidesResources: "指南与资源",
@@ -202,7 +252,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% 本地隐私 • {count} 个免费在线工具",
     faqTitle: "常见问题",
     faqSubtitle: "您需要了解的关于 ZeroWebTools 隐私和使用的所有信息。",
-    howToDesc: "探索快速入门教程、可视化多工具链配方以及详细的隐私第一竞争对手比较。"
+        howToDesc: "探索快速入门教程、可视化多工具链配方以及详细的隐私第一竞争对手比较。",
+    faqQ1: "是完全免费的吗？",
+    faqA1: "是的，ZeroWebTools 100% 免费。无需订阅，无隐藏费用，也无需注册。",
+    faqQ2: "我的文件是否上传到服务器？",
+    faqA2: "不会。所有工具都在浏览器中使用 WebAssembly 完全在客户端执行。您的文件永远不会离开您的设备。",
+    faqQ3: "我需要下载什么东西吗？",
+    faqA3: "不，您不需要安装任何应用程序或软件。一切都可以在您的网络浏览器中安全地运行。"
   },
   hi: {
     homeTitle: "आपके ब्राउज़र में सरल और निजी वेब टूल्स।",
@@ -216,6 +272,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "जेनरेटर्स",
     textTools: "टेक्स्ट टूल्स",
     calculators: "कैलकुलेटर",
+    fun: "मनोरंजन",
     savedTools: "आपके सहेजे गए टूल्स",
     spotlightUtilities: "स्पॉटलाइट यूटिलिटीज",
     guidesResources: "गाइड और संसाधन",
@@ -227,7 +284,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% निजी • {count} मुफ़्त ऑनलाइन टूल्स",
     faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
     faqSubtitle: "ZeroWebTools गोपनीयता और उपयोग के बारे में वह सब कुछ जो आपको जानना आवश्यक है।",
-    howToDesc: "त्वरित-प्रारंभ ट्यूटोरियल, विज़ुअल मल्टी-टूल चेनिंग रेसिपी और विस्तृत गोपनीयता-प्रथम प्रतियोगी तुलनाओं का अन्वेषण करें।"
+        howToDesc: "त्वरित-प्रारंभ ट्यूटोरियल, विज़ुअल मल्टी-टूल चेनिंग रेसिपी और विस्तृत गोपनीयता-प्रथम प्रतियोगी तुलनाओं का अन्वेषण करें।",
+    faqQ1: "क्या यह पूर्णतः निःशुल्क है?",
+    faqA1: "हाँ, ZeroWebTools 100% मुफ़्त है। कोई सदस्यता नहीं, कोई छिपी हुई फीस नहीं, और कोई साइन-अप आवश्यक नहीं है।",
+    faqQ2: "क्या मेरी फ़ाइलें सर्वर पर अपलोड की गई हैं?",
+    faqA2: "नहीं, सभी उपकरण आपके ब्राउज़र में WebAssembly का उपयोग करके पूरी तरह से क्लाइंट-साइड निष्पादित करते हैं। आपकी फ़ाइलें कभी भी आपका डिवाइस नहीं छोड़तीं।",
+    faqQ3: "क्या मुझे कुछ भी डाउनलोड करने की आवश्यकता है?",
+    faqA3: "नहीं, आपको कोई ऐप या सॉफ़्टवेयर इंस्टॉल करने की ज़रूरत नहीं है. आपके वेब ब्राउज़र के अंदर सब कुछ सुरक्षित रूप से काम करता है।"
   },
   it: {
     homeTitle: "Strumenti web semplici e privati nel tuo browser.",
@@ -241,6 +304,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generatori",
     textTools: "Testo",
     calculators: "Calcolatori",
+    fun: "Divertimento",
     savedTools: "Strumenti Salvati",
     spotlightUtilities: "In evidenza",
     guidesResources: "Guide & Risorse",
@@ -252,7 +316,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privato • {count} strumenti online gratuiti",
     faqTitle: "Domande Frequenti",
     faqSubtitle: "Tutto quello che c'è da sapere sulla privacy e l'uso di ZeroWebTools.",
-    howToDesc: "Esplora tutorial rapidi, ricette visive per concatenare più strumenti e confronti dettagliati dei concorrenti orientati alla privacy."
+        howToDesc: "Esplora tutorial rapidi, ricette visive per concatenare più strumenti e confronti dettagliati dei concorrenti orientati alla privacy.",
+    faqQ1: "È completamente gratuito?",
+    faqA1: "Sì, ZeroWebTools è gratuito al 100%. Nessun abbonamento, nessun costo nascosto e nessuna registrazione richiesta.",
+    faqQ2: "I miei file vengono caricati su un server?",
+    faqA2: "No. Tutti gli strumenti vengono eseguiti interamente sul lato client utilizzando WebAssembly nel browser. I tuoi file non lasciano mai il tuo dispositivo.",
+    faqQ3: "Devo scaricare qualcosa?",
+    faqA3: "No, non è necessario installare alcuna app o software. Tutto funziona in modo sicuro all'interno del tuo browser web."
   },
   ar: {
     homeTitle: "أدوات ويب بسيطة وخاصة في متصفحك مباشرة.",
@@ -266,6 +336,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "المولدات",
     textTools: "أدوات النصوص",
     calculators: "الحاسبات",
+    fun: "مرح",
     savedTools: "أدواتك المحفوظة",
     spotlightUtilities: "أدوات مميزة",
     guidesResources: "الأدلة والمصادر",
@@ -277,7 +348,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "خصوصية 100% • {count} أداة مجانية عبر الإنترنت",
     faqTitle: "الأسئلة الشائعة",
     faqSubtitle: "كل ما تحتاج لمعرفته حول خصوصية واستخدام ZeroWebTools.",
-    howToDesc: "استكشف البرامج التعليمية لبدء التشغيل السريع، ووصفات تسلسل الأدوات المتعددة المرئية، والمقارنات التفصيلية للمنافسين التي تعطي الأولوية للخصوصية."
+        howToDesc: "استكشف البرامج التعليمية لبدء التشغيل السريع، ووصفات تسلسل الأدوات المتعددة المرئية، والمقارنات التفصيلية للمنافسين التي تعطي الأولوية للخصوصية.",
+    faqQ1: "هل هو مجاني تماما؟",
+    faqA1: "نعم، ZeroWebTools مجاني 100%. لا توجد اشتراكات، ولا رسوم مخفية، ولا يلزم التسجيل.",
+    faqQ2: "هل يتم تحميل ملفاتي على الخادم؟",
+    faqA2: "لا، يتم تنفيذ جميع الأدوات بالكامل من جانب العميل باستخدام WebAssembly في متصفحك. ملفاتك لا تترك جهازك أبدًا.",
+    faqQ3: "هل أحتاج إلى تنزيل أي شيء؟",
+    faqA3: "لا، لا تحتاج إلى تثبيت أي تطبيقات أو برامج. كل شيء يعمل بشكل آمن داخل متصفح الويب الخاص بك."
   }
 };
 
@@ -2307,6 +2384,147 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "title": "حاسبة نقطة التعادل",
       "description": "نموذج التكاليف الثابتة مقابل التكاليف المتغيرة، وهوامش المساهمة، وخطوط تعادل الوحدات.",
       "metaDescription": "ابحث عن نقطة التعادل لشركتك على الفور - مجانًا وبشكل خاص. حساب وحدات التعادل وقيم المبيعات وهوامش المساهمة وتقاطعات الخطوط. لا توجد تحميلات الخادم."
+    }
+  },
+  "dice-roller": {
+    "es": {
+      "title": "Rodillo de dados 3D",
+      "description": "Lanza múltiples dados 3D interactivos con lados personalizados, física animada y totales de conversión de texto a voz.",
+      "metaDescription": "Rodillo de dados 3D interactivo gratuito. Tira varios dados de caras personalizadas al instante. Presenta animaciones elegantes, cálculos de sumas y anuncios de voz. 100% privado."
+    },
+    "de": {
+      "title": "3D-Würfelroller",
+      "description": "Lassen Sie mehrere interaktive 3D-Würfel mit benutzerdefinierten Seiten, animierter Physik und Text-zu-Sprache-Gesamtwerten rollen.",
+      "metaDescription": "Kostenloser interaktiver 3D-Würfelroller. Werfen Sie sofort mehrere Würfel mit individueller Seite. Bietet elegante Animationen, Summenberechnung und Sprachansagen. 100 % privat."
+    },
+    "fr": {
+      "title": "Rouleau de dés 3D",
+      "description": "Lancez plusieurs dés 3D interactifs avec des faces personnalisées, une physique animée et des totaux de synthèse vocale.",
+      "metaDescription": "Rouleau de dés 3D interactif gratuit. Lancez instantanément plusieurs dés à faces personnalisées. Comprend des animations élégantes, un calcul de somme et des annonces vocales. 100% privé."
+    },
+    "pt": {
+      "title": "Rolo de dados 3D",
+      "description": "Jogue vários dados 3D interativos com lados personalizados, física animada e totais de conversão de texto em fala.",
+      "metaDescription": "Rolo de dados 3D interativo gratuito. Jogue vários dados personalizados instantaneamente. Apresenta animações elegantes, cálculo de soma e anúncios de voz. 100% privado."
+    },
+    "ja": {
+      "title": "3Dダイスローラー",
+      "description": "カスタム面、アニメーション化された物理演算、テキスト読み上げの合計を備えた複数のインタラクティブ 3D ダイスを転がします。",
+      "metaDescription": "無料のインタラクティブな 3D サイコロ ローラー。複数のカスタム面のサイコロを瞬時に振ります。洗練されたアニメーション、合計計算、音声アナウンスが特徴です。 100%プライベートです。"
+    },
+    "zh": {
+      "title": "3D 骰子滚筒",
+      "description": "滚动多个交互式 3D 骰子，具有自定义面、动画物理效果和文本转语音总计。",
+      "metaDescription": "免费交互式 3D 骰子滚轮。立即掷出多个定制面骰子。具有流畅的动画、总和计算和语音播报功能。 100% 私人。"
+    },
+    "hi": {
+      "title": "3डी पासा रोलर",
+      "description": "कस्टम पक्षों, एनिमेटेड भौतिकी और टेक्स्ट-टू-स्पीच योग के साथ एकाधिक इंटरैक्टिव 3डी पासा रोल करें।",
+      "metaDescription": "निःशुल्क इंटरैक्टिव 3डी पासा रोलर। एकाधिक कस्टम-पक्षीय पासों को तुरंत रोल करें। आकर्षक एनिमेशन, योग गणना और ध्वनि घोषणाएँ सुविधाएँ। 100% निजी."
+    },
+    "it": {
+      "title": "Rullo di dadi 3D",
+      "description": "Lancia più dadi 3D interattivi con lati personalizzati, fisica animata e totali con sintesi vocale.",
+      "metaDescription": "Rullo di dadi 3D interattivo gratuito. Lancia istantaneamente più dadi a facce personalizzate. Presenta animazioni eleganti, calcolo della somma e annunci vocali. 100% privato."
+    },
+    "ar": {
+      "title": "بكرة النرد ثلاثية الأبعاد",
+      "description": "قم برمي العديد من النرد التفاعلي ثلاثي الأبعاد بجوانب مخصصة وفيزياء متحركة وإجماليات تحويل النص إلى كلام.",
+      "metaDescription": "بكرة النرد التفاعلية المجانية ثلاثية الأبعاد. قم برمي النرد المتعدد الجوانب على الفور. يتميز برسوم متحركة أنيقة وحساب المجموع والإعلانات الصوتية. خاص 100%."
+    }
+  },
+  "random-team-generator": {
+    "es": {
+      "title": "Generador de equipos aleatorios",
+      "description": "Divida una lista de nombres en equipos aleatorios sin esfuerzo.",
+      "metaDescription": "Generador de equipos aleatorios online gratuito. Ingrese una lista de nombres y divídalos instantáneamente en equipos o grupos aleatorios. 100% privado y del lado del cliente."
+    },
+    "de": {
+      "title": "Zufälliger Teamgenerator",
+      "description": "Teilen Sie eine Liste mit Namen mühelos in zufällige Teams auf.",
+      "metaDescription": "Kostenloser Online-Zufallsgenerator für Teams. Geben Sie eine Liste mit Namen ein und teilen Sie diese sofort in zufällige Teams oder Gruppen auf. 100 % privat und kundenseitig."
+    },
+    "fr": {
+      "title": "Générateur d'équipe aléatoire",
+      "description": "Divisez facilement une liste de noms en équipes randomisées.",
+      "metaDescription": "Générateur d'équipes aléatoires en ligne gratuit. Entrez une liste de noms et divisez-les instantanément en équipes ou groupes aléatoires. 100% privé et côté client."
+    },
+    "pt": {
+      "title": "Gerador de equipe aleatória",
+      "description": "Divida uma lista de nomes em equipes aleatórias sem esforço.",
+      "metaDescription": "Gerador de equipes aleatórias online gratuito. Insira uma lista de nomes e divida-os instantaneamente em equipes ou grupos aleatórios. 100% privado e do lado do cliente."
+    },
+    "ja": {
+      "title": "ランダムチームジェネレーター",
+      "description": "名前のリストをランダム化されたチームに簡単に分割します。",
+      "metaDescription": "無料のオンラインランダムチームジェネレーター。名前のリストを入力すると、即座にランダムなチームまたはグループに分割されます。 100% プライベートでクライアント側です。"
+    },
+    "zh": {
+      "title": "随机团队生成器",
+      "description": "毫不费力地将名单分成随机小组。",
+      "metaDescription": "免费在线随机团队生成器。输入姓名列表，然后立即将他们分成随机的团队或小组。 100% 私有和客户端。"
+    },
+    "hi": {
+      "title": "रैंडम टीम जेनरेटर",
+      "description": "नामों की सूची को आसानी से यादृच्छिक टीमों में विभाजित करें।",
+      "metaDescription": "मुफ़्त ऑनलाइन रैंडम टीम जनरेटर। नामों की एक सूची दर्ज करें और तुरंत उन्हें यादृच्छिक टीमों या समूहों में विभाजित करें। 100% निजी और ग्राहक-पक्ष।"
+    },
+    "it": {
+      "title": "Generatore di squadre casuali",
+      "description": "Dividi facilmente un elenco di nomi in squadre casuali.",
+      "metaDescription": "Generatore di squadre casuali online gratuito. Inserisci un elenco di nomi e dividili immediatamente in squadre o gruppi casuali. 100% privato e lato cliente."
+    },
+    "ar": {
+      "title": "مولد فريق عشوائي",
+      "description": "قم بتقسيم قائمة الأسماء إلى فرق عشوائية دون عناء.",
+      "metaDescription": "مولد فريق عشوائي مجاني على الإنترنت. أدخل قائمة بالأسماء وقم بتقسيمها على الفور إلى فرق أو مجموعات عشوائية. 100% خاص ومن جانب العميل."
+    }
+  },
+  "coin-flipper": {
+    "es": {
+      "title": "Aleta de monedas 3D",
+      "description": "Lanza una moneda 3D realista al instante para obtener un resultado de cara o cruz verdaderamente aleatorio.",
+      "metaDescription": "Lanzador de monedas 3D interactivo gratuito. Lanza una moneda virtual para obtener un resultado justo de cara o cruz al instante. Presenta física, animaciones y sonido realistas."
+    },
+    "de": {
+      "title": "3D-Münzflipper",
+      "description": "Werfen Sie sofort eine realistische 3D-Münze, um ein wirklich zufälliges Kopf- oder Zahl-Ergebnis zu erhalten.",
+      "metaDescription": "Kostenloser interaktiver 3D-Münzwerfer. Wirf eine virtuelle Münze und erhalte sofort ein faires Kopf- oder Zahl-Ergebnis. Bietet realistische Physik, Animationen und Sound."
+    },
+    "fr": {
+      "title": "Flipper de pièces modèle 3D",
+      "description": "Lancez instantanément une pièce de monnaie 3D réaliste pour obtenir un résultat pile ou face vraiment aléatoire.",
+      "metaDescription": "Lanceur de pièces 3D interactif gratuit. Lancez une pièce virtuelle pour obtenir instantanément un résultat pile ou face équitable. Présente une physique, des animations et un son réalistes."
+    },
+    "pt": {
+      "title": "Lançador de moedas Modelo 3D",
+      "description": "Jogue uma moeda 3D realista instantaneamente para obter um resultado verdadeiramente aleatório de cara ou coroa.",
+      "metaDescription": "Fliper de moeda 3D interativo gratuito. Jogue uma moeda virtual para obter um resultado justo de cara ou coroa instantaneamente. Apresenta física, animações e som realistas."
+    },
+    "ja": {
+      "title": "3Dコインフリッパー",
+      "description": "リアルな 3D コインを瞬時に投げると、真にランダムな表か裏の結果が得られます。",
+      "metaDescription": "無料のインタラクティブな 3D コイン投げ。仮想コインを投げると、即座に表か裏かが決まります。リアルな物理学、アニメーション、サウンドが特徴です。"
+    },
+    "zh": {
+      "title": "3D 硬币翻转器",
+      "description": "立即翻转逼真的 3D 硬币，以获得真正随机的正面或反面结果。",
+      "metaDescription": "免费交互式 3D 硬币翻转器。翻转虚拟硬币，立即获得正面或反面的结果。具有逼真的物理、动画和声音。"
+    },
+    "hi": {
+      "title": "3डी सिक्का फ्लिपर",
+      "description": "वास्तव में यादृच्छिक चित या पट परिणाम के लिए तुरंत एक यथार्थवादी 3D सिक्का पलटें।",
+      "metaDescription": "निःशुल्क इंटरैक्टिव 3डी सिक्का फ़्लिपर। तुरंत सही हेड या टेल परिणाम के लिए एक आभासी सिक्का पलटें। यथार्थवादी भौतिकी, एनिमेशन और ध्वनि सुविधाएँ।"
+    },
+    "it": {
+      "title": "Lanciamonete 3D",
+      "description": "Lancia istantaneamente una moneta 3D realistica per ottenere un risultato testa o croce davvero casuale.",
+      "metaDescription": "Lanciamonete 3D interattivo gratuito. Lancia una moneta virtuale per ottenere immediatamente un bel risultato di testa o croce. Presenta fisica, animazioni e suoni realistici."
+    },
+    "ar": {
+      "title": "3D عملة زعنفة",
+      "description": "اقلب عملة ثلاثية الأبعاد واقعية على الفور للحصول على نتيجة عشوائية حقيقية للرؤوس أو الكتابة.",
+      "metaDescription": "زعانف عملة تفاعلية مجانية ثلاثية الأبعاد. اقلب عملة افتراضية للحصول على نتيجة عادلة للرؤوس أو الكتابة على الفور. تتميز بفيزياء واقعية ورسوم متحركة وصوت."
     }
   }
 };

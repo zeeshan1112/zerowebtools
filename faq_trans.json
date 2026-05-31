@@ -1,0 +1,74 @@
+{
+  "es": {
+    "faqQ1": "¿Es completamente gratis?",
+    "faqA1": "Sí, ZeroWebTools es 100% gratuito. Sin suscripciones, sin tarifas ocultas y sin necesidad de registrarse.",
+    "faqQ2": "¿Mis archivos se cargan en un servidor?",
+    "faqA2": "No. Todas las herramientas se ejecutan completamente en el lado del cliente mediante WebAssembly en su navegador. Tus archivos nunca salen de tu dispositivo.",
+    "faqQ3": "¿Necesito descargar algo?",
+    "faqA3": "No, no es necesario instalar ninguna aplicación o software. Todo funciona de forma segura dentro de su navegador web."
+  },
+  "de": {
+    "faqQ1": "Ist es völlig kostenlos?",
+    "faqA1": "Ja, ZeroWebTools ist 100 % kostenlos. Keine Abonnements, keine versteckten Gebühren und keine Anmeldung erforderlich.",
+    "faqQ2": "Werden meine Dateien auf einen Server hochgeladen?",
+    "faqA2": "Nein. Alle Tools werden vollständig clientseitig mit WebAssembly in Ihrem Browser ausgeführt. Ihre Dateien verlassen niemals Ihr Gerät.",
+    "faqQ3": "Muss ich etwas herunterladen?",
+    "faqA3": "Nein, Sie müssen keine Apps oder Software installieren. Alles funktioniert sicher in Ihrem Webbrowser."
+  },
+  "fr": {
+    "faqQ1": "Est-ce totalement gratuit ?",
+    "faqA1": "Oui, ZeroWebTools est 100 % gratuit. Aucun abonnement, aucun frais caché et aucune inscription requise.",
+    "faqQ2": "Mes fichiers sont-ils téléchargés sur un serveur ?",
+    "faqA2": "Non. Tous les outils s'exécutent entièrement côté client à l'aide de WebAssembly dans votre navigateur. Vos fichiers ne quittent jamais votre appareil.",
+    "faqQ3": "Dois-je télécharger quelque chose ?",
+    "faqA3": "Non, vous n'avez pas besoin d'installer d'applications ou de logiciels. Tout fonctionne en toute sécurité dans votre navigateur Web."
+  },
+  "pt": {
+    "faqQ1": "É totalmente gratuito?",
+    "faqA1": "Sim, ZeroWebTools é 100% gratuito. Sem assinaturas, sem taxas ocultas e sem necessidade de inscrição.",
+    "faqQ2": "Meus arquivos são enviados para um servidor?",
+    "faqA2": "Não. Todas as ferramentas são executadas inteiramente no lado do cliente usando WebAssembly em seu navegador. Seus arquivos nunca saem do seu dispositivo.",
+    "faqQ3": "Preciso baixar alguma coisa?",
+    "faqA3": "Não, você não precisa instalar nenhum aplicativo ou software. Tudo funciona de forma segura dentro do seu navegador."
+  },
+  "ja": {
+    "faqQ1": "完全に無料ですか?",
+    "faqA1": "はい、ZeroWebTools は完全に無料です。サブスクリプション、隠れた料金、サインアップは必要ありません。",
+    "faqQ2": "私のファイルはサーバーにアップロードされていますか?",
+    "faqA2": "いいえ。すべてのツールはブラウザーの WebAssembly を使用して完全にクライアント側で実行されます。ファイルがデバイスの外に出ることはありません。",
+    "faqQ3": "何かをダウンロードする必要がありますか?",
+    "faqA3": "いいえ、アプリやソフトウェアをインストールする必要はありません。 Web ブラウザ内ではすべてが安全に動作します。"
+  },
+  "zh": {
+    "faqQ1": "是完全免费的吗？",
+    "faqA1": "是的，ZeroWebTools 100% 免费。无需订阅，无隐藏费用，也无需注册。",
+    "faqQ2": "我的文件是否上传到服务器？",
+    "faqA2": "不会。所有工具都在浏览器中使用 WebAssembly 完全在客户端执行。您的文件永远不会离开您的设备。",
+    "faqQ3": "我需要下载什么东西吗？",
+    "faqA3": "不，您不需要安装任何应用程序或软件。一切都可以在您的网络浏览器中安全地运行。"
+  },
+  "hi": {
+    "faqQ1": "क्या यह पूर्णतः निःशुल्क है?",
+    "faqA1": "हाँ, ZeroWebTools 100% मुफ़्त है। कोई सदस्यता नहीं, कोई छिपी हुई फीस नहीं, और कोई साइन-अप आवश्यक नहीं है।",
+    "faqQ2": "क्या मेरी फ़ाइलें सर्वर पर अपलोड की गई हैं?",
+    "faqA2": "नहीं, सभी उपकरण आपके ब्राउज़र में WebAssembly का उपयोग करके पूरी तरह से क्लाइंट-साइड निष्पादित करते हैं। आपकी फ़ाइलें कभी भी आपका डिवाइस नहीं छोड़तीं।",
+    "faqQ3": "क्या मुझे कुछ भी डाउनलोड करने की आवश्यकता है?",
+    "faqA3": "नहीं, आपको कोई ऐप या सॉफ़्टवेयर इंस्टॉल करने की ज़रूरत नहीं है. आपके वेब ब्राउज़र के अंदर सब कुछ सुरक्षित रूप से काम करता है।"
+  },
+  "it": {
+    "faqQ1": "È completamente gratuito?",
+    "faqA1": "Sì, ZeroWebTools è gratuito al 100%. Nessun abbonamento, nessun costo nascosto e nessuna registrazione richiesta.",
+    "faqQ2": "I miei file vengono caricati su un server?",
+    "faqA2": "No. Tutti gli strumenti vengono eseguiti interamente sul lato client utilizzando WebAssembly nel browser. I tuoi file non lasciano mai il tuo dispositivo.",
+    "faqQ3": "Devo scaricare qualcosa?",
+    "faqA3": "No, non è necessario installare alcuna app o software. Tutto funziona in modo sicuro all'interno del tuo browser web."
+  },
+  "ar": {
+    "faqQ1": "هل هو مجاني تماما؟",
+    "faqA1": "نعم، ZeroWebTools مجاني 100%. لا توجد اشتراكات، ولا رسوم مخفية، ولا يلزم التسجيل.",
+    "faqQ2": "هل يتم تحميل ملفاتي على الخادم؟",
+    "faqA2": "لا، يتم تنفيذ جميع الأدوات بالكامل من جانب العميل باستخدام WebAssembly في متصفحك. ملفاتك لا تترك جهازك أبدًا.",
+    "faqQ3": "هل أحتاج إلى تنزيل أي شيء؟",
+    "faqA3": "لا، لا تحتاج إلى تثبيت أي تطبيقات أو برامج. كل شيء يعمل بشكل آمن داخل متصفح الويب الخاص بك."
+  }
+}

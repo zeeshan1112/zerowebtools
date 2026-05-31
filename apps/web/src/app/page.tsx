@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { getTranslations, getAlternateLanguages } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "ZeroWebTools | 100% Private Client-Side Web Utilities",
+  title: "ZeroWebTools - Free & Private Online Professional Web Tools & Utilities",
   description: "Free, fast, and completely secure client-side web utilities to edit PDFs, convert formats, check SaaS growth, and resize images. 100% private.",
   alternates: {
     canonical: "https://zerowebtools.com",

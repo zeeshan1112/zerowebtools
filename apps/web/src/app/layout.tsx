@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Analytics from "@/components/Analytics";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RtlSync from "@/components/RtlSync";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -116,6 +117,7 @@ export default function RootLayout({
         {/* outer wrapper to reserve space on desktop and prevent layout jumping */}
         <SidebarSpaceReserver />
         <ScrollToTop />
+        <RtlSync />
         
         {/* Main Application Container */}
         <div className="flex-1 flex flex-col h-[100dvh] md:h-screen overflow-hidden">

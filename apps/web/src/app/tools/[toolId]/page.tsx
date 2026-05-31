@@ -39,6 +39,9 @@ import QrCodeWorkspace from "@/components/QrCodeWorkspace";
 import BoxShadowWorkspace from "@/components/BoxShadowWorkspace";
 import UnixTimestampWorkspace from "@/components/UnixTimestampWorkspace";
 import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
+import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
+import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
+import CoinFlipperWorkspace from "@/components/CoinFlipperWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -142,6 +145,9 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "css-box-shadow": BoxShadowWorkspace,
   "unix-timestamp-converter": UnixTimestampWorkspace,
   "cron-generator": CronGeneratorWorkspace,
+  "dice-roller": DiceRollerWorkspace,
+  "random-team-generator": RandomTeamGeneratorWorkspace,
+  "coin-flipper": CoinFlipperWorkspace,
 };
 
 const TOOL_ARTICLES: Record<

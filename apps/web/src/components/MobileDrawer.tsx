@@ -45,6 +45,11 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.5 4.5 8.25-8.25M21 12v5.25a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 17.25V5.25" />
     </svg>
   ),
+  fun: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm3.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75z" />
+    </svg>
+  ),
 };
 
 export default function MobileDrawer() {
@@ -74,6 +79,7 @@ export default function MobileDrawer() {
       case "generators": return translations.generators;
       case "image-tools": return translations.imageTools;
       case "financial-growth": return translations.calculators;
+      case "fun": return (translations as any).fun || "Fun";
       default: return fallback;
     }
   };
@@ -163,11 +169,13 @@ export default function MobileDrawer() {
             {/* Drawer panel */}
             <motion.nav
               id="mobile-nav-drawer"
-              initial={{ x: "-100%" }}
+              initial={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 left-0 bottom-0 z-[95] w-[min(20rem,80vw)] bg-surface-elevated/95 backdrop-blur-xl border-r border-border/40 shadow-2xl flex flex-col md:hidden overflow-hidden"
+              className={`fixed top-0 bottom-0 z-[95] w-[min(20rem,80vw)] bg-surface-elevated/95 backdrop-blur-xl shadow-2xl flex flex-col md:hidden overflow-hidden ${
+                currentLocale === "ar" ? "right-0 border-l border-border/40" : "left-0 border-r border-border/40"
+              }`}
               role="dialog"
               aria-modal="true"
               aria-label="Navigation menu"
