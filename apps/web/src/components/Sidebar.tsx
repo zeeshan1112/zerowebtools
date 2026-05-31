@@ -264,14 +264,12 @@ export default function Sidebar() {
               return (
                 <li key={cat.slug}>
                   <Link
-                    href={getLocalizedHref("/")}
+                    href={getLocalizedHref(`/#${cat.slug}`)}
                     onClick={(e) => {
-                      e.preventDefault();
                       const isHome = pathname === "/" || pathname === `/${currentLocale}`;
                       if (isHome) {
+                        e.preventDefault();
                         window.dispatchEvent(new CustomEvent("zeelancebox_navigate_tab", { detail: cat.slug }));
-                      } else {
-                        window.location.href = currentLocale ? `/${currentLocale}/#${cat.slug}` : `/#${cat.slug}`;
                       }
                     }}
                     className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all group ${

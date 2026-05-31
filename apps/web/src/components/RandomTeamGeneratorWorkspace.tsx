@@ -54,6 +54,13 @@ export default function RandomTeamGeneratorWorkspace() {
   }, [input]);
 
   const generateTeams = () => {
+    // Prime speech synthesis for mobile browsers
+    if (soundEnabled && typeof window !== "undefined" && window.speechSynthesis) {
+      const primeUtterance = new SpeechSynthesisUtterance("");
+      primeUtterance.volume = 0;
+      window.speechSynthesis.speak(primeUtterance);
+    }
+
     setIsGenerating(true);
     setTeams([]); // Clear existing
 
@@ -91,12 +98,12 @@ export default function RandomTeamGeneratorWorkspace() {
 
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="bg-surface-elevated border border-border/50 rounded-2xl p-6 md:p-8 shadow-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="max-w-5xl mx-auto space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="bg-surface-elevated border border-border/50 rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           
           {/* Left Column: Inputs */}
-          <div className="space-y-6">
+          <div className="space-y-5 md:space-y-6">
             <div>
               <label className="flex items-center gap-2 text-sm font-bold text-ink mb-3">
                 <UsersIcon className="w-4 h-4 text-accent" />
@@ -106,11 +113,11 @@ export default function RandomTeamGeneratorWorkspace() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={t("placeholder", "Enter names separated by commas or new lines...\nAlice\nBob\nCharlie")}
-                className="w-full h-48 bg-surface border border-border/50 rounded-xl p-4 text-ink placeholder:text-ink-muted focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all resize-none"
+                className="w-full h-24 sm:h-32 md:h-48 bg-surface border border-border/50 rounded-xl p-4 text-ink placeholder:text-ink-muted focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all resize-none"
               />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <label className="block text-sm font-bold text-ink">{t("split_config", "Split Configuration")}</label>
               <div className="flex bg-surface border border-border/50 rounded-xl p-1 relative overflow-hidden">
                 <button

@@ -9,6 +9,7 @@ import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-card
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
 import { getTranslations, getLocalizedTool } from "@/lib/i18n";
+import { useRouter, usePathname } from "next/navigation";
 
 // Pristine technical workflow tags
 const TOOL_WORKFLOW_TAGS: Record<string, string> = {
@@ -79,6 +80,8 @@ const TAB_TO_SLUG: Record<string, string> = {
 
 export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const t = getTranslations(lang);
+  const router = useRouter();
+  const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<"all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
 
@@ -115,18 +118,27 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       const tabId = SLUG_TO_TAB[slug];
       if (tabId) {
         setActiveTab(tabId);
+        router.replace(`${window.location.pathname}#${TAB_TO_SLUG[tabId]}`, { scroll: false });
         document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
       }
     };
 
-    if (window.location.hash) {
-      handleHash();
-    }
+    const checkHash = () => {
+      if (window.location.hash) {
+        handleHash();
+      }
+    };
+
+    // Run immediately and also after a slight delay to handle Next.js route transitions
+    checkHash();
+    setTimeout(checkHash, 100);
 
     window.addEventListener("hashchange", handleHash);
+    window.addEventListener("popstate", checkHash);
     window.addEventListener("zeelancebox_navigate_tab", handleTabNav);
     return () => {
       window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("popstate", checkHash);
       window.removeEventListener("zeelancebox_navigate_tab", handleTabNav);
     };
   }, []);
@@ -517,7 +529,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     key={tab.id}
                     onClick={() => {
                       setActiveTab(tab.id as any);
-                      history.replaceState(null, "", `#${TAB_TO_SLUG[tab.id]}`);
+                      router.replace(`${pathname}#${TAB_TO_SLUG[tab.id]}`, { scroll: false });
                     }}
                     className={`px-4 py-2.5 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer min-h-[44px] ${
                       isActive
