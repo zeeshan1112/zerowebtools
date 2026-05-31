@@ -11,7 +11,21 @@
     "error": "Errore",
     "success": "Successo",
     "copy": "Copia",
-    "copied": "Copiato!"
+    "copied": "Copiato!",
+    "fbTitle": "{toolTitle} Online: strumento lato client gratuito",
+    "fbQ1": "Cos'è lo strumento {toolTitle}?",
+    "fbA1P1": "Lo strumento {toolTitle} è un'utilità online gratuita che ti consente di {toolDesc} istantaneamente nel tuo browser. Come parte della suite ZeroWebTools, non richiede installazioni di software, caricamenti su server e registrazioni di account.",
+    "fbA1P2": "Questo strumento è progettato per funzionare lato client, il che significa che tutte le operazioni di analisi, conversione e rendering dei dati avvengono rigorosamente nel contesto della sessione del browser. Ciò garantisce assoluta privacy e fornisce velocità di esecuzione immediate.",
+    "fbQ2": "Come utilizzare {toolTitle} offline",
+    "fbA2P1": "Il funzionamento di questo spazio di lavoro è progettato per essere semplice e accessibile:",
+    "fbL1": "Apri la pagina {toolTitle} in qualsiasi browser web moderno.",
+    "fbL2": "Carica i tuoi file, incolla il codice o inserisci i parametri nell'area sandbox dell'area di lavoro.",
+    "fbL3": "Regola le opzioni o le impostazioni in base ai requisiti di output target.",
+    "fbL4": "Fare clic sul pulsante di elaborazione per avviare i calcoli localmente sulla CPU.",
+    "fbL5": "Salva il file generato o copia immediatamente l'output di testo formattato.",
+    "fbQ3": "Elaborazione locale privata e sicura al 100%.",
+    "fbA3P1": "La sicurezza è il pilastro fondamentale di ZeroWebTools. Quando utilizzi lo strumento {toolTitle}, i file di input, i parametri e i risultati non vengono mai trasmessi a server esterni.",
+    "fbA3P2": "Il tuo browser esegue localmente l'intero sandbox di calcolo. Una volta chiusa la scheda, tutta la memoria attiva viene cancellata, garantendo che i tuoi dati rimangano completamente sotto il tuo controllo."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Trascina qui i file PDF o fai clic per sfogliarli",

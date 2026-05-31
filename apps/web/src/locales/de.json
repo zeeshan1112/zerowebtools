@@ -11,7 +11,21 @@
     "error": "Fehler",
     "success": "Erfolg",
     "copy": "Kopie",
-    "copied": "Kopiert!"
+    "copied": "Kopiert!",
+    "fbTitle": "{toolTitle} Online: Kostenloses clientseitiges Tool",
+    "fbQ1": "Was ist das {toolTitle}-Tool?",
+    "fbA1P1": "Das {toolTitle}-Tool ist ein kostenloses Online-Dienstprogramm, mit dem Sie {toolDesc} sofort in Ihrem Browser ausführen können. Als Teil der ZeroWebTools-Suite sind keine Softwareinstallationen, keine Server-Uploads und keine Kontoregistrierungen erforderlich.",
+    "fbA1P2": "Dieses Tool ist so konzipiert, dass es clientseitig funktioniert. Das bedeutet, dass alle Datenanalyse-, Konvertierungs- und Rendering-Vorgänge ausschließlich im Kontext Ihrer Browsersitzung erfolgen. Dies garantiert absolute Privatsphäre und sorgt für sofortige Ausführungsgeschwindigkeiten.",
+    "fbQ2": "So verwenden Sie {toolTitle} offline",
+    "fbA2P1": "Die Bedienung dieses Arbeitsbereichs ist einfach und zugänglich gestaltet:",
+    "fbL1": "Öffnen Sie die Seite {toolTitle} in einem beliebigen modernen Webbrowser.",
+    "fbL2": "Laden Sie Ihre Dateien hoch, fügen Sie Ihren Code ein oder geben Sie Parameter in den Sandbox-Bereich des Arbeitsbereichs ein.",
+    "fbL3": "Passen Sie die Optionen oder Einstellungen an Ihre Zielausgabeanforderungen an.",
+    "fbL4": "Klicken Sie auf die Verarbeitungsschaltfläche, um Berechnungen lokal auf Ihrer CPU auszulösen.",
+    "fbL5": "Speichern Sie die generierte Datei oder kopieren Sie die formatierte Textausgabe sofort.",
+    "fbQ3": "100 % sichere und private lokale Verarbeitung",
+    "fbA3P1": "Sicherheit ist die Grundpfeiler von ZeroWebTools. Wenn Sie das Tool {toolTitle} verwenden, werden Ihre Eingabedateien, Parameter und Ergebnisse niemals an externe Server übertragen.",
+    "fbA3P2": "Ihr Browser führt die gesamte Berechnungssandbox lokal aus. Sobald Sie die Registerkarte schließen, wird der gesamte aktive Speicher gelöscht, sodass Ihre Daten vollständig unter Ihrer Kontrolle bleiben."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Legen Sie PDF-Dateien hier ab oder klicken Sie zum Durchsuchen",

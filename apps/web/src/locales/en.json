@@ -11,7 +11,21 @@
     "error": "Error",
     "success": "Success",
     "copy": "Copy",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "fbTitle": "{toolTitle} Online: Free Client-Side Tool",
+    "fbQ1": "What is the {toolTitle} Tool?",
+    "fbA1P1": "The {toolTitle} tool is a free online utility that allows you to {toolDesc} instantly in your browser. As part of the ZeroWebTools suite, it requires no software installations, no server uploads, and no account registrations.",
+    "fbA1P2": "This tool is designed to work client-side, meaning that all data parsing, conversions, and rendering operations happen strictly in your browser session context. This guarantees absolute privacy and provides immediate execution speeds.",
+    "fbQ2": "How to Use {toolTitle} Offline",
+    "fbA2P1": "Operating this workspace is designed to be simple and accessible:",
+    "fbL1": "Open the {toolTitle} page in any modern web browser.",
+    "fbL2": "Upload your files, paste your code, or input parameters into the workspace sandbox area.",
+    "fbL3": "Adjust the options or settings to suit your target output requirements.",
+    "fbL4": "Click the processing button to trigger calculations locally on your CPU.",
+    "fbL5": "Save the generated file or copy the formatted text output instantly.",
+    "fbQ3": "100% Secure & Private Local Processing",
+    "fbA3P1": "Security is the core pillar of ZeroWebTools. When you use the {toolTitle} tool, your input files, parameters, and results are never transmitted to external servers.",
+    "fbA3P2": "Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Drop PDF files here or click to browse",

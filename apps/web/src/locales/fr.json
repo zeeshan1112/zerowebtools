@@ -11,7 +11,21 @@
     "error": "Erreur",
     "success": "Succès",
     "copy": "Copie",
-    "copied": "Copié!"
+    "copied": "Copié!",
+    "fbTitle": "{toolTitle} En ligne : outil côté client gratuit",
+    "fbQ1": "Qu'est-ce que l'outil {toolTitle} ?",
+    "fbA1P1": "L'outil {toolTitle} est un utilitaire en ligne gratuit qui vous permet de {toolDesc} instantanément dans votre navigateur. Faisant partie de la suite ZeroWebTools, il ne nécessite aucune installation de logiciel, aucun téléchargement de serveur et aucun enregistrement de compte.",
+    "fbA1P2": "Cet outil est conçu pour fonctionner côté client, ce qui signifie que toutes les opérations d'analyse, de conversion et de rendu des données se déroulent strictement dans le contexte de la session de votre navigateur. Cela garantit une confidentialité absolue et offre des vitesses d’exécution immédiates.",
+    "fbQ2": "Comment utiliser {toolTitle} hors ligne",
+    "fbA2P1": "Le fonctionnement de cet espace de travail est conçu pour être simple et accessible :",
+    "fbL1": "Ouvrez la page {toolTitle} dans n'importe quel navigateur Web moderne.",
+    "fbL2": "Téléchargez vos fichiers, collez votre code ou saisissez des paramètres dans la zone sandbox de l'espace de travail.",
+    "fbL3": "Ajustez les options ou les paramètres en fonction de vos exigences de sortie cible.",
+    "fbL4": "Cliquez sur le bouton de traitement pour déclencher des calculs localement sur votre CPU.",
+    "fbL5": "Enregistrez le fichier généré ou copiez instantanément le texte formaté.",
+    "fbQ3": "Traitement local 100 % sécurisé et privé",
+    "fbA3P1": "La sécurité est le pilier central de ZeroWebTools. Lorsque vous utilisez l'outil {toolTitle}, vos fichiers d'entrée, paramètres et résultats ne sont jamais transmis à des serveurs externes.",
+    "fbA3P2": "Votre navigateur exécute l’intégralité du sandbox de calcul localement. Une fois que vous fermez l'onglet, toute la mémoire active est effacée, garantissant que vos données restent entièrement sous votre contrôle."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Déposez les fichiers PDF ici ou cliquez pour parcourir",

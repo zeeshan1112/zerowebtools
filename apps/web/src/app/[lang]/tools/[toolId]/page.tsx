@@ -1183,35 +1183,38 @@ const TOOL_ARTICLES: Record<
 };
 
 // Programmatic SEO Fallback Article Generator
-function generateFallbackArticle(tool: Tool, category?: ToolCategory) {
+function generateFallbackArticle(tool: Tool, t: Record<string, string>) {
+  const toolTitle = tool.title;
+  const toolDesc = tool.description.toLowerCase().replace(/\.$/, "");
+  
   return {
-    title: `${tool.title} Online: Free Client-Side Tool`,
+    title: t.fbTitle?.replace("{toolTitle}", toolTitle) || `${toolTitle} Online: Free Client-Side Tool`,
     sections: [
       {
-        heading: `What is the ${tool.title} Tool?`,
+        heading: t.fbQ1?.replace("{toolTitle}", toolTitle) || `What is the ${toolTitle} Tool?`,
         paragraphs: [
-          `The ${tool.title} tool is a free online utility that allows you to ${tool.description.toLowerCase().replace(/\.$/, "")} instantly in your browser. As part of the ZeroWebTools suite, it requires no software installations, no server uploads, and no account registrations.`,
-          `This tool is designed to work client-side, meaning that all data parsing, conversions, and rendering operations happen strictly in your browser session context. This guarantees absolute privacy and provides immediate execution speeds.`
+          (t.fbA1P1 || `The {toolTitle} tool is a free online utility that allows you to {toolDesc} instantly in your browser. As part of the ZeroWebTools suite, it requires no software installations, no server uploads, and no account registrations.`).replace("{toolTitle}", toolTitle).replace("{toolDesc}", toolDesc),
+          t.fbA1P2 || `This tool is designed to work client-side, meaning that all data parsing, conversions, and rendering operations happen strictly in your browser session context. This guarantees absolute privacy and provides immediate execution speeds.`
         ]
       },
       {
-        heading: `How to Use ${tool.title} Offline`,
+        heading: t.fbQ2?.replace("{toolTitle}", toolTitle) || `How to Use ${toolTitle} Offline`,
         paragraphs: [
-          `Operating this workspace is designed to be simple and accessible:`
+          t.fbA2P1 || `Operating this workspace is designed to be simple and accessible:`
         ],
         listItems: [
-          `Open the ${tool.title} page in any modern web browser.`,
-          `Upload your files, paste your code, or input parameters into the workspace sandbox area.`,
-          `Adjust the options or settings to suit your target output requirements.`,
-          `Click the processing button to trigger calculations locally on your CPU.`,
-          `Save the generated file or copy the formatted text output instantly.`
+          t.fbL1?.replace("{toolTitle}", toolTitle) || `Open the ${toolTitle} page in any modern web browser.`,
+          t.fbL2 || `Upload your files, paste your code, or input parameters into the workspace sandbox area.`,
+          t.fbL3 || `Adjust the options or settings to suit your target output requirements.`,
+          t.fbL4 || `Click the processing button to trigger calculations locally on your CPU.`,
+          t.fbL5 || `Save the generated file or copy the formatted text output instantly.`
         ]
       },
       {
-        heading: "100% Secure & Private Local Processing",
+        heading: t.fbQ3 || "100% Secure & Private Local Processing",
         paragraphs: [
-          `Security is the core pillar of ZeroWebTools. When you use the ${tool.title} tool, your input files, parameters, and results are never transmitted to external servers.`,
-          `Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control.`
+          t.fbA3P1?.replace("{toolTitle}", toolTitle) || `Security is the core pillar of ZeroWebTools. When you use the ${toolTitle} tool, your input files, parameters, and results are never transmitted to external servers.`,
+          t.fbA3P2 || `Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control.`
         ]
       }
     ]
@@ -1279,12 +1282,13 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   const WorkspaceComponent = WORKSPACE_MAP[toolId];
   const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
-  const article = (localeData?.articles?.[toolId] || TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined)) as HowToArticle | undefined;
   const toolKey = toolId.replace(/-/g, "_");
   const workspaceDictionary = {
     ...(localeData?.common || {}),
     ...(localeData?.[toolKey] || {}),
+    ...(lang === "en" ? require("@/locales/en.json").common : {}) // Fallback for english since LOCALES_DATA doesn't have "en"
   };
+  const article = (localeData?.articles?.[toolId] || TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, workspaceDictionary) : undefined)) as HowToArticle | undefined;
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";
