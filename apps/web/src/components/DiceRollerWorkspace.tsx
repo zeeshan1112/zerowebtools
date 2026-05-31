@@ -87,7 +87,7 @@ function Dice3D({ value, sides, rolling, index }: { value: number; sides: number
   const currentY = targetRot.y + spins.y;
 
   return (
-    <div className="relative w-24 h-24" style={{ perspective: "1000px" }}>
+    <div className="relative w-20 h-20 md:w-24 md:h-24 shrink-0" style={{ perspective: "1000px" }}>
       <motion.div
         className="w-full h-full relative"
         style={{ transformStyle: "preserve-3d" }}
@@ -208,9 +208,9 @@ export default function DiceRollerWorkspace() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto flex flex-col md:block gap-6 md:space-y-6">
       {/* Header */}
-      <div className="bg-white dark:bg-zinc-900 border border-border/50 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="order-3 md:order-none bg-white dark:bg-zinc-900 border border-border/50 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h2 className="text-xl font-bold text-ink mb-1 flex items-center gap-2">
             <Dices className="w-5 h-5 text-accent" />
@@ -257,9 +257,9 @@ export default function DiceRollerWorkspace() {
       </div>
 
       {/* Play Area */}
-      <div className="relative bg-zinc-50 dark:bg-zinc-900/40 border border-border/50 rounded-2xl p-12 min-h-[400px] flex flex-col items-center justify-center overflow-hidden">
+      <div className="order-1 md:order-none relative bg-zinc-50 dark:bg-zinc-900/40 border border-border/50 rounded-2xl p-8 md:p-12 min-h-[300px] md:min-h-[400px] flex flex-col items-center justify-center overflow-hidden">
         
-        <div className="flex flex-wrap justify-center items-center gap-10 max-w-4xl z-10">
+        <div className="flex flex-row flex-wrap justify-center items-center gap-4 md:gap-10 max-w-4xl z-10 w-full px-2">
           <AnimatePresence>
             {results.map((val, idx) => (
               <Dice3D 
@@ -291,11 +291,11 @@ export default function DiceRollerWorkspace() {
       </div>
 
       {/* Action Bar */}
-      <div className="flex justify-center">
+      <div className="order-2 md:order-none flex justify-center w-full px-4 md:px-0">
         <button
           onClick={handleRoll}
           disabled={rolling}
-          className="relative group bg-accent hover:bg-accent-hover text-white font-bold text-xl py-5 px-16 rounded-2xl shadow-[0_8px_30px_rgba(var(--accent-rgb),0.3)] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
+          className="w-full md:w-auto relative group bg-accent hover:bg-accent-hover text-white font-bold text-xl py-5 px-16 rounded-2xl shadow-[0_8px_30px_rgba(var(--accent-rgb),0.3)] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
         >
           <span className="flex items-center gap-3">
             <RotateCcw className={`w-6 h-6 ${rolling ? 'animate-spin' : ''}`} />

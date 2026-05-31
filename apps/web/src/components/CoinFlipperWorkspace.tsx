@@ -95,31 +95,31 @@ export default function CoinFlipperWorkspace() {
           </button>
         </div>
 
-        <h2 className="text-2xl font-extrabold text-ink mb-2 flex items-center justify-center gap-3">
-          <span className="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
-            <CoinsIcon className="w-5 h-5" />
+        <h2 className="text-xl sm:text-2xl font-extrabold text-ink mb-2 flex items-center justify-center gap-2 sm:gap-3">
+          <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center">
+            <CoinsIcon className="w-4 h-4 sm:w-5 sm:h-5" />
           </span>
           Coin Flipper
         </h2>
-        <p className="text-ink-muted mb-10 max-w-sm mx-auto">
+        <p className="text-ink-muted mb-6 sm:mb-10 max-w-sm mx-auto text-sm sm:text-base hidden sm:block">
           Flip a realistic 3D coin instantly. Completely random and mathematically fair.
         </p>
 
         {/* 3D Coin Scene */}
-        <div className="perspective-[1000px] h-64 w-full flex items-center justify-center mb-10 relative">
+        <div className="perspective-[1000px] h-48 sm:h-64 w-full flex items-center justify-center mb-8 sm:mb-10 relative">
           
-          {/* Vertical Currency Selector */}
-          <div className="absolute -left-2 sm:left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-10">
+          {/* Currency Selector (Desktop: Left Vertical, Mobile: Bottom Horizontal) */}
+          <div className="absolute -bottom-4 sm:bottom-auto sm:left-4 sm:top-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col justify-center w-full sm:w-auto gap-4 z-10 left-0">
             <button
               onClick={() => handleCurrencyChange("classic")}
-              className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl border-2 transition-all shadow-md ${currency === 'classic' ? 'bg-[#D4AF37] text-white border-[#B8860B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#D4AF37] hover:text-[#D4AF37]'}`}
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl border-2 transition-all shadow-md ${currency === 'classic' ? 'bg-[#D4AF37] text-white border-[#B8860B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#D4AF37] hover:text-[#D4AF37]'}`}
               title="Classic Dollar Coin"
             >
               $
             </button>
             <button
               onClick={() => handleCurrencyChange("indian")}
-              className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl border-2 transition-all shadow-md ${currency === 'indian' ? 'bg-[#94A3B8] text-white border-[#64748B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#94A3B8] hover:text-[#94A3B8]'}`}
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl border-2 transition-all shadow-md ${currency === 'indian' ? 'bg-[#94A3B8] text-white border-[#64748B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#94A3B8] hover:text-[#94A3B8]'}`}
               title="Indian Rupee Coin"
             >
               ₹
@@ -127,7 +127,7 @@ export default function CoinFlipperWorkspace() {
           </div>
 
           <div 
-            className="w-48 h-48 rounded-full relative transition-transform duration-[2000ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] preserve-3d"
+            className="w-40 h-40 sm:w-48 sm:h-48 rounded-full relative transition-transform duration-[2000ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] preserve-3d"
             style={{ 
               transform: `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`,
               transformStyle: "preserve-3d" 
