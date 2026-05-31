@@ -74,6 +74,13 @@
 | **Markdown ↔ HTML Converter** | [Try Live](https://zerowebtools.com/tools/markdown-converter) | Convert Markdown markup to HTML and vice versa in real time with preview |
 | **List Shuffler & Random Picker** | [Try Live](https://zerowebtools.com/tools/random-picker) | Shuffle lists, draw random items, pick names, or choose raffle winners |
 
+### Fun & Interactive (3 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **3D Dice Roller** | [Try Live](https://zerowebtools.com/tools/dice-roller) | Roll multiple 3D dice with custom sides, animated physics, and voice announcement of totals |
+| **3D Coin Flipper** | [Try Live](https://zerowebtools.com/tools/coin-flipper) | Flip a realistic 3D coin with two currency designs for truly random heads or tails results |
+| **Random Team Generator** | [Try Live](https://zerowebtools.com/tools/random-team-generator) | Split a list of names into randomized teams or groups instantly |
+
 ### Financial & Growth Modelers (6 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
