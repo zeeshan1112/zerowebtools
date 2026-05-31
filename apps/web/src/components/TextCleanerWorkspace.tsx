@@ -180,7 +180,7 @@ Kiwi (2)
             <button
               onClick={handleCleanSequence}
               disabled={!inputText}
-              className="w-full py-2.5 bg-accent hover:bg-accent-hover text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
+              className="w-full py-2.5 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
             >
               Apply Clean Options
             </button>
@@ -222,7 +222,7 @@ Kiwi (2)
             <button
               onClick={handleSort}
               disabled={!inputText}
-              className="w-full py-2.5 bg-accent hover:bg-accent-hover text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
+              className="w-full py-2.5 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
             >
               Sort Lines
             </button>
@@ -291,7 +291,7 @@ Kiwi (2)
             <button
               onClick={handleFindReplace}
               disabled={!inputText || !findStr}
-              className="w-full py-2.5 bg-accent hover:bg-accent-hover text-white disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
+              className="w-full py-2.5 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
             >
               Replace All Matches
             </button>

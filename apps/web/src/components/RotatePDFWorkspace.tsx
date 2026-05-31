@@ -202,7 +202,7 @@ export default function RotatePDFWorkspace() {
               <button
                 onClick={rotate}
                 disabled={processing}
-                className="rounded-lg bg-accent text-white px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 font-mono uppercase tracking-wider"
+                className="rounded-lg bg-accent text-white dark:text-black px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 font-mono uppercase tracking-wider"
               >
                 {processing ? "Rotating..." : "Rotate PDF"}
               </button>
@@ -210,7 +210,7 @@ export default function RotatePDFWorkspace() {
               <>
                 <button
                   onClick={download}
-                  className="rounded-lg bg-accent hover:bg-accent-hover text-white px-5 py-2.5 text-sm font-medium active:scale-[0.98] transition-all shadow-sm flex items-center gap-2 font-mono uppercase tracking-wider"
+                  className="rounded-lg bg-accent hover:bg-accent-hover text-white dark:text-black px-5 py-2.5 text-sm font-medium active:scale-[0.98] transition-all shadow-sm flex items-center gap-2 font-mono uppercase tracking-wider"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
@@ -315,7 +315,7 @@ export default function RotatePDFWorkspace() {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between shrink-0 px-5 py-3 border-t border-border">
-                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
+                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white dark:text-black px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                       </svg>

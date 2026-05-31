@@ -338,7 +338,7 @@ export default function HeicConverterWorkspace() {
           <button
             onClick={convertAll}
             disabled={isConverting}
-            className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="rounded-lg bg-accent text-white dark:text-black px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isConverting 
               ? t("converting", "Converting...") 

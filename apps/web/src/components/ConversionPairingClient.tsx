@@ -41,7 +41,7 @@ export default function ConversionPairingClient({ pairing, lang }: ConversionPai
         <div className="pt-6">
           <Link
             href={`${langPrefix}/tools/${pairing.toolId}`}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-accent text-white font-bold rounded-2xl shadow-lg hover:bg-accent/90 transition-all hover:-translate-y-1 hover:shadow-xl active:scale-95"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-accent text-white dark:text-black font-bold rounded-2xl shadow-lg hover:bg-accent/90 transition-all hover:-translate-y-1 hover:shadow-xl active:scale-95"
           >
             <span className="text-lg">Launch {toolTitle} Workspace</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

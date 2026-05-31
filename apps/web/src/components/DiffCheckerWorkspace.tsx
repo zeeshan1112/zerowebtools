@@ -364,7 +364,7 @@ Please share this utility with your friends!`;
           <button
             onClick={handleCompareClick}
             disabled={!originalText && !modifiedText}
-            className="w-full sm:w-auto px-8 py-3.5 bg-accent hover:bg-accent-hover text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl text-sm font-extrabold shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/35 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl text-sm font-extrabold shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/35 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="3" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

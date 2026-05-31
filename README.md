@@ -10,6 +10,7 @@
   </p>
   <p>
     <img src="https://img.shields.io/website?url=https%3A%2F%2Fzerowebtools.com&label=zerowebtools.com" alt="Live" />
+    <a href="https://app.netlify.com/projects/zerowebtools/deploys"><img src="https://api.netlify.com/api/v1/badges/7376d269-a134-481c-936e-2c1cf1d38fef/deploy-status" alt="Netlify Status" /></a>
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License" />
     <img src="https://img.shields.io/badge/Next.js-15-black" alt="Next.js" />
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome" />

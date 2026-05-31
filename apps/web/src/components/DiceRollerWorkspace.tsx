@@ -253,19 +253,22 @@ export default function DiceRollerWorkspace() {
             <span className="text-sm font-bold text-ink min-w-[1.5rem] text-center">{diceCount}</span>
           </div>
 
-          <button
-            onClick={() => setSoundEnabled(!soundEnabled)}
-            className={`p-2 rounded-xl border transition-colors ${soundEnabled ? 'bg-accent/10 border-accent/20 text-accent' : 'bg-zinc-50 dark:bg-zinc-800/50 border-border/50 text-ink-muted'}`}
-            title={soundEnabled ? "Mute Sound" : "Enable Sound"}
-          >
-            {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-          </button>
         </div>
       </div>
 
       {/* Play Area */}
       <div className="order-1 md:order-none relative bg-zinc-50 dark:bg-zinc-900/40 border border-border/50 rounded-2xl p-8 md:p-12 min-h-[300px] md:min-h-[400px] flex flex-col items-center justify-center overflow-hidden">
         
+        {/* Header Options */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 flex gap-2">
+          <button
+            onClick={() => setSoundEnabled(!soundEnabled)}
+            className="p-2.5 text-ink-secondary hover:text-ink hover:bg-surface rounded-xl transition-colors border border-border/30 shadow-sm"
+            title={soundEnabled ? "Mute Sound" : "Enable Sound"}
+          >
+            {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+          </button>
+        </div>
         <div className="flex flex-row flex-wrap justify-center items-center gap-4 md:gap-10 max-w-4xl z-10 w-full px-2">
           <AnimatePresence>
             {results.map((val, idx) => (
@@ -302,7 +305,7 @@ export default function DiceRollerWorkspace() {
         <button
           onClick={handleRoll}
           disabled={rolling}
-          className="w-full md:w-auto relative group bg-accent hover:bg-accent-hover text-white font-bold text-xl py-5 px-16 rounded-2xl shadow-[0_8px_30px_rgba(var(--accent-rgb),0.3)] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
+          className="w-full md:w-auto relative group bg-accent hover:bg-accent-hover text-white dark:text-black font-bold text-xl py-5 px-16 rounded-2xl shadow-[0_8px_30px_rgba(var(--accent-rgb),0.3)] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
         >
           <span className="flex items-center justify-center gap-3">
             <RotateCcw className={`w-6 h-6 ${rolling ? 'animate-spin' : ''}`} />

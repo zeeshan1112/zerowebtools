@@ -220,7 +220,7 @@ export default function FileHasherWorkspace() {
                 </button>
                 <button
                   onClick={handleCalculateHashes}
-                  className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm shadow-accent/10"
+                  className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-white dark:text-black text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm shadow-accent/10"
                 >
                   Generate Hashes
                 </button>

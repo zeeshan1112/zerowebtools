@@ -123,7 +123,7 @@ export default function RandomTeamGeneratorWorkspace() {
                 <button
                   onClick={() => setSplitMethod("teams")}
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg transition-all relative z-10 ${
-                    splitMethod === "teams" ? "text-white" : "text-ink-secondary hover:text-ink"
+                    splitMethod === "teams" ? "text-white dark:text-black" : "text-ink-secondary hover:text-ink"
                   }`}
                 >
                   <DivideIcon className="w-4 h-4" />
@@ -132,7 +132,7 @@ export default function RandomTeamGeneratorWorkspace() {
                 <button
                   onClick={() => setSplitMethod("persons")}
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-lg transition-all relative z-10 ${
-                    splitMethod === "persons" ? "text-white" : "text-ink-secondary hover:text-ink"
+                    splitMethod === "persons" ? "text-white dark:text-black" : "text-ink-secondary hover:text-ink"
                   }`}
                 >
                   <UserPlusIcon className="w-4 h-4" />
@@ -162,7 +162,7 @@ export default function RandomTeamGeneratorWorkspace() {
             <button
               onClick={generateTeams}
               disabled={participants.length < 2 || isGenerating}
-              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-accent text-white font-extrabold uppercase tracking-wide hover:bg-accent/90 active:scale-[0.98] transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-accent text-white dark:text-black font-extrabold uppercase tracking-wide hover:bg-accent/90 active:scale-[0.98] transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isGenerating ? (
                 <>
