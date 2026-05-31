@@ -55,7 +55,7 @@ const staggerItem = {
 
 
 
-const SLUG_TO_TAB: Record<string, "all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators"> = {
+const SLUG_TO_TAB: Record<string, "all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun"> = {
   "all-tools": "all",
   "pdf-tools": "pdf",
   "text-tools": "text",
@@ -63,6 +63,7 @@ const SLUG_TO_TAB: Record<string, "all" | "pdf" | "image" | "developer" | "gener
   "generators": "generators",
   "image-tools": "image",
   "financial-growth": "calculators",
+  "fun": "fun",
 };
 
 const TAB_TO_SLUG: Record<string, string> = {
@@ -73,12 +74,13 @@ const TAB_TO_SLUG: Record<string, string> = {
   generators: "generators",
   image: "image-tools",
   calculators: "financial-growth",
+  fun: "fun",
 };
 
 export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const t = getTranslations(lang);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -93,6 +95,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       case "generators": return t.generators;
       case "image-tools": return t.imageTools;
       case "financial-growth": return t.calculators;
+      case "fun": return (t as any).fun || "Fun";
       default: return fallback;
     }
   };
@@ -169,7 +172,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const getTabCategorySlug = () => {
     switch (activeTab) {
       case "all":
-        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth"];
+        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
       case "pdf":
         return ["pdf-tools"];
       case "text":
@@ -182,8 +185,10 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         return ["image-tools"];
       case "calculators":
         return ["financial-growth"];
+      case "fun":
+        return ["fun"];
       default:
-        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth"];
+        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
     }
   };
 
@@ -350,6 +355,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 <a href="#tools-directory" onClick={() => setActiveTab("text")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Text Tools</a>
                 <span>•</span>
                 <a href="#tools-directory" onClick={() => setActiveTab("calculators")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Calculators</a>
+                <span>•</span>
+                <a href="#tools-directory" onClick={() => setActiveTab("fun")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Fun</a>
               </div>
             </div>
 
@@ -502,6 +509,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 { id: "generators", label: t.generators },
                 { id: "text", label: t.textTools },
                 { id: "calculators", label: t.calculators },
+                { id: "fun", label: (t as any).fun || "Fun" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (

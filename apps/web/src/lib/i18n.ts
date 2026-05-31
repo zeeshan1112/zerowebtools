@@ -14,6 +14,7 @@ export interface TranslationDictionary {
   generators: string;
   textTools: string;
   calculators: string;
+  fun: string;
   savedTools: string;
   spotlightUtilities: string;
   guidesResources: string;
@@ -41,6 +42,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generators",
     textTools: "Text Tools",
     calculators: "Calculators",
+    fun: "Fun",
     savedTools: "Your Saved Tools",
     spotlightUtilities: "Spotlight Utilities",
     guidesResources: "Guides & Resources",
@@ -66,6 +68,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generadores",
     textTools: "Texto",
     calculators: "Calculadoras",
+    fun: "Diversión",
     savedTools: "Tus Herramientas Guardadas",
     spotlightUtilities: "Destacadas",
     guidesResources: "Guías y Recursos",
@@ -91,6 +94,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generatoren",
     textTools: "Text-Tools",
     calculators: "Rechner",
+    fun: "Spaß",
     savedTools: "Gespeicherte Tools",
     spotlightUtilities: "Im Rampenlicht",
     guidesResources: "Anleitungen",
@@ -116,6 +120,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Générateurs",
     textTools: "Texte",
     calculators: "Calculatrices",
+    fun: "Amusement",
     savedTools: "Vos Outils Sauvegardés",
     spotlightUtilities: "À La Une",
     guidesResources: "Guides et Ressources",
@@ -141,6 +146,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Geradores",
     textTools: "Texto",
     calculators: "Calculadoras",
+    fun: "Diversão",
     savedTools: "Ferramentas Salvas",
     spotlightUtilities: "Destaques",
     guidesResources: "Guias e Recursos",
@@ -166,6 +172,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "ジェネレーター",
     textTools: "テキストツール",
     calculators: "計算ツール",
+    fun: "楽しいツール",
     savedTools: "保存したツール",
     spotlightUtilities: "注目のユーティリティ",
     guidesResources: "ガイドとリソース",
@@ -191,6 +198,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "生成器",
     textTools: "文本工具",
     calculators: "计算器",
+    fun: "趣味工具",
     savedTools: "已保存的工具",
     spotlightUtilities: "精选工具",
     guidesResources: "指南与资源",
@@ -216,6 +224,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "जेनरेटर्स",
     textTools: "टेक्स्ट टूल्स",
     calculators: "कैलकुलेटर",
+    fun: "मनोरंजन",
     savedTools: "आपके सहेजे गए टूल्स",
     spotlightUtilities: "स्पॉटलाइट यूटिलिटीज",
     guidesResources: "गाइड और संसाधन",
@@ -241,6 +250,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "Generatori",
     textTools: "Testo",
     calculators: "Calcolatori",
+    fun: "Divertimento",
     savedTools: "Strumenti Salvati",
     spotlightUtilities: "In evidenza",
     guidesResources: "Guide & Risorse",
@@ -266,6 +276,7 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     generators: "المولدات",
     textTools: "أدوات النصوص",
     calculators: "الحاسبات",
+    fun: "مرح",
     savedTools: "أدواتك المحفوظة",
     spotlightUtilities: "أدوات مميزة",
     guidesResources: "الأدلة والمصادر",

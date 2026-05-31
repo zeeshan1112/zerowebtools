@@ -74,6 +74,7 @@ export default function MobileDrawer() {
       case "generators": return translations.generators;
       case "image-tools": return translations.imageTools;
       case "financial-growth": return translations.calculators;
+      case "fun": return (translations as any).fun || "Fun";
       default: return fallback;
     }
   };
