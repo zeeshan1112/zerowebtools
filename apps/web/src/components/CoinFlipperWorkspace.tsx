@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
 const Volume2Icon = ({ className = "" }: { className?: string }) => (
@@ -39,6 +39,15 @@ export default function CoinFlipperWorkspace() {
 
   const [stats, setStats] = useState({ heads: 0, tails: 0 });
 
+  // Preload audio once and cache the element for instant playback
+  const coinAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("/coin-flip.mp3");
+    audio.preload = "auto";
+    coinAudioRef.current = audio;
+  }, []);
+
   const speakResult = (outcome: "heads" | "tails") => {
     if (!soundEnabled || typeof window === "undefined" || !window.speechSynthesis) return;
     window.speechSynthesis.cancel();
@@ -57,10 +66,10 @@ export default function CoinFlipperWorkspace() {
       window.speechSynthesis.speak(primeUtterance);
     }
 
-    if (soundEnabled && typeof window !== "undefined") {
+    if (soundEnabled && coinAudioRef.current) {
       try {
-        const audio = new Audio("/coin-flip.mp3");
-        audio.play().catch(e => console.warn("Audio playback failed", e));
+        coinAudioRef.current.currentTime = 0;
+        coinAudioRef.current.play().catch(e => console.warn("Audio playback failed", e));
       } catch (e) {
         console.warn("Audio not supported", e);
       }
