@@ -102,21 +102,19 @@ export default function CoinFlipperWorkspace() {
             }}
           >
             {/* Heads (Front) */}
-            <div className="absolute inset-0 backface-hidden rounded-full border-8 border-[#FACC15] bg-gradient-to-br from-[#FEF08A] to-[#EAB308] flex items-center justify-center shadow-2xl">
-              <div className="w-36 h-36 rounded-full border-4 border-[#CA8A04]/30 flex items-center justify-center flex-col shadow-inner">
-                <span className="text-4xl font-black text-[#854D0E] tracking-widest">HEADS</span>
-              </div>
-            </div>
+            <img 
+              src="/images/coin/heads.png" 
+              alt="Heads" 
+              className="absolute inset-0 w-full h-full object-cover rounded-full backface-hidden shadow-2xl shadow-amber-500/20 pointer-events-none border-[3px] border-[#D4AF37]" 
+            />
 
             {/* Tails (Back) */}
-            <div 
-              className="absolute inset-0 backface-hidden rounded-full border-8 border-[#94A3B8] bg-gradient-to-br from-[#E2E8F0] to-[#64748B] flex items-center justify-center shadow-2xl"
+            <img 
+              src="/images/coin/tails.png" 
+              alt="Tails" 
+              className="absolute inset-0 w-full h-full object-cover rounded-full backface-hidden shadow-2xl shadow-amber-500/20 pointer-events-none border-[3px] border-[#D4AF37]" 
               style={{ transform: "rotateY(180deg)" }}
-            >
-              <div className="w-36 h-36 rounded-full border-4 border-[#475569]/30 flex items-center justify-center flex-col shadow-inner">
-                <span className="text-4xl font-black text-[#1E293B] tracking-widest">TAILS</span>
-              </div>
-            </div>
+            />
             
             {/* Coin Edge (Thickness Illusion) */}
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none" style={{ transform: "translateZ(-1px)" }}></div>
