@@ -117,21 +117,19 @@ export default function CoinFlipperWorkspace() {
           <div className="flex bg-surface border border-border/50 rounded-xl p-1 relative overflow-hidden shadow-sm">
             <button
               onClick={() => handleCurrencyChange("classic")}
-              className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 text-sm font-bold rounded-lg transition-all relative z-10 ${
+              className={`flex-1 min-w-[80px] flex items-center justify-center py-2 rounded-lg transition-all relative z-10 ${
                 currency === "classic" ? "text-white" : "text-ink-secondary hover:text-ink"
               }`}
             >
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs border ${currency === 'classic' ? 'border-white/30 bg-white/20' : 'border-border/50 bg-surface-elevated'}`}>$</span>
-              Classic
+              <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg border ${currency === 'classic' ? 'border-white/30 bg-white/20 shadow-inner' : 'border-border/50 bg-surface-elevated'}`}>$</span>
             </button>
             <button
               onClick={() => handleCurrencyChange("indian")}
-              className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 text-sm font-bold rounded-lg transition-all relative z-10 ${
+              className={`flex-1 min-w-[80px] flex items-center justify-center py-2 rounded-lg transition-all relative z-10 ${
                 currency === "indian" ? "text-white" : "text-ink-secondary hover:text-ink"
               }`}
             >
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs border ${currency === 'indian' ? 'border-white/30 bg-white/20' : 'border-border/50 bg-surface-elevated'}`}>₹</span>
-              Indian
+              <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg border ${currency === 'indian' ? 'border-white/30 bg-white/20 shadow-inner' : 'border-border/50 bg-surface-elevated'}`}>₹</span>
             </button>
             {/* Animated Background Pill */}
             <div 
