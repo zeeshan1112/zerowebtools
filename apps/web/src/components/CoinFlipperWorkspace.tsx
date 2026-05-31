@@ -108,30 +108,41 @@ export default function CoinFlipperWorkspace() {
           </span>
           Coin Flipper
         </h2>
-        <p className="text-ink-muted mb-6 sm:mb-10 max-w-sm mx-auto text-sm sm:text-base hidden sm:block">
+        <p className="text-ink-muted mb-6 sm:mb-8 max-w-sm mx-auto text-sm sm:text-base hidden sm:block">
           Flip a realistic 3D coin instantly. Completely random and mathematically fair.
         </p>
 
-        {/* 3D Coin Scene */}
-        <div className="perspective-[1000px] h-48 sm:h-64 w-full flex items-center justify-center mb-8 sm:mb-10 relative">
-          
-          {/* Currency Selector (Desktop: Left Vertical, Mobile: Bottom Horizontal) */}
-          <div className="absolute -bottom-4 sm:bottom-auto sm:left-4 sm:top-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col justify-center w-full sm:w-auto gap-4 z-10 left-0">
+        {/* Currency Segmented Control */}
+        <div className="flex justify-center mb-8">
+          <div className="flex bg-surface border border-border/50 rounded-xl p-1 relative overflow-hidden shadow-sm">
             <button
               onClick={() => handleCurrencyChange("classic")}
-              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl border-2 transition-all shadow-md ${currency === 'classic' ? 'bg-[#D4AF37] text-white border-[#B8860B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#D4AF37] hover:text-[#D4AF37]'}`}
-              title="Classic Dollar Coin"
+              className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 text-sm font-bold rounded-lg transition-all relative z-10 ${
+                currency === "classic" ? "text-white" : "text-ink-secondary hover:text-ink"
+              }`}
             >
-              $
+              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs border ${currency === 'classic' ? 'border-white/30 bg-white/20' : 'border-border/50 bg-surface-elevated'}`}>$</span>
+              Classic
             </button>
             <button
               onClick={() => handleCurrencyChange("indian")}
-              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl border-2 transition-all shadow-md ${currency === 'indian' ? 'bg-[#94A3B8] text-white border-[#64748B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#94A3B8] hover:text-[#94A3B8]'}`}
-              title="Indian Rupee Coin"
+              className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-2 text-sm font-bold rounded-lg transition-all relative z-10 ${
+                currency === "indian" ? "text-white" : "text-ink-secondary hover:text-ink"
+              }`}
             >
-              ₹
+              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs border ${currency === 'indian' ? 'border-white/30 bg-white/20' : 'border-border/50 bg-surface-elevated'}`}>₹</span>
+              Indian
             </button>
+            {/* Animated Background Pill */}
+            <div 
+              className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-accent rounded-lg shadow-md transition-all duration-300 ease-out z-0`}
+              style={{ left: currency === "classic" ? "4px" : "calc(50%)" }}
+            />
           </div>
+        </div>
+
+        {/* 3D Coin Scene */}
+        <div className="perspective-[1000px] h-48 sm:h-64 w-full flex items-center justify-center mb-8 sm:mb-10 relative">
 
           <div 
             className="w-40 h-40 sm:w-48 sm:h-48 rounded-full relative transition-transform duration-[2000ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] preserve-3d"
