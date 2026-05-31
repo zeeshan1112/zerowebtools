@@ -645,16 +645,16 @@ const tool = getLocalizedTool(rawTool, lang);
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-6 rounded-2xl border border-dashed border-border/70 bg-surface">
-              <h3 className="text-xs font-bold text-ink mb-2">Is it completely free?</h3>
-              <p className="text-[11px] text-ink-secondary">Yes, ZeroWebTools is 100% free. No subscriptions, no hidden fees, and no sign-up required.</p>
+              <h3 className="text-xs font-bold text-ink mb-2">{t.faqQ1}</h3>
+              <p className="text-[11px] text-ink-secondary">{t.faqA1}</p>
             </div>
             <div className="p-6 rounded-2xl border border-dashed border-border/70 bg-surface">
-              <h3 className="text-xs font-bold text-ink mb-2">Are my files uploaded to a server?</h3>
-              <p className="text-[11px] text-ink-secondary">No. All tools execute entirely client-side using WebAssembly in your browser. Your files never leave your device.</p>
+              <h3 className="text-xs font-bold text-ink mb-2">{t.faqQ2}</h3>
+              <p className="text-[11px] text-ink-secondary">{t.faqA2}</p>
             </div>
             <div className="p-6 rounded-2xl border border-dashed border-border/70 bg-surface">
-              <h3 className="text-xs font-bold text-ink mb-2">Do I need to download anything?</h3>
-              <p className="text-[11px] text-ink-secondary">No, you do not need to install any apps or software. Everything works securely inside your web browser.</p>
+              <h3 className="text-xs font-bold text-ink mb-2">{t.faqQ3}</h3>
+              <p className="text-[11px] text-ink-secondary">{t.faqA3}</p>
             </div>
           </div>
         </section>

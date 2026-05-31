@@ -27,6 +27,12 @@ export interface TranslationDictionary {
   faqTitle: string;
   faqSubtitle: string;
   howToDesc: string;
+  faqQ1: string;
+  faqA1: string;
+  faqQ2: string;
+  faqA2: string;
+  faqQ3: string;
+  faqA3: string;
 }
 
 const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
@@ -54,7 +60,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Private • {count} free online tools",
     faqTitle: "Frequently Asked Questions",
     faqSubtitle: "Everything you need to know about ZeroWebTools privacy and usage.",
-    howToDesc: "Explore quick-start tutorials, visual multi-tool chaining recipes, and detailed privacy-first competitor comparisons."
+        howToDesc: "Explore quick-start tutorials, visual multi-tool chaining recipes, and detailed privacy-first competitor comparisons.",
+    faqQ1: "Is it completely free?",
+    faqA1: "Yes, ZeroWebTools is 100% free. No subscriptions, no hidden fees, and no sign-up required.",
+    faqQ2: "Are my files uploaded to a server?",
+    faqA2: "No. All tools execute entirely client-side using WebAssembly in your browser. Your files never leave your device.",
+    faqQ3: "Do I need to download anything?",
+    faqA3: "No, you do not need to install any apps or software. Everything works securely inside your web browser."
   },
   es: {
     homeTitle: "Herramientas web simples y privadas en su navegador.",
@@ -80,7 +92,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privado • {count} herramientas gratuitas",
     faqTitle: "Preguntas Frecuentes",
     faqSubtitle: "Todo lo que necesita saber sobre la privacidad de ZeroWebTools.",
-    howToDesc: "Explore tutoriales de inicio rápido, recetas visuales de encadenamiento de herramientas y comparaciones detalladas de competidores que priorizan la privacidad."
+        howToDesc: "Explore tutoriales de inicio rápido, recetas visuales de encadenamiento de herramientas y comparaciones detalladas de competidores que priorizan la privacidad.",
+    faqQ1: "¿Es completamente gratis?",
+    faqA1: "Sí, ZeroWebTools es 100% gratuito. Sin suscripciones, sin tarifas ocultas y sin necesidad de registrarse.",
+    faqQ2: "¿Mis archivos se cargan en un servidor?",
+    faqA2: "No. Todas las herramientas se ejecutan completamente en el lado del cliente mediante WebAssembly en su navegador. Tus archivos nunca salen de tu dispositivo.",
+    faqQ3: "¿Necesito descargar algo?",
+    faqA3: "No, no es necesario instalar ninguna aplicación o software. Todo funciona de forma segura dentro de su navegador web."
   },
   de: {
     homeTitle: "Einfache, private Web-Tools in Ihrem Browser.",
@@ -106,7 +124,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privat • {count} kostenlose Tools",
     faqTitle: "Häufig gestellte Fragen",
     faqSubtitle: "Alles, was Sie über die ZeroWebTools wissen müssen.",
-    howToDesc: "Entdecken Sie Schnellstart-Anleitungen, visuelle Rezepte zur Tool-Verkettung und detaillierte, datenschutzfreundliche Vergleiche mit Mitbewerbern."
+        howToDesc: "Entdecken Sie Schnellstart-Anleitungen, visuelle Rezepte zur Tool-Verkettung und detaillierte, datenschutzfreundliche Vergleiche mit Mitbewerbern.",
+    faqQ1: "Ist es völlig kostenlos?",
+    faqA1: "Ja, ZeroWebTools ist 100 % kostenlos. Keine Abonnements, keine versteckten Gebühren und keine Anmeldung erforderlich.",
+    faqQ2: "Werden meine Dateien auf einen Server hochgeladen?",
+    faqA2: "Nein. Alle Tools werden vollständig clientseitig mit WebAssembly in Ihrem Browser ausgeführt. Ihre Dateien verlassen niemals Ihr Gerät.",
+    faqQ3: "Muss ich etwas herunterladen?",
+    faqA3: "Nein, Sie müssen keine Apps oder Software installieren. Alles funktioniert sicher in Ihrem Webbrowser."
   },
   fr: {
     homeTitle: "Des outils web simples et privés dans votre navigateur.",
@@ -132,7 +156,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privé • {count} outils gratuits",
     faqTitle: "Foire Aux Questions",
     faqSubtitle: "Tout ce que vous devez savoir sur ZeroWebTools.",
-    howToDesc: "Explorez des tutoriels de démarrage rapide, des recettes visuelles d'enchaînement d'outils et des comparaisons détaillées de concurrents respectant la vie privée."
+        howToDesc: "Explorez des tutoriels de démarrage rapide, des recettes visuelles d'enchaînement d'outils et des comparaisons détaillées de concurrents respectant la vie privée.",
+    faqQ1: "Est-ce totalement gratuit ?",
+    faqA1: "Oui, ZeroWebTools est 100 % gratuit. Aucun abonnement, aucun frais caché et aucune inscription requise.",
+    faqQ2: "Mes fichiers sont-ils téléchargés sur un serveur ?",
+    faqA2: "Non. Tous les outils s'exécutent entièrement côté client à l'aide de WebAssembly dans votre navigateur. Vos fichiers ne quittent jamais votre appareil.",
+    faqQ3: "Dois-je télécharger quelque chose ?",
+    faqA3: "Non, vous n'avez pas besoin d'installer d'applications ou de logiciels. Tout fonctionne en toute sécurité dans votre navigateur Web."
   },
   pt: {
     homeTitle: "Ferramentas web simples e privadas no seu navegador.",
@@ -158,7 +188,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privado • {count} ferramentas gratuitas",
     faqTitle: "Perguntas Frequentes",
     faqSubtitle: "Tudo o que você precisa saber sobre o ZeroWebTools.",
-    howToDesc: "Explore tutoriais de início rápido, receitas visuais de encadeamento de ferramentas e comparações detalhadas de concorrentes com foco na privacidade."
+        howToDesc: "Explore tutoriais de início rápido, receitas visuais de encadeamento de ferramentas e comparações detalhadas de concorrentes com foco na privacidade.",
+    faqQ1: "É totalmente gratuito?",
+    faqA1: "Sim, ZeroWebTools é 100% gratuito. Sem assinaturas, sem taxas ocultas e sem necessidade de inscrição.",
+    faqQ2: "Meus arquivos são enviados para um servidor?",
+    faqA2: "Não. Todas as ferramentas são executadas inteiramente no lado do cliente usando WebAssembly em seu navegador. Seus arquivos nunca saem do seu dispositivo.",
+    faqQ3: "Preciso baixar alguma coisa?",
+    faqA3: "Não, você não precisa instalar nenhum aplicativo ou software. Tudo funciona de forma segura dentro do seu navegador."
   },
   ja: {
     homeTitle: "ブラウザで動くシンプルでプライベートなWebツール。",
@@ -184,7 +220,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% プライベート • {count} 個の無料オンラインツール",
     faqTitle: "よくある質問",
     faqSubtitle: "ZeroWebToolsのプライバシーと使用方法に関するすべての情報。",
-    howToDesc: "プライバシーを重視したクイックスタートチュートリアル、複数のツールを組み合わせたビジュアルレシピ、競合他社との詳細な比較をご覧ください。"
+        howToDesc: "プライバシーを重視したクイックスタートチュートリアル、複数のツールを組み合わせたビジュアルレシピ、競合他社との詳細な比較をご覧ください。",
+    faqQ1: "完全に無料ですか?",
+    faqA1: "はい、ZeroWebTools は完全に無料です。サブスクリプション、隠れた料金、サインアップは必要ありません。",
+    faqQ2: "私のファイルはサーバーにアップロードされていますか?",
+    faqA2: "いいえ。すべてのツールはブラウザーの WebAssembly を使用して完全にクライアント側で実行されます。ファイルがデバイスの外に出ることはありません。",
+    faqQ3: "何かをダウンロードする必要がありますか?",
+    faqA3: "いいえ、アプリやソフトウェアをインストールする必要はありません。 Web ブラウザ内ではすべてが安全に動作します。"
   },
   zh: {
     homeTitle: "在浏览器中运行的简单、隐私网页工具。",
@@ -210,7 +252,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% 本地隐私 • {count} 个免费在线工具",
     faqTitle: "常见问题",
     faqSubtitle: "您需要了解的关于 ZeroWebTools 隐私和使用的所有信息。",
-    howToDesc: "探索快速入门教程、可视化多工具链配方以及详细的隐私第一竞争对手比较。"
+        howToDesc: "探索快速入门教程、可视化多工具链配方以及详细的隐私第一竞争对手比较。",
+    faqQ1: "是完全免费的吗？",
+    faqA1: "是的，ZeroWebTools 100% 免费。无需订阅，无隐藏费用，也无需注册。",
+    faqQ2: "我的文件是否上传到服务器？",
+    faqA2: "不会。所有工具都在浏览器中使用 WebAssembly 完全在客户端执行。您的文件永远不会离开您的设备。",
+    faqQ3: "我需要下载什么东西吗？",
+    faqA3: "不，您不需要安装任何应用程序或软件。一切都可以在您的网络浏览器中安全地运行。"
   },
   hi: {
     homeTitle: "आपके ब्राउज़र में सरल और निजी वेब टूल्स।",
@@ -236,7 +284,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% निजी • {count} मुफ़्त ऑनलाइन टूल्स",
     faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
     faqSubtitle: "ZeroWebTools गोपनीयता और उपयोग के बारे में वह सब कुछ जो आपको जानना आवश्यक है।",
-    howToDesc: "त्वरित-प्रारंभ ट्यूटोरियल, विज़ुअल मल्टी-टूल चेनिंग रेसिपी और विस्तृत गोपनीयता-प्रथम प्रतियोगी तुलनाओं का अन्वेषण करें।"
+        howToDesc: "त्वरित-प्रारंभ ट्यूटोरियल, विज़ुअल मल्टी-टूल चेनिंग रेसिपी और विस्तृत गोपनीयता-प्रथम प्रतियोगी तुलनाओं का अन्वेषण करें।",
+    faqQ1: "क्या यह पूर्णतः निःशुल्क है?",
+    faqA1: "हाँ, ZeroWebTools 100% मुफ़्त है। कोई सदस्यता नहीं, कोई छिपी हुई फीस नहीं, और कोई साइन-अप आवश्यक नहीं है।",
+    faqQ2: "क्या मेरी फ़ाइलें सर्वर पर अपलोड की गई हैं?",
+    faqA2: "नहीं, सभी उपकरण आपके ब्राउज़र में WebAssembly का उपयोग करके पूरी तरह से क्लाइंट-साइड निष्पादित करते हैं। आपकी फ़ाइलें कभी भी आपका डिवाइस नहीं छोड़तीं।",
+    faqQ3: "क्या मुझे कुछ भी डाउनलोड करने की आवश्यकता है?",
+    faqA3: "नहीं, आपको कोई ऐप या सॉफ़्टवेयर इंस्टॉल करने की ज़रूरत नहीं है. आपके वेब ब्राउज़र के अंदर सब कुछ सुरक्षित रूप से काम करता है।"
   },
   it: {
     homeTitle: "Strumenti web semplici e privati nel tuo browser.",
@@ -262,7 +316,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "100% Privato • {count} strumenti online gratuiti",
     faqTitle: "Domande Frequenti",
     faqSubtitle: "Tutto quello che c'è da sapere sulla privacy e l'uso di ZeroWebTools.",
-    howToDesc: "Esplora tutorial rapidi, ricette visive per concatenare più strumenti e confronti dettagliati dei concorrenti orientati alla privacy."
+        howToDesc: "Esplora tutorial rapidi, ricette visive per concatenare più strumenti e confronti dettagliati dei concorrenti orientati alla privacy.",
+    faqQ1: "È completamente gratuito?",
+    faqA1: "Sì, ZeroWebTools è gratuito al 100%. Nessun abbonamento, nessun costo nascosto e nessuna registrazione richiesta.",
+    faqQ2: "I miei file vengono caricati su un server?",
+    faqA2: "No. Tutti gli strumenti vengono eseguiti interamente sul lato client utilizzando WebAssembly nel browser. I tuoi file non lasciano mai il tuo dispositivo.",
+    faqQ3: "Devo scaricare qualcosa?",
+    faqA3: "No, non è necessario installare alcuna app o software. Tutto funziona in modo sicuro all'interno del tuo browser web."
   },
   ar: {
     homeTitle: "أدوات ويب بسيطة وخاصة في متصفحك مباشرة.",
@@ -288,7 +348,13 @@ const DICTIONARIES: Record<SupportedLocale, TranslationDictionary> = {
     privateBadge: "خصوصية 100% • {count} أداة مجانية عبر الإنترنت",
     faqTitle: "الأسئلة الشائعة",
     faqSubtitle: "كل ما تحتاج لمعرفته حول خصوصية واستخدام ZeroWebTools.",
-    howToDesc: "استكشف البرامج التعليمية لبدء التشغيل السريع، ووصفات تسلسل الأدوات المتعددة المرئية، والمقارنات التفصيلية للمنافسين التي تعطي الأولوية للخصوصية."
+        howToDesc: "استكشف البرامج التعليمية لبدء التشغيل السريع، ووصفات تسلسل الأدوات المتعددة المرئية، والمقارنات التفصيلية للمنافسين التي تعطي الأولوية للخصوصية.",
+    faqQ1: "هل هو مجاني تماما؟",
+    faqA1: "نعم، ZeroWebTools مجاني 100%. لا توجد اشتراكات، ولا رسوم مخفية، ولا يلزم التسجيل.",
+    faqQ2: "هل يتم تحميل ملفاتي على الخادم؟",
+    faqA2: "لا، يتم تنفيذ جميع الأدوات بالكامل من جانب العميل باستخدام WebAssembly في متصفحك. ملفاتك لا تترك جهازك أبدًا.",
+    faqQ3: "هل أحتاج إلى تنزيل أي شيء؟",
+    faqA3: "لا، لا تحتاج إلى تثبيت أي تطبيقات أو برامج. كل شيء يعمل بشكل آمن داخل متصفح الويب الخاص بك."
   }
 };
 

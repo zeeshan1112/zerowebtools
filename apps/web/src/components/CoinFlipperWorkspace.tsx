@@ -160,24 +160,24 @@ export default function CoinFlipperWorkspace() {
           disabled={isFlipping}
           className="w-full sm:w-auto min-w-[240px] flex items-center justify-center gap-3 py-4 px-8 rounded-2xl bg-accent text-white font-extrabold text-lg uppercase tracking-widest hover:bg-accent/90 active:scale-[0.98] transition-all shadow-xl shadow-accent/20 disabled:opacity-50 disabled:cursor-not-allowed mx-auto"
         >
-          {isFlipping ? "Flipping..." : result ? "Flip Again" : "Flip Coin"}
+          {isFlipping ? t("flipping", "Flipping...") : result ? t("flip_again", "Flip Again") : t("flip_coin", "Flip Coin")}
         </button>
         
         {/* Result Text */}
         <div className="mt-8 h-8">
           <div className={`text-2xl font-black text-ink transition-opacity duration-300 ${!isFlipping && result ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-            It's <span className={result === 'heads' ? 'text-amber-500' : 'text-slate-500 uppercase'}>{result?.toUpperCase()}</span>!
+            {t("its", "It's")} <span className={result === 'heads' ? 'text-amber-500' : 'text-slate-500 uppercase'}>{t(result || "", result?.toUpperCase())}</span>!
           </div>
         </div>
 
         {/* Stats */}
         <div className="mt-8 pt-6 border-t border-border/50 flex justify-center gap-12">
           <div className="text-center">
-            <div className="text-sm font-bold text-ink-muted uppercase tracking-wider mb-1">Heads</div>
+            <div className="text-sm font-bold text-ink-muted uppercase tracking-wider mb-1">{t("heads", "Heads")}</div>
             <div className="text-2xl font-black text-ink">{stats.heads}</div>
           </div>
           <div className="text-center">
-            <div className="text-sm font-bold text-ink-muted uppercase tracking-wider mb-1">Tails</div>
+            <div className="text-sm font-bold text-ink-muted uppercase tracking-wider mb-1">{t("tails", "Tails")}</div>
             <div className="text-2xl font-black text-ink">{stats.tails}</div>
           </div>
         </div>

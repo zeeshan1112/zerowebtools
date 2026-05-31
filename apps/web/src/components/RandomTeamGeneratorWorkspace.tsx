@@ -41,7 +41,7 @@ export default function RandomTeamGeneratorWorkspace() {
   const speakResult = () => {
     if (!soundEnabled || typeof window === "undefined" || !window.speechSynthesis) return;
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance("Teams generated");
+    const utterance = new SpeechSynthesisUtterance(t("teams_generated", "Teams generated"));
     utterance.rate = 1.1;
     window.speechSynthesis.speak(utterance);
   };
@@ -100,18 +100,18 @@ export default function RandomTeamGeneratorWorkspace() {
             <div>
               <label className="flex items-center gap-2 text-sm font-bold text-ink mb-3">
                 <UsersIcon className="w-4 h-4 text-accent" />
-                Participants ({participants.length})
+                {t("participants", "Participants")} ({participants.length})
               </label>
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Enter names separated by commas or new lines...&#10;Alice&#10;Bob&#10;Charlie"
+                placeholder={t("placeholder", "Enter names separated by commas or new lines...\nAlice\nBob\nCharlie")}
                 className="w-full h-48 bg-surface border border-border/50 rounded-xl p-4 text-ink placeholder:text-ink-muted focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all resize-none"
               />
             </div>
 
             <div className="space-y-4">
-              <label className="block text-sm font-bold text-ink">Split Configuration</label>
+              <label className="block text-sm font-bold text-ink">{t("split_config", "Split Configuration")}</label>
               <div className="flex bg-surface border border-border/50 rounded-xl p-1 relative overflow-hidden">
                 <button
                   onClick={() => setSplitMethod("teams")}
@@ -120,7 +120,7 @@ export default function RandomTeamGeneratorWorkspace() {
                   }`}
                 >
                   <DivideIcon className="w-4 h-4" />
-                  Number of Teams
+                  {t("num_teams", "Number of Teams")}
                 </button>
                 <button
                   onClick={() => setSplitMethod("persons")}
@@ -129,7 +129,7 @@ export default function RandomTeamGeneratorWorkspace() {
                   }`}
                 >
                   <UserPlusIcon className="w-4 h-4" />
-                  Persons per Team
+                  {t("persons_per_team", "Persons per Team")}
                 </button>
                 {/* Animated Background Pill */}
                 <div 
@@ -147,7 +147,7 @@ export default function RandomTeamGeneratorWorkspace() {
                   className="w-24 bg-surface border border-border/50 rounded-xl p-3 text-center font-bold text-ink focus:ring-2 focus:ring-accent/20 focus:border-accent"
                 />
                 <span className="text-sm font-medium text-ink-secondary">
-                  {splitMethod === "teams" ? "Total teams to create" : "Maximum people in each team"}
+                  {splitMethod === "teams" ? t("total_teams", "Total teams to create") : t("max_people", "Maximum people in each team")}
                 </span>
               </div>
             </div>
@@ -160,12 +160,12 @@ export default function RandomTeamGeneratorWorkspace() {
               {isGenerating ? (
                 <>
                   <ShuffleIcon className="w-5 h-5 animate-spin" />
-                  Generating...
+                  {t("generating", "Generating...")}
                 </>
               ) : (
                 <>
                   <ShuffleIcon className="w-5 h-5" />
-                  Generate Teams
+                  {t("generate_teams", "Generate Teams")}
                 </>
               )}
             </button>
@@ -178,12 +178,12 @@ export default function RandomTeamGeneratorWorkspace() {
                 <span className="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
                   <UsersIcon className="w-4 h-4" />
                 </span>
-                Generated Teams
+                {t("generated_teams", "Generated Teams")}
               </h3>
               <button
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 className="p-2 text-ink-secondary hover:text-ink hover:bg-surface-elevated rounded-lg transition-colors border border-transparent hover:border-border/50"
-                title={soundEnabled ? "Mute Sound" : "Enable Sound"}
+                title={soundEnabled ? t("mute_sound", "Mute Sound") : t("enable_sound", "Enable Sound")}
               >
                 {soundEnabled ? <Volume2Icon className="w-5 h-5" /> : <VolumeXIcon className="w-5 h-5" />}
               </button>
@@ -208,7 +208,7 @@ export default function RandomTeamGeneratorWorkspace() {
             ) : !teams.length ? (
               <div className="flex-1 flex flex-col items-center justify-center text-ink-muted">
                 <ShuffleIcon className="w-12 h-12 mb-3 opacity-20" />
-                <p className="font-medium">Add participants and generate teams</p>
+                <p className="font-medium">{t("add_participants", "Add participants and generate teams")}</p>
               </div>
             ) : null}
 
@@ -224,7 +224,7 @@ export default function RandomTeamGeneratorWorkspace() {
                     className="bg-surface-elevated border border-border/50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   >
                     <div className={`bg-neutral-100 dark:bg-neutral-800 p-3 text-ink font-bold flex justify-between items-center border-b border-border/50`}>
-                      <span>Team {idx + 1}</span>
+                      <span>{t("team", "Team")} {idx + 1}</span>
                       <span className="text-xs bg-neutral-200 dark:bg-neutral-700 px-2 py-1 rounded-md text-ink-secondary">{team.length}</span>
                     </div>
                     <ul className="p-4 space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar">

@@ -1236,7 +1236,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
             The tool you are looking for does not exist or has been relocated.
           </p>
           <Link
-            href="/"
+            href={lang === "en" ? "/" : `/${lang}`}
             className="mt-6 inline-block rounded-xl bg-accent hover:bg-accent-hover text-white px-6 py-3 text-sm font-medium shadow-md shadow-accent/10 active:scale-[0.98] transition-all"
           >
             Back to Home
@@ -1267,7 +1267,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
             This tool is currently in active development. All operations will execute 100% locally in your browser. Check back soon!
           </p>
           <Link
-            href="/"
+            href={lang === "en" ? "/" : `/${lang}`}
             className="mt-6 inline-block rounded-xl bg-accent hover:bg-accent-hover text-white px-6 py-3 text-sm font-medium shadow-md shadow-accent/10 active:scale-[0.98] transition-all"
           >
             Browse Live Tools
@@ -1407,7 +1407,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {/* Dynamic Breadcrumbs & Title */}
         <section className="mb-6 space-y-3">
           <div className="flex items-center gap-1.5 text-xs text-ink-muted">
-            <Link href="/" className="hover:text-accent font-medium transition-colors">
+            <Link href={lang === "en" ? "/" : `/${lang}`} className="hover:text-accent font-medium transition-colors">
               Home
             </Link>
             <span>&gt;</span>
