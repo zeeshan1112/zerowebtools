@@ -20,7 +20,8 @@ export default function CoinFlipperWorkspace() {
 
   const [isFlipping, setIsFlipping] = useState(false);
   const [result, setResult] = useState<"heads" | "tails" | null>(null);
-  const [rotation, setRotation] = useState(0); // Track total rotation in degrees
+  const [rotationX, setRotationX] = useState(0);
+  const [rotationY, setRotationY] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   
   const [stats, setStats] = useState({ heads: 0, tails: 0 });
@@ -38,23 +39,21 @@ export default function CoinFlipperWorkspace() {
 
     setIsFlipping(true);
     const outcome = Math.random() > 0.5 ? "heads" : "tails";
+    // Add spins to X axis for a wobbly 3D effect
+    setRotationX((prev) => prev + 1440);
     
-    // Calculate new rotation. 
-    // We want to spin multiple times (e.g. 5 full spins = 1800 degrees)
-    // If heads, ending rotation should be a multiple of 360
-    // If tails, ending rotation should be a multiple of 360 + 180
+    // Calculate new Y rotation
+    let targetY = rotationY + 1800; // 5 base spins in Y
+    const normalizedY = targetY % 360;
     
-    const spins = 5; 
-    const baseRotation = rotation + (spins * 360);
-    
-    // Ensure we land on the correct side relative to current absolute rotation
-    // Current rotation % 360 tells us which side is currently facing up
-    let targetRotation = baseRotation;
-    if (outcome === "tails") {
-      targetRotation += 180;
+    // Ensure we land on the correct side
+    if (outcome === "heads") {
+      targetY += (360 - normalizedY); // land exactly on 0 mod 360
+    } else {
+      targetY += (360 - normalizedY) + 180; // land exactly on 180 mod 360
     }
 
-    setRotation(targetRotation);
+    setRotationY(targetY);
 
     setTimeout(() => {
       setResult(outcome);
@@ -98,7 +97,7 @@ export default function CoinFlipperWorkspace() {
           <div 
             className="w-48 h-48 rounded-full relative transition-transform duration-[2000ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] preserve-3d"
             style={{ 
-              transform: `rotateX(${isFlipping ? 360 * 4 : 0}deg) rotateY(${rotation}deg)`,
+              transform: `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`,
               transformStyle: "preserve-3d" 
             }}
           >
