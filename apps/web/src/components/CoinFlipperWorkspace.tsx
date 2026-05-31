@@ -86,20 +86,6 @@ export default function CoinFlipperWorkspace() {
         
         {/* Header Options */}
         <div className="absolute top-6 right-6 z-10 flex gap-2">
-          <div className="flex bg-surface border border-border/30 rounded-xl overflow-hidden p-1 shadow-sm hidden sm:flex">
-            <button
-              onClick={() => handleCurrencyChange("classic")}
-              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "classic" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
-            >
-              Classic
-            </button>
-            <button
-              onClick={() => handleCurrencyChange("indian")}
-              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "indian" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
-            >
-              ₹ Indian
-            </button>
-          </div>
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
             className="p-2.5 text-ink-secondary hover:text-ink hover:bg-surface rounded-xl transition-colors border border-border/30 shadow-sm"
@@ -120,7 +106,26 @@ export default function CoinFlipperWorkspace() {
         </p>
 
         {/* 3D Coin Scene */}
-        <div className="perspective-[1000px] h-64 w-full flex items-center justify-center mb-10">
+        <div className="perspective-[1000px] h-64 w-full flex items-center justify-center mb-10 relative">
+          
+          {/* Vertical Currency Selector */}
+          <div className="absolute -left-2 sm:left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-10">
+            <button
+              onClick={() => handleCurrencyChange("classic")}
+              className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl border-2 transition-all shadow-md ${currency === 'classic' ? 'bg-[#D4AF37] text-white border-[#B8860B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#D4AF37] hover:text-[#D4AF37]'}`}
+              title="Classic Dollar Coin"
+            >
+              $
+            </button>
+            <button
+              onClick={() => handleCurrencyChange("indian")}
+              className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl border-2 transition-all shadow-md ${currency === 'indian' ? 'bg-[#94A3B8] text-white border-[#64748B] scale-110' : 'bg-surface border-border/30 text-ink-muted hover:border-[#94A3B8] hover:text-[#94A3B8]'}`}
+              title="Indian Rupee Coin"
+            >
+              ₹
+            </button>
+          </div>
+
           <div 
             className="w-48 h-48 rounded-full relative transition-transform duration-[2000ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] preserve-3d"
             style={{ 
@@ -147,22 +152,6 @@ export default function CoinFlipperWorkspace() {
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none" style={{ transform: "translateZ(-1px)" }}></div>
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] pointer-events-none" style={{ transform: "translateZ(-2px)" }}></div>
           </div>
-        </div>
-
-        {/* Mobile Currency Options (below coin, only on small screens) */}
-        <div className="flex sm:hidden bg-surface border border-border/30 rounded-xl overflow-hidden p-1 shadow-sm w-fit mx-auto mb-6">
-            <button
-              onClick={() => handleCurrencyChange("classic")}
-              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "classic" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
-            >
-              Classic
-            </button>
-            <button
-              onClick={() => handleCurrencyChange("indian")}
-              className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${currency === "indian" ? "bg-neutral-200 dark:bg-neutral-700 text-ink" : "text-ink-secondary hover:text-ink"}`}
-            >
-              ₹ Indian
-            </button>
         </div>
 
         {/* Action Button */}
