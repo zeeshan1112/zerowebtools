@@ -320,6 +320,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Free interactive 3D coin flipper. Flip a virtual coin for a fair heads or tails result instantly. Features realistic physics, animations, and sound.",
       },
+      {
+        id: "spin-the-wheel",
+        title: "Spin the Wheel",
+        description: "Create a custom spin wheel, add options, and let fate decide with physics-driven spins.",
+        status: "live",
+        metaDescription: "Free interactive spin the wheel. Create custom wheels with your own options and let physics-driven spins decide the outcome. 100% private and client-side.",
+      },
     ],
   },
 ];

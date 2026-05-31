@@ -43,6 +43,7 @@ import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
 import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
 import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
 import CoinFlipperWorkspace from "@/components/CoinFlipperWorkspace";
+import SpinTheWheelWorkspace from "@/components/SpinTheWheelWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -160,6 +161,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "dice-roller": DiceRollerWorkspace,
   "random-team-generator": RandomTeamGeneratorWorkspace,
   "coin-flipper": CoinFlipperWorkspace,
+  "spin-the-wheel": SpinTheWheelWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
