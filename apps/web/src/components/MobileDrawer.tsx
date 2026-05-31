@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -54,6 +55,7 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 
 export default function MobileDrawer() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [recents, setRecents] = useState<string[]>([]);
   const pathname = usePathname();
@@ -99,6 +101,7 @@ export default function MobileDrawer() {
     handleStorageChange();
     window.addEventListener("storage", handleStorageChange);
     window.addEventListener("zeelancebox_storage_update", handleStorageChange);
+    setMounted(true);
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
@@ -136,52 +139,37 @@ export default function MobileDrawer() {
   const recentTools = ALL_TOOLS.filter((t) => recents.includes(t.id)).map((t) => getLocalizedTool(t, currentLocale));
   const liveTools = ALL_TOOLS.filter((t) => t.status === "live").map((t) => getLocalizedTool(t, currentLocale));
 
-  return (
-    <>
-      {/* Hamburger trigger — only visible on mobile */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl text-ink hover:bg-surface-elevated active:scale-95 transition-all duration-200 cursor-pointer"
-        aria-label="Open navigation menu"
-        aria-expanded={isOpen}
-        aria-controls="mobile-nav-drawer"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
+  const drawerContent = (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-[290] bg-black/40 backdrop-blur-[4px] md:hidden"
+            aria-hidden="true"
+          />
 
-      {/* Drawer overlay + panel */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-[4px] md:hidden"
-              aria-hidden="true"
-            />
-
-            {/* Drawer panel */}
-            <motion.nav
-              id="mobile-nav-drawer"
-              initial={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className={`fixed top-0 bottom-0 z-[95] w-[min(20rem,80vw)] bg-surface-elevated/95 backdrop-blur-xl shadow-2xl flex flex-col md:hidden overflow-hidden ${
-                currentLocale === "ar" ? "right-0 border-l border-border/40" : "left-0 border-r border-border/40"
-              }`}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Navigation menu"
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between h-16 px-5 border-b border-border/40 shrink-0">
+          {/* Drawer panel */}
+          <motion.nav
+            id="mobile-nav-drawer"
+            initial={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: currentLocale === "ar" ? "100%" : "-100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className={`fixed top-0 bottom-0 z-[300] w-[min(20rem,80vw)] bg-surface-elevated shadow-2xl flex flex-col md:hidden overflow-hidden ${
+              currentLocale === "ar" ? "right-0 border-l border-border/40" : "left-0 border-r border-border/40"
+            }`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between h-16 px-5 border-b border-border/40 shrink-0">
                 <Link
                   href={getLocalizedHref("/")}
                   className="flex items-center gap-2.5 group active:scale-[0.98] transition-transform duration-200"
@@ -335,7 +323,7 @@ export default function MobileDrawer() {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-border/40 p-4 shrink-0 bg-surface-elevated/40 space-y-3">
+              <div className="border-t border-border/40 p-4 shrink-0 bg-surface space-y-3">
                 <div className="flex items-center justify-between">
                   <ThemeToggle />
                   <div className="flex items-center gap-3">
@@ -359,10 +347,28 @@ export default function MobileDrawer() {
                   ZeroWebTools v1.0 • Client-side
                 </div>
               </div>
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
+          </motion.nav>
+        </>
+      )}
+    </AnimatePresence>
+  );
+
+  return (
+    <>
+      {/* Hamburger trigger — only visible on mobile */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl text-ink hover:bg-surface-elevated active:scale-95 transition-all duration-200 cursor-pointer"
+        aria-label="Open navigation menu"
+        aria-expanded={isOpen}
+        aria-controls="mobile-nav-drawer"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+
+      {mounted ? createPortal(drawerContent, document.body) : null}
     </>
   );
 }
