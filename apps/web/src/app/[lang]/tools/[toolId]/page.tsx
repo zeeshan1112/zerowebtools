@@ -1415,7 +1415,13 @@ export default async function ToolPage({ params }: ToolPageProps) {
               Home
             </Link>
             <span>&gt;</span>
-            <span className="font-medium truncate">{category?.title || "Tools"}</span>
+            {category ? (
+              <Link href={lang === "en" ? `/#${category.slug}` : `/${lang}/#${category.slug}`} className="hover:text-accent font-medium transition-colors truncate">
+                {category.title}
+              </Link>
+            ) : (
+              <span className="font-medium truncate">Tools</span>
+            )}
             <span>&gt;</span>
             <span className="text-ink font-semibold truncate">{tool.title}</span>
           </div>

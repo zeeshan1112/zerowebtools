@@ -9,6 +9,7 @@ import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-card
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
 import { getTranslations, getLocalizedTool } from "@/lib/i18n";
+import { useRouter, usePathname } from "next/navigation";
 
 // Pristine technical workflow tags
 const TOOL_WORKFLOW_TAGS: Record<string, string> = {
@@ -79,6 +80,8 @@ const TAB_TO_SLUG: Record<string, string> = {
 
 export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const t = getTranslations(lang);
+  const router = useRouter();
+  const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<"all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
 
@@ -517,7 +520,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     key={tab.id}
                     onClick={() => {
                       setActiveTab(tab.id as any);
-                      history.replaceState(null, "", `#${TAB_TO_SLUG[tab.id]}`);
+                      router.replace(`${pathname}#${TAB_TO_SLUG[tab.id]}`, { scroll: false });
                     }}
                     className={`px-4 py-2.5 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer min-h-[44px] ${
                       isActive
