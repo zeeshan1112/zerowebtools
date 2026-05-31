@@ -118,18 +118,27 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       const tabId = SLUG_TO_TAB[slug];
       if (tabId) {
         setActiveTab(tabId);
+        router.replace(`${window.location.pathname}#${TAB_TO_SLUG[tabId]}`, { scroll: false });
         document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
       }
     };
 
-    if (window.location.hash) {
-      handleHash();
-    }
+    const checkHash = () => {
+      if (window.location.hash) {
+        handleHash();
+      }
+    };
+
+    // Run immediately and also after a slight delay to handle Next.js route transitions
+    checkHash();
+    setTimeout(checkHash, 100);
 
     window.addEventListener("hashchange", handleHash);
+    window.addEventListener("popstate", checkHash);
     window.addEventListener("zeelancebox_navigate_tab", handleTabNav);
     return () => {
       window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("popstate", checkHash);
       window.removeEventListener("zeelancebox_navigate_tab", handleTabNav);
     };
   }, []);
