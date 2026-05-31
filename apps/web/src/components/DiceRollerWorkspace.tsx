@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
@@ -166,6 +166,15 @@ export default function DiceRollerWorkspace() {
   const [rolling, setRolling] = useState<boolean>(false);
   const [results, setResults] = useState<number[]>([]);
 
+  // Preload audio once and cache the element for instant playback
+  const diceAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("/dice-roll.mp3");
+    audio.preload = "auto";
+    diceAudioRef.current = audio;
+  }, []);
+
   // Initialize display
   useEffect(() => {
     if (results.length === 0) {
@@ -192,12 +201,11 @@ export default function DiceRollerWorkspace() {
     }
     
     // Play high quality dice rolling sound effect
-    if (soundEnabled && typeof window !== "undefined") {
+    if (soundEnabled && diceAudioRef.current) {
       try {
-        const audio = new Audio("/dice-roll.mp3");
-        // Optional: you can slightly randomize playback rate for variety
-        audio.playbackRate = 0.9 + Math.random() * 0.2;
-        audio.play().catch(e => console.warn("Audio playback failed", e));
+        diceAudioRef.current.currentTime = 0;
+        diceAudioRef.current.playbackRate = 0.9 + Math.random() * 0.2;
+        diceAudioRef.current.play().catch(e => console.warn("Audio playback failed", e));
       } catch (e) {
         console.warn("Audio not supported", e);
       }
