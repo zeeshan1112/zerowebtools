@@ -57,6 +57,15 @@ export default function CoinFlipperWorkspace() {
       window.speechSynthesis.speak(primeUtterance);
     }
 
+    if (soundEnabled && typeof window !== "undefined") {
+      try {
+        const audio = new Audio("/coin-flip.mp3");
+        audio.play().catch(e => console.warn("Audio playback failed", e));
+      } catch (e) {
+        console.warn("Audio not supported", e);
+      }
+    }
+
     setIsFlipping(true);
     const outcome = Math.random() > 0.5 ? "heads" : "tails";
     // Add spins to X axis for a wobbly 3D effect
