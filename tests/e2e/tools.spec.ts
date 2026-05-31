@@ -897,4 +897,18 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // With 6 people and 2 per team, we should have 3 teams
     await expect(page.locator("text=Team 3")).toBeVisible();
   });
+
+  test("45. Coin Flipper - Flipping and Result", async ({ page }) => {
+    await page.goto("/tools/coin-flipper");
+    await expect(page.locator("h2").first()).toContainText("Coin Flipper");
+
+    // Click Flip
+    await page.locator("button").filter({ hasText: 'Flip Coin' }).click();
+
+    // Verify flipping state appears
+    await expect(page.locator("button").filter({ hasText: 'Flipping...' })).toBeVisible();
+    
+    // Wait for flip to complete (it takes 2 seconds, so 5s timeout is fine)
+    await expect(page.locator("text=It's")).toBeVisible({ timeout: 5000 });
+  });
 });

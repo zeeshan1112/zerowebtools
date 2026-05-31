@@ -313,6 +313,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Free online random team generator. Enter a list of names and instantly split them into random teams or groups. 100% private and client-side.",
       },
+      {
+        id: "coin-flipper",
+        title: "3D Coin Flipper",
+        description: "Flip a realistic 3D coin instantly for a truly random heads or tails result.",
+        status: "live",
+        metaDescription: "Free interactive 3D coin flipper. Flip a virtual coin for a fair heads or tails result instantly. Features realistic physics, animations, and sound.",
+      },
     ],
   },
 ];

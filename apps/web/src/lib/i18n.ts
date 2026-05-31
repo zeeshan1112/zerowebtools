@@ -2413,6 +2413,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "قم بتقسيم قائمة الأسماء إلى فرق عشوائية دون عناء.",
       "metaDescription": "مولد فريق عشوائي مجاني على الإنترنت. أدخل قائمة بالأسماء وقم بتقسيمها على الفور إلى فرق أو مجموعات عشوائية. 100% خاص ومن جانب العميل."
     }
+  },
+  "coin-flipper": {
+    "es": {
+      "title": "Aleta de monedas 3D",
+      "description": "Lanza una moneda 3D realista al instante para obtener un resultado de cara o cruz verdaderamente aleatorio.",
+      "metaDescription": "Lanzador de monedas 3D interactivo gratuito. Lanza una moneda virtual para obtener un resultado justo de cara o cruz al instante. Presenta física, animaciones y sonido realistas."
+    },
+    "de": {
+      "title": "3D-Münzflipper",
+      "description": "Werfen Sie sofort eine realistische 3D-Münze, um ein wirklich zufälliges Kopf- oder Zahl-Ergebnis zu erhalten.",
+      "metaDescription": "Kostenloser interaktiver 3D-Münzwerfer. Wirf eine virtuelle Münze und erhalte sofort ein faires Kopf- oder Zahl-Ergebnis. Bietet realistische Physik, Animationen und Sound."
+    },
+    "fr": {
+      "title": "Flipper de pièces modèle 3D",
+      "description": "Lancez instantanément une pièce de monnaie 3D réaliste pour obtenir un résultat pile ou face vraiment aléatoire.",
+      "metaDescription": "Lanceur de pièces 3D interactif gratuit. Lancez une pièce virtuelle pour obtenir instantanément un résultat pile ou face équitable. Présente une physique, des animations et un son réalistes."
+    },
+    "pt": {
+      "title": "Lançador de moedas Modelo 3D",
+      "description": "Jogue uma moeda 3D realista instantaneamente para obter um resultado verdadeiramente aleatório de cara ou coroa.",
+      "metaDescription": "Fliper de moeda 3D interativo gratuito. Jogue uma moeda virtual para obter um resultado justo de cara ou coroa instantaneamente. Apresenta física, animações e som realistas."
+    },
+    "ja": {
+      "title": "3Dコインフリッパー",
+      "description": "リアルな 3D コインを瞬時に投げると、真にランダムな表か裏の結果が得られます。",
+      "metaDescription": "無料のインタラクティブな 3D コイン投げ。仮想コインを投げると、即座に表か裏かが決まります。リアルな物理学、アニメーション、サウンドが特徴です。"
+    },
+    "zh": {
+      "title": "3D 硬币翻转器",
+      "description": "立即翻转逼真的 3D 硬币，以获得真正随机的正面或反面结果。",
+      "metaDescription": "免费交互式 3D 硬币翻转器。翻转虚拟硬币，立即获得正面或反面的结果。具有逼真的物理、动画和声音。"
+    },
+    "hi": {
+      "title": "3डी सिक्का फ्लिपर",
+      "description": "वास्तव में यादृच्छिक चित या पट परिणाम के लिए तुरंत एक यथार्थवादी 3D सिक्का पलटें।",
+      "metaDescription": "निःशुल्क इंटरैक्टिव 3डी सिक्का फ़्लिपर। तुरंत सही हेड या टेल परिणाम के लिए एक आभासी सिक्का पलटें। यथार्थवादी भौतिकी, एनिमेशन और ध्वनि सुविधाएँ।"
+    },
+    "it": {
+      "title": "Lanciamonete 3D",
+      "description": "Lancia istantaneamente una moneta 3D realistica per ottenere un risultato testa o croce davvero casuale.",
+      "metaDescription": "Lanciamonete 3D interattivo gratuito. Lancia una moneta virtuale per ottenere immediatamente un bel risultato di testa o croce. Presenta fisica, animazioni e suoni realistici."
+    },
+    "ar": {
+      "title": "3D عملة زعنفة",
+      "description": "اقلب عملة ثلاثية الأبعاد واقعية على الفور للحصول على نتيجة عشوائية حقيقية للرؤوس أو الكتابة.",
+      "metaDescription": "زعانف عملة تفاعلية مجانية ثلاثية الأبعاد. اقلب عملة افتراضية للحصول على نتيجة عادلة للرؤوس أو الكتابة على الفور. تتميز بفيزياء واقعية ورسوم متحركة وصوت."
+    }
   }
 };
 
