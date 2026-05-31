@@ -4,6 +4,14 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 
+const Volume2Icon = ({ className = "" }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+);
+
+const VolumeXIcon = ({ className = "" }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+);
+
 const UsersIcon = ({ className = "" }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
 );
@@ -28,6 +36,15 @@ export default function RandomTeamGeneratorWorkspace() {
   const [splitValue, setSplitValue] = useState<number>(2);
   const [teams, setTeams] = useState<string[][]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
+
+  const speakResult = () => {
+    if (!soundEnabled || typeof window === "undefined" || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance("Teams generated");
+    utterance.rate = 1.1;
+    window.speechSynthesis.speak(utterance);
+  };
 
   const participants = useMemo(() => {
     return input
@@ -67,22 +84,11 @@ export default function RandomTeamGeneratorWorkspace() {
 
       setTeams(newTeams);
       setIsGenerating(false);
-    }, 600); // Add a small delay for animation effect
+      speakResult();
+    }, 1500); // 1.5 seconds animation delay
   };
 
-  const getTeamColor = (index: number) => {
-    const colors = [
-      "from-blue-500 to-indigo-600",
-      "from-emerald-500 to-teal-600",
-      "from-orange-500 to-red-600",
-      "from-purple-500 to-fuchsia-600",
-      "from-pink-500 to-rose-600",
-      "from-amber-500 to-orange-600",
-      "from-cyan-500 to-blue-600",
-      "from-lime-500 to-green-600"
-    ];
-    return colors[index % colors.length];
-  };
+
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -167,21 +173,47 @@ export default function RandomTeamGeneratorWorkspace() {
 
           {/* Right Column: Results */}
           <div className="bg-surface rounded-2xl border border-border/30 p-6 min-h-[400px] flex flex-col">
-            <h3 className="text-lg font-extrabold text-ink mb-6 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
-                <UsersIcon className="w-4 h-4" />
-              </span>
-              Generated Teams
-            </h3>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-extrabold text-ink flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
+                  <UsersIcon className="w-4 h-4" />
+                </span>
+                Generated Teams
+              </h3>
+              <button
+                onClick={() => setSoundEnabled(!soundEnabled)}
+                className="p-2 text-ink-secondary hover:text-ink hover:bg-surface-elevated rounded-lg transition-colors border border-transparent hover:border-border/50"
+                title={soundEnabled ? "Mute Sound" : "Enable Sound"}
+              >
+                {soundEnabled ? <Volume2Icon className="w-5 h-5" /> : <VolumeXIcon className="w-5 h-5" />}
+              </button>
+            </div>
 
-            {!teams.length && !isGenerating ? (
+            {isGenerating ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-max animate-pulse">
+                {[...Array(Math.max(2, splitMethod === "teams" ? splitValue : Math.ceil(participants.length / Math.max(1, splitValue)) || 2))].map((_, i) => (
+                  <div key={i} className="bg-surface-elevated border border-border/50 rounded-xl overflow-hidden shadow-sm">
+                    <div className="bg-neutral-100 dark:bg-neutral-800 p-3 flex justify-between items-center border-b border-border/50">
+                      <div className="h-5 w-20 bg-border/50 rounded"></div>
+                      <div className="h-5 w-8 bg-border/50 rounded"></div>
+                    </div>
+                    <div className="p-4 space-y-3">
+                      <div className="h-4 w-3/4 bg-border/50 rounded"></div>
+                      <div className="h-4 w-1/2 bg-border/50 rounded"></div>
+                      <div className="h-4 w-2/3 bg-border/50 rounded"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : !teams.length ? (
               <div className="flex-1 flex flex-col items-center justify-center text-ink-muted">
                 <ShuffleIcon className="w-12 h-12 mb-3 opacity-20" />
                 <p className="font-medium">Add participants and generate teams</p>
               </div>
             ) : null}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-max">
+            {!isGenerating && teams.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-max">
               <AnimatePresence>
                 {teams.map((team, idx) => (
                   <motion.div
@@ -191,9 +223,9 @@ export default function RandomTeamGeneratorWorkspace() {
                     transition={{ delay: idx * 0.1, duration: 0.4, type: "spring" }}
                     className="bg-surface-elevated border border-border/50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   >
-                    <div className={`bg-gradient-to-r ${getTeamColor(idx)} p-3 text-white font-bold flex justify-between items-center`}>
+                    <div className={`bg-neutral-100 dark:bg-neutral-800 p-3 text-ink font-bold flex justify-between items-center border-b border-border/50`}>
                       <span>Team {idx + 1}</span>
-                      <span className="text-xs bg-white/20 px-2 py-1 rounded-md">{team.length}</span>
+                      <span className="text-xs bg-neutral-200 dark:bg-neutral-700 px-2 py-1 rounded-md text-ink-secondary">{team.length}</span>
                     </div>
                     <ul className="p-4 space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar">
                       {team.map((member, mIdx) => (
@@ -212,7 +244,8 @@ export default function RandomTeamGeneratorWorkspace() {
                   </motion.div>
                 ))}
               </AnimatePresence>
-            </div>
+              </div>
+            )}
           </div>
 
         </div>
