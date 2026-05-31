@@ -129,6 +129,20 @@
     "title_case": "Titelfall",
     "input_label": "Eingabetext"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "Optionen hinzufügen",
+    "wheel_type_option": "Gib eine Option ein...",
+    "wheel_add_options_hint": "Füge mindestens 2 Optionen hinzu",
+    "wheel_remove": "Entfernen",
+    "wheel_items_count": "{count} Optionen — mindestens 2 erforderlich",
+    "wheel_spinning": "Dreht...",
+    "wheel_spin": "Rad drehen",
+    "wheel_mute": "Ton aus",
+    "wheel_unmute": "Ton an",
+    "wheel_result": "Ergebnis",
+    "wheel_spin_again": "Erneut drehen",
+    "wheel_history": "Verlauf"
+  },
   "articles": {
     "pdf-compress": {
       "title": "So komprimieren Sie ein PDF kostenlos online unter 1 MB",
