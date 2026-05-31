@@ -2308,6 +2308,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "نموذج التكاليف الثابتة مقابل التكاليف المتغيرة، وهوامش المساهمة، وخطوط تعادل الوحدات.",
       "metaDescription": "ابحث عن نقطة التعادل لشركتك على الفور - مجانًا وبشكل خاص. حساب وحدات التعادل وقيم المبيعات وهوامش المساهمة وتقاطعات الخطوط. لا توجد تحميلات الخادم."
     }
+  },
+  "dice-roller": {
+    "es": {
+      "title": "Rodillo de dados 3D",
+      "description": "Lanza múltiples dados 3D interactivos con lados personalizados, física animada y totales de conversión de texto a voz.",
+      "metaDescription": "Rodillo de dados 3D interactivo gratuito. Tira varios dados de caras personalizadas al instante. Presenta animaciones elegantes, cálculos de sumas y anuncios de voz. 100% privado."
+    },
+    "de": {
+      "title": "3D-Würfelroller",
+      "description": "Lassen Sie mehrere interaktive 3D-Würfel mit benutzerdefinierten Seiten, animierter Physik und Text-zu-Sprache-Gesamtwerten rollen.",
+      "metaDescription": "Kostenloser interaktiver 3D-Würfelroller. Werfen Sie sofort mehrere Würfel mit individueller Seite. Bietet elegante Animationen, Summenberechnung und Sprachansagen. 100 % privat."
+    },
+    "fr": {
+      "title": "Rouleau de dés 3D",
+      "description": "Lancez plusieurs dés 3D interactifs avec des faces personnalisées, une physique animée et des totaux de synthèse vocale.",
+      "metaDescription": "Rouleau de dés 3D interactif gratuit. Lancez instantanément plusieurs dés à faces personnalisées. Comprend des animations élégantes, un calcul de somme et des annonces vocales. 100% privé."
+    },
+    "pt": {
+      "title": "Rolo de dados 3D",
+      "description": "Jogue vários dados 3D interativos com lados personalizados, física animada e totais de conversão de texto em fala.",
+      "metaDescription": "Rolo de dados 3D interativo gratuito. Jogue vários dados personalizados instantaneamente. Apresenta animações elegantes, cálculo de soma e anúncios de voz. 100% privado."
+    },
+    "ja": {
+      "title": "3Dダイスローラー",
+      "description": "カスタム面、アニメーション化された物理演算、テキスト読み上げの合計を備えた複数のインタラクティブ 3D ダイスを転がします。",
+      "metaDescription": "無料のインタラクティブな 3D サイコロ ローラー。複数のカスタム面のサイコロを瞬時に振ります。洗練されたアニメーション、合計計算、音声アナウンスが特徴です。 100%プライベートです。"
+    },
+    "zh": {
+      "title": "3D 骰子滚筒",
+      "description": "滚动多个交互式 3D 骰子，具有自定义面、动画物理效果和文本转语音总计。",
+      "metaDescription": "免费交互式 3D 骰子滚轮。立即掷出多个定制面骰子。具有流畅的动画、总和计算和语音播报功能。 100% 私人。"
+    },
+    "hi": {
+      "title": "3डी पासा रोलर",
+      "description": "कस्टम पक्षों, एनिमेटेड भौतिकी और टेक्स्ट-टू-स्पीच योग के साथ एकाधिक इंटरैक्टिव 3डी पासा रोल करें।",
+      "metaDescription": "निःशुल्क इंटरैक्टिव 3डी पासा रोलर। एकाधिक कस्टम-पक्षीय पासों को तुरंत रोल करें। आकर्षक एनिमेशन, योग गणना और ध्वनि घोषणाएँ सुविधाएँ। 100% निजी."
+    },
+    "it": {
+      "title": "Rullo di dadi 3D",
+      "description": "Lancia più dadi 3D interattivi con lati personalizzati, fisica animata e totali con sintesi vocale.",
+      "metaDescription": "Rullo di dadi 3D interattivo gratuito. Lancia istantaneamente più dadi a facce personalizzate. Presenta animazioni eleganti, calcolo della somma e annunci vocali. 100% privato."
+    },
+    "ar": {
+      "title": "بكرة النرد ثلاثية الأبعاد",
+      "description": "قم برمي العديد من النرد التفاعلي ثلاثي الأبعاد بجوانب مخصصة وفيزياء متحركة وإجماليات تحويل النص إلى كلام.",
+      "metaDescription": "بكرة النرد التفاعلية المجانية ثلاثية الأبعاد. قم برمي النرد المتعدد الجوانب على الفور. يتميز برسوم متحركة أنيقة وحساب المجموع والإعلانات الصوتية. خاص 100%."
+    }
   }
 };
 

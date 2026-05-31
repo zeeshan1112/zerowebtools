@@ -850,6 +850,27 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Check English description
     await expect(page.locator("text=every 5 minutes")).toBeVisible();
   });
+
+  test("43. 3D Dice Roller - Configuration and Rolling", async ({ page }) => {
+    await page.goto("/tools/dice-roller");
+    await expect(page.locator("h2").first()).toContainText("3D Dice Roller");
+
+    // Check default state (2 dice)
+    const diceCountSpan = page.locator("span.text-center").first();
+    await expect(diceCountSpan).toHaveText("2");
+
+    // Change sides to D20
+    await page.locator("select").selectOption("20");
+
+    // Click Roll
+    const rollButton = page.locator("button").filter({ hasText: 'Roll Dice' });
+    await rollButton.click();
+
+    // Verify rolling state appears on a button
+    const rollingButton = page.locator("button").filter({ hasText: 'Rolling...' });
+    await expect(rollingButton).toBeVisible();
+    
+    // Wait for roll to complete and Total Sum badge to appear
+    await expect(page.locator("text=Total Sum")).toBeVisible({ timeout: 5000 });
+  });
 });
-
-

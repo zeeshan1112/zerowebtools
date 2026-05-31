@@ -149,8 +149,9 @@ export const CATEGORIES: ToolCategory[] = [
   {
     slug: "generators",
     title: "Generators",
-    description: "Generate passwords, cron expressions, CSS shadows, hashes, and encodings instantly.",
+    description: "Generate passwords, cron expressions, CSS shadows, hashes, dice rolls, and encodings instantly.",
     tools: [
+
       {
         id: "base64-encoder",
         title: "Base64 Cipher Modeler",
@@ -293,6 +294,20 @@ export const CATEGORIES: ToolCategory[] = [
       },
     ],
   },
+  {
+    slug: "fun",
+    title: "Fun",
+    description: "Interactive tools and games for entertainment and utility.",
+    tools: [
+      {
+        id: "dice-roller",
+        title: "3D Dice Roller",
+        description: "Roll multiple interactive 3D dice with custom sides, animated physics, and text-to-speech totals.",
+        status: "live",
+        metaDescription: "Free interactive 3D dice roller. Roll multiple custom-sided dice instantly. Features sleek animations, sum calculation, and voice announcements. 100% private.",
+      },
+    ],
+  },
 ];
 
 export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
@@ -303,6 +318,7 @@ export const CATEGORY_TAG_STYLES: Record<string, string> = {
   "converters": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "image-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "financial-growth": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
+  "fun": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
 };
 
 export function getToolById(id: string): Tool | undefined {
