@@ -137,7 +137,7 @@ export default function PasswordGeneratorWorkspace() {
 
             <button
               onClick={handleGenerate}
-              className="w-full py-3 bg-accent hover:bg-accent-hover text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm shadow-accent/10"
+              className="w-full py-3 bg-accent hover:bg-accent-hover text-white dark:text-black text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm shadow-accent/10"
             >
               Generate New Password
             </button>

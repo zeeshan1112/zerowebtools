@@ -191,7 +191,7 @@ export default function VoiceDictatorWorkspace() {
                   className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-md cursor-pointer ${
                     isListening
                       ? "bg-red-500 hover:bg-red-600 text-white animate-pulse"
-                      : "bg-accent hover:bg-accent-hover text-white hover:scale-105"
+                      : "bg-accent hover:bg-accent-hover text-white dark:text-black hover:scale-105"
                   }`}
                 >
                   <svg className="w-8 h-8" fill="none" strokeWidth="2.5" stroke="currentColor" viewBox="0 0 24 24">
@@ -277,7 +277,7 @@ export default function VoiceDictatorWorkspace() {
               <button
                 onClick={handleSpeak}
                 disabled={!text.trim()}
-                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-white disabled:opacity-40 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm shadow-accent/10"
+                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-40 text-xs font-extrabold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm shadow-accent/10"
               >
                 {isSpeaking && !isPaused ? (
                   <>

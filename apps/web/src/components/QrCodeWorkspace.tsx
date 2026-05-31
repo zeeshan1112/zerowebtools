@@ -377,7 +377,7 @@ export default function QrCodeWorkspace() {
             <button
               onClick={downloadPng}
               disabled={!qrUrl}
-              className="flex-1 py-3 bg-accent hover:bg-accent-hover text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm disabled:opacity-50 uppercase tracking-wider text-center"
+              className="flex-1 py-3 bg-accent hover:bg-accent-hover text-white dark:text-black text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm disabled:opacity-50 uppercase tracking-wider text-center"
             >
               Download PNG
             </button>

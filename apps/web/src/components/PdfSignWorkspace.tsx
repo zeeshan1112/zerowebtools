@@ -584,7 +584,7 @@ export default function PdfSignWorkspace() {
                     </button>
                     <button
                       onClick={saveDrawnSignature}
-                      className="flex-1 py-2 bg-accent hover:bg-accent-hover text-white text-xs font-extrabold rounded-xl transition-all cursor-pointer"
+                      className="flex-1 py-2 bg-accent hover:bg-accent-hover text-white dark:text-black text-xs font-extrabold rounded-xl transition-all cursor-pointer"
                     >
                       Use Signature
                     </button>
@@ -613,7 +613,7 @@ export default function PdfSignWorkspace() {
                   <button
                     onClick={saveTypedSignature}
                     disabled={!typedName.trim()}
-                    className="w-full py-2 bg-accent hover:bg-accent-hover text-white disabled:opacity-40 disabled:cursor-not-allowed text-xs font-extrabold rounded-xl transition-all cursor-pointer"
+                    className="w-full py-2 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-40 disabled:cursor-not-allowed text-xs font-extrabold rounded-xl transition-all cursor-pointer"
                   >
                     Generate Signature
                   </button>
@@ -689,7 +689,7 @@ export default function PdfSignWorkspace() {
                   <>
                     <button
                       onClick={handleDownload}
-                      className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-3 bg-accent hover:bg-accent-hover text-white dark:text-black rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -909,7 +909,7 @@ export default function PdfSignWorkspace() {
 
                   {/* Footer */}
                   <div className="flex items-center shrink-0 px-5 py-3 border-t border-border justify-between">
-                    <button onClick={handleDownload} className="rounded-lg bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
+                    <button onClick={handleDownload} className="rounded-lg bg-accent hover:bg-accent-hover text-white dark:text-black px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                       </svg>

@@ -120,7 +120,7 @@ export function ProtectPDFWorkspace() {
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
         <div><label className="text-xs font-medium text-ink-muted uppercase tracking-wider block mb-1">Password</label><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter a strong password" className="w-full rounded-lg border border-border bg-surface-elevated px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent" /></div>
         {error && <p className="text-xs text-red-500">{error}</p>}
-        <button onClick={protect} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Encrypting..." : "Protect PDF"}</button>
+        <button onClick={protect} disabled={processing} className="rounded-lg bg-accent text-white dark:text-black px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Encrypting..." : "Protect PDF"}</button>
       </div>}
       {file && protectedBlob && (
         <MicroChainLinks
@@ -209,7 +209,7 @@ export function UnlockPDFWorkspace() {
         <div className="text-sm"><span className="font-medium text-ink">{file.name}</span> <span className="text-ink-muted">{formatBytes(file.size)}</span></div>
         <div><label className="text-xs font-medium text-ink-muted uppercase tracking-wider block mb-1">Password</label><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter the PDF password" className="w-full rounded-lg border border-border bg-surface-elevated px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent" /></div>
         {error && <p className="text-xs text-red-500">{error}</p>}
-        <button onClick={unlock} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Unlocking..." : "Unlock PDF"}</button>
+        <button onClick={unlock} disabled={processing} className="rounded-lg bg-accent text-white dark:text-black px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Unlocking..." : "Unlock PDF"}</button>
       </div>}
       {file && unlockedBlob && (
         <MicroChainLinks
@@ -905,7 +905,7 @@ export function WatermarkPDFWorkspace() {
               <button
                 onClick={water}
                 disabled={processing}
-                className="rounded-lg bg-accent text-white px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 font-mono uppercase tracking-wider"
+                className="rounded-lg bg-accent text-white dark:text-black px-5 py-2.5 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50 font-mono uppercase tracking-wider"
               >
                 {processing ? "Applying..." : "Add Watermark"}
               </button>
@@ -913,7 +913,7 @@ export function WatermarkPDFWorkspace() {
               <>
                 <button
                   onClick={download}
-                  className="rounded-lg bg-accent hover:bg-accent-hover text-white px-5 py-2.5 text-sm font-medium active:scale-[0.98] transition-all shadow-sm flex items-center gap-2 font-mono uppercase tracking-wider"
+                  className="rounded-lg bg-accent hover:bg-accent-hover text-white dark:text-black px-5 py-2.5 text-sm font-medium active:scale-[0.98] transition-all shadow-sm flex items-center gap-2 font-mono uppercase tracking-wider"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
@@ -1018,7 +1018,7 @@ export function WatermarkPDFWorkspace() {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between shrink-0 px-5 py-3 border-t border-border">
-                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer font-mono uppercase tracking-wider">
+                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white dark:text-black px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer font-mono uppercase tracking-wider">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                       </svg>
@@ -1119,7 +1119,7 @@ export function PageNumbersPDFWorkspace() {
           </div>
         </div>
         {error && <p className="text-xs text-red-500">{error}</p>}
-        <button onClick={add} disabled={processing} className="rounded-lg bg-accent text-white px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Adding..." : "Add Page Numbers"}</button>
+        <button onClick={add} disabled={processing} className="rounded-lg bg-accent text-white dark:text-black px-5 py-2 text-sm font-medium hover:bg-accent-hover active:scale-[0.98] transition-all disabled:opacity-50">{processing ? "Adding..." : "Add Page Numbers"}</button>
       </div>}
       {file && numberedBlob && (
         <MicroChainLinks
@@ -1467,7 +1467,7 @@ export function OrganizePDFWorkspace() {
                   <button
                     onClick={organize}
                     disabled={processing}
-                    className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer font-mono uppercase tracking-wider disabled:opacity-50"
+                    className="w-full py-3 bg-accent hover:bg-accent-hover text-white dark:text-black rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer font-mono uppercase tracking-wider disabled:opacity-50"
                   >
                     {processing ? "Organizing..." : "Organize PDF"}
                   </button>
@@ -1475,7 +1475,7 @@ export function OrganizePDFWorkspace() {
                   <div className="space-y-2">
                     <button
                       onClick={download}
-                      className="w-full py-3 bg-accent hover:bg-accent-hover text-white rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer font-mono uppercase tracking-wider"
+                      className="w-full py-3 bg-accent hover:bg-accent-hover text-white dark:text-black rounded-xl text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer font-mono uppercase tracking-wider"
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -1731,7 +1731,7 @@ export function OrganizePDFWorkspace() {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between shrink-0 px-5 py-3 border-t border-border">
-                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
+                    <button onClick={download} className="rounded-lg bg-accent hover:bg-accent-hover text-white dark:text-black px-4 py-2 text-sm font-medium active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
                       </svg>

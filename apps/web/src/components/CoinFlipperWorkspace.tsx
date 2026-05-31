@@ -118,7 +118,7 @@ export default function CoinFlipperWorkspace() {
             <button
               onClick={() => handleCurrencyChange("classic")}
               className={`flex-1 min-w-[80px] flex items-center justify-center py-2 rounded-lg transition-all relative z-10 ${
-                currency === "classic" ? "text-white" : "text-ink-secondary hover:text-ink"
+                currency === "classic" ? "text-white dark:text-black" : "text-ink-secondary hover:text-ink"
               }`}
             >
               <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg border ${currency === 'classic' ? 'border-white/30 bg-white/20 shadow-inner' : 'border-border/50 bg-surface-elevated'}`}>$</span>
@@ -126,7 +126,7 @@ export default function CoinFlipperWorkspace() {
             <button
               onClick={() => handleCurrencyChange("indian")}
               className={`flex-1 min-w-[80px] flex items-center justify-center py-2 rounded-lg transition-all relative z-10 ${
-                currency === "indian" ? "text-white" : "text-ink-secondary hover:text-ink"
+                currency === "indian" ? "text-white dark:text-black" : "text-ink-secondary hover:text-ink"
               }`}
             >
               <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg border ${currency === 'indian' ? 'border-white/30 bg-white/20 shadow-inner' : 'border-border/50 bg-surface-elevated'}`}>₹</span>
@@ -174,7 +174,7 @@ export default function CoinFlipperWorkspace() {
         <button
           onClick={flipCoin}
           disabled={isFlipping}
-          className="w-full sm:w-auto min-w-[240px] flex items-center justify-center gap-3 py-4 px-8 rounded-2xl bg-accent text-white font-extrabold text-lg uppercase tracking-widest hover:bg-accent/90 active:scale-[0.98] transition-all shadow-xl shadow-accent/20 disabled:opacity-50 disabled:cursor-not-allowed mx-auto"
+          className="w-full sm:w-auto min-w-[240px] flex items-center justify-center gap-3 py-4 px-8 rounded-2xl bg-accent text-white dark:text-black font-extrabold text-lg uppercase tracking-widest hover:bg-accent/90 active:scale-[0.98] transition-all shadow-xl shadow-accent/20 disabled:opacity-50 disabled:cursor-not-allowed mx-auto"
         >
           {isFlipping ? t("flipping", "Flipping...") : result ? t("flip_again", "Flip Again") : t("flip_coin", "Flip Coin")}
         </button>

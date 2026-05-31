@@ -119,7 +119,7 @@ export default function RandomPickerWorkspace() {
               <button
                 onClick={handlePickWinners}
                 disabled={activeItems.length === 0}
-                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-white disabled:opacity-40 disabled:cursor-not-allowed text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm shadow-accent/10 text-center"
+                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-white dark:text-black disabled:opacity-40 disabled:cursor-not-allowed text-xs font-extrabold rounded-xl transition-all cursor-pointer shadow-sm shadow-accent/10 text-center"
               >
                 Draw Winners
               </button>

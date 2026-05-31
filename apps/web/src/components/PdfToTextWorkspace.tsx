@@ -179,7 +179,7 @@ export default function PdfToTextWorkspace() {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleExtract}
-                className="px-4 py-2 bg-accent hover:bg-accent-hover text-white rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
+                className="px-4 py-2 bg-accent hover:bg-accent-hover text-white dark:text-black rounded-xl text-xs font-extrabold shadow-sm transition-all cursor-pointer"
               >
                 Extract Text
               </button>

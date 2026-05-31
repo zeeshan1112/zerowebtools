@@ -300,7 +300,7 @@ export default function Sidebar() {
       <div className={`shrink-0 px-3 py-3 transition-all duration-300 ${isExpanded ? "" : "opacity-75"}`}>
         <Link
           href="/extensions"
-          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-accent text-white shadow-md hover:bg-accent/90 hover:shadow-lg active:scale-95 transition-all w-full"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-accent text-white dark:text-black shadow-md hover:bg-accent/90 hover:shadow-lg active:scale-95 transition-all w-full"
           title="Browser Extensions"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0">
