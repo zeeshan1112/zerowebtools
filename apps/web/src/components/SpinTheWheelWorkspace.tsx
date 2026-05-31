@@ -25,20 +25,26 @@ const ShuffleIcon = ({ className }: { className?: string }) => (
 const ClockIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 );
+const ArrowUpIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+);
+const ArrowDownIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+);
 
 const SEGMENT_COLORS: [string, string][] = [
-  ["#DC4A3C", "#C0392B"], // Crimson
-  ["#E8A838", "#D4942E"], // Gold
-  ["#3D8B5E", "#2E6F4A"], // Emerald
-  ["#4A7FC4", "#3A6AAD"], // Sapphire
-  ["#B96AB8", "#A257A0"], // Amethyst
-  ["#D4754A", "#BE643C"], // Coral
-  ["#5A9D8F", "#4A8578"], // Teal
-  ["#C96A7A", "#B55566"], // Rose
-  ["#6A8BCA", "#5573B0"], // Steel Blue
-  ["#B8943A", "#A07E30"], // Ochre
-  ["#7A8A8A", "#6A7878"], // Slate
-  ["#C47A5A", "#AE6648"], // Terracotta
+  ["#FF3366", "#CC0033"], // Hot Pink
+  ["#FFB800", "#E69600"], // Amber
+  ["#00D084", "#00A86B"], // Mint
+  ["#5850EC", "#4038C8"], // Indigo
+  ["#FF6B35", "#E05520"], // Tangerine
+  ["#00BCD4", "#0097A7"], // Cyan
+  ["#AB47BC", "#8E24AA"], // Violet
+  ["#26A69A", "#00897B"], // Teal
+  ["#EC407A", "#D81B60"], // Rose
+  ["#5C6BC0", "#3949AB"], // Periwinkle
+  ["#8D6E63", "#6D4C41"], // Brown
+  ["#78909C", "#546E7A"], // Blue Grey
 ];
 
 const RIM_GRADIENT_START = "#3a3a3a";
@@ -49,7 +55,8 @@ const RIM_HIGHLIGHT = "#555555";
 function drawWheelFace(
   ctx: CanvasRenderingContext2D,
   items: string[],
-  size: number
+  size: number,
+  highlightIndex?: number
 ) {
   const cx = size / 2;
   const cy = size / 2;
@@ -207,6 +214,56 @@ function drawWheelFace(
   ctx.fillStyle = sheenGrad;
   ctx.fill();
   ctx.restore();
+
+  // ── Winner highlight glow ──
+  if (highlightIndex !== undefined && highlightIndex >= 0) {
+    const slice = (2 * Math.PI) / items.length;
+    const startAngle = highlightIndex * slice - Math.PI / 2;
+    const endAngle = startAngle + slice;
+    const midAngle = startAngle + slice / 2;
+
+    ctx.save();
+    
+    // Outer glow
+    ctx.shadowColor = SEGMENT_COLORS[highlightIndex % SEGMENT_COLORS.length][0];
+    ctx.shadowBlur = 30;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius - 2, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(255,255,255,0.06)";
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Radial highlight overlay on segment
+    const glowGrad = ctx.createRadialGradient(
+      cx + (radius * 0.35) * Math.cos(midAngle),
+      cy + (radius * 0.35) * Math.sin(midAngle),
+      3, cx, cy, radius
+    );
+    glowGrad.addColorStop(0, "rgba(255,255,255,0.18)");
+    glowGrad.addColorStop(0.5, "rgba(255,255,255,0.06)");
+    glowGrad.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius - 2, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fillStyle = glowGrad;
+    ctx.fill();
+
+    // Segment border glow
+    ctx.strokeStyle = "rgba(255,255,255,0.3)";
+    ctx.lineWidth = 2.5;
+    ctx.shadowColor = "rgba(255,255,255,0.4)";
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius - 2, startAngle, endAngle);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.restore();
+  }
 }
 
 interface Particle {
@@ -222,7 +279,7 @@ interface Particle {
 }
 
 function spawnConfetti(cx: number, cy: number): Particle[] {
-  const colors = ["#DC4A3C", "#E8A838", "#3D8B5E", "#4A7FC4", "#B96AB8", "#D4754A", "#FFD700", "#FF6B6B"];
+  const colors = ["#FF3366", "#FFB800", "#00D084", "#5850EC", "#FF6B35", "#00BCD4", "#AB47BC", "#EC407A"];
   const particles: Particle[] = [];
   for (let i = 0; i < 80; i++) {
     const angle = Math.random() * Math.PI * 2;
@@ -300,6 +357,10 @@ const tickSound = new TickSound();
 
 const FRICTION = 0.975;
 const MIN_SPEED = 0.001;
+const SETTLE_THRESHOLD = 0.005;
+const SPRING_STIFFNESS = 0.08;
+const SPRING_DAMPING = 0.72;
+const SETTLE_COMPLETE_EPSILON = 0.0008;
 
 export default function SpinTheWheelWorkspace() {
   const t = useWorkspaceTranslation();
@@ -311,6 +372,10 @@ export default function SpinTheWheelWorkspace() {
   const [history, setHistory] = useState<string[]>([]);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [currentAngle, setCurrentAngle] = useState(0);
+  const [speed, setSpeed] = useState(0);
+  const [settling, setSettling] = useState(false);
+  const [winnerHighlight, setWinnerHighlight] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState<"options" | "history">("options");
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -319,6 +384,11 @@ export default function SpinTheWheelWorkspace() {
   const rafRef = useRef<number | null>(null);
   const segmentPassedRef = useRef(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const settlingRef = useRef(false);
+  const settleTargetRef = useRef(0);
+  const settleVelocityRef = useRef(0);
+  const winnerIdxRef = useRef(-1);
+  const speedRef = useRef(0);
 
   const [particles, setParticles] = useState<Particle[]>([]);
   const confettiRafRef = useRef<number | null>(null);
@@ -338,56 +408,117 @@ export default function SpinTheWheelWorkspace() {
     drawWheelFace(ctx, items, wheelSize);
   }, [items, wheelSize]);
 
-  const stopSpin = useCallback(() => {
-    setSpinning(false);
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = null;
-    }
-  }, []);
-
   const spinWheel = useCallback(() => {
     if (spinning || items.length < 2) return;
     setResult(null);
+    setWinnerHighlight(null);
 
+    settlingRef.current = false;
+    setSettling(false);
     setSpinning(true);
     segmentPassedRef.current = -1;
+    speedRef.current = 1;
+    setSpeed(1);
 
     const initialVel = (0.2 + Math.random() * 0.22) * (Math.random() > 0.5 ? 1 : -1);
     velocityRef.current = initialVel;
 
     const animate = () => {
+      if (settlingRef.current) {
+        // Phase 2: Spring settle — overshoot and bounce to final position
+        const currentAngle_ = angleRef.current;
+        const target = settleTargetRef.current;
+        const displacement = target - currentAngle_;
+
+        settleVelocityRef.current += displacement * SPRING_STIFFNESS;
+        settleVelocityRef.current *= (1 - SPRING_DAMPING * 0.1);
+
+        angleRef.current += settleVelocityRef.current;
+        setCurrentAngle(angleRef.current * (180 / Math.PI));
+
+        const speedVal = Math.min(1, Math.abs(settleVelocityRef.current) * 80);
+        speedRef.current = speedVal;
+        setSpeed(speedVal);
+
+        if (Math.abs(displacement) < SETTLE_COMPLETE_EPSILON && Math.abs(settleVelocityRef.current) < SETTLE_COMPLETE_EPSILON) {
+          // Snap to exact target
+          angleRef.current = target;
+          setCurrentAngle(target * (180 / Math.PI));
+
+          settlingRef.current = false;
+          setSettling(false);
+          setSpinning(false);
+          setSpeed(0);
+          speedRef.current = 0;
+
+          const winner = items[winnerIdxRef.current];
+          setResult(winner);
+          setWinnerHighlight(winnerIdxRef.current);
+          setHistory(prev => [winner, ...prev].slice(0, 20));
+
+          // Redraw canvas with winner highlight
+          const canvas = canvasRef.current;
+          if (canvas) {
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+              const dpr = window.devicePixelRatio || 1;
+              canvas.width = wheelSize * dpr;
+              canvas.height = wheelSize * dpr;
+              ctx.scale(dpr, dpr);
+              drawWheelFace(ctx, items, wheelSize, winnerIdxRef.current);
+            }
+          }
+
+          if (soundEnabled) tickSound.playResult();
+
+          if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            setParticles(spawnConfetti(cx, cy));
+          }
+
+          if (rafRef.current) {
+            cancelAnimationFrame(rafRef.current);
+            rafRef.current = null;
+          }
+        } else {
+          rafRef.current = requestAnimationFrame(animate);
+        }
+        return;
+      }
+
+      // Phase 1: Normal friction-based spin
       velocityRef.current *= FRICTION;
 
-      if (Math.abs(velocityRef.current) < MIN_SPEED) {
-        // Wheel stopped — determine winner
+      const speedVal = Math.min(1, Math.abs(velocityRef.current) * 80);
+      speedRef.current = speedVal;
+      setSpeed(speedVal);
+
+      if (Math.abs(velocityRef.current) < SETTLE_THRESHOLD) {
+        // Transition to settle phase — determine winner first
         const finalAngle = angleRef.current % (Math.PI * 2);
         const normalized = ((finalAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
         const slice = (Math.PI * 2) / items.length;
-        // Segments are drawn starting at -PI/2 (12 o'clock / top), so after
-        // clockwise rotation by `normalized`, the segment now at the pointer
-        // (top) is: originalIndex = floor((2PI - normalized) % 2PI / slice)
         let segmentIndex = Math.floor(((Math.PI * 2 - normalized) % (Math.PI * 2)) / slice);
         segmentIndex = ((segmentIndex % items.length) + items.length) % items.length;
+        winnerIdxRef.current = segmentIndex;
 
-        const winner = items[segmentIndex];
-        setResult(winner);
-        setHistory(prev => [winner, ...prev].slice(0, 20));
-        setSpinning(false);
+        // Calculate target angle: winner segment center aligns with pointer (top)
+        const targetMod = ((-(segmentIndex + 0.5) * slice) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+        const currentMod = ((angleRef.current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+        let diff = targetMod - currentMod;
+        if (diff > Math.PI) diff -= 2 * Math.PI;
+        if (diff < -Math.PI) diff += 2 * Math.PI;
 
-        if (soundEnabled) tickSound.playResult();
+        settleTargetRef.current = angleRef.current + diff;
+        settleVelocityRef.current = velocityRef.current * 0.4;
 
-        if (containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect();
-          const cx = rect.width / 2;
-          const cy = rect.height / 2;
-          setParticles(spawnConfetti(cx, cy));
-        }
+        settlingRef.current = true;
+        setSettling(true);
+        velocityRef.current = 0;
 
-        if (rafRef.current) {
-          cancelAnimationFrame(rafRef.current);
-          rafRef.current = null;
-        }
+        rafRef.current = requestAnimationFrame(animate);
         return;
       }
 
@@ -453,6 +584,25 @@ export default function SpinTheWheelWorkspace() {
   const removeItem = (idx: number) => {
     if (items.length <= 2) return;
     setItems(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  const shuffleItems = () => {
+    setItems(prev => {
+      const arr = [...prev];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    });
+  };
+
+  const sortAscending = () => {
+    setItems(prev => [...prev].sort((a, b) => a.localeCompare(b)));
+  };
+
+  const sortDescending = () => {
+    setItems(prev => [...prev].sort((a, b) => b.localeCompare(a)));
   };
 
   const prevItemsLengthRef = useRef(items.length);
@@ -522,6 +672,21 @@ export default function SpinTheWheelWorkspace() {
                   filter: "blur(14px)",
                 }}
               />
+
+              <div
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-all duration-200"
+                style={{
+                  width: wheelSize + 24,
+                  height: wheelSize + 24,
+                  opacity: Math.min(0.5, speed * 0.5),
+                  boxShadow: speed > 0.05
+                    ? `0 0 ${30 + speed * 45}px ${12 + speed * 20}px rgba(255,255,255,0.05)`
+                    : "none",
+                  background: speed > 0.05
+                    ? "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 65%)"
+                    : "none",
+                }}
+              />
               
               <div
                 ref={wheelRef}
@@ -546,6 +711,18 @@ export default function SpinTheWheelWorkspace() {
                   style={{
                     background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 40%, transparent 60%)",
                     mixBlendMode: "overlay",
+                  }}
+                />
+
+                <div
+                  className="absolute inset-0 rounded-full pointer-events-none transition-opacity duration-200"
+                  style={{
+                    opacity: Math.min(1, speed * 0.8),
+                    background: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.04) 40%, transparent 65%)`,
+                    boxShadow: speed > 0.1
+                      ? `inset 0 0 ${20 + speed * 30}px ${10 + speed * 20}px rgba(255,255,255,0.06)`
+                      : "none",
+                    transition: "opacity 0.2s, box-shadow 0.15s",
                   }}
                 />
 
@@ -637,90 +814,148 @@ export default function SpinTheWheelWorkspace() {
 
           <div className="lg:col-span-2 flex flex-col gap-4">
             
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder={t("wheel_type_option", "Type an option...")}
-                disabled={spinning}
-                className="flex-1 px-4 py-2.5 bg-surface border border-border/60 rounded-xl text-sm text-ink placeholder:text-ink-muted/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all disabled:opacity-50"
-              />
+            <div className="flex gap-1 p-0.5 bg-surface border border-border/40 rounded-xl">
               <button
-                onClick={addItem}
-                disabled={spinning || !inputValue.trim()}
-                className="px-4 py-2.5 rounded-xl bg-accent text-white dark:text-black font-semibold hover:bg-accent/90 active:scale-[0.97] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
+                onClick={() => setActiveTab("options")}
+                className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                  activeTab === "options"
+                    ? "bg-accent text-white dark:text-black shadow-sm"
+                    : "text-ink-muted hover:text-ink"
+                }`}
               >
-                <PlusIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">{t("wheel_add_options", "Add")}</span>
+                {t("wheel_tab_options", "Options")}
+              </button>
+              <button
+                onClick={() => setActiveTab("history")}
+                className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                  activeTab === "history"
+                    ? "bg-accent text-white dark:text-black shadow-sm"
+                    : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                {t("wheel_history", "History")}
+                {history.length > 0 && (
+                  <span className="ml-1.5 text-[10px] opacity-70">({history.length})</span>
+                )}
               </button>
             </div>
 
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
-                {t("wheel_items_count", "{count} options — min 2 required").replace("{count}", String(items.length))}
-              </span>
-              {items.length < 2 && (
-                <span className="text-xs font-bold text-red-500">Add more options</span>
-              )}
-            </div>
-
-            <div ref={optionsListRef} className="flex-1 space-y-1.5 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar">
-              {items.map((item, i) => {
-                const colorPair = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
-                return (
-                  <motion.div
-                    key={`${item}-${i}`}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.03 }}
-                    className="flex items-center gap-2.5 group"
+            {activeTab === "options" ? (
+              <>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder={t("wheel_type_option", "Type an option...")}
+                    disabled={spinning}
+                    className="flex-1 px-4 py-2.5 bg-surface border border-border/60 rounded-xl text-sm text-ink placeholder:text-ink-muted/50 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all disabled:opacity-50"
+                  />
+                  <button
+                    onClick={addItem}
+                    disabled={spinning || !inputValue.trim()}
+                    className="px-4 py-2.5 rounded-xl bg-accent text-white dark:text-black font-semibold hover:bg-accent/90 active:scale-[0.97] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
                   >
-                    <span
-                      className="w-3 h-3 rounded-full shrink-0 ring-1 ring-black/10"
-                      style={{ background: `linear-gradient(135deg, ${colorPair[0]}, ${colorPair[1]})` }}
-                    />
-                    <span className="flex-1 text-sm font-medium text-ink truncate py-1.5">
-                      {item}
-                    </span>
-                    <button
-                      onClick={() => removeItem(i)}
-                      disabled={spinning || items.length <= 2}
-                      className="p-1.5 rounded-lg text-ink-muted/40 hover:text-red-500 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
-                      title={t("wheel_remove", "Remove")}
-                    >
-                      <TrashIcon className="w-3.5 h-3.5" />
-                    </button>
-                  </motion.div>
-                );
-              })}
-            </div>
+                    <PlusIcon className="w-4 h-4" />
+                    <span className="hidden sm:inline">{t("wheel_add_options", "Add")}</span>
+                  </button>
+                </div>
 
-            {history.length > 0 && (
-              <div className="mt-2 pt-3 border-t border-border/40">
-                <div className="flex items-center gap-2 mb-2.5">
-                  <ClockIcon className="w-3.5 h-3.5 text-ink-muted" />
-                  <span className="text-xs font-bold text-ink-muted uppercase tracking-wider">
-                    {t("wheel_history", "History")}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+                    {t("wheel_items_count", "{count} options — min 2 required").replace("{count}", String(items.length))}
                   </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {history.slice(0, 12).map((h, i) => (
-                    <span
-                      key={`${h}-${i}`}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border bg-accent/8 border-accent/20 text-accent"
+                  <div className="flex gap-1">
+                    <button
+                      onClick={shuffleItems}
+                      disabled={spinning}
+                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                      title="Shuffle"
                     >
-                      <TargetIcon className="w-2.5 h-2.5" />
-                      {h}
-                    </span>
-                  ))}
-                  {history.length > 12 && (
-                    <span className="px-2.5 py-1 text-xs text-ink-muted/40 font-medium">
-                      +{history.length - 12}
-                    </span>
-                  )}
+                      <ShuffleIcon className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={sortAscending}
+                      disabled={spinning}
+                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                      title="Sort A-Z"
+                    >
+                      <ArrowUpIcon className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={sortDescending}
+                      disabled={spinning}
+                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                      title="Sort Z-A"
+                    >
+                      <ArrowDownIcon className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
+
+                <div ref={optionsListRef} className="flex-1 space-y-1.5 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar">
+                  {items.map((item, i) => {
+                    const colorPair = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
+                    return (
+                      <motion.div
+                        key={`${item}-${i}`}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.03 }}
+                        className="flex items-center gap-2.5 group"
+                      >
+                        <span
+                          className="w-3 h-3 rounded-full shrink-0 ring-1 ring-black/10"
+                          style={{ background: `linear-gradient(135deg, ${colorPair[0]}, ${colorPair[1]})` }}
+                        />
+                        <span className="flex-1 text-sm font-medium text-ink truncate py-1.5">
+                          {item}
+                        </span>
+                        <button
+                          onClick={() => removeItem(i)}
+                          disabled={spinning || items.length <= 2}
+                          className="p-1.5 rounded-lg text-ink-muted/40 hover:text-red-500 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0"
+                          title={t("wheel_remove", "Remove")}
+                        >
+                          <TrashIcon className="w-3.5 h-3.5" />
+                        </button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 overflow-y-auto pr-1 custom-scrollbar" style={{ maxHeight: "360px" }}>
+                {history.length > 0 ? (
+                  <div className="space-y-1">
+                    {history.map((h, i) => (
+                      <motion.div
+                        key={`${h}-${i}`}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.02 }}
+                        className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-accent/5 border border-accent/10"
+                      >
+                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-accent/10 text-accent text-xs font-extrabold shrink-0">
+                          {i + 1}
+                        </span>
+                        <span className="flex-1 text-sm font-semibold text-ink truncate">{h}</span>
+                        <ClockIcon className="w-3 h-3 text-ink-muted/40 shrink-0" />
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full text-center py-12">
+                    <ClockIcon className="w-10 h-10 text-ink-muted/20 mb-3" />
+                    <p className="text-sm font-medium text-ink-muted/50">
+                      {t("wheel_no_history", "No spins yet")}
+                    </p>
+                    <p className="text-xs text-ink-muted/30 mt-1">
+                      Spin the wheel to see results here
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -767,6 +1002,15 @@ export default function SpinTheWheelWorkspace() {
         }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb {
           background: rgba(255,255,255,0.1);
+        }
+        @keyframes glow-pulse {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.02); }
+        }
+        @keyframes rim-shimmer {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
       `}</style>
     </div>
