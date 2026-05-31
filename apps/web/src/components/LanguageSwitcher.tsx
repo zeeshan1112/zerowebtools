@@ -115,7 +115,7 @@ export default function LanguageSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-1.5 w-36 rounded-xl border border-border/40 bg-surface shadow-lg z-50 overflow-hidden py-1">
+        <div className="absolute ltr:right-0 rtl:left-0 mt-1.5 w-36 rounded-xl border border-border/40 bg-surface shadow-lg z-[100] overflow-hidden py-1">
           <div className="max-h-60 overflow-y-auto">
             {LOCALES.map((locale) => (
               <button
