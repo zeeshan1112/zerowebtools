@@ -184,6 +184,13 @@ export default function DiceRollerWorkspace() {
   const handleRoll = () => {
     if (rolling) return;
     
+    // Prime speech synthesis for mobile browsers
+    if (soundEnabled && typeof window !== "undefined" && window.speechSynthesis) {
+      const primeUtterance = new SpeechSynthesisUtterance("");
+      primeUtterance.volume = 0;
+      window.speechSynthesis.speak(primeUtterance);
+    }
+    
     // Set rolling state and calculate new results immediately so the Dice3D component
     // can calculate the target rotations before starting the animation.
     setRolling(true);

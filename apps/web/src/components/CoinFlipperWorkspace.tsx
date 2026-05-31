@@ -50,6 +50,13 @@ export default function CoinFlipperWorkspace() {
   const flipCoin = () => {
     if (isFlipping) return;
 
+    // Prime speech synthesis for mobile browsers (must be triggered directly on click)
+    if (soundEnabled && typeof window !== "undefined" && window.speechSynthesis) {
+      const primeUtterance = new SpeechSynthesisUtterance("");
+      primeUtterance.volume = 0;
+      window.speechSynthesis.speak(primeUtterance);
+    }
+
     setIsFlipping(true);
     const outcome = Math.random() > 0.5 ? "heads" : "tails";
     // Add spins to X axis for a wobbly 3D effect

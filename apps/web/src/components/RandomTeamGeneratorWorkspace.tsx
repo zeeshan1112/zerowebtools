@@ -54,6 +54,13 @@ export default function RandomTeamGeneratorWorkspace() {
   }, [input]);
 
   const generateTeams = () => {
+    // Prime speech synthesis for mobile browsers
+    if (soundEnabled && typeof window !== "undefined" && window.speechSynthesis) {
+      const primeUtterance = new SpeechSynthesisUtterance("");
+      primeUtterance.volume = 0;
+      window.speechSynthesis.speak(primeUtterance);
+    }
+
     setIsGenerating(true);
     setTeams([]); // Clear existing
 
