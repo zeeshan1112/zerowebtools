@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import SidebarSpaceReserver from "@/components/SidebarSpaceReserver";
-import ScrollToTop from "@/components/ScrollToTop";
 import Analytics from "@/components/Analytics";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -116,16 +115,13 @@ export default function RootLayout({
       <body className="bg-surface text-ink font-sans min-h-screen flex transition-colors duration-200">
         {/* outer wrapper to reserve space on desktop and prevent layout jumping */}
         <SidebarSpaceReserver />
-        <ScrollToTop />
         <RtlSync />
         
         {/* Main Application Container */}
-        <div className="flex-1 flex flex-col h-[100dvh] md:h-screen overflow-hidden">
+        <div className="flex-1 flex flex-col min-h-[100dvh] md:min-h-screen">
           <Header />
-          <div className="flex-1 overflow-y-auto page-scroll-container">
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
+          <main className="flex-grow flex flex-col">{children}</main>
+          <Footer />
         </div>
 
         <Script

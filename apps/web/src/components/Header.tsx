@@ -22,7 +22,7 @@ export default function Header() {
   };
 
   return (
-    <header className="relative z-40 bg-surface border-b border-border/40 shrink-0 select-none">
+    <header className="sticky top-0 z-40 bg-surface/90 backdrop-blur-lg border-b border-border/40 shrink-0 select-none">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-2">
           {/* Left side: hamburger + logo on mobile */}
