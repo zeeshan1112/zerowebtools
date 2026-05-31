@@ -873,4 +873,28 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Wait for roll to complete and Total Sum badge to appear
     await expect(page.locator("text=Total Sum")).toBeVisible({ timeout: 5000 });
   });
+
+  test("44. Random Team Generator - Splitting and Parsing", async ({ page }) => {
+    await page.goto("/tools/random-team-generator");
+    await expect(page.locator("h2").first()).toContainText("Random Team Generator");
+
+    // Add names
+    await page.locator("textarea").fill("Alice\nBob\nCharlie\nDavid\nEve\nFrank");
+
+    // Default is Teams, splitValue is 2. So 2 teams.
+    await page.locator("button").filter({ hasText: 'Generate Teams' }).click();
+
+    // Verify 2 teams are generated
+    await expect(page.locator("text=Team 1")).toBeVisible();
+    await expect(page.locator("text=Team 2")).toBeVisible();
+    await expect(page.locator("text=Team 3")).toBeHidden();
+
+    // Switch to persons per team, value 2
+    await page.locator("button").filter({ hasText: 'Persons per Team' }).click();
+    await page.locator("input[type='number']").fill("2");
+    await page.locator("button").filter({ hasText: 'Generate Teams' }).click();
+
+    // With 6 people and 2 per team, we should have 3 teams
+    await expect(page.locator("text=Team 3")).toBeVisible();
+  });
 });

@@ -2366,6 +2366,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "قم برمي العديد من النرد التفاعلي ثلاثي الأبعاد بجوانب مخصصة وفيزياء متحركة وإجماليات تحويل النص إلى كلام.",
       "metaDescription": "بكرة النرد التفاعلية المجانية ثلاثية الأبعاد. قم برمي النرد المتعدد الجوانب على الفور. يتميز برسوم متحركة أنيقة وحساب المجموع والإعلانات الصوتية. خاص 100%."
     }
+  },
+  "random-team-generator": {
+    "es": {
+      "title": "Generador de equipos aleatorios",
+      "description": "Divida una lista de nombres en equipos aleatorios sin esfuerzo.",
+      "metaDescription": "Generador de equipos aleatorios online gratuito. Ingrese una lista de nombres y divídalos instantáneamente en equipos o grupos aleatorios. 100% privado y del lado del cliente."
+    },
+    "de": {
+      "title": "Zufälliger Teamgenerator",
+      "description": "Teilen Sie eine Liste mit Namen mühelos in zufällige Teams auf.",
+      "metaDescription": "Kostenloser Online-Zufallsgenerator für Teams. Geben Sie eine Liste mit Namen ein und teilen Sie diese sofort in zufällige Teams oder Gruppen auf. 100 % privat und kundenseitig."
+    },
+    "fr": {
+      "title": "Générateur d'équipe aléatoire",
+      "description": "Divisez facilement une liste de noms en équipes randomisées.",
+      "metaDescription": "Générateur d'équipes aléatoires en ligne gratuit. Entrez une liste de noms et divisez-les instantanément en équipes ou groupes aléatoires. 100% privé et côté client."
+    },
+    "pt": {
+      "title": "Gerador de equipe aleatória",
+      "description": "Divida uma lista de nomes em equipes aleatórias sem esforço.",
+      "metaDescription": "Gerador de equipes aleatórias online gratuito. Insira uma lista de nomes e divida-os instantaneamente em equipes ou grupos aleatórios. 100% privado e do lado do cliente."
+    },
+    "ja": {
+      "title": "ランダムチームジェネレーター",
+      "description": "名前のリストをランダム化されたチームに簡単に分割します。",
+      "metaDescription": "無料のオンラインランダムチームジェネレーター。名前のリストを入力すると、即座にランダムなチームまたはグループに分割されます。 100% プライベートでクライアント側です。"
+    },
+    "zh": {
+      "title": "随机团队生成器",
+      "description": "毫不费力地将名单分成随机小组。",
+      "metaDescription": "免费在线随机团队生成器。输入姓名列表，然后立即将他们分成随机的团队或小组。 100% 私有和客户端。"
+    },
+    "hi": {
+      "title": "रैंडम टीम जेनरेटर",
+      "description": "नामों की सूची को आसानी से यादृच्छिक टीमों में विभाजित करें।",
+      "metaDescription": "मुफ़्त ऑनलाइन रैंडम टीम जनरेटर। नामों की एक सूची दर्ज करें और तुरंत उन्हें यादृच्छिक टीमों या समूहों में विभाजित करें। 100% निजी और ग्राहक-पक्ष।"
+    },
+    "it": {
+      "title": "Generatore di squadre casuali",
+      "description": "Dividi facilmente un elenco di nomi in squadre casuali.",
+      "metaDescription": "Generatore di squadre casuali online gratuito. Inserisci un elenco di nomi e dividili immediatamente in squadre o gruppi casuali. 100% privato e lato cliente."
+    },
+    "ar": {
+      "title": "مولد فريق عشوائي",
+      "description": "قم بتقسيم قائمة الأسماء إلى فرق عشوائية دون عناء.",
+      "metaDescription": "مولد فريق عشوائي مجاني على الإنترنت. أدخل قائمة بالأسماء وقم بتقسيمها على الفور إلى فرق أو مجموعات عشوائية. 100% خاص ومن جانب العميل."
+    }
   }
 };
 

@@ -306,6 +306,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Free interactive 3D dice roller. Roll multiple custom-sided dice instantly. Features sleek animations, sum calculation, and voice announcements. 100% private.",
       },
+      {
+        id: "random-team-generator",
+        title: "Random Team Generator",
+        description: "Split a list of names into randomized teams effortlessly.",
+        status: "live",
+        metaDescription: "Free online random team generator. Enter a list of names and instantly split them into random teams or groups. 100% private and client-side.",
+      },
     ],
   },
 ];

@@ -41,6 +41,7 @@ import BoxShadowWorkspace from "@/components/BoxShadowWorkspace";
 import UnixTimestampWorkspace from "@/components/UnixTimestampWorkspace";
 import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
 import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
+import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -156,6 +157,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "unix-timestamp-converter": UnixTimestampWorkspace,
   "cron-generator": CronGeneratorWorkspace,
   "dice-roller": DiceRollerWorkspace,
+  "random-team-generator": RandomTeamGeneratorWorkspace,
 };
 
 const TOOL_ARTICLES: Record<
