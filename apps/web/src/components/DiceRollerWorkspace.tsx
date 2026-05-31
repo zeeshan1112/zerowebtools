@@ -304,7 +304,7 @@ export default function DiceRollerWorkspace() {
           disabled={rolling}
           className="w-full md:w-auto relative group bg-accent hover:bg-accent-hover text-white font-bold text-xl py-5 px-16 rounded-2xl shadow-[0_8px_30px_rgba(var(--accent-rgb),0.3)] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:pointer-events-none overflow-hidden"
         >
-          <span className="flex items-center gap-3">
+          <span className="flex items-center justify-center gap-3">
             <RotateCcw className={`w-6 h-6 ${rolling ? 'animate-spin' : ''}`} />
             {rolling ? "Rolling..." : "Roll Dice"}
           </span>
