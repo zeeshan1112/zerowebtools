@@ -166,13 +166,20 @@ export default function DiceRollerWorkspace() {
   const [rolling, setRolling] = useState<boolean>(false);
   const [results, setResults] = useState<number[]>([]);
 
-  // Preload audio once and cache the element for instant playback
-  const diceAudioRef = useRef<HTMLAudioElement | null>(null);
+  // Preload audio via fetch + Web Audio API (bypasses mobile autoplay restrictions)
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const diceBufferRef = useRef<AudioBuffer | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/dice-roll.mp3");
-    audio.preload = "auto";
-    diceAudioRef.current = audio;
+    fetch("/dice-roll.mp3")
+      .then(res => res.arrayBuffer())
+      .then(arrayBuffer => {
+        const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioCtxRef.current = ctx;
+        return ctx.decodeAudioData(arrayBuffer);
+      })
+      .then(buffer => { diceBufferRef.current = buffer; })
+      .catch(err => console.warn("Failed to preload dice audio", err));
   }, []);
 
   // Initialize display
@@ -201,11 +208,16 @@ export default function DiceRollerWorkspace() {
     }
     
     // Play high quality dice rolling sound effect
-    if (soundEnabled && diceAudioRef.current) {
+    if (soundEnabled && diceBufferRef.current) {
       try {
-        diceAudioRef.current.currentTime = 0;
-        diceAudioRef.current.playbackRate = 0.9 + Math.random() * 0.2;
-        diceAudioRef.current.play().catch(e => console.warn("Audio playback failed", e));
+        const ctx = audioCtxRef.current || new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioCtxRef.current = ctx;
+        if (ctx.state === "suspended") ctx.resume();
+        const source = ctx.createBufferSource();
+        source.buffer = diceBufferRef.current;
+        source.playbackRate.value = 0.9 + Math.random() * 0.2;
+        source.connect(ctx.destination);
+        source.start(0);
       } catch (e) {
         console.warn("Audio not supported", e);
       }

@@ -39,13 +39,20 @@ export default function CoinFlipperWorkspace() {
 
   const [stats, setStats] = useState({ heads: 0, tails: 0 });
 
-  // Preload audio once and cache the element for instant playback
-  const coinAudioRef = useRef<HTMLAudioElement | null>(null);
+  // Preload audio via fetch + Web Audio API (bypasses mobile autoplay restrictions)
+  const coinCtxRef = useRef<AudioContext | null>(null);
+  const coinBufferRef = useRef<AudioBuffer | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/coin-flip.mp3");
-    audio.preload = "auto";
-    coinAudioRef.current = audio;
+    fetch("/coin-flip.mp3")
+      .then(res => res.arrayBuffer())
+      .then(arrayBuffer => {
+        const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        coinCtxRef.current = ctx;
+        return ctx.decodeAudioData(arrayBuffer);
+      })
+      .then(buffer => { coinBufferRef.current = buffer; })
+      .catch(err => console.warn("Failed to preload coin audio", err));
   }, []);
 
   const speakResult = (outcome: "heads" | "tails") => {
@@ -66,10 +73,15 @@ export default function CoinFlipperWorkspace() {
       window.speechSynthesis.speak(primeUtterance);
     }
 
-    if (soundEnabled && coinAudioRef.current) {
+    if (soundEnabled && coinBufferRef.current) {
       try {
-        coinAudioRef.current.currentTime = 0;
-        coinAudioRef.current.play().catch(e => console.warn("Audio playback failed", e));
+        const ctx = coinCtxRef.current || new (window.AudioContext || (window as any).webkitAudioContext)();
+        coinCtxRef.current = ctx;
+        if (ctx.state === "suspended") ctx.resume();
+        const source = ctx.createBufferSource();
+        source.buffer = coinBufferRef.current;
+        source.connect(ctx.destination);
+        source.start(0);
       } catch (e) {
         console.warn("Audio not supported", e);
       }
