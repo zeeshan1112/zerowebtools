@@ -15,17 +15,25 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const scrollContainer = document.querySelector(".page-scroll-container");
-    if (scrollContainer) {
-      // Immediate scroll to top
-      scrollContainer.scrollTo({ top: 0, behavior: "instant" });
-      
-      // Safeguard: Scroll again after layout settles to prevent Next.js race conditions
-      const handle = setTimeout(() => {
-        scrollContainer.scrollTo({ top: 0, behavior: "instant" });
-      }, 50);
-      
-      return () => clearTimeout(handle);
-    }
+    
+    const forceScrollTop = () => {
+      if (scrollContainer) scrollContainer.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    };
+
+    // Fire immediately
+    forceScrollTop();
+    
+    // Fire sequentially to catch Next.js DOM paints and lazy image loads
+    const t1 = setTimeout(forceScrollTop, 50);
+    const t2 = setTimeout(forceScrollTop, 150);
+    const t3 = setTimeout(forceScrollTop, 350);
+    
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
   }, [pathname]);
 
   return null;
