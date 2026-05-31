@@ -191,6 +191,53 @@ export default function DiceRollerWorkspace() {
       window.speechSynthesis.speak(primeUtterance);
     }
     
+    // Play realistic procedural dice rolling clatter
+    if (soundEnabled && typeof window !== "undefined") {
+      try {
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (AudioContextClass) {
+          const ctx = new AudioContextClass();
+          
+          const playClick = (timeOffset: number, gainValue: number) => {
+            const bufferSize = ctx.sampleRate * 0.05;
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              data[i] = Math.random() * 2 - 1;
+            }
+            
+            const noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+            
+            const filter = ctx.createBiquadFilter();
+            filter.type = "bandpass";
+            filter.frequency.value = 1500 + Math.random() * 3000;
+            filter.Q.value = 1 + Math.random() * 2;
+            
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(0, ctx.currentTime + timeOffset);
+            gain.gain.linearRampToValueAtTime(gainValue, ctx.currentTime + timeOffset + 0.005);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + timeOffset + 0.05);
+            
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+            
+            noise.start(ctx.currentTime + timeOffset);
+          };
+
+          const numClatters = 15 + diceCount * 3;
+          for (let i = 0; i < numClatters; i++) {
+            const timeOffset = Math.pow(Math.random(), 1.5) * 1.2; 
+            const gain = 0.1 + Math.random() * 0.4;
+            playClick(timeOffset, gain);
+          }
+        }
+      } catch (e) {
+        console.warn("Web Audio not supported", e);
+      }
+    }
+    
     // Set rolling state and calculate new results immediately so the Dice3D component
     // can calculate the target rotations before starting the animation.
     setRolling(true);
