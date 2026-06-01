@@ -32,19 +32,84 @@ const ArrowDownIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
 );
 
-const SEGMENT_COLORS: [string, string][] = [
-  ["#FF3366", "#CC0033"], // Hot Pink
-  ["#FFB800", "#E69600"], // Amber
-  ["#00D084", "#00A86B"], // Mint
-  ["#5850EC", "#4038C8"], // Indigo
-  ["#FF6B35", "#E05520"], // Tangerine
-  ["#00BCD4", "#0097A7"], // Cyan
-  ["#AB47BC", "#8E24AA"], // Violet
-  ["#26A69A", "#00897B"], // Teal
-  ["#EC407A", "#D81B60"], // Rose
-  ["#5C6BC0", "#3949AB"], // Periwinkle
-  ["#8D6E63", "#6D4C41"], // Brown
-  ["#78909C", "#546E7A"], // Blue Grey
+interface Palette {
+  name: string;
+  colors: [string, string][];
+}
+
+const PALETTES: Palette[] = [
+  {
+    name: "Neon Pulse",
+    colors: [
+      ["#FF3366", "#CC0033"], ["#FFB800", "#E69600"], ["#00D084", "#00A86B"],
+      ["#5850EC", "#4038C8"], ["#FF6B35", "#E05520"], ["#00BCD4", "#0097A7"],
+      ["#AB47BC", "#8E24AA"], ["#26A69A", "#00897B"], ["#EC407A", "#D81B60"],
+      ["#5C6BC0", "#3949AB"], ["#8D6E63", "#6D4C41"], ["#78909C", "#546E7A"],
+    ],
+  },
+  {
+    name: "Sunset Glow",
+    colors: [
+      ["#FF1744", "#D50000"], ["#FF3D00", "#DD2C00"], ["#FF6D00", "#E65100"],
+      ["#FF9100", "#FF6D00"], ["#FFAB00", "#FF8F00"], ["#FFD600", "#FFC400"],
+      ["#F9A825", "#F57F17"], ["#E65100", "#BF360C"], ["#D50000", "#B71C1C"],
+      ["#C62828", "#8E0000"], ["#AD1457", "#6A1B9A"], ["#4A148C", "#311B92"],
+    ],
+  },
+  {
+    name: "Deep Ocean",
+    colors: [
+      ["#01579B", "#002F6C"], ["#0277BD", "#01579B"], ["#0288D1", "#0277BD"],
+      ["#039BE5", "#0288D1"], ["#00ACC1", "#00838F"], ["#0097A7", "#006064"],
+      ["#00897B", "#004D40"], ["#00695C", "#003D33"], ["#2E7D32", "#1B5E20"],
+      ["#1B5E20", "#0D3300"], ["#33691E", "#1B3D00"], ["#004D40", "#00251A"],
+    ],
+  },
+  {
+    name: "Midnight Velvet",
+    colors: [
+      ["#1A237E", "#0D0D4B"], ["#283593", "#0D0D4B"], ["#311B92", "#1A0A4B"],
+      ["#4A148C", "#2A0054"], ["#6A1B9A", "#4A0054"], ["#880E4F", "#4A001F"],
+      ["#B71C1C", "#7F0000"], ["#BF360C", "#870000"], ["#004D40", "#00251A"],
+      ["#0D47A1", "#002171"], ["#33691E", "#002200"], ["#3E2723", "#1B0000"],
+    ],
+  },
+  {
+    name: "Pastel Garden",
+    colors: [
+      ["#EF9A9A", "#E57373"], ["#FFCC80", "#FFB74D"], ["#FFF59D", "#FFF176"],
+      ["#A5D6A7", "#81C784"], ["#90CAF9", "#64B5F6"], ["#81D4FA", "#4FC3F7"],
+      ["#CE93D8", "#BA68C8"], ["#B39DDB", "#9575CD"], ["#F48FB1", "#F06292"],
+      ["#80DEEA", "#4DD0E1"], ["#C8E6C9", "#A5D6A7"], ["#FFE0B2", "#FFCC80"],
+    ],
+  },
+  {
+    name: "Aurora",
+    colors: [
+      ["#E040FB", "#AA00FF"], ["#7C4DFF", "#651FFF"], ["#448AFF", "#2979FF"],
+      ["#00BCD4", "#00E5FF"], ["#1DE9B6", "#00BFA5"], ["#00E676", "#00C853"],
+      ["#76FF03", "#64DD17"], ["#C6FF00", "#AEEA00"], ["#FFEA00", "#FFD600"],
+      ["#FF9100", "#FF6D00"], ["#FF3D00", "#DD2C00"], ["#D500F9", "#AA00FF"],
+    ],
+  },
+  {
+    name: "Earth Tones",
+    colors: [
+      ["#795548", "#5D4037"], ["#8D6E63", "#6D4C41"], ["#A1887F", "#8D6E63"],
+      ["#BCAAA4", "#A1887F"], ["#6D4C41", "#4E342E"], ["#4E342E", "#3E2723"],
+      ["#558B2F", "#33691E"], ["#689F38", "#558B2F"], ["#7CB342", "#689F38"],
+      ["#F57F17", "#E65100"], ["#E65100", "#BF360C"], ["#BF360C", "#870000"],
+    ],
+  },
+  {
+    name: "Sakura",
+    colors: [
+      ["#FCE4EC", "#F8BBD0"], ["#F8BBD0", "#F48FB1"], ["#F48FB1", "#F06292"],
+      ["#F06292", "#E91E63"], ["#E91E63", "#C2185B"], ["#C2185B", "#AD1457"],
+      ["#CE93D8", "#AB47BC"], ["#AB47BC", "#8E24AA"], ["#8E24AA", "#6A1B9A"],
+      ["#FFF3E0", "#FFE0B2"], ["#FFE0B2", "#FFCC80"], ["#81C784", "#66BB6A"],
+    ],
+  },
 ];
 
 const RIM_GRADIENT_START = "#3a3a3a";
@@ -56,6 +121,7 @@ function drawWheelFace(
   ctx: CanvasRenderingContext2D,
   items: string[],
   size: number,
+  colors: [string, string][],
   highlightIndex?: number
 ) {
   const cx = size / 2;
@@ -117,7 +183,7 @@ function drawWheelFace(
   items.forEach((item, i) => {
     const startAngle = i * slice - Math.PI / 2;
     const endAngle = startAngle + slice;
-    const [mainColor, darkColor] = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
+    const [mainColor, darkColor] = colors[i % colors.length];
 
     // Segment fill with gradient
     ctx.save();
@@ -154,7 +220,7 @@ function drawWheelFace(
     ctx.rotate(midAngle);
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
-    const fontSize = Math.max(11, Math.min(16, (radius * 0.55) / items.length * 1.8));
+    const fontSize = Math.max(11, Math.min(18, (radius * 0.55) / items.length * 1.8));
     ctx.font = `700 ${fontSize}px ui-sans-serif, system-ui, sans-serif`;
 
     // Text shadow for readability
@@ -225,7 +291,7 @@ function drawWheelFace(
     ctx.save();
     
     // Outer glow
-    ctx.shadowColor = SEGMENT_COLORS[highlightIndex % SEGMENT_COLORS.length][0];
+    ctx.shadowColor = colors[highlightIndex % colors.length][0];
     ctx.shadowBlur = 30;
     ctx.beginPath();
     ctx.moveTo(cx, cy);
@@ -278,8 +344,8 @@ interface Particle {
   life: number;
 }
 
-function spawnConfetti(cx: number, cy: number): Particle[] {
-  const colors = ["#FF3366", "#FFB800", "#00D084", "#5850EC", "#FF6B35", "#00BCD4", "#AB47BC", "#EC407A"];
+function spawnConfetti(cx: number, cy: number, colors: [string, string][]): Particle[] {
+  const flatColors = colors.map(c => c[0]);
   const particles: Particle[] = [];
   for (let i = 0; i < 80; i++) {
     const angle = Math.random() * Math.PI * 2;
@@ -290,7 +356,7 @@ function spawnConfetti(cx: number, cy: number): Particle[] {
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed - 3,
       size: 4 + Math.random() * 6,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: flatColors[Math.floor(Math.random() * flatColors.length)],
       rotation: Math.random() * 360,
       rotSpeed: (Math.random() - 0.5) * 10,
       life: 1,
@@ -355,9 +421,9 @@ class TickSound {
 
 const tickSound = new TickSound();
 
-const FRICTION = 0.975;
+const FRICTION = 0.978;
 const MIN_SPEED = 0.001;
-const SETTLE_THRESHOLD = 0.005;
+const SETTLE_THRESHOLD = 0.006;
 const SPRING_STIFFNESS = 0.08;
 const SPRING_DAMPING = 0.72;
 const SETTLE_COMPLETE_EPSILON = 0.0008;
@@ -376,6 +442,9 @@ export default function SpinTheWheelWorkspace() {
   const [settling, setSettling] = useState(false);
   const [winnerHighlight, setWinnerHighlight] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"options" | "history">("options");
+  const [paletteIndex, setPaletteIndex] = useState(0);
+
+  const currentColors = PALETTES[paletteIndex].colors;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -394,7 +463,7 @@ export default function SpinTheWheelWorkspace() {
   const confettiRafRef = useRef<number | null>(null);
   const optionsListRef = useRef<HTMLDivElement>(null);
 
-  const wheelSize = 340;
+  const wheelSize = 400;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -405,8 +474,8 @@ export default function SpinTheWheelWorkspace() {
     canvas.width = wheelSize * dpr;
     canvas.height = wheelSize * dpr;
     ctx.scale(dpr, dpr);
-    drawWheelFace(ctx, items, wheelSize);
-  }, [items, wheelSize]);
+    drawWheelFace(ctx, items, wheelSize, currentColors);
+  }, [items, wheelSize, currentColors]);
 
   const spinWheel = useCallback(() => {
     if (spinning || items.length < 2) return;
@@ -420,7 +489,7 @@ export default function SpinTheWheelWorkspace() {
     speedRef.current = 1;
     setSpeed(1);
 
-    const initialVel = (0.2 + Math.random() * 0.22) * (Math.random() > 0.5 ? 1 : -1);
+    const initialVel = (0.35 + Math.random() * 0.28) * (Math.random() > 0.5 ? 1 : -1);
     velocityRef.current = initialVel;
 
     const animate = () => {
@@ -465,7 +534,7 @@ export default function SpinTheWheelWorkspace() {
               canvas.width = wheelSize * dpr;
               canvas.height = wheelSize * dpr;
               ctx.scale(dpr, dpr);
-              drawWheelFace(ctx, items, wheelSize, winnerIdxRef.current);
+              drawWheelFace(ctx, items, wheelSize, currentColors, winnerIdxRef.current);
             }
           }
 
@@ -475,7 +544,7 @@ export default function SpinTheWheelWorkspace() {
             const rect = containerRef.current.getBoundingClientRect();
             const cx = rect.width / 2;
             const cy = rect.height / 2;
-            setParticles(spawnConfetti(cx, cy));
+            setParticles(spawnConfetti(cx, cy, currentColors));
           }
 
           if (rafRef.current) {
@@ -536,7 +605,7 @@ export default function SpinTheWheelWorkspace() {
     };
 
     rafRef.current = requestAnimationFrame(animate);
-  }, [spinning, items, soundEnabled]);
+  }, [spinning, items, soundEnabled, currentColors]);
 
   useEffect(() => {
     return () => {
@@ -739,6 +808,35 @@ export default function SpinTheWheelWorkspace() {
                 />
               </div>
 
+              <button
+                onClick={spinWheel}
+                disabled={spinning || items.length < 2}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full flex items-center justify-center select-none transition-all active:scale-90 disabled:cursor-not-allowed"
+                style={{
+                  width: 86,
+                  height: 86,
+                  background: "radial-gradient(circle at 40% 35%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.06) 40%, rgba(0,0,0,0.15) 100%)",
+                  backdropFilter: "blur(2px)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  boxShadow: spinning
+                    ? "0 2px 12px rgba(0,0,0,0.2)"
+                    : "0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.3)",
+                  cursor: spinning ? "default" : "pointer",
+                  opacity: spinning ? 0.5 : 1,
+                }}
+              >
+                <span
+                  className="font-extrabold tracking-[0.15em] select-none"
+                  style={{
+                    fontSize: 18,
+                    color: "#fff",
+                    textShadow: "0 1px 4px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.1)",
+                  }}
+                >
+                  SPIN
+                </span>
+              </button>
+
               <div
                 className="absolute top-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
                 style={{
@@ -896,7 +994,7 @@ export default function SpinTheWheelWorkspace() {
 
                 <div ref={optionsListRef} className="flex-1 space-y-1.5 max-h-[280px] overflow-y-auto pr-1 custom-scrollbar">
                   {items.map((item, i) => {
-                    const colorPair = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
+                    const colorPair = currentColors[i % currentColors.length];
                     return (
                       <motion.div
                         key={`${item}-${i}`}
@@ -958,6 +1056,30 @@ export default function SpinTheWheelWorkspace() {
                 )}
               </div>
             )}
+
+            <div className="pt-3 border-t border-border/40">
+              <span className="text-[10px] font-bold text-ink-muted uppercase tracking-wider block mb-2.5">
+                {t("wheel_color_theme", "Color Theme")}
+              </span>
+              <div className="flex gap-2 flex-wrap">
+                {PALETTES.map((palette, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setPaletteIndex(i)}
+                    disabled={spinning}
+                    className="w-7 h-7 rounded-full transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                    style={{
+                      background: `linear-gradient(135deg, ${palette.colors[0][0]}, ${palette.colors[3][0]})`,
+                      boxShadow: paletteIndex === i
+                        ? `0 0 0 2px var(--color-bg-surface-elevated, #fff), 0 0 0 4px ${palette.colors[0][0]}`
+                        : "0 1px 3px rgba(0,0,0,0.15)",
+                      transform: paletteIndex === i ? "scale(1.15)" : "scale(1)",
+                    }}
+                    title={palette.name}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
