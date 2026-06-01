@@ -28,7 +28,7 @@ export default function SidebarSpaceReserver() {
 
   return (
     <div 
-      className="hidden md:block h-screen shrink-0 relative transition-all duration-300 ease-in-out"
+      className="hidden md:block h-screen sticky top-0 shrink-0 z-50 transition-all duration-300 ease-in-out"
       style={{ width: pinned ? 260 : 68 }}
     >
       <Sidebar />
