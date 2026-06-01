@@ -2526,6 +2526,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "اقلب عملة ثلاثية الأبعاد واقعية على الفور للحصول على نتيجة عشوائية حقيقية للرؤوس أو الكتابة.",
       "metaDescription": "زعانف عملة تفاعلية مجانية ثلاثية الأبعاد. اقلب عملة افتراضية للحصول على نتيجة عادلة للرؤوس أو الكتابة على الفور. تتميز بفيزياء واقعية ورسوم متحركة وصوت."
     }
+  },
+  "spin-the-wheel": {
+    "es": {
+      "title": "Ruleta de la Suerte",
+      "description": "Crea una ruleta personalizada, añade opciones y deja que el destino decida con giros impulsados por la física.",
+      "metaDescription": "Ruleta interactiva gratuita. Crea ruletas personalizadas con tus propias opciones y deja que los giros físicos decidan el resultado. 100% privado y del lado del cliente."
+    },
+    "de": {
+      "title": "Glücksrad",
+      "description": "Erstelle ein benutzerdefiniertes Glücksrad, füge Optionen hinzu und lass das Schicksal mit physikbasierten Drehungen entscheiden.",
+      "metaDescription": "Kostenloses interaktives Glücksrad. Erstelle benutzerdefinierte Räder mit eigenen Optionen und lass physikbasierte Drehungen über das Ergebnis entscheiden. 100% privat und clientseitig."
+    },
+    "fr": {
+      "title": "Roue de la Fortune",
+      "description": "Créez une roue personnalisée, ajoutez des options et laissez le destin décider avec des tours basés sur la physique.",
+      "metaDescription": "Roue interactive gratuite. Créez des roues personnalisées avec vos propres options et laissez les tours physiques décider du résultat. 100% privé et côté client."
+    },
+    "pt": {
+      "title": "Roleta da Sorte",
+      "description": "Crie uma roleta personalizada, adicione opções e deixe o destino decidir com giros impulsionados pela física.",
+      "metaDescription": "Roleta interativa gratuita. Crie roletas personalizadas com suas próprias opções e deixe os giros físicos decidirem o resultado. 100% privado e do lado do cliente."
+    },
+    "ja": {
+      "title": "スピン・ザ・ホイール",
+      "description": "カスタムホイールを作成し、オプションを追加して、物理ベースのスピンで運命を決めましょう。",
+      "metaDescription": "無料のインタラクティブホイール。独自のオプションでカスタムホイールを作成し、物理ベースのスピンで結果を決定します。100％プライベートでクライアントサイド。"
+    },
+    "zh": {
+      "title": "命运转盘",
+      "description": "创建自定义转盘，添加选项，让基于物理的旋转决定命运。",
+      "metaDescription": "免费互动转盘。使用您自己的选项创建自定义转盘，让基于物理的旋转决定结果。100%私密且客户端运行。"
+    },
+    "hi": {
+      "title": "स्पिन द व्हील",
+      "description": "एक कस्टम स्पिन व्हील बनाएं, विकल्प जोड़ें, और भौतिकी-आधारित स्पिन के साथ भाग्य को निर्णय लेने दें।",
+      "metaDescription": "मुफ्त इंटरैक्टिव स्पिन द व्हील। अपने स्वयं के विकल्पों के साथ कस्टम व्हील बनाएं और भौतिकी-आधारित स्पिन को परिणाम तय करने दें। 100% निजी और क्लाइंट-साइड।"
+    },
+    "it": {
+      "title": "Ruota della Fortuna",
+      "description": "Crea una ruota personalizzata, aggiungi opzioni e lascia che sia il destino a decidere con giri basati sulla fisica.",
+      "metaDescription": "Ruota interattiva gratuita. Crea ruote personalizzate con le tue opzioni e lascia che i giri basati sulla fisica decidano il risultato. 100% privato e lato client."
+    },
+    "ar": {
+      "title": "عجلة الحظ",
+      "description": "قم بإنشاء عجلة دوارة مخصصة، وأضف خيارات، ودع القدر يقرر مع دورات مدفوعة بالفيزياء.",
+      "metaDescription": "عجلة تفاعلية مجانية. قم بإنشاء عجلات مخصصة مع خياراتك الخاصة ودع الدورات الفيزيائية تحدد النتيجة. 100% خاصة ومن جانب العميل."
+    }
   }
 };
 

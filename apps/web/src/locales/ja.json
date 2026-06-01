@@ -129,6 +129,20 @@
     "title_case": "タイトルケース",
     "input_label": "入力テキスト"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "オプションを追加",
+    "wheel_type_option": "オプションを入力...",
+    "wheel_add_options_hint": "回すには少なくとも2つのオプションを追加してください",
+    "wheel_remove": "削除",
+    "wheel_items_count": "{count} オプション — 最低2つ必要",
+    "wheel_spinning": "回転中...",
+    "wheel_spin": "ホイールを回す",
+    "wheel_mute": "音を消す",
+    "wheel_unmute": "音を有効にする",
+    "wheel_result": "結果",
+    "wheel_spin_again": "もう一度回す",
+    "wheel_history": "履歴"
+  },
   "articles": {
     "pdf-compress": {
       "title": "1MB未満のPDFをオンラインで無料で圧縮する方法",

@@ -129,6 +129,20 @@
     "title_case": "حالة العنوان",
     "input_label": "إدخال النص"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "إضافة خيارات",
+    "wheel_type_option": "اكتب خيارًا...",
+    "wheel_add_options_hint": "أضف خيارين على الأقل للتدوير",
+    "wheel_remove": "إزالة",
+    "wheel_items_count": "{count} خيارات — مطلوب خياران على الأقل",
+    "wheel_spinning": "جاري التدوير...",
+    "wheel_spin": "تدوير العجلة",
+    "wheel_mute": "كتم الصوت",
+    "wheel_unmute": "تشغيل الصوت",
+    "wheel_result": "النتيجة",
+    "wheel_spin_again": "تدوير مرة أخرى",
+    "wheel_history": "السجل"
+  },
   "articles": {
     "pdf-compress": {
       "title": "كيفية ضغط ملف PDF بحجم أقل من 1 ميجابايت مجانًا عبر الإنترنت",
