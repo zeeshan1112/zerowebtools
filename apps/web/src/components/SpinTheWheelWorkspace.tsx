@@ -380,6 +380,15 @@ class TickSound {
     return this.ctx;
   }
 
+  prime() {
+    try {
+      const ctx = this.getContext();
+      if (ctx && ctx.state === "suspended") {
+        ctx.resume();
+      }
+    } catch (_) {}
+  }
+
   playTick() {
     const ctx = this.getContext();
     if (!ctx) return;
@@ -443,6 +452,9 @@ export default function SpinTheWheelWorkspace() {
   const [winnerHighlight, setWinnerHighlight] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<"options" | "history">("options");
   const [paletteIndex, setPaletteIndex] = useState(0);
+  const [wheelSize, setWheelSize] = useState(400);
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
+  const [bulkText, setBulkText] = useState("");
 
   const currentColors = PALETTES[paletteIndex].colors;
 
@@ -463,7 +475,49 @@ export default function SpinTheWheelWorkspace() {
   const confettiRafRef = useRef<number | null>(null);
   const optionsListRef = useRef<HTMLDivElement>(null);
 
-  const wheelSize = 400;
+  // Resize listener to scale the wheel size responsively on mobile devices
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 360) {
+        setWheelSize(280);
+      } else if (width < 410) {
+        setWheelSize(320);
+      } else if (width < 480) {
+        setWheelSize(360);
+      } else {
+        setWheelSize(400);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const clearAllItems = () => {
+    if (spinning) return;
+    setItems(["Option 1", "Option 2"]);
+    setResult(null);
+    setWinnerHighlight(null);
+  };
+
+  const handleBulkImport = () => {
+    const lines = bulkText
+      .split(/\r?\n/)
+      .map(l => l.trim())
+      .filter(l => l.length > 0);
+    
+    if (lines.length < 2) {
+      alert("Please enter at least 2 options (one per line).");
+      return;
+    }
+    
+    setItems(lines);
+    setResult(null);
+    setWinnerHighlight(null);
+    setIsBulkModalOpen(false);
+    setBulkText("");
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -479,6 +533,12 @@ export default function SpinTheWheelWorkspace() {
 
   const spinWheel = useCallback(() => {
     if (spinning || items.length < 2) return;
+
+    // Prime the audio context for mobile browsers inside synchronous gesture handler
+    if (soundEnabled) {
+      tickSound.prime();
+    }
+
     setResult(null);
     setWinnerHighlight(null);
 
@@ -813,8 +873,8 @@ export default function SpinTheWheelWorkspace() {
                 disabled={spinning || items.length < 2}
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full flex items-center justify-center select-none transition-all active:scale-90 disabled:cursor-not-allowed"
                 style={{
-                  width: 86,
-                  height: 86,
+                  width: Math.round(wheelSize * 0.215),
+                  height: Math.round(wheelSize * 0.215),
                   background: "radial-gradient(circle at 40% 35%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.06) 40%, rgba(0,0,0,0.15) 100%)",
                   backdropFilter: "blur(2px)",
                   border: "1px solid rgba(255,255,255,0.2)",
@@ -828,7 +888,7 @@ export default function SpinTheWheelWorkspace() {
                 <span
                   className="font-extrabold tracking-[0.15em] select-none"
                   style={{
-                    fontSize: 18,
+                    fontSize: Math.max(12, Math.round(wheelSize * 0.045)),
                     color: "#fff",
                     textShadow: "0 1px 4px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.1)",
                   }}
@@ -841,10 +901,15 @@ export default function SpinTheWheelWorkspace() {
                 className="absolute top-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
                 style={{
                   filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.5)) drop-shadow(0 0 20px rgba(255,255,255,0.08))",
-                  marginTop: -7,
+                  marginTop: -Math.round(wheelSize * 0.0175),
                 }}
               >
-                <svg width="34" height="38" viewBox="0 0 34 38" fill="none">
+                <svg 
+                  width={Math.round(wheelSize * 0.085)} 
+                  height={Math.round(wheelSize * 0.095)} 
+                  viewBox="0 0 34 38" 
+                  fill="none"
+                >
                   <defs>
                     <linearGradient id="ptr-body" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0%" stopColor="#f0f0f0" />
@@ -961,14 +1026,33 @@ export default function SpinTheWheelWorkspace() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
-                    {t("wheel_items_count", "{count} options — min 2 required").replace("{count}", String(items.length))}
-                  </span>
-                  <div className="flex gap-1">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+                      {t("wheel_items_count", "{count} options").replace("{count}", String(items.length))}
+                    </span>
+                    <div className="flex items-center gap-2 mt-0.5 select-none">
+                      <button
+                        onClick={() => setIsBulkModalOpen(true)}
+                        disabled={spinning}
+                        className="text-[10px] font-bold text-accent hover:underline disabled:opacity-40 cursor-pointer"
+                      >
+                        {t("wheel_bulk_add", "Bulk Add")}
+                      </button>
+                      <span className="text-border/80 text-[10px] select-none">•</span>
+                      <button
+                        onClick={clearAllItems}
+                        disabled={spinning}
+                        className="text-[10px] font-bold text-red-500 hover:underline disabled:opacity-40 cursor-pointer"
+                      >
+                        {t("wheel_clear_all", "Clear All")}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 self-end">
                     <button
                       onClick={shuffleItems}
                       disabled={spinning}
-                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                       title="Shuffle"
                     >
                       <ShuffleIcon className="w-3.5 h-3.5" />
@@ -976,7 +1060,7 @@ export default function SpinTheWheelWorkspace() {
                     <button
                       onClick={sortAscending}
                       disabled={spinning}
-                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                       title="Sort A-Z"
                     >
                       <ArrowUpIcon className="w-3.5 h-3.5" />
@@ -984,7 +1068,7 @@ export default function SpinTheWheelWorkspace() {
                     <button
                       onClick={sortDescending}
                       disabled={spinning}
-                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                      className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
                       title="Sort Z-A"
                     >
                       <ArrowDownIcon className="w-3.5 h-3.5" />
@@ -1108,6 +1192,77 @@ export default function SpinTheWheelWorkspace() {
               ))}
             </svg>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isBulkModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsBulkModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            {/* Modal Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ type: "spring", duration: 0.3 }}
+              className="relative w-full max-w-lg bg-surface border border-border/50 rounded-2xl p-6 shadow-2xl z-10 flex flex-col gap-4 overflow-hidden"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-border/40">
+                <h3 className="text-sm font-extrabold text-ink uppercase tracking-wider flex items-center gap-2">
+                  <TargetIcon className="w-4 h-4 text-accent" />
+                  {t("wheel_bulk_add", "Bulk Add Options")}
+                </h3>
+                <button
+                  onClick={() => setIsBulkModalOpen(false)}
+                  className="p-1 rounded-lg text-ink-muted hover:text-ink transition-colors hover:bg-surface-elevated cursor-pointer"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider block">
+                  {t("wheel_bulk_add_desc", "Enter one option per line:")}
+                </label>
+                <textarea
+                  value={bulkText}
+                  onChange={(e) => setBulkText(e.target.value)}
+                  placeholder="Option A&#10;Option B&#10;Option C"
+                  rows={8}
+                  className="w-full px-4 py-3 bg-surface-elevated border border-border/60 rounded-xl text-sm text-ink placeholder:text-ink-muted/30 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all font-medium resize-y"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setIsBulkModalOpen(false);
+                    setBulkText("");
+                  }}
+                  className="px-4 py-2.5 rounded-xl border border-border hover:bg-surface text-ink-secondary text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                >
+                  {t("wheel_cancel", "Cancel")}
+                </button>
+                <button
+                  onClick={handleBulkImport}
+                  disabled={!bulkText.trim()}
+                  className="px-4 py-2.5 rounded-xl bg-accent text-white dark:text-black hover:bg-accent/90 text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {t("wheel_import", "Import Options")}
+                </button>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
