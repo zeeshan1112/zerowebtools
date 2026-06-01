@@ -943,7 +943,7 @@ export default function SpinTheWheelWorkspace() {
             <button
               onClick={spinWheel}
               disabled={spinning || items.length < 2}
-              className="mt-6 sm:mt-8 w-full sm:w-auto min-w-[220px] flex items-center justify-center gap-3 py-3.5 px-8 rounded-2xl bg-accent text-white dark:text-black font-extrabold text-base uppercase tracking-widest hover:bg-accent/90 active:scale-[0.97] transition-all shadow-xl shadow-accent/20 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="relative z-20 mt-6 sm:mt-8 w-full sm:w-auto min-w-[220px] flex items-center justify-center gap-3 py-3.5 px-8 rounded-2xl bg-accent text-white dark:text-black font-extrabold text-base uppercase tracking-widest hover:bg-accent/90 active:scale-[0.97] transition-all shadow-xl shadow-accent/20 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {spinning ? (
                 <>
