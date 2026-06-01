@@ -129,6 +129,20 @@
     "title_case": "शीर्षक खाना",
     "input_label": "इनपुट पाठ"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "विकल्प जोड़ें",
+    "wheel_type_option": "एक विकल्प टाइप करें...",
+    "wheel_add_options_hint": "घुमाने के लिए कम से कम 2 विकल्प जोड़ें",
+    "wheel_remove": "हटाएं",
+    "wheel_items_count": "{count} विकल्प — कम से कम 2 आवश्यक",
+    "wheel_spinning": "घूम रहा है...",
+    "wheel_spin": "पहिया घुमाएं",
+    "wheel_mute": "ध्वनि बंद करें",
+    "wheel_unmute": "ध्वनि चालू करें",
+    "wheel_result": "परिणाम",
+    "wheel_spin_again": "फिर से घुमाएं",
+    "wheel_history": "इतिहास"
+  },
   "articles": {
     "pdf-compress": {
       "title": "1 एमबी से कम की पीडीएफ को मुफ्त में ऑनलाइन कैसे कंप्रेस करें",

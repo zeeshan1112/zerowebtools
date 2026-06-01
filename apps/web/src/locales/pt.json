@@ -129,6 +129,20 @@
     "title_case": "Caso de título",
     "input_label": "Texto de entrada"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "Adicionar opções",
+    "wheel_type_option": "Digite uma opção...",
+    "wheel_add_options_hint": "Adicione pelo menos 2 opções para girar",
+    "wheel_remove": "Remover",
+    "wheel_items_count": "{count} opções — mínimo 2 necessárias",
+    "wheel_spinning": "Girando...",
+    "wheel_spin": "Girar a Roda",
+    "wheel_mute": "Silenciar som",
+    "wheel_unmute": "Ativar som",
+    "wheel_result": "Resultado",
+    "wheel_spin_again": "Girar novamente",
+    "wheel_history": "Histórico"
+  },
   "articles": {
     "pdf-compress": {
       "title": "Como compactar um PDF com menos de 1 MB gratuitamente online",

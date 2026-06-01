@@ -129,6 +129,20 @@
     "title_case": "Cas de titre",
     "input_label": "Texte de saisie"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "Ajouter des options",
+    "wheel_type_option": "Tapez une option...",
+    "wheel_add_options_hint": "Ajoutez au moins 2 options pour tourner",
+    "wheel_remove": "Supprimer",
+    "wheel_items_count": "{count} options — minimum 2 requis",
+    "wheel_spinning": "Tourne...",
+    "wheel_spin": "Tourner la roue",
+    "wheel_mute": "Couper le son",
+    "wheel_unmute": "Activer le son",
+    "wheel_result": "Résultat",
+    "wheel_spin_again": "Tourner à nouveau",
+    "wheel_history": "Historique"
+  },
   "articles": {
     "pdf-compress": {
       "title": "Comment compresser un PDF de moins de 1 Mo gratuitement en ligne",

@@ -129,5 +129,19 @@
     "title_case": "Title Case",
     "input_label": "Input Text"
   },
+  "spin_the_wheel": {
+    "wheel_add_options": "Add Options",
+    "wheel_type_option": "Type an option...",
+    "wheel_add_options_hint": "Add at least 2 options to spin",
+    "wheel_remove": "Remove",
+    "wheel_items_count": "{count} options — min 2 required",
+    "wheel_spinning": "Spinning...",
+    "wheel_spin": "Spin the Wheel",
+    "wheel_mute": "Mute Sound",
+    "wheel_unmute": "Enable Sound",
+    "wheel_result": "Result",
+    "wheel_spin_again": "Spin Again",
+    "wheel_history": "History"
+  },
   "articles": {}
 }
