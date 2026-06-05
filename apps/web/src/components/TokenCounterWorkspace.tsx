@@ -434,17 +434,17 @@ export default function TokenCounterWorkspace() {
             </div>
 
             {/* Sub-counters Grid */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-surface border border-border/40 rounded-xl p-3 text-center">
-                <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider block">{t("chars", "Chars")}</span>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-surface border border-border/40 rounded-xl px-1 py-2.5 text-center min-w-0">
+                <span className="text-[9px] font-bold text-ink-muted uppercase tracking-tight block truncate" title={t("chars_tooltip", "Characters")}>{t("chars", "Chars")}</span>
                 <span className="text-sm font-extrabold text-ink font-mono mt-0.5 block">{textStats.chars.toLocaleString()}</span>
               </div>
-              <div className="bg-surface border border-border/40 rounded-xl p-3 text-center">
-                <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider block">{t("words", "Words")}</span>
+              <div className="bg-surface border border-border/40 rounded-xl px-1 py-2.5 text-center min-w-0">
+                <span className="text-[9px] font-bold text-ink-muted uppercase tracking-tight block truncate" title={t("words_tooltip", "Words")}>{t("words", "Words")}</span>
                 <span className="text-sm font-extrabold text-ink font-mono mt-0.5 block">{textStats.words.toLocaleString()}</span>
               </div>
-              <div className="bg-surface border border-border/40 rounded-xl p-3 text-center">
-                <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider block">{t("paragraphs", "Paragraphs")}</span>
+              <div className="bg-surface border border-border/40 rounded-xl px-1 py-2.5 text-center min-w-0">
+                <span className="text-[9px] font-bold text-ink-muted uppercase tracking-tight block truncate" title={t("paragraphs_tooltip", "Paragraphs")}>{t("paragraphs", "Paras")}</span>
                 <span className="text-sm font-extrabold text-ink font-mono mt-0.5 block">{textStats.paragraphs.toLocaleString()}</span>
               </div>
             </div>
