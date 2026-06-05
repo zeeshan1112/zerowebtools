@@ -367,8 +367,8 @@ export default function TwoZeroFourEightWorkspace() {
         <div className="absolute inset-3 pointer-events-none">
           <AnimatePresence>
             {tiles.map((tile) => {
-              const xPercent = tile.col * 100;
-              const yPercent = tile.row * 100;
+              const xPercent = tile.col * 25;
+              const yPercent = tile.row * 25;
 
               return (
                 <motion.div
