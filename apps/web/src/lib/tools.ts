@@ -327,6 +327,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Free interactive spin the wheel. Create custom wheels with your own options and let physics-driven spins decide the outcome. 100% private and client-side.",
       },
+      {
+        id: "2048-game",
+        title: "2048 Game",
+        description: "Play the classic 2048 puzzle game. Slide tiles, merge matching numbers, and aim for the 2048 tile!",
+        status: "live",
+        metaDescription: "Play the classic 2048 puzzle game online. Slide tiles, merge matching numbers, and aim for the 2048 tile. Mobile-friendly with saved high scores and 100% private.",
+      },
     ],
   },
 ];

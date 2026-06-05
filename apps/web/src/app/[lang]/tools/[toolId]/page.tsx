@@ -44,6 +44,7 @@ import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
 import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
 import CoinFlipperWorkspace from "@/components/CoinFlipperWorkspace";
 import SpinTheWheelWorkspace from "@/components/SpinTheWheelWorkspace";
+import TwoZeroFourEightWorkspace from "@/components/TwoZeroFourEightWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -162,6 +163,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "random-team-generator": RandomTeamGeneratorWorkspace,
   "coin-flipper": CoinFlipperWorkspace,
   "spin-the-wheel": SpinTheWheelWorkspace,
+  "2048-game": TwoZeroFourEightWorkspace,
 };
 
 const TOOL_ARTICLES: Record<

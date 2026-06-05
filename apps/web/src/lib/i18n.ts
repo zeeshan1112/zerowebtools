@@ -2573,6 +2573,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "قم بإنشاء عجلة دوارة مخصصة، وأضف خيارات، ودع القدر يقرر مع دورات مدفوعة بالفيزياء.",
       "metaDescription": "عجلة تفاعلية مجانية. قم بإنشاء عجلات مخصصة مع خياراتك الخاصة ودع الدورات الفيزيائية تحدد النتيجة. 100% خاصة ومن جانب العميل."
     }
+  },
+  "2048-game": {
+    "es": {
+      "title": "Juego 2048",
+      "description": "Juega al clásico juego de rompecabezas 2048. ¡Desliza fichas, combina números iguales y apunta a la ficha 2048!",
+      "metaDescription": "Juega al clásico juego de rompecabezas 2048 en línea. Desliza fichas, combina números iguales y apunta a la ficha 2048. Compatible con móviles, con puntuaciones máximas guardadas y 100% privado."
+    },
+    "de": {
+      "title": "2048-Spiel",
+      "description": "Spielen Sie das klassische 2048-Rätselspiel. Verschieben Sie Kacheln, führen Sie passende Zahlen zusammen und zielen Sie auf die Kachel 2048!",
+      "metaDescription": "Spielen Sie das klassische 2048-Rätselspiel online. Verschieben Sie Kacheln, führen Sie passende Zahlen zusammen und zielen Sie auf die Kachel 2048. Mobilfreundlich mit gespeicherten Highscores und 100 % privat."
+    },
+    "fr": {
+      "title": "Jeu 2048",
+      "description": "Jouez au jeu de puzzle classique 2048. Faites glisser les tuiles, fusionnez les nombres correspondants et visez la tuile 2048 !",
+      "metaDescription": "Jouez au jeu de puzzle classique 2048 en ligne. Faites glisser les tuiles, fusionnez les objets correspondants et visez la tuile 2048. Adapté aux mobiles, avec scores enregistrés et 100 % privé."
+    },
+    "pt": {
+      "title": "Jogo 2048",
+      "description": "Jogue o clássico jogo de quebra-cabeça 2048. Deslize os blocos, combine números idênticos e mire no bloco 2048!",
+      "metaDescription": "Jogue o clássico jogo de quebra-cabeça 2048 online. Deslize os blocos, combine números idênticos e mire no bloco 2048. Amigável para dispositivos móveis com recordes salvos e 100% privado."
+    },
+    "ja": {
+      "title": "2048ゲーム",
+      "description": "クラシックな2048パズルゲームをプレイしましょう。タイルをスライドさせ、一致する数字を合体させて、2048のタイルを目指しましょう！",
+      "metaDescription": "クラシックな2048パズルゲームをオンラインでプレイ。タイルをスライドさせ、一致する数字を合体させて、2048のタイルを目指します。モバイル対応、ハイスコア保存可能で100%プライベート。"
+    },
+    "zh": {
+      "title": "2048 游戏",
+      "description": "玩经典的 2048 益智游戏。滑动方块，合并相同的数字，并以 2048 方块为目标！",
+      "metaDescription": "在线玩经典的 2048 益智游戏。滑动方块，合并相同的数字，并以 2048 方块为目标。手机友好，保存高分，100% 私密。"
+    },
+    "hi": {
+      "title": "2048 गेम",
+      "description": "क्लासिक 2048 पहेली खेल खेलें। टाइलें स्लाइड करें, मिलान करने वाले नंबरों को मर्ज करें, और 2048 टाइल का लक्ष्य रखें!",
+      "metaDescription": "क्लासिक 2048 पहेली खेल ऑनलाइन खेलें। टाइलें स्लाइड करें, मिलान करने वाले नंबरों को मर्ज करें, और 2048 टाइल का लक्ष्य रखें। सहेजे गए उच्च स्कोर के साथ मोबाइल के अनुकूल और 100% निजी।"
+    },
+    "it": {
+      "title": "Gioco 2048",
+      "description": "Gioca al classico gioco puzzle 2048. Fai scorrere le tessere, unisci i numeri corrispondenti e mira alla tessera 2048!",
+      "metaDescription": "Gioca al classico gioco puzzle 2048 online. Fai scorrere le tessere, unisci i numeri corrispondenti e mira alla tessera 2048. Ottimizzato per dispositivi mobili con punteggi massimi salvati e privato al 100%."
+    },
+    "ar": {
+      "title": "لعبة 2048",
+      "description": "العب لعبة الألغاز الكلاسيكية 2048. قم بتحريك البلاط، ودمج الأرقام المتطابقة، واهدف إلى الوصول إلى البلاط 2048!",
+      "metaDescription": "العب لعبة الألغاز الكلاسيكية 2048 على الإنترنت. قم بتحريك البلاط، ودمج الأرقام المتطابقة، واهدف إلى البلاطة 2048. مناسبة للهواتف المحمولة مع حفظ أفضل النتائج وخاصة بنسبة 100%."
+    }
   }
 };
 
