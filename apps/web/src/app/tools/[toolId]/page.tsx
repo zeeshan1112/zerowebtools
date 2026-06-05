@@ -47,6 +47,7 @@ import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
 import MobileToolActions from "@/components/MobileToolActions";
+import TelemetryTracker from "@/components/TelemetryTracker";
 import {
   CATEGORIES,
   getToolById,
@@ -1362,6 +1363,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   return (
     <div className="min-h-screen pt-10 pb-20">
+      <TelemetryTracker toolId={toolId} />
       {/* Schema Injection */}
       <script
         type="application/ld+json"

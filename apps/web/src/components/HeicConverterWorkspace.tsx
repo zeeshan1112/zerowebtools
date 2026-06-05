@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import ProcessingOverlay from "./ProcessingOverlay";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { trackToolEvent } from "@/lib/telemetry";
 
 interface ImageFile {
   id: string;
@@ -159,6 +160,10 @@ export default function HeicConverterWorkspace() {
     const currentFormat = targetFormat;
     const currentQuality = quality;
 
+    const snapshot = [...filesRef.current];
+    const totalSize = snapshot.reduce((acc, f) => acc + f.size, 0);
+    trackToolEvent("heic-to-jpg", "start", { fileSizeBytes: totalSize });
+
     setIsConverting(true);
     setShowProcessingOverlay(true);
     animationFinishedRef.current = false;
@@ -167,8 +172,6 @@ export default function HeicConverterWorkspace() {
     setFiles((prev) =>
       prev.map((f) => ({ ...f, converting: true, error: null, convertedBlob: null, convertedSize: null }))
     );
-
-    const snapshot = [...filesRef.current];
 
     // Pre-load heic-to if any HEIC files are present
     const hasHeic = snapshot.some(
@@ -181,6 +184,7 @@ export default function HeicConverterWorkspace() {
         heicConvert = await getHeicToConverter();
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : "Failed to load HEIC decoder";
+        trackToolEvent("heic-to-jpg", "error", { errorMessage: msg });
         setFiles((prev) =>
           prev.map((f) =>
             f.file.name.match(/\.(heic|heif)$/i) ? { ...f, error: msg, converting: false } : f
@@ -192,6 +196,10 @@ export default function HeicConverterWorkspace() {
         return;
       }
     }
+
+    const startTime = Date.now();
+    let errorOccurred = false;
+    let lastErrorMsg = "";
 
     for (const entry of snapshot) {
       try {
@@ -224,12 +232,27 @@ export default function HeicConverterWorkspace() {
           )
         );
       } catch (err: unknown) {
+        errorOccurred = true;
         const msg = err instanceof Error ? err.message : JSON.stringify(err);
+        lastErrorMsg = msg;
         console.error("Conversion error:", err);
         setFiles((prev) =>
           prev.map((f) => (f.id === entry.id ? { ...f, error: msg, converting: false } : f))
         );
       }
+    }
+
+    const processingTime = Date.now() - startTime;
+    const finalDone = filesRef.current.filter((f) => f.convertedBlob);
+    const finalDoneSize = finalDone.reduce((acc, f) => acc + (f.convertedSize || 0), 0);
+
+    if (errorOccurred && finalDone.length === 0) {
+      trackToolEvent("heic-to-jpg", "error", { errorMessage: lastErrorMsg });
+    } else {
+      trackToolEvent("heic-to-jpg", "success", {
+        fileSizeBytes: finalDoneSize,
+        processingTimeMs: processingTime,
+      });
     }
 
     isGeneratingRef.current = false;

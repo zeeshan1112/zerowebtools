@@ -6,6 +6,7 @@ import ProcessingOverlay from "./ProcessingOverlay";
 import { getSharedFile } from "@/lib/fileBuffer";
 import MicroChainLinks from "./MicroChainLinks";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { trackToolEvent } from "@/lib/telemetry";
 
 export default function CompressPDFWorkspace() {
   const t = useWorkspaceTranslation();
@@ -84,6 +85,7 @@ export default function CompressPDFWorkspace() {
 
   const compress = useCallback(async () => {
     if (!file) return;
+    trackToolEvent("pdf-compress", "start", { fileSizeBytes: file.size });
     setError(null);
     setProgress(null);
     setProcessing(true);
@@ -93,9 +95,16 @@ export default function CompressPDFWorkspace() {
     isGeneratingRef.current = true;
 
     try {
+      const startTime = Date.now();
       const blob = await compressPDF(file, level, (current, total) => {
         setProgress({ current, total });
       });
+      const processingTime = Date.now() - startTime;
+      trackToolEvent("pdf-compress", "success", {
+        fileSizeBytes: blob.size,
+        processingTimeMs: processingTime
+      });
+
       pendingBlobRef.current = blob;
       isGeneratingRef.current = false;
 
@@ -106,7 +115,9 @@ export default function CompressPDFWorkspace() {
         setProcessing(false);
       }
     } catch (e: any) {
-      setError(e.message || "Compression failed");
+      const errMsg = e.message || "Compression failed";
+      trackToolEvent("pdf-compress", "error", { errorMessage: errMsg });
+      setError(errMsg);
       setShowProcessingOverlay(false);
       setProcessing(false);
       isGeneratingRef.current = false;
