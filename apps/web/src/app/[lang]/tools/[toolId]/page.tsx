@@ -15,6 +15,7 @@ import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import Base64Workspace from "@/components/Base64Workspace";
 import TextCounterWorkspace from "@/components/TextCounterWorkspace";
+import TokenCounterWorkspace from "@/components/TokenCounterWorkspace";
 import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
 import JwtDebuggerWorkspace from "@/components/JwtDebuggerWorkspace";
 import UrlEncoderWorkspace from "@/components/UrlEncoderWorkspace";
@@ -164,6 +165,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "coin-flipper": CoinFlipperWorkspace,
   "spin-the-wheel": SpinTheWheelWorkspace,
   "2048-game": TwoZeroFourEightWorkspace,
+  "token-counter": TokenCounterWorkspace,
 };
 
 const TOOL_ARTICLES: Record<

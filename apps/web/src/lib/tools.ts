@@ -144,6 +144,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Beautify and format SQL statements instantly — free and private. Capitalize SQL keywords, format clauses, and clean indentation. No server uploads.",
       },
+      {
+        id: "token-counter",
+        title: "Token Counter & Cost Estimator",
+        description: "Count tokens using SOTA model tokenizers and estimate API costs client-side with 100% privacy.",
+        status: "live",
+        metaDescription: "Count tokens and estimate API costs locally for SOTA models (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Alternating visual token boundaries, 100% private.",
+      },
     ],
   },
   {
@@ -347,6 +354,8 @@ export const CATEGORY_TAG_STYLES: Record<string, string> = {
   "image-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "financial-growth": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
   "fun": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
+  "developer-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
+  "generators": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
 };
 
 export function getToolById(id: string): Tool | undefined {
