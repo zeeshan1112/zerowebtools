@@ -194,20 +194,20 @@ export default function TokenCounterWorkspace() {
   };
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-8 max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       
       {/* Dynamic Selector Header */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Model Presets */}
-        <div className="bg-surface border border-border/50 rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-sm">
+        <div className="bg-surface border border-border/50 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-sm">
           <div>
-            <label className="text-[10px] font-bold text-ink-muted uppercase tracking-wider block mb-1">
+            <label className="text-[10px] font-bold text-ink-muted uppercase tracking-wider block mb-1.5">
               {t("select_model", "Select Model / Tokenizer")}
             </label>
             <select
               value={selectedModelId}
               onChange={(e) => setSelectedModelId(e.target.value)}
-              className="w-full bg-surface-elevated border border-border/60 rounded-xl px-3 py-2 text-sm font-semibold text-ink focus:border-accent focus:ring-1 focus:ring-accent outline-none cursor-pointer"
+              className="w-full bg-surface-elevated border border-border/60 rounded-xl px-3 py-2.5 text-sm font-semibold text-ink focus:border-accent focus:ring-1 focus:ring-accent outline-none cursor-pointer"
             >
               <optgroup label="Latest Models (SOTA)">
                 {MODEL_PRESETS.filter(m => m.category === "modern").map(m => (
@@ -229,15 +229,15 @@ export default function TokenCounterWorkspace() {
         </div>
 
         {/* Dynamic Pricing Rates */}
-        <div className="bg-surface border border-border/50 rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-sm">
+        <div className="bg-surface border border-border/50 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-sm">
           <div>
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between mb-1.5">
               <label className="text-[10px] font-bold text-ink-muted uppercase tracking-wider">
                 {t("pricing_rates", "API Cost Rates")}
               </label>
               <button
                 onClick={() => setCustomPricing(!customPricing)}
-                className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${
+                className={`text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded border ${
                   customPricing 
                     ? "border-accent text-accent bg-accent/15" 
                     : "border-border text-ink-secondary hover:text-ink"
@@ -247,7 +247,7 @@ export default function TokenCounterWorkspace() {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 mt-2">
+            <div className="grid grid-cols-2 gap-4 mt-2">
               <div>
                 <span className="text-[9px] text-ink-muted font-bold block">{t("input_1m", "Input / 1M Prompt")}</span>
                 {customPricing ? (
@@ -257,10 +257,10 @@ export default function TokenCounterWorkspace() {
                     min="0"
                     value={customInputCost}
                     onChange={(e) => setCustomInputCost(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-surface-elevated border border-border/60 rounded-lg px-2 py-1 text-xs font-bold font-mono mt-1 text-ink focus:border-accent outline-none"
+                    className="w-full bg-surface-elevated border border-border/60 rounded-lg px-2.5 py-1.5 text-xs font-bold font-mono mt-1 text-ink focus:border-accent outline-none"
                   />
                 ) : (
-                  <div className="text-sm font-black font-mono text-ink mt-1">${selectedModel.inputCostPer1M.toFixed(2)}</div>
+                  <div className="text-sm font-black font-mono text-ink mt-1.5">${selectedModel.inputCostPer1M.toFixed(2)}</div>
                 )}
               </div>
               <div>
@@ -272,10 +272,10 @@ export default function TokenCounterWorkspace() {
                     min="0"
                     value={customOutputCost}
                     onChange={(e) => setCustomOutputCost(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-surface-elevated border border-border/60 rounded-lg px-2 py-1 text-xs font-bold font-mono mt-1 text-ink focus:border-accent outline-none"
+                    className="w-full bg-surface-elevated border border-border/60 rounded-lg px-2.5 py-1.5 text-xs font-bold font-mono mt-1 text-ink focus:border-accent outline-none"
                   />
                 ) : (
-                  <div className="text-sm font-black font-mono text-ink mt-1">${selectedModel.outputCostPer1M.toFixed(2)}</div>
+                  <div className="text-sm font-black font-mono text-ink mt-1.5">${selectedModel.outputCostPer1M.toFixed(2)}</div>
                 )}
               </div>
             </div>
@@ -284,12 +284,12 @@ export default function TokenCounterWorkspace() {
         </div>
 
         {/* Expected Output Estimator */}
-        <div className="bg-surface border border-border/50 rounded-2xl p-4 flex flex-col justify-between space-y-3 shadow-sm">
+        <div className="bg-surface border border-border/50 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-sm">
           <div>
             <label className="text-[10px] font-bold text-ink-muted uppercase tracking-wider block mb-1">
               {t("estimated_output", "Expected Completion Length")}
             </label>
-            <div className="flex items-center gap-3 mt-1.5">
+            <div className="flex items-center gap-4 mt-2.5">
               <input
                 type="range"
                 min="0"
@@ -299,7 +299,7 @@ export default function TokenCounterWorkspace() {
                 onChange={(e) => setExpectedOutputTokens(parseInt(e.target.value))}
                 className="w-full accent-accent"
               />
-              <span className="text-xs font-bold font-mono text-ink bg-surface-elevated border border-border/60 rounded-lg px-2 py-1 min-w-[55px] text-center">
+              <span className="text-xs font-bold font-mono text-ink bg-surface-elevated border border-border/60 rounded-lg px-2.5 py-1.5 min-w-[55px] text-center">
                 {expectedOutputTokens}
               </span>
             </div>
@@ -312,14 +312,14 @@ export default function TokenCounterWorkspace() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Editor Area */}
-        <div className="lg:col-span-8 space-y-4">
+        <div className="lg:col-span-8 space-y-6">
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className="relative bg-surface border border-border/40 rounded-2xl p-4 shadow-sm flex flex-col"
+            className="relative bg-surface border border-border/40 rounded-2xl p-6 shadow-sm flex flex-col"
           >
             {/* Toolbar */}
-            <div className="flex items-center justify-between pb-3 border-b border-border/30 mb-3 flex-wrap gap-2">
+            <div className="flex items-center justify-between pb-4 border-b border-border/30 mb-4 flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-[11px] font-bold text-ink-secondary uppercase tracking-wider">
@@ -365,14 +365,14 @@ export default function TokenCounterWorkspace() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder={t("placeholder", "Paste your prompt, codebase snippets, or logs here to measure token bounds...")}
-              className="w-full min-h-[320px] bg-transparent text-ink placeholder-ink-muted text-sm font-mono border-none focus:ring-0 resize-y outline-none leading-relaxed"
+              className="w-full min-h-[320px] bg-transparent text-ink placeholder-ink-muted text-sm font-mono border-none focus:ring-0 resize-y outline-none leading-relaxed py-2"
             />
           </div>
 
           {/* Localized Details & Highlighting Visualizer */}
           {text && (
-            <div className="bg-surface border border-border/40 rounded-2xl p-5 shadow-sm space-y-4">
-              <div className="flex justify-between items-center pb-2 border-b border-border/30">
+            <div className="bg-surface border border-border/40 rounded-2xl p-6 shadow-sm space-y-5">
+              <div className="flex justify-between items-center pb-3 border-b border-border/30">
                 <h3 className="text-sm font-bold text-ink flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-accent" />
                   {t("token_visualization", "Token Boundary Visualizer")}
@@ -384,7 +384,7 @@ export default function TokenCounterWorkspace() {
                 </span>
               </div>
               
-              <div className="bg-zinc-950/90 dark:bg-black/60 rounded-xl p-4 border border-zinc-800/80 font-mono text-sm leading-relaxed max-h-[300px] overflow-y-auto whitespace-pre-wrap select-text">
+              <div className="bg-zinc-950/90 dark:bg-black/60 rounded-xl p-6 border border-zinc-800/80 font-mono text-sm leading-[1.8] tracking-wide max-h-[320px] overflow-y-auto whitespace-pre-wrap select-text">
                 {tokenData.tokens.map((tok, idx) => {
                   // Alternating neon highlighting classes
                   const isEven = idx % 2 === 0;
@@ -395,7 +395,7 @@ export default function TokenCounterWorkspace() {
                   return (
                     <span
                       key={idx}
-                      className={`inline-block px-[2px] rounded ${highlightClass}`}
+                      className={`inline-block my-[1.5px] px-[2px] rounded ${highlightClass}`}
                       title={`Token #${idx + 1}`}
                     >
                       {tok === " " ? "␣" : tok === "\n" ? "↵\n" : tok}
@@ -403,7 +403,7 @@ export default function TokenCounterWorkspace() {
                   );
                 })}
                 {text.length > 3000 && tokenData.tokens.length >= 1000 && (
-                  <div className="text-[11px] text-amber-500 font-bold mt-4 pt-2 border-t border-zinc-800/80 uppercase tracking-wide">
+                  <div className="text-[11px] text-amber-500 font-bold mt-4 pt-3 border-t border-zinc-800/80 uppercase tracking-wide">
                     ⚠️ Optimization Note: Visualization truncated to the first 1,000 tokens for interface performance. Count remains accurate.
                   </div>
                 )}
@@ -415,13 +415,13 @@ export default function TokenCounterWorkspace() {
         {/* Side Rail Metrics Panel */}
         <div className="lg:col-span-4 space-y-6">
           {/* Main Counters */}
-          <div className="bg-surface-elevated border border-border/60 rounded-2xl p-5 shadow-md space-y-5">
+          <div className="bg-surface-elevated border border-border/60 rounded-2xl p-6 shadow-md space-y-6">
             <h3 className="text-xs font-bold text-ink uppercase tracking-widest pb-3 border-b border-border/20">
               {t("token_statistics", "Token Statistics")}
             </h3>
             
             {/* Tokens Count Hero */}
-            <div className="text-center py-4 bg-surface border border-border/30 rounded-2xl shadow-inner relative overflow-hidden">
+            <div className="text-center py-6 bg-surface border border-border/30 rounded-2xl shadow-inner relative overflow-hidden">
               {tokenData.isApproximation && (
                 <div className="absolute top-2 right-2 text-[9px] font-bold text-amber-500 border border-amber-500/30 px-1.5 py-0.5 rounded bg-amber-500/10">
                   {t("approx", "APPROX")}
@@ -434,16 +434,16 @@ export default function TokenCounterWorkspace() {
             </div>
 
             {/* Sub-counters Grid */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="bg-surface border border-border/40 rounded-xl p-2.5 text-center">
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-surface border border-border/40 rounded-xl p-3 text-center">
                 <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider block">{t("chars", "Chars")}</span>
                 <span className="text-sm font-extrabold text-ink font-mono mt-0.5 block">{textStats.chars.toLocaleString()}</span>
               </div>
-              <div className="bg-surface border border-border/40 rounded-xl p-2.5 text-center">
+              <div className="bg-surface border border-border/40 rounded-xl p-3 text-center">
                 <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider block">{t("words", "Words")}</span>
                 <span className="text-sm font-extrabold text-ink font-mono mt-0.5 block">{textStats.words.toLocaleString()}</span>
               </div>
-              <div className="bg-surface border border-border/40 rounded-xl p-2.5 text-center">
+              <div className="bg-surface border border-border/40 rounded-xl p-3 text-center">
                 <span className="text-[9px] font-bold text-ink-muted uppercase tracking-wider block">{t("paragraphs", "Paragraphs")}</span>
                 <span className="text-sm font-extrabold text-ink font-mono mt-0.5 block">{textStats.paragraphs.toLocaleString()}</span>
               </div>
@@ -451,12 +451,12 @@ export default function TokenCounterWorkspace() {
           </div>
 
           {/* Pricing Summary */}
-          <div className="bg-surface-elevated border border-border/60 rounded-2xl p-5 shadow-md space-y-4">
+          <div className="bg-surface-elevated border border-border/60 rounded-2xl p-6 shadow-md space-y-5">
             <h3 className="text-xs font-bold text-ink uppercase tracking-widest pb-3 border-b border-border/20">
               {t("session_cost", "Estimated Session Cost")}
             </h3>
             
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-ink-secondary">{t("prompt_cost", "Prompt (Input) Cost")}:</span>
                 <span className="text-sm font-bold font-mono text-ink">${costEstimates.inputCost}</span>
