@@ -839,7 +839,7 @@ export default function SpinTheWheelWorkspace() {
                   style={{
                     width: wheelSize,
                     height: wheelSize,
-                    filter: "drop-shadow(0 6px 24px rgba(0,0,0,0.22))",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
                   }}
                 />
                 
@@ -860,18 +860,6 @@ export default function SpinTheWheelWorkspace() {
                       ? `inset 0 0 ${20 + speed * 30}px ${10 + speed * 20}px rgba(255,255,255,0.06)`
                       : "none",
                     transition: "opacity 0.2s, box-shadow 0.15s",
-                  }}
-                />
-
-                <div
-                  className="absolute left-0 right-0 rounded-full pointer-events-none"
-                  style={{
-                    height: 14,
-                    bottom: -10,
-                    background: "linear-gradient(to bottom, #3a3a3a 0%, #1a1a1a 40%, #0a0a0a 100%)",
-                    transform: "rotateX(-90deg)",
-                    transformOrigin: "top center",
-                    borderBottom: "1px solid rgba(255,255,255,0.06)",
                   }}
                 />
               </div>
