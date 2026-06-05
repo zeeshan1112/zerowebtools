@@ -9,6 +9,7 @@ import ProcessingOverlay from "./ProcessingOverlay";
 import { getSharedFile } from "@/lib/fileBuffer";
 import MicroChainLinks from "./MicroChainLinks";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { trackToolEvent } from "@/lib/telemetry";
 
 interface MergeJob {
   id: string;
@@ -192,6 +193,9 @@ export default function MergePDFWorkspace() {
       setError("Add at least 2 PDF files to merge");
       return;
     }
+    const totalSize = jobs.reduce((acc, j) => acc + j.size, 0);
+    trackToolEvent("pdf-merge", "start", { fileSizeBytes: totalSize });
+
     setError(null);
     setProcessing(true);
     setShowProcessingOverlay(true);
@@ -200,6 +204,7 @@ export default function MergePDFWorkspace() {
     isGeneratingRef.current = true;
 
     try {
+      const startTime = Date.now();
       const merged = await PDFDocument.create();
       for (const job of jobs) {
         const doc = await loadPDFDoc(job.file);
@@ -207,6 +212,13 @@ export default function MergePDFWorkspace() {
         copied.forEach((p) => merged.addPage(p));
       }
       const blob = await savePDFDoc(merged);
+      const processingTime = Date.now() - startTime;
+
+      trackToolEvent("pdf-merge", "success", {
+        fileSizeBytes: blob.size,
+        processingTimeMs: processingTime
+      });
+
       pendingBlobRef.current = blob;
       isGeneratingRef.current = false;
 
@@ -218,7 +230,10 @@ export default function MergePDFWorkspace() {
         setTimeout(() => setToastMessage(null), 3000);
       }
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Merge failed");
+      const errMsg = e instanceof Error ? e.message : "Merge failed";
+      trackToolEvent("pdf-merge", "error", { errorMessage: errMsg });
+
+      setError(errMsg);
       setShowProcessingOverlay(false);
       setProcessing(false);
       isGeneratingRef.current = false;

@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { trackToolEvent } from "@/lib/telemetry";
 
 const SpeakerWave = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
@@ -538,6 +539,8 @@ export default function SpinTheWheelWorkspace() {
   const spinWheel = useCallback(() => {
     if (spinning || items.length < 2) return;
 
+    trackToolEvent("spin-the-wheel", "start");
+
     // Prime the audio context for mobile browsers inside synchronous gesture handler
     if (soundEnabled) {
       tickSound.prime();
@@ -585,6 +588,7 @@ export default function SpinTheWheelWorkspace() {
           speedRef.current = 0;
 
           const winner = items[winnerIdxRef.current];
+          trackToolEvent("spin-the-wheel", "success");
           setResult(winner);
           setWinnerHighlight(winnerIdxRef.current);
           setHistory(prev => [winner, ...prev].slice(0, 20));
@@ -835,7 +839,7 @@ export default function SpinTheWheelWorkspace() {
                   style={{
                     width: wheelSize,
                     height: wheelSize,
-                    filter: "drop-shadow(0 6px 24px rgba(0,0,0,0.22))",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
                   }}
                 />
                 
@@ -856,18 +860,6 @@ export default function SpinTheWheelWorkspace() {
                       ? `inset 0 0 ${20 + speed * 30}px ${10 + speed * 20}px rgba(255,255,255,0.06)`
                       : "none",
                     transition: "opacity 0.2s, box-shadow 0.15s",
-                  }}
-                />
-
-                <div
-                  className="absolute left-0 right-0 rounded-full pointer-events-none"
-                  style={{
-                    height: 14,
-                    bottom: -10,
-                    background: "linear-gradient(to bottom, #3a3a3a 0%, #1a1a1a 40%, #0a0a0a 100%)",
-                    transform: "rotateX(-90deg)",
-                    transformOrigin: "top center",
-                    borderBottom: "1px solid rgba(255,255,255,0.06)",
                   }}
                 />
               </div>

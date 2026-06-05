@@ -15,6 +15,7 @@ import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
 import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
 import Base64Workspace from "@/components/Base64Workspace";
 import TextCounterWorkspace from "@/components/TextCounterWorkspace";
+import TokenCounterWorkspace from "@/components/TokenCounterWorkspace";
 import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
 import JwtDebuggerWorkspace from "@/components/JwtDebuggerWorkspace";
 import UrlEncoderWorkspace from "@/components/UrlEncoderWorkspace";
@@ -44,6 +45,7 @@ import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
 import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
 import CoinFlipperWorkspace from "@/components/CoinFlipperWorkspace";
 import SpinTheWheelWorkspace from "@/components/SpinTheWheelWorkspace";
+import TwoZeroFourEightWorkspace from "@/components/TwoZeroFourEightWorkspace";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -162,6 +164,8 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "random-team-generator": RandomTeamGeneratorWorkspace,
   "coin-flipper": CoinFlipperWorkspace,
   "spin-the-wheel": SpinTheWheelWorkspace,
+  "2048-game": TwoZeroFourEightWorkspace,
+  "token-counter": TokenCounterWorkspace,
 };
 
 const TOOL_ARTICLES: Record<

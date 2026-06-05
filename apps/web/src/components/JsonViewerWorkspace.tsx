@@ -4,6 +4,7 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion";
 import { parseJsonToTree, searchTree, type JsonTreeNode, type JsonParseResult } from "@hub/tools-core";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { trackToolEvent } from "@/lib/telemetry";
 
 /* ─── helpers ─── */
 
@@ -156,6 +157,8 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["root"]));
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const result: JsonParseResult = useMemo(() => parseJsonToTree(raw), [raw]);
+
   // Initial client-side sync from localStorage to avoid SSR mismatches
   useEffect(() => {
     try {
@@ -164,17 +167,23 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
     } catch (_) {}
   }, []);
 
-  // Debounced auto-saving loop
+  // Debounced auto-saving and telemetry loop
   useEffect(() => {
     const timer = setTimeout(() => {
       try {
         localStorage.setItem("zeelancebox_json_raw", raw);
       } catch (_) {}
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [raw]);
 
-  const result: JsonParseResult = useMemo(() => parseJsonToTree(raw), [raw]);
+      if (raw && raw !== DEFAULT_JSON) {
+        if (result.success) {
+          trackToolEvent("json-formatter", "success", { fileSizeBytes: raw.length });
+        } else {
+          trackToolEvent("json-formatter", "error", { errorMessage: result.error || "Invalid JSON" });
+        }
+      }
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [raw, result]);
 
   const childrenMap = useMemo(() => {
     const m = new Map<string, JsonTreeNode[]>();

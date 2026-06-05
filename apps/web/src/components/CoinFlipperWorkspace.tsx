@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { trackToolEvent } from "@/lib/telemetry";
 
 const Volume2Icon = ({ className = "" }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
@@ -66,6 +67,8 @@ export default function CoinFlipperWorkspace() {
   const flipCoin = () => {
     if (isFlipping) return;
 
+    trackToolEvent("coin-flipper", "start");
+
     // Prime speech synthesis for mobile browsers (must be triggered directly on click)
     if (soundEnabled && typeof window !== "undefined" && window.speechSynthesis) {
       const primeUtterance = new SpeechSynthesisUtterance("");
@@ -107,6 +110,7 @@ export default function CoinFlipperWorkspace() {
 
     setTimeout(() => {
       setResult(outcome);
+      trackToolEvent("coin-flipper", "success");
       setStats(prev => ({
         ...prev,
         [outcome]: prev[outcome] + 1

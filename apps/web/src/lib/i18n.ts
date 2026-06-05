@@ -2573,6 +2573,100 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "قم بإنشاء عجلة دوارة مخصصة، وأضف خيارات، ودع القدر يقرر مع دورات مدفوعة بالفيزياء.",
       "metaDescription": "عجلة تفاعلية مجانية. قم بإنشاء عجلات مخصصة مع خياراتك الخاصة ودع الدورات الفيزيائية تحدد النتيجة. 100% خاصة ومن جانب العميل."
     }
+  },
+  "2048-game": {
+    "es": {
+      "title": "Juego 2048",
+      "description": "Juega al clásico juego de rompecabezas 2048. ¡Desliza fichas, combina números iguales y apunta a la ficha 2048!",
+      "metaDescription": "Juega al clásico juego de rompecabezas 2048 en línea. Desliza fichas, combina números iguales y apunta a la ficha 2048. Compatible con móviles, con puntuaciones máximas guardadas y 100% privado."
+    },
+    "de": {
+      "title": "2048-Spiel",
+      "description": "Spielen Sie das klassische 2048-Rätselspiel. Verschieben Sie Kacheln, führen Sie passende Zahlen zusammen und zielen Sie auf die Kachel 2048!",
+      "metaDescription": "Spielen Sie das klassische 2048-Rätselspiel online. Verschieben Sie Kacheln, führen Sie passende Zahlen zusammen und zielen Sie auf die Kachel 2048. Mobilfreundlich mit gespeicherten Highscores und 100 % privat."
+    },
+    "fr": {
+      "title": "Jeu 2048",
+      "description": "Jouez au jeu de puzzle classique 2048. Faites glisser les tuiles, fusionnez les nombres correspondants et visez la tuile 2048 !",
+      "metaDescription": "Jouez au jeu de puzzle classique 2048 en ligne. Faites glisser les tuiles, fusionnez les objets correspondants et visez la tuile 2048. Adapté aux mobiles, avec scores enregistrés et 100 % privé."
+    },
+    "pt": {
+      "title": "Jogo 2048",
+      "description": "Jogue o clássico jogo de quebra-cabeça 2048. Deslize os blocos, combine números idênticos e mire no bloco 2048!",
+      "metaDescription": "Jogue o clássico jogo de quebra-cabeça 2048 online. Deslize os blocos, combine números idênticos e mire no bloco 2048. Amigável para dispositivos móveis com recordes salvos e 100% privado."
+    },
+    "ja": {
+      "title": "2048ゲーム",
+      "description": "クラシックな2048パズルゲームをプレイしましょう。タイルをスライドさせ、一致する数字を合体させて、2048のタイルを目指しましょう！",
+      "metaDescription": "クラシックな2048パズルゲームをオンラインでプレイ。タイルをスライドさせ、一致する数字を合体させて、2048のタイルを目指します。モバイル対応、ハイスコア保存可能で100%プライベート。"
+    },
+    "zh": {
+      "title": "2048 游戏",
+      "description": "玩经典的 2048 益智游戏。滑动方块，合并相同的数字，并以 2048 方块为目标！",
+      "metaDescription": "在线玩经典的 2048 益智游戏。滑动方块，合并相同的数字，并以 2048 方块为目标。手机友好，保存高分，100% 私密。"
+    },
+    "hi": {
+      "title": "2048 गेम",
+      "description": "क्लासिक 2048 पहेली खेल खेलें। टाइलें स्लाइड करें, मिलान करने वाले नंबरों को मर्ज करें, और 2048 टाइल का लक्ष्य रखें!",
+      "metaDescription": "क्लासिक 2048 पहेली खेल ऑनलाइन खेलें। टाइलें स्लाइड करें, मिलान करने वाले नंबरों को मर्ज करें, और 2048 टाइल का लक्ष्य रखें। सहेजे गए उच्च स्कोर के साथ मोबाइल के अनुकूल और 100% निजी।"
+    },
+    "it": {
+      "title": "Gioco 2048",
+      "description": "Gioca al classico gioco puzzle 2048. Fai scorrere le tessere, unisci i numeri corrispondenti e mira alla tessera 2048!",
+      "metaDescription": "Gioca al classico gioco puzzle 2048 online. Fai scorrere le tessere, unisci i numeri corrispondenti e mira alla tessera 2048. Ottimizzato per dispositivi mobili con punteggi massimi salvati e privato al 100%."
+    },
+    "ar": {
+      "title": "لعبة 2048",
+      "description": "العب لعبة الألغاز الكلاسيكية 2048. قم بتحريك البلاط، ودمج الأرقام المتطابقة، واهدف إلى الوصول إلى البلاط 2048!",
+      "metaDescription": "العب لعبة الألغاز الكلاسيكية 2048 على الإنترنت. قم بتحريك البلاط، ودمج الأرقام المتطابقة، واهدف إلى البلاطة 2048. مناسبة للهواتف المحمولة مع حفظ أفضل النتائج وخاصة بنسبة 100%."
+    }
+  },
+  "token-counter": {
+    "es": {
+      "title": "Contador de Tokens y Estimador de Costes",
+      "description": "Cuente tokens utilizando tokenizadores de modelos SOTA y estime los costes de API del lado del cliente con 100% de privacidad.",
+      "metaDescription": "Cuente tokens y estime costes de API localmente para modelos SOTA (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Límites de tokens visuales alternativos, 100% privado."
+    },
+    "de": {
+      "title": "Token-Zähler & Kostenschätzer",
+      "description": "Zählen Sie Token mit SOTA-Modell-Tokenizern und schätzen Sie die API-Kosten clientseitig mit 100 % Datenschutz.",
+      "metaDescription": "Zählen Sie Token und schätzen Sie API-Kosten lokal für SOTA-Modelle (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Visuelle Token-Grenzen, 100 % privat."
+    },
+    "fr": {
+      "title": "Compteur de Tokens & Estimateur de Coûts",
+      "description": "Comptez les tokens à l'aide de tokeniseurs de modèles SOTA et estimez les coûts d'API côté client avec 100 % de confidentialité.",
+      "metaDescription": "Comptez les tokens et estimez les coûts d'API localement pour les modèles SOTA (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Limites de tokens visuelles, 100 % privé."
+    },
+    "pt": {
+      "title": "Contador de Tokens e Estimador de Custos",
+      "description": "Conte tokens usando tokenizadores de modelos SOTA e estime custos de API no lado do cliente com 100% de privacidade.",
+      "metaDescription": "Conte tokens e estime custos de API localmente para modelos SOTA (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Limites de tokens visuais alternados, 100% privado."
+    },
+    "ja": {
+      "title": "トークンカウンター＆コスト見積もり",
+      "description": "SOTAモデルのトークナイザーを使用してトークン数をカウントし、クライアント側で100%のプライバシーを守りながらAPIコストを見積もります。",
+      "metaDescription": "SOTAモデル（GPT-5.5、o1、Claude 4.7、Gemini 2.5、LLaMA 4）のトークン数カウントとAPIコスト見積もりをローカルで実行。トークンの色分け表示、100%プライベート。"
+    },
+    "zh": {
+      "title": "Token 计数器与成本估算器",
+      "description": "使用 SOTA 模型分词器本地计算 Token 数量，并估算 API 成本，100% 保护隐私。",
+      "metaDescription": "在本地针对 SOTA 模型（GPT-5.5、o1、Claude 4.7、Gemini 2.5、LLaMA 4）进行 Token 计数并估算 API 成本。交替颜色显示 Token 边界，100% 私密。"
+    },
+    "hi": {
+      "title": "टोकन काउंटर और लागत अनुमानक",
+      "description": "SOTA मॉडल टोकनाइज़र का उपयोग करके टोकन गिनें और 100% गोपनीयता के साथ क्लाइंट-साइड API लागत का अनुमान लगाएं।",
+      "metaDescription": "SOTA मॉडल (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4) के लिए स्थानीय रूप से टोकन गिनें और API लागत का अनुमान लगाएं। 100% सुरक्षित और निजी।"
+    },
+    "it": {
+      "title": "Contatore di Token & Stimatore dei Costi",
+      "description": "Conta i token utilizzando i tokenizzatori dei modelli SOTA e stima i costi delle API lato client con il 100% di privacy.",
+      "metaDescription": "Conta i token e stima i costi delle API localmente per i modelli SOTA (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Evidenziazione visiva dei token alternata, 100% privato."
+    },
+    "ar": {
+      "title": "عداد الرموز ومقدّر التكلفة",
+      "description": "قم بعدّ الرموز (Tokens) باستخدام أدوات النمذجة SOTA وتقدير تكاليف واجهة برمجة التطبيقات (API) محلياً مع خصوصية 100%.",
+      "metaDescription": "احسب الرموز وقدر تكاليف الـ API محلياً للنماذج الحديثة (GPT-5.5، o1، Claude 4.7، Gemini 2.5، LLaMA 4). حدود رموز مرئية متناوبة، 100% خاص."
+    }
   }
 };
 
