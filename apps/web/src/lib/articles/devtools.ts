@@ -241,5 +241,50 @@ export const DEVTOOLS_ARTICLES: HowToArticle[] = [
         answer: "Yes, the tool allows you to compact SQL statements into single-line formats for optimal embedding inside application source code."
       }
     ]
+  },
+  {
+    slug: "convert-html-to-jsx-online",
+    title: "How to Convert HTML to React JSX Online",
+    metaDescription: "Convert HTML templates, classes, inline styles, and SVG properties into React-compatible JSX format online. 100% local browser-based execution.",
+    toolId: "html-to-jsx",
+    sections: [
+      {
+        heading: "The Transition from HTML to React JSX",
+        paragraphs: [
+          "HTML (HyperText Markup Language) is the standard markup language for creating web pages. When transitioning to React, developers must write JSX (JavaScript XML), which is a syntax extension to JavaScript that resembles HTML but has key differences. Because JSX compiles down to standard JavaScript function calls, it requires strict syntax and camelCase attribute mapping.",
+          "Manually converting standard HTML templates, icons, or design pieces into React-compatible JSX elements is a tedious and error-prone process. A dedicated HTML to JSX converter parses your HTML tree and automatically maps attributes, converts inline styles into React style objects, and ensures self-closing tags are closed correctly, saving significant development time."
+        ]
+      },
+      {
+        heading: "Key Differences Between HTML and JSX",
+        listItems: [
+          "Class Attributes -- In HTML, CSS classes are defined using the 'class' attribute. In JSX, since 'class' is a reserved keyword in JavaScript, it must be renamed to 'className'.",
+          "For Attributes -- The HTML 'for' attribute used in labels must be renamed to 'htmlFor' in React JSX.",
+          "Inline Styles -- HTML inline styles are written as semicolon-separated strings. JSX styles must be written as JavaScript objects with camelCase keys (e.g. style={{ color: 'red', marginTop: '10px' }}).",
+          "Self-Closing Tags -- Elements like <img>, <input>, and <br> do not require closing tags in standard HTML, but in JSX they must close with a trailing slash (e.g. <img />, <input />, <br />)."
+        ]
+      },
+      {
+        heading: "Using the Online Converter Locally and Privately",
+        paragraphs: [
+          "Using our converter is straightforward: paste your raw HTML code into the input editor, configure settings such as whether to wrap the output in a functional component, strip HTML comments, or change the indentation spacing, and click 'Convert to JSX'. The tool will process your code in real-time.",
+          "Since ZeroWebTools executes the entire parser and formatter client-side within your browser's memory, no code or markup is ever transmitted to external servers. This is critical for privacy when working with proprietary designs or corporate templates."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "Is my HTML code sent to a server for conversion?",
+        answer: "No. The conversion logic runs entirely on your local machine using standard browser APIs. Your HTML code and React components never leave your device, ensuring 100% privacy."
+      },
+      {
+        question: "How does the tool handle custom SVG inline properties?",
+        answer: "The tool automatically parses SVG markup and converts hyphenated SVG properties (like stroke-width, fill-opacity, clip-path) to React-compatible camelCase equivalents (strokeWidth, fillOpacity, clipPath) while preserving standard data- and aria- attributes."
+      },
+      {
+        question: "Can I wrap the converted JSX in a functional React component?",
+        answer: "Yes. Toggle the 'Create component wrapper' setting in the options card, specify your desired component name, and the converter will automatically export a clean React functional component."
+      }
+    ]
   }
 ];

@@ -968,6 +968,31 @@ const TOOL_ARTICLES: Record<
       }
     ]
   },
+  "html-to-jsx": {
+    title: "HTML to JSX Converter: Convert HTML templates, styles, and attributes to React JSX",
+    sections: [
+      {
+        heading: "Convert HTML templates to React JSX instantly and privately",
+        paragraphs: [
+          "HTML inline styles, classes, SVG attributes, and self-closing tags are not directly compatible with React. Manually editing templates to replace 'class' with 'className', 'for' with 'htmlFor', or parsing style strings into style objects is extremely tedious.",
+          "Our HTML to JSX Converter automates the entire process in your browser. All translations occur locally in your browser memory on your device, ensuring 100% privacy for your proprietary templates and designs."
+        ]
+      },
+      {
+        heading: "Features of the HTML to JSX Converter",
+        paragraphs: [
+          "The converter is packed with settings to help customize your JSX output:"
+        ],
+        listItems: [
+          "Attribute Mapping -- Automatically replaces 'class' with 'className', 'for' with 'htmlFor', and other React-specific properties.",
+          "Inline Style Parser -- Parses style strings and maps key-values into React style objects with camelCase keys.",
+          "Component Wrapper -- Wraps output elements inside a standard React functional component with a custom name.",
+          "SVG Compatibility -- Converts hyphenated SVG attributes (e.g. stroke-width, fill-opacity) into camelCase keys.",
+          "Formatting options -- Choose between 2-space or 4-space indentations or disable formatting as needed."
+        ]
+      }
+    ]
+  },
   "file-hasher": {
     title: "Client-Side File Hasher: Generate MD5, SHA-1, SHA-256, and SHA-512 Checksums",
     sections: [

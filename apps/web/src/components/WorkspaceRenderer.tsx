@@ -65,6 +65,7 @@ const RandomTeamGeneratorWorkspace = dynamic(() => import("@/components/RandomTe
 const CoinFlipperWorkspace = dynamic(() => import("@/components/CoinFlipperWorkspace"), { loading: WorkspaceLoader });
 const SpinTheWheelWorkspace = dynamic(() => import("@/components/SpinTheWheelWorkspace"), { loading: WorkspaceLoader });
 const TwoZeroFourEightWorkspace = dynamic(() => import("@/components/TwoZeroFourEightWorkspace"), { loading: WorkspaceLoader });
+const HtmlToJsxWorkspace = dynamic(() => import("@/components/HtmlToJsxWorkspace"), { loading: WorkspaceLoader });
 
 const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "json-formatter": JsonViewerWorkspace,
@@ -116,6 +117,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "spin-the-wheel": SpinTheWheelWorkspace,
   "2048-game": TwoZeroFourEightWorkspace,
   "token-counter": TokenCounterWorkspace,
+  "html-to-jsx": HtmlToJsxWorkspace,
 };
 
 export default function WorkspaceRenderer({ toolId }: { toolId: string }) {

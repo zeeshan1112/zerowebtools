@@ -25,7 +25,7 @@
     "fbL5": "Salve o arquivo gerado ou copie o texto formatado instantaneamente.",
     "fbQ3": "Processamento local 100% seguro e privado",
     "fbA3P1": "A segurança é o pilar central do ZeroWebTools. Quando você usa a ferramenta {toolTitle}, seus arquivos de entrada, parâmetros e resultados nunca são transmitidos para servidores externos.",
-    "fbA3P2": "Seu navegador executa todo o sandbox de cálculo localmente. Depois de fechar a guia, toda a memória ativa é apagada, garantindo que seus dados permaneçam completamente sob seu controle."
+    "fbA3P2": "Seu navegador executa todo o sandbox de cálculo localmente. Depois de fechar a guia, toda a memória ativa é apagada, garantindo que seus dados permaneçam totalmente sob seu controle."
   },
   "pdf_merge": {
     "drop_zone_prompt": "Solte os arquivos PDF aqui ou clique para navegar",
@@ -128,20 +128,6 @@
     "lower_case": "minúscula",
     "title_case": "Caso de título",
     "input_label": "Texto de entrada"
-  },
-  "spin_the_wheel": {
-    "wheel_add_options": "Adicionar opções",
-    "wheel_type_option": "Digite uma opção...",
-    "wheel_add_options_hint": "Adicione pelo menos 2 opções para girar",
-    "wheel_remove": "Remover",
-    "wheel_items_count": "{count} opções — mínimo 2 necessárias",
-    "wheel_spinning": "Girando...",
-    "wheel_spin": "Girar a Roda",
-    "wheel_mute": "Silenciar som",
-    "wheel_unmute": "Ativar som",
-    "wheel_result": "Resultado",
-    "wheel_spin_again": "Girar novamente",
-    "wheel_history": "Histórico"
   },
   "articles": {
     "pdf-compress": {
@@ -1414,6 +1400,52 @@
         }
       ]
     },
+    "html-to-jsx": {
+      "title": "Como converter HTML para React JSX online",
+      "metaDescription": "Converta modelos HTML, classes, estilos embutidos e propriedades SVG em formato JSX compatível com React online. Execução 100% local baseada em navegador.",
+      "sections": [
+        {
+          "heading": "A transição do HTML para o React JSX",
+          "level": "h2",
+          "paragraphs": [
+            "HTML (HyperText Markup Language) é a linguagem de marcação padrão para a criação de páginas da web. Ao fazer a transição para o React, os desenvolvedores devem escrever JSX (JavaScript XML), que é uma extensão de sintaxe do JavaScript que se assemelha ao HTML, mas tem diferenças importantes. Como o JSX é compilado para chamadas de função JavaScript padrão, ele requer sintaxe estrita e mapeamento de atributos camelCase.",
+            "A conversão manual de modelos HTML padrão, ícones ou peças de design em elementos JSX compatíveis com React é um processo tedioso e sujeito a erros. Um conversor HTML para JSX dedicado analisa sua árvore HTML e mapeia atributos automaticamente, converte estilos embutidos em objetos de estilo React e garante que tags de fechamento automático sejam fechadas corretamente, economizando tempo de desenvolvimento significativo."
+          ]
+        },
+        {
+          "heading": "Principais diferenças entre HTML e JSX",
+          "level": "h2",
+          "listItems": [
+            "Atributos de classe – Em HTML, as classes CSS são definidas usando o atributo ‘class’. Em JSX, como ‘class’ é uma palavra-chave reservada em JavaScript, ela deve ser renomeada para ‘className’.",
+            "For Attributes - O atributo HTML 'for' usado em rótulos deve ser renomeado para 'htmlFor' no React JSX.",
+            "Estilos embutidos - os estilos embutidos HTML são escritos como strings separadas por ponto e vírgula. Os estilos JSX devem ser escritos como objetos JavaScript com chaves camelCase (por exemplo, style={{ color: 'red', marginTop: '10px' }}).",
+            "Tags de fechamento automático - Elementos como <img>, <input> e <br> não exigem tags de fechamento em HTML padrão, mas em JSX eles devem fechar com uma barra final (por exemplo, <img />, <input />, <br />)."
+          ]
+        },
+        {
+          "heading": "Usando o conversor online local e privado",
+          "level": "h2",
+          "paragraphs": [
+            "Usar nosso conversor é simples: cole seu código HTML bruto no editor de entrada, defina configurações como agrupar a saída em um componente funcional, remover comentários HTML ou alterar o espaçamento de recuo e clique em 'Converter para JSX'. A ferramenta processará seu código em tempo real.",
+            "Como o ZeroWebTools executa todo o analisador e formatador do lado do cliente na memória do seu navegador, nenhum código ou marcação é transmitido para servidores externos. Isto é fundamental para a privacidade ao trabalhar com designs proprietários ou modelos corporativos."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Meu código HTML é enviado a um servidor para conversão?",
+          "answer": "Não. A lógica de conversão é executada inteiramente em sua máquina local usando APIs de navegador padrão. Seu código HTML e componentes React nunca saem do seu dispositivo, garantindo 100% de privacidade."
+        },
+        {
+          "question": "Como a ferramenta lida com propriedades embutidas SVG personalizadas?",
+          "answer": "A ferramenta analisa automaticamente a marcação SVG e converte propriedades SVG hifenizadas (como largura do traço, opacidade de preenchimento, caminho do clipe) em equivalentes camelCase compatíveis com React (strokeWidth, fillOpacity, clipPath) enquanto preserva os atributos padrão de dados e ária."
+        },
+        {
+          "question": "Posso agrupar o JSX convertido em um componente React funcional?",
+          "answer": "Sim. Alterne a configuração 'Criar wrapper de componente' no cartão de opções, especifique o nome do componente desejado e o conversor exportará automaticamente um componente funcional React limpo."
+        }
+      ]
+    },
     "startup-equity": {
       "title": "Como calcular a aquisição de capital inicial",
       "metaDescription": "Modele suas opções de ações iniciais, diluição do fundador e cronogramas de aquisição de direitos de 4 anos. Calculadora financeira gratuita para fundadores e primeiros funcionários.",
@@ -2417,5 +2449,42 @@
         }
       ]
     }
+  },
+  "spin_the_wheel": {
+    "wheel_add_options": "Adicionar opções",
+    "wheel_type_option": "Digite uma opção...",
+    "wheel_add_options_hint": "Adicione pelo menos 2 opções para girar",
+    "wheel_remove": "Remover",
+    "wheel_items_count": "{count} opções — mínimo 2 obrigatório",
+    "wheel_spinning": "Fiação...",
+    "wheel_spin": "Gire a roda",
+    "wheel_mute": "Silenciar som",
+    "wheel_unmute": "Ativar som",
+    "wheel_result": "Resultado",
+    "wheel_spin_again": "Gire novamente",
+    "wheel_history": "História"
+  },
+  "html_to_jsx": {
+    "placeholder_input": "Cole seu código HTML aqui...",
+    "placeholder_output": "Seu JSX convertido aparecerá aqui...",
+    "convert_btn": "Converter para JSX",
+    "load_example": "Exemplo de carga",
+    "copy_btn": "Copiar JSX",
+    "download_btn": "BaixarJSX",
+    "copied": "Copiado!",
+    "settings_title": "Configurações de conversão",
+    "settings_desc": "Configure o comportamento e a formatação do código JSX gerado.",
+    "option_wrapper": "Criar wrapper de componente",
+    "option_wrapper_name": "Nome do Componente",
+    "option_strip_comments": "Tirar comentários HTML",
+    "option_format_indent": "Recuo de formato",
+    "option_indent_size": "Tamanho do recuo",
+    "option_indent_2": "2 espaços",
+    "option_indent_4": "4 espaços",
+    "step_1": "Analisando estrutura de marcação HTML...",
+    "step_2": "Convertendo atributos (class -> className, for -> htmlFor)...",
+    "step_3": "Traduzindo estilos embutidos em objetos de estilo JSX...",
+    "step_4": "Formatando árvore de componentes de saída...",
+    "converting_overlay_title": "Convertendo HTML em JSX..."
   }
 }

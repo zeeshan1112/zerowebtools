@@ -151,6 +151,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Count tokens and estimate API costs locally for SOTA models (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Alternating visual token boundaries, 100% private.",
       },
+      {
+        id: "html-to-jsx",
+        title: "HTML to JSX Converter",
+        description: "Convert standard HTML templates and properties into React-compatible JSX elements client-side.",
+        status: "live",
+        metaDescription: "Convert HTML to React JSX instantly — free and private. Automatically translate classes, properties, inline styles, and self-closing tags. No server uploads.",
+      },
     ],
   },
   {

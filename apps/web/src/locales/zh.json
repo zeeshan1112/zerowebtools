@@ -129,20 +129,6 @@
     "title_case": "标题案例",
     "input_label": "输入文字"
   },
-  "spin_the_wheel": {
-    "wheel_add_options": "添加选项",
-    "wheel_type_option": "输入选项...",
-    "wheel_add_options_hint": "至少添加2个选项才能旋转",
-    "wheel_remove": "删除",
-    "wheel_items_count": "{count} 个选项 — 至少需要 2 个",
-    "wheel_spinning": "旋转中...",
-    "wheel_spin": "旋转转盘",
-    "wheel_mute": "静音",
-    "wheel_unmute": "启用声音",
-    "wheel_result": "结果",
-    "wheel_spin_again": "再次旋转",
-    "wheel_history": "历史记录"
-  },
   "articles": {
     "pdf-compress": {
       "title": "如何免费在线将 PDF 压缩到 1MB 以下",
@@ -1414,6 +1400,52 @@
         }
       ]
     },
+    "html-to-jsx": {
+      "title": "如何在线将 HTML 转换为 React JSX",
+      "metaDescription": "在线将 HTML 模板、类、内联样式和 SVG 属性转换为 React 兼容的 JSX 格式。 100% 基于本地浏览器的执行。",
+      "sections": [
+        {
+          "heading": "从 HTML 到 React JSX 的转变",
+          "level": "h2",
+          "paragraphs": [
+            "HTML（超文本标记语言）是用于创建网页的标准标记语言。过渡到 React 时，开发人员必须编写 JSX (JavaScript XML)，这是 JavaScript 的语法扩展，类似于 HTML，但有一些关键区别。因为 JSX 编译为标准 JavaScript 函数调用，所以它需要严格的语法和驼峰式属性映射。",
+            "手动将标准 HTML 模板、图标或设计片段转换为与 React 兼容的 JSX 元素是一个乏味且容易出错的过程。专用的 HTML 到 JSX 转换器会解析您的 HTML 树并自动映射属性，将内联样式转换为 React 样式对象，并确保自动关闭标签正确关闭，从而节省大量的开发时间。"
+          ]
+        },
+        {
+          "heading": "HTML 和 JSX 之间的主要区别",
+          "level": "h2",
+          "listItems": [
+            "类属性——在 HTML 中，CSS 类是使用“class”属性定义的。在 JSX 中，由于“class”是 JavaScript 中的保留关键字，因此必须将其重命名为“className”。",
+            "For 属性——标签中使用的 HTML 'for' 属性必须在 React JSX 中重命名为 'htmlFor'。",
+            "内联样式——HTML 内联样式被编写为以分号分隔的字符串。 JSX 样式必须使用驼峰式键编写为 JavaScript 对象（例如 style={{ color: 'red', marginTop: '10px' }}）。",
+            "自闭合标签——像 <img>、<input> 和 <br> 这样的元素在标准 HTML 中不需要闭合标签，但在 JSX 中它们必须以尾部斜杠结束（例如 <img />、<input />、<br />）。"
+          ]
+        },
+        {
+          "heading": "在本地和私下使用在线转换器",
+          "level": "h2",
+          "paragraphs": [
+            "使用我们的转换器非常简单：将原始 HTML 代码粘贴到输入编辑器中，配置设置（例如是否将输出包装在功能组件中、删除 HTML 注释或更改缩进间距），然后单击“转换为 JSX”。该工具将实时处理您的代码。",
+            "由于 ZeroWebTools 在浏览器内存中执行整个解析器和格式化程序客户端，因此不会将任何代码或标记传输到外部服务器。在使用专有设计或公司模板时，这对于隐私至关重要。"
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "我的 HTML 代码是否会发送到服务器进行转换？",
+          "answer": "不会。转换逻辑完全使用标准浏览器 API 在本地计算机上运行。您的 HTML 代码和 React 组件永远不会离开您的设备，确保 100% 的隐私。"
+        },
+        {
+          "question": "该工具如何处理自定义 SVG 内联属性？",
+          "answer": "该工具自动解析 SVG 标记并将连字符的 SVG 属性（如笔画宽度、填充不透明度、剪辑路径）转换为与 React 兼容的驼峰命名法等效项（笔画宽度、填充不透明度、剪辑路径），同时保留标准的数据和 aria- 属性。"
+        },
+        {
+          "question": "我可以将转换后的 JSX 包装在功能性 React 组件中吗？",
+          "answer": "是的。在选项卡中切换“创建组件包装器”设置，指定所需的组件名称，转换器将自动导出一个干净的 React 功能组件。"
+        }
+      ]
+    },
     "startup-equity": {
       "title": "如何计算初创公司股权归属",
       "metaDescription": "为您的初创公司股票期权、创始人稀释和 4 年兑现时间表建模。为创始人和早期员工提供的免费财务计算器。",
@@ -2417,5 +2449,42 @@
         }
       ]
     }
+  },
+  "spin_the_wheel": {
+    "wheel_add_options": "添加选项",
+    "wheel_type_option": "输入一个选项...",
+    "wheel_add_options_hint": "添加至少 2 个旋转选项",
+    "wheel_remove": "消除",
+    "wheel_items_count": "{count} 个选项 — 至少需要 2 个",
+    "wheel_spinning": "旋转...",
+    "wheel_spin": "旋转轮子",
+    "wheel_mute": "静音",
+    "wheel_unmute": "启用声音",
+    "wheel_result": "结果",
+    "wheel_spin_again": "再次旋转",
+    "wheel_history": "历史"
+  },
+  "html_to_jsx": {
+    "placeholder_input": "将您的 HTML 代码粘贴到此处...",
+    "placeholder_output": "您转换后的 JSX 将出现在此处...",
+    "convert_btn": "转换为 JSX",
+    "load_example": "负载示例",
+    "copy_btn": "复制 JSX",
+    "download_btn": "下载JSX",
+    "copied": "复制了！",
+    "settings_title": "转换设置",
+    "settings_desc": "配置生成的 JSX 代码的行为和格式。",
+    "option_wrapper": "创建组件包装器",
+    "option_wrapper_name": "组件名称",
+    "option_strip_comments": "去除 HTML 注释",
+    "option_format_indent": "格式缩进",
+    "option_indent_size": "压痕尺寸",
+    "option_indent_2": "2 个空格",
+    "option_indent_4": "4个空格",
+    "step_1": "解析 HTML 标记结构...",
+    "step_2": "转换属性（类 -> 类名，for -> htmlFor）...",
+    "step_3": "将内联样式转换为 JSX 样式对象...",
+    "step_4": "正在格式化输出组件树...",
+    "converting_overlay_title": "将 HTML 转换为 JSX..."
   }
 }

@@ -129,20 +129,6 @@
     "title_case": "タイトルケース",
     "input_label": "入力テキスト"
   },
-  "spin_the_wheel": {
-    "wheel_add_options": "オプションを追加",
-    "wheel_type_option": "オプションを入力...",
-    "wheel_add_options_hint": "回すには少なくとも2つのオプションを追加してください",
-    "wheel_remove": "削除",
-    "wheel_items_count": "{count} オプション — 最低2つ必要",
-    "wheel_spinning": "回転中...",
-    "wheel_spin": "ホイールを回す",
-    "wheel_mute": "音を消す",
-    "wheel_unmute": "音を有効にする",
-    "wheel_result": "結果",
-    "wheel_spin_again": "もう一度回す",
-    "wheel_history": "履歴"
-  },
   "articles": {
     "pdf-compress": {
       "title": "1MB未満のPDFをオンラインで無料で圧縮する方法",
@@ -1414,6 +1400,52 @@
         }
       ]
     },
+    "html-to-jsx": {
+      "title": "オンラインで HTML を React JSX に変換する方法",
+      "metaDescription": "HTML テンプレート、クラス、インライン スタイル、SVG プロパティを React 互換の JSX 形式にオンラインで変換します。 100% ローカルのブラウザベースで実行されます。",
+      "sections": [
+        {
+          "heading": "HTML から React JSX への移行",
+          "level": "h2",
+          "paragraphs": [
+            "HTML (HyperText Markup Language) は、Web ページを作成するための標準マークアップ言語です。 React に移行する場合、開発者は JSX (JavaScript XML) を記述する必要があります。JSX (JavaScript XML) は HTML に似ていますが、重要な違いがある JavaScript の構文拡張です。 JSX は標準の JavaScript 関数呼び出しにコンパイルされるため、厳密な構文とキャメルケース属性マッピングが必要です。",
+            "標準の HTML テンプレート、アイコン、またはデザイン要素を React 互換の JSX 要素に手動で変換するのは、面倒でエラーが発生しやすいプロセスです。専用の HTML to JSX コンバータは、HTML ツリーを解析して属性を自動的にマッピングし、インライン スタイルを React スタイル オブジェクトに変換し、自己終了タグが正しく閉じられるようにして、開発時間を大幅に節約します。"
+          ]
+        },
+        {
+          "heading": "HTML と JSX の主な違い",
+          "level": "h2",
+          "listItems": [
+            "クラス属性 -- HTML では、CSS クラスは「class」属性を使用して定義されます。 JSX では、「class」は JavaScript の予約キーワードであるため、「className」に名前を変更する必要があります。",
+            "For 属性 -- ラベルで使用される HTML の「for」属性は、React JSX では「htmlFor」に名前変更する必要があります。",
+            "インライン スタイル -- HTML インライン スタイルは、セミコロンで区切られた文字列として記述されます。 JSX スタイルは、キャメルケース キーを使用した JavaScript オブジェクトとして記述する必要があります (例: style={{ color: 'red', marginTop: '10px' }})。",
+            "自己終了タグ -- <img>、<input>、<br> などの要素は、標準 HTML では終了タグを必要としませんが、JSX では末尾のスラッシュで閉じる必要があります (例: <img />、<input />、<br />)。"
+          ]
+        },
+        {
+          "heading": "オンライン コンバーターをローカルおよびプライベートで使用する",
+          "level": "h2",
+          "paragraphs": [
+            "コンバータの使用は簡単です。生の HTML コードを入力エディタに貼り付け、出力を機能コンポーネントで囲むかどうか、HTML コメントを削除するか、インデント間隔を変更するかなどの設定を構成し、[JSX に変換] をクリックします。このツールはコードをリアルタイムで処理します。",
+            "ZeroWebTools はパーサーとフォーマッタ全体をブラウザのメモリ内でクライアント側で実行するため、コードやマークアップが外部サーバーに送信されることはありません。これは、独自のデザインや企業テンプレートを使用する場合のプライバシーにとって重要です。"
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "私の HTML コードは変換のためにサーバーに送信されますか?",
+          "answer": "いいえ。変換ロジックは、標準のブラウザ API を使用してローカル マシン上で完全に実行されます。 HTML コードと React コンポーネントがデバイスの外に出ることはなく、100% のプライバシーが確保されます。"
+        },
+        {
+          "question": "ツールはカスタム SVG インライン プロパティをどのように処理しますか?",
+          "answer": "このツールは、SVG マークアップを自動的に解析し、標準の data- 属性と aria- 属性を維持しながら、ハイフンでつながれた SVG プロパティ (ストローク幅、フィル不透明度、クリップパスなど) を React 互換のキャメルケース同等のもの (ストローク幅、フィルオパシティ、クリップパス) に変換します。"
+        },
+        {
+          "question": "変換された JSX を機能的な React コンポーネントにラップできますか?",
+          "answer": "はい。オプション カードで [コンポーネント ラッパーの作成] 設定を切り替え、目的のコンポーネント名を指定すると、コンバーターがクリーンな React 機能コンポーネントを自動的にエクスポートします。"
+        }
+      ]
+    },
     "startup-equity": {
       "title": "スタートアップ株式の権利確定の計算方法",
       "metaDescription": "スタートアップのストック オプション、創業者の希薄化、4 年間の権利確定スケジュールをモデル化します。創業者と初期従業員のための無料の財務計算ツール。",
@@ -2417,5 +2449,42 @@
         }
       ]
     }
+  },
+  "spin_the_wheel": {
+    "wheel_add_options": "オプションの追加",
+    "wheel_type_option": "オプションを入力してください...",
+    "wheel_add_options_hint": "スピンするオプションを少なくとも 2 つ追加してください",
+    "wheel_remove": "取り除く",
+    "wheel_items_count": "{count} 個のオプション — 少なくとも 2 個が必要です",
+    "wheel_spinning": "紡糸...",
+    "wheel_spin": "ホイールを回してください",
+    "wheel_mute": "音を消す",
+    "wheel_unmute": "サウンドを有効にする",
+    "wheel_result": "結果",
+    "wheel_spin_again": "スピンアゲイン",
+    "wheel_history": "歴史"
+  },
+  "html_to_jsx": {
+    "placeholder_input": "ここに HTML コードを貼り付けてください...",
+    "placeholder_output": "変換された JSX がここに表示されます...",
+    "convert_btn": "JSXに変換する",
+    "load_example": "負荷の例",
+    "copy_btn": "JSXをコピーする",
+    "download_btn": "JSXをダウンロード",
+    "copied": "コピーしました！",
+    "settings_title": "変換設定",
+    "settings_desc": "生成された JSX コードの動作と形式を設定します。",
+    "option_wrapper": "コンポーネントラッパーを作成する",
+    "option_wrapper_name": "コンポーネント名",
+    "option_strip_comments": "HTMLコメントを削除する",
+    "option_format_indent": "インデントのフォーマット",
+    "option_indent_size": "くぼみのサイズ",
+    "option_indent_2": "2スペース",
+    "option_indent_4": "4スペース",
+    "step_1": "HTML マークアップ構造を解析しています...",
+    "step_2": "属性を変換しています (class -> className、for -> htmlFor)...",
+    "step_3": "インライン スタイルを JSX スタイル オブジェクトに変換しています...",
+    "step_4": "出力コンポーネント ツリーをフォーマットしています...",
+    "converting_overlay_title": "HTML を JSX に変換しています..."
   }
 }
