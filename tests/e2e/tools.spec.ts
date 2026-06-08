@@ -18,6 +18,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     // Check header
     await expect(page.locator("h1")).toContainText("JSON Formatter");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Target the editor textarea
     const textarea = page.locator("textarea");
@@ -43,6 +44,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     // Check headings
     await expect(page.locator("h1")).toContainText("SaaS MRR Projections");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Initial Month 12 MRR check
     const initialMonth12Mrr = page.locator("output").first();
@@ -277,6 +279,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("13. Case Converter - Interactive", async ({ page }) => {
     await page.goto("/tools/case-converter");
     await expect(page.locator("h1")).toContainText("Case Converter");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     const input = page.locator("#text-input");
     await input.fill("Hello World");
@@ -291,6 +294,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     const dummyHeicPath = path.join(__dirname, "..", "fixtures", "dummy.heic");
     await page.goto("/tools/heic-to-jpg");
     await expect(page.locator("h1")).toContainText("HEIC Photo Converter");
+    await page.waitForTimeout(1000); // Wait for React hydration
     await page.setInputFiles('input[type="file"]', dummyHeicPath);
     await expect(page.locator("text=dummy.heic").first()).toBeVisible();
 
@@ -302,6 +306,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("15. Startup Equity Vesting Modeler - Math Validation", async ({ page }) => {
     await page.goto("/tools/startup-equity");
     await expect(page.locator("h1")).toContainText("Equity Vesting Modeler");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     const estValue = page.locator("output").nth(1);
     await expect(estValue).toBeVisible();
@@ -318,6 +323,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
     await page.goto("/tools/base64-encoder");
     await expect(page.locator("h1")).toContainText("Base64 Cipher Modeler");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Test text encoding
     const textInput = page.locator("textarea#text-input");
@@ -352,6 +358,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     try {
       await page.goto("/tools/word-counter");
       await expect(page.locator("h1")).toContainText("Word Counter Pro");
+      await page.waitForTimeout(1000); // Wait for React hydration
 
       // Target the main textarea
       const textarea = page.locator("textarea#word-counter-input");
@@ -394,6 +401,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("18. Side-by-Side Diff Checker - Interactive comparison & View Switcher & Swap", async ({ page }) => {
     await page.goto("/tools/diff-checker");
     await expect(page.locator("h1")).toContainText("Side-by-Side Diff Checker");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Load example comparison
     await page.click('button:has-text("Load Example")');
@@ -436,6 +444,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("19. JWT Debugger & Decoder - Interactive Verification", async ({ page }) => {
     await page.goto("/tools/jwt-debugger");
     await expect(page.locator("h1")).toContainText("JWT Debugger & Decoder");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Load example JWT
     await page.click('button:has-text("Load Example")');
@@ -449,6 +458,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("20. URL Encoder & Parameter Grid Editor", async ({ page }) => {
     await page.goto("/tools/url-encoder");
     await expect(page.locator("h1")).toContainText("URL Encoder/Decoder & Parameter Grid");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Load Example URL
     await page.click('button:has-text("Load Example URL")');
@@ -470,6 +480,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("21. Universal Text Cleaner - Clean, Sort, and Search-and-Replace", async ({ page }) => {
     await page.goto("/tools/text-cleaner");
     await expect(page.locator("h1")).toContainText("Universal Text Cleaner");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     const inputArea = page.locator("textarea#text-cleaner-input");
     await expect(inputArea).toBeVisible();
@@ -565,6 +576,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("24. PDF to Text Extractor - Layout-preserving text extraction", async ({ page }) => {
     await page.goto("/tools/pdf-to-text");
     await expect(page.locator("h1")).toContainText("PDF to Text Extractor");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Upload dummy PDF
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
@@ -626,6 +638,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("27. SVG Minifier - Strip namespaces and precision", async ({ page }) => {
     await page.goto("/tools/svg-minifier");
     await expect(page.locator("h1")).toContainText("SVG Minifier");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     const inputArea = page.locator('textarea[placeholder*="Paste your raw"]');
     await inputArea.fill('<svg sodipodi:docname="test.svg"><circle cx="10.1234" cy="20.5678" r="5" /><!-- comment --></svg>');
@@ -641,6 +654,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("28. Mortgage & Loan Amortization - Schedule and payment", async ({ page }) => {
     await page.goto("/tools/mortgage-calculator");
     await expect(page.locator("h1")).toContainText("Mortgage & Loan Amortization Schedule");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Verify monthly payment
     await expect(page.locator("text=$1,520.06").first()).toBeVisible();
@@ -654,6 +668,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("29. Startup Cap Table Modeler - Dilution round", async ({ page }) => {
     await page.goto("/tools/cap-table");
     await expect(page.locator("h1")).toContainText("Startup Capitalization Table Modeler");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Add a shareholder
     await page.fill("#stakeholder-name", "Investor C");
@@ -686,6 +701,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("32. Regex Tester - Match highlights", async ({ page }) => {
     await page.goto("/tools/regex-tester");
     await expect(page.locator("h1")).toContainText("Interactive Regex Tester");
+    await page.waitForTimeout(1000); // Wait for React hydration
     // Verify default email matcher highlights zerowebtools.com
     await expect(page.locator("mark").first()).toContainText("support@zerowebtools.com");
     // Load example and check matches
@@ -696,6 +712,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("33. SQL Formatter & Beautifier - Query Formatting", async ({ page }) => {
     await page.goto("/tools/sql-formatter");
     await expect(page.locator("h1")).toContainText("SQL Formatter & Beautifier");
+    await page.waitForTimeout(1000); // Wait for React hydration
     // Load example
     await page.click('button:has-text("Load Example")');
     // Format SQL
@@ -708,6 +725,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("34. Client-Side File Hasher - Hashing Local Files", async ({ page }) => {
     await page.goto("/tools/file-hasher");
     await expect(page.locator("h1")).toContainText("Client-Side File Hasher");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Upload a simulated file
     const fileInput = page.locator('input[type="file"]');
@@ -761,6 +779,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("37. Markdown to HTML Converter - live conversions and preview", async ({ page }) => {
     await page.goto("/tools/markdown-converter");
     await expect(page.locator("h1").first()).toContainText("Markdown ↔ HTML Converter");
+    await page.waitForTimeout(1000); // Wait for React hydration
     
     // Check markdown to HTML conversion
     const sourceTextarea = page.locator('textarea[placeholder="Type Markdown here..."]');
@@ -785,6 +804,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("38. List Shuffler & Random Picker - Draw Winners", async ({ page }) => {
     await page.goto("/tools/random-picker");
     await expect(page.locator("h1")).toContainText("List Shuffler & Random Picker");
+    await page.waitForTimeout(1000); // Wait for React hydration
     
     // Draw winners
     await page.click("button:has-text('Draw Winners')");
@@ -815,6 +835,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("40. CSS Box Shadow Generator - live preview and copy code", async ({ page }) => {
     await page.goto("/tools/css-box-shadow");
     await expect(page.locator("h1").first()).toContainText("CSS Box Shadow Generator");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Tweak sliders
     const xOffsetInput = page.locator("input#x-offset");
@@ -828,6 +849,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("41. Unix Timestamp Converter - ticking clock and conversions", async ({ page }) => {
     await page.goto("/tools/unix-timestamp-converter");
     await expect(page.locator("h1").first()).toContainText("Unix Timestamp Converter");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Verify ticker buttons are visible
     await expect(page.locator("button:has-text('Copy Seconds')")).toBeVisible();
@@ -841,6 +863,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("42. Cron Expression Generator & Parser - visual tabs and parsing", async ({ page }) => {
     await page.goto("/tools/cron-generator");
     await expect(page.locator("h1").first()).toContainText("Cron Expression Generator & Parser");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Type a custom cron expression
     await page.click("button:has-text('Raw Expression Parser')");
@@ -854,6 +877,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("43. 3D Dice Roller - Configuration and Rolling", async ({ page }) => {
     await page.goto("/tools/dice-roller");
     await expect(page.locator("h2").first()).toContainText("3D Dice Roller");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Check default state (2 dice)
     const diceCountSpan = page.locator("span.text-center").first();
@@ -877,6 +901,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("44. Random Team Generator - Splitting and Parsing", async ({ page }) => {
     await page.goto("/tools/random-team-generator");
     await expect(page.locator("h2").first()).toContainText("Random Team Generator");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Add names
     await page.locator("textarea").fill("Alice\nBob\nCharlie\nDavid\nEve\nFrank");
@@ -915,6 +940,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   test("46. HTML to JSX Converter - formatting and component wrapping", async ({ page }) => {
     await page.goto("/tools/html-to-jsx");
     await expect(page.locator("h1")).toContainText("HTML to JSX Converter");
+    await page.waitForTimeout(1000); // Wait for React hydration
 
     // Load example
     await page.click('button:has-text("Load Example")');
