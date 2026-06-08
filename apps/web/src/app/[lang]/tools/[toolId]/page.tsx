@@ -1,51 +1,70 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import JsonViewerWorkspace from "@/components/JsonViewerWorkspace";
-import HeicConverterWorkspace from "@/components/HeicConverterWorkspace";
-import MergePDFWorkspace from "@/components/MergePDFWorkspace";
-import SplitPDFWorkspace from "@/components/SplitPDFWorkspace";
-import CompressPDFWorkspace from "@/components/CompressPDFWorkspace";
-import RotatePDFWorkspace from "@/components/RotatePDFWorkspace";
 import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
 import { notFound } from "next/navigation";
-import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNumbersPDFWorkspace, OrganizePDFWorkspace } from "@/components/PDFEditorsWorkspace";
-import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
-import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
-import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
-import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
-import Base64Workspace from "@/components/Base64Workspace";
-import TextCounterWorkspace from "@/components/TextCounterWorkspace";
-import TokenCounterWorkspace from "@/components/TokenCounterWorkspace";
-import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
-import JwtDebuggerWorkspace from "@/components/JwtDebuggerWorkspace";
-import UrlEncoderWorkspace from "@/components/UrlEncoderWorkspace";
-import TextCleanerWorkspace from "@/components/TextCleanerWorkspace";
-import PdfSignWorkspace from "@/components/PdfSignWorkspace";
-import PdfCropWorkspace from "@/components/PdfCropWorkspace";
-import PdfToTextWorkspace from "@/components/PdfToTextWorkspace";
-import BulkImageResizerWorkspace from "@/components/BulkImageResizerWorkspace";
-import ImageCropperWorkspace from "@/components/ImageCropperWorkspace";
-import SvgMinifierWorkspace from "@/components/SvgMinifierWorkspace";
-import MortgageCalculatorWorkspace from "@/components/MortgageCalculatorWorkspace";
-import CapTableWorkspace from "@/components/CapTableWorkspace";
-import SaasLtvWorkspace from "@/components/SaasLtvWorkspace";
-import BreakEvenWorkspace from "@/components/BreakEvenWorkspace";
-import RegexTesterWorkspace from "@/components/RegexTesterWorkspace";
-import SqlFormatterWorkspace from "@/components/SqlFormatterWorkspace";
-import FileHasherWorkspace from "@/components/FileHasherWorkspace";
-import PasswordGeneratorWorkspace from "@/components/PasswordGeneratorWorkspace";
-import VoiceDictatorWorkspace from "@/components/VoiceDictatorWorkspace";
-import MarkdownConverterWorkspace from "@/components/MarkdownConverterWorkspace";
-import RandomPickerWorkspace from "@/components/RandomPickerWorkspace";
-import QrCodeWorkspace from "@/components/QrCodeWorkspace";
-import BoxShadowWorkspace from "@/components/BoxShadowWorkspace";
-import UnixTimestampWorkspace from "@/components/UnixTimestampWorkspace";
-import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
-import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
-import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
-import CoinFlipperWorkspace from "@/components/CoinFlipperWorkspace";
-import SpinTheWheelWorkspace from "@/components/SpinTheWheelWorkspace";
-import TwoZeroFourEightWorkspace from "@/components/TwoZeroFourEightWorkspace";
+import dynamic from "next/dynamic";
+
+const WorkspaceLoader = () => (
+  <div className="w-full min-h-[400px] flex flex-col items-center justify-center space-y-4">
+    <div className="w-8 h-8 rounded-full border-2 border-border border-t-accent animate-spin" />
+    <p className="text-xs text-ink-muted font-bold uppercase tracking-wider animate-pulse">
+      Loading Workspace...
+    </p>
+  </div>
+);
+
+const JsonViewerWorkspace = dynamic(() => import("@/components/JsonViewerWorkspace"), { loading: WorkspaceLoader });
+const HeicConverterWorkspace = dynamic(() => import("@/components/HeicConverterWorkspace"), { loading: WorkspaceLoader });
+const MergePDFWorkspace = dynamic(() => import("@/components/MergePDFWorkspace"), { loading: WorkspaceLoader });
+const SplitPDFWorkspace = dynamic(() => import("@/components/SplitPDFWorkspace"), { loading: WorkspaceLoader });
+const CompressPDFWorkspace = dynamic(() => import("@/components/CompressPDFWorkspace"), { loading: WorkspaceLoader });
+const RotatePDFWorkspace = dynamic(() => import("@/components/RotatePDFWorkspace"), { loading: WorkspaceLoader });
+
+const ProtectPDFWorkspace = dynamic(() => import("@/components/PDFEditorsWorkspace").then(mod => mod.ProtectPDFWorkspace), { loading: WorkspaceLoader });
+const UnlockPDFWorkspace = dynamic(() => import("@/components/PDFEditorsWorkspace").then(mod => mod.UnlockPDFWorkspace), { loading: WorkspaceLoader });
+const WatermarkPDFWorkspace = dynamic(() => import("@/components/PDFEditorsWorkspace").then(mod => mod.WatermarkPDFWorkspace), { loading: WorkspaceLoader });
+const PageNumbersPDFWorkspace = dynamic(() => import("@/components/PDFEditorsWorkspace").then(mod => mod.PageNumbersPDFWorkspace), { loading: WorkspaceLoader });
+const OrganizePDFWorkspace = dynamic(() => import("@/components/PDFEditorsWorkspace").then(mod => mod.OrganizePDFWorkspace), { loading: WorkspaceLoader });
+
+const JpgToPdfWorkspace = dynamic(() => import("@/components/ConvertPDFWorkspace").then(mod => mod.JpgToPdfWorkspace), { loading: WorkspaceLoader });
+const PdfToJpgWorkspace = dynamic(() => import("@/components/ConvertPDFWorkspace").then(mod => mod.PdfToJpgWorkspace), { loading: WorkspaceLoader });
+
+const SaasMrrWorkspace = dynamic(() => import("@/components/SaasMrrWorkspace"), { loading: WorkspaceLoader });
+const StartupEquityWorkspace = dynamic(() => import("@/components/StartupEquityWorkspace"), { loading: WorkspaceLoader });
+const CaseConverterWorkspace = dynamic(() => import("@/components/CaseConverterWorkspace"), { loading: WorkspaceLoader });
+const Base64Workspace = dynamic(() => import("@/components/Base64Workspace"), { loading: WorkspaceLoader });
+const TextCounterWorkspace = dynamic(() => import("@/components/TextCounterWorkspace"), { loading: WorkspaceLoader });
+const TokenCounterWorkspace = dynamic(() => import("@/components/TokenCounterWorkspace"), { loading: WorkspaceLoader });
+const DiffCheckerWorkspace = dynamic(() => import("@/components/DiffCheckerWorkspace"), { loading: WorkspaceLoader });
+const JwtDebuggerWorkspace = dynamic(() => import("@/components/JwtDebuggerWorkspace"), { loading: WorkspaceLoader });
+const UrlEncoderWorkspace = dynamic(() => import("@/components/UrlEncoderWorkspace"), { loading: WorkspaceLoader });
+const TextCleanerWorkspace = dynamic(() => import("@/components/TextCleanerWorkspace"), { loading: WorkspaceLoader });
+const PdfSignWorkspace = dynamic(() => import("@/components/PdfSignWorkspace"), { loading: WorkspaceLoader });
+const PdfCropWorkspace = dynamic(() => import("@/components/PdfCropWorkspace"), { loading: WorkspaceLoader });
+const PdfToTextWorkspace = dynamic(() => import("@/components/PdfToTextWorkspace"), { loading: WorkspaceLoader });
+const BulkImageResizerWorkspace = dynamic(() => import("@/components/BulkImageResizerWorkspace"), { loading: WorkspaceLoader });
+const ImageCropperWorkspace = dynamic(() => import("@/components/ImageCropperWorkspace"), { loading: WorkspaceLoader });
+const SvgMinifierWorkspace = dynamic(() => import("@/components/SvgMinifierWorkspace"), { loading: WorkspaceLoader });
+const MortgageCalculatorWorkspace = dynamic(() => import("@/components/MortgageCalculatorWorkspace"), { loading: WorkspaceLoader });
+const CapTableWorkspace = dynamic(() => import("@/components/CapTableWorkspace"), { loading: WorkspaceLoader });
+const SaasLtvWorkspace = dynamic(() => import("@/components/SaasLtvWorkspace"), { loading: WorkspaceLoader });
+const BreakEvenWorkspace = dynamic(() => import("@/components/BreakEvenWorkspace"), { loading: WorkspaceLoader });
+const RegexTesterWorkspace = dynamic(() => import("@/components/RegexTesterWorkspace"), { loading: WorkspaceLoader });
+const SqlFormatterWorkspace = dynamic(() => import("@/components/SqlFormatterWorkspace"), { loading: WorkspaceLoader });
+const FileHasherWorkspace = dynamic(() => import("@/components/FileHasherWorkspace"), { loading: WorkspaceLoader });
+const PasswordGeneratorWorkspace = dynamic(() => import("@/components/PasswordGeneratorWorkspace"), { loading: WorkspaceLoader });
+const VoiceDictatorWorkspace = dynamic(() => import("@/components/VoiceDictatorWorkspace"), { loading: WorkspaceLoader });
+const MarkdownConverterWorkspace = dynamic(() => import("@/components/MarkdownConverterWorkspace"), { loading: WorkspaceLoader });
+const RandomPickerWorkspace = dynamic(() => import("@/components/RandomPickerWorkspace"), { loading: WorkspaceLoader });
+const QrCodeWorkspace = dynamic(() => import("@/components/QrCodeWorkspace"), { loading: WorkspaceLoader });
+const BoxShadowWorkspace = dynamic(() => import("@/components/BoxShadowWorkspace"), { loading: WorkspaceLoader });
+const UnixTimestampWorkspace = dynamic(() => import("@/components/UnixTimestampWorkspace"), { loading: WorkspaceLoader });
+const CronGeneratorWorkspace = dynamic(() => import("@/components/CronGeneratorWorkspace"), { loading: WorkspaceLoader });
+const DiceRollerWorkspace = dynamic(() => import("@/components/DiceRollerWorkspace"), { loading: WorkspaceLoader });
+const RandomTeamGeneratorWorkspace = dynamic(() => import("@/components/RandomTeamGeneratorWorkspace"), { loading: WorkspaceLoader });
+const CoinFlipperWorkspace = dynamic(() => import("@/components/CoinFlipperWorkspace"), { loading: WorkspaceLoader });
+const SpinTheWheelWorkspace = dynamic(() => import("@/components/SpinTheWheelWorkspace"), { loading: WorkspaceLoader });
+const TwoZeroFourEightWorkspace = dynamic(() => import("@/components/TwoZeroFourEightWorkspace"), { loading: WorkspaceLoader });
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
