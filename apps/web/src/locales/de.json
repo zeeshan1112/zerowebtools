@@ -129,20 +129,6 @@
     "title_case": "Titelfall",
     "input_label": "Eingabetext"
   },
-  "spin_the_wheel": {
-    "wheel_add_options": "Optionen hinzufügen",
-    "wheel_type_option": "Gib eine Option ein...",
-    "wheel_add_options_hint": "Füge mindestens 2 Optionen hinzu",
-    "wheel_remove": "Entfernen",
-    "wheel_items_count": "{count} Optionen — mindestens 2 erforderlich",
-    "wheel_spinning": "Dreht...",
-    "wheel_spin": "Rad drehen",
-    "wheel_mute": "Ton aus",
-    "wheel_unmute": "Ton an",
-    "wheel_result": "Ergebnis",
-    "wheel_spin_again": "Erneut drehen",
-    "wheel_history": "Verlauf"
-  },
   "articles": {
     "pdf-compress": {
       "title": "So komprimieren Sie ein PDF kostenlos online unter 1 MB",
@@ -1414,6 +1400,52 @@
         }
       ]
     },
+    "html-to-jsx": {
+      "title": "So konvertieren Sie HTML in React JSX Online",
+      "metaDescription": "Konvertieren Sie HTML-Vorlagen, Klassen, Inline-Stile und SVG-Eigenschaften online in das React-kompatible JSX-Format. 100 % lokale browserbasierte Ausführung.",
+      "sections": [
+        {
+          "heading": "Der Übergang von HTML zu React JSX",
+          "level": "h2",
+          "paragraphs": [
+            "HTML (HyperText Markup Language) ist die Standard-Markup-Sprache zum Erstellen von Webseiten. Beim Übergang zu React müssen Entwickler JSX (JavaScript XML) schreiben, eine Syntaxerweiterung für JavaScript, die HTML ähnelt, aber wesentliche Unterschiede aufweist. Da JSX auf Standard-JavaScript-Funktionsaufrufe kompiliert wird, sind eine strenge Syntax und die Zuordnung von CamelCase-Attributen erforderlich.",
+            "Das manuelle Konvertieren von Standard-HTML-Vorlagen, Symbolen oder Designelementen in React-kompatible JSX-Elemente ist ein mühsamer und fehleranfälliger Prozess. Ein dedizierter HTML-zu-JSX-Konverter analysiert Ihren HTML-Baum und ordnet automatisch Attribute zu, konvertiert Inline-Stile in React-Stilobjekte und stellt sicher, dass selbstschließende Tags korrekt geschlossen werden, was erhebliche Entwicklungszeit spart."
+          ]
+        },
+        {
+          "heading": "Hauptunterschiede zwischen HTML und JSX",
+          "level": "h2",
+          "listItems": [
+            "Klassenattribute – In HTML werden CSS-Klassen mithilfe des Attributs „class“ definiert. Da „class“ in JSX ein reserviertes Schlüsselwort in JavaScript ist, muss es in „className“ umbenannt werden.",
+            "Für Attribute – Das in Labels verwendete HTML-Attribut „for“ muss in React JSX in „htmlFor“ umbenannt werden.",
+            "Inline-Stile – HTML-Inline-Stile werden als durch Semikolons getrennte Zeichenfolgen geschrieben. JSX-Stile müssen als JavaScript-Objekte mit CamelCase-Schlüsseln geschrieben werden (z. B. style={{ color: 'red', marginTop: '10px' }}).",
+            "Selbstschließende Tags – Elemente wie <img>, <input> und <br> erfordern in Standard-HTML keine schließenden Tags, in JSX müssen sie jedoch mit einem abschließenden Schrägstrich geschlossen werden (z. B. <img />, <input />, <br />)."
+          ]
+        },
+        {
+          "heading": "Den Online-Konverter lokal und privat verwenden",
+          "level": "h2",
+          "paragraphs": [
+            "Die Verwendung unseres Konverters ist unkompliziert: Fügen Sie Ihren rohen HTML-Code in den Eingabeeditor ein, konfigurieren Sie Einstellungen, z. B. ob die Ausgabe in eine Funktionskomponente eingeschlossen werden soll, entfernen Sie HTML-Kommentare oder ändern Sie den Einrückungsabstand, und klicken Sie auf „In JSX konvertieren“. Das Tool verarbeitet Ihren Code in Echtzeit.",
+            "Da ZeroWebTools den gesamten Parser und Formatierer clientseitig im Speicher Ihres Browsers ausführt, wird niemals Code oder Markup an externe Server übertragen. Dies ist aus Datenschutzgründen von entscheidender Bedeutung, wenn Sie mit proprietären Designs oder Unternehmensvorlagen arbeiten."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Wird mein HTML-Code zur Konvertierung an einen Server gesendet?",
+          "answer": "Nein. Die Konvertierungslogik läuft vollständig auf Ihrem lokalen Computer unter Verwendung von Standard-Browser-APIs. Ihr HTML-Code und Ihre React-Komponenten verlassen niemals Ihr Gerät und gewährleisten so 100 % Privatsphäre."
+        },
+        {
+          "question": "Wie geht das Tool mit benutzerdefinierten SVG-Inline-Eigenschaften um?",
+          "answer": "Das Tool analysiert SVG-Markup automatisch und konvertiert SVG-Eigenschaften mit Bindestrich (wie Strichbreite, Füll-Opazität, Clip-Pfad) in React-kompatible CamelCase-Äquivalente (StrokeWidth, FillOpacity, ClipPath) unter Beibehaltung der Standarddaten- und Arienattribute."
+        },
+        {
+          "question": "Kann ich das konvertierte JSX in eine funktionale React-Komponente einbinden?",
+          "answer": "Ja. Schalten Sie die Einstellung „Komponenten-Wrapper erstellen“ in der Optionskarte um, geben Sie den gewünschten Komponentennamen an und der Konverter exportiert automatisch eine saubere React-Funktionskomponente."
+        }
+      ]
+    },
     "startup-equity": {
       "title": "So berechnen Sie die Eigenkapitalbeteiligung eines Startups",
       "metaDescription": "Modellieren Sie Ihre Startup-Aktienoptionen, Gründerverwässerung und 4-Jahres-Vestingpläne. Kostenloser Finanzrechner für Gründer und frühe Mitarbeiter.",
@@ -2417,5 +2449,42 @@
         }
       ]
     }
+  },
+  "spin_the_wheel": {
+    "wheel_add_options": "Optionen hinzufügen",
+    "wheel_type_option": "Geben Sie eine Option ein...",
+    "wheel_add_options_hint": "Fügen Sie mindestens 2 Optionen zum Drehen hinzu",
+    "wheel_remove": "Entfernen",
+    "wheel_items_count": "{count} Optionen – mindestens 2 erforderlich",
+    "wheel_spinning": "Spinnen...",
+    "wheel_spin": "Drehen Sie das Rad",
+    "wheel_mute": "Ton stumm schalten",
+    "wheel_unmute": "Ton aktivieren",
+    "wheel_result": "Ergebnis",
+    "wheel_spin_again": "Noch einmal drehen",
+    "wheel_history": "Geschichte"
+  },
+  "html_to_jsx": {
+    "placeholder_input": "Fügen Sie hier Ihren HTML-Code ein...",
+    "placeholder_output": "Ihr konvertiertes JSX erscheint hier...",
+    "convert_btn": "In JSX konvertieren",
+    "load_example": "Beispiel laden",
+    "copy_btn": "Kopieren Sie JSX",
+    "download_btn": "Laden Sie JSX herunter",
+    "copied": "Kopiert!",
+    "settings_title": "Konvertierungseinstellungen",
+    "settings_desc": "Konfigurieren Sie das Verhalten und die Formatierung des generierten JSX-Codes.",
+    "option_wrapper": "Erstellen Sie einen Komponenten-Wrapper",
+    "option_wrapper_name": "Komponentenname",
+    "option_strip_comments": "Entfernen Sie HTML-Kommentare",
+    "option_format_indent": "Einzug formatieren",
+    "option_indent_size": "Einzugsgröße",
+    "option_indent_2": "2 Leerzeichen",
+    "option_indent_4": "4 Plätze",
+    "step_1": "HTML-Markup-Struktur wird analysiert...",
+    "step_2": "Konvertieren von Attributen (Klasse -> Klassenname, für -> htmlFor) ...",
+    "step_3": "Übersetzen von Inline-Stilen in JSX-Stilobjekte ...",
+    "step_4": "Ausgabekomponentenbaum wird formatiert...",
+    "converting_overlay_title": "HTML in JSX konvertieren..."
   }
 }

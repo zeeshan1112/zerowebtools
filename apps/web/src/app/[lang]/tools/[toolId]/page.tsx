@@ -1,51 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import JsonViewerWorkspace from "@/components/JsonViewerWorkspace";
-import HeicConverterWorkspace from "@/components/HeicConverterWorkspace";
-import MergePDFWorkspace from "@/components/MergePDFWorkspace";
-import SplitPDFWorkspace from "@/components/SplitPDFWorkspace";
-import CompressPDFWorkspace from "@/components/CompressPDFWorkspace";
-import RotatePDFWorkspace from "@/components/RotatePDFWorkspace";
 import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
 import { notFound } from "next/navigation";
-import { ProtectPDFWorkspace, UnlockPDFWorkspace, WatermarkPDFWorkspace, PageNumbersPDFWorkspace, OrganizePDFWorkspace } from "@/components/PDFEditorsWorkspace";
-import { JpgToPdfWorkspace, PdfToJpgWorkspace } from "@/components/ConvertPDFWorkspace";
-import SaasMrrWorkspace from "@/components/SaasMrrWorkspace";
-import StartupEquityWorkspace from "@/components/StartupEquityWorkspace";
-import CaseConverterWorkspace from "@/components/CaseConverterWorkspace";
-import Base64Workspace from "@/components/Base64Workspace";
-import TextCounterWorkspace from "@/components/TextCounterWorkspace";
-import TokenCounterWorkspace from "@/components/TokenCounterWorkspace";
-import DiffCheckerWorkspace from "@/components/DiffCheckerWorkspace";
-import JwtDebuggerWorkspace from "@/components/JwtDebuggerWorkspace";
-import UrlEncoderWorkspace from "@/components/UrlEncoderWorkspace";
-import TextCleanerWorkspace from "@/components/TextCleanerWorkspace";
-import PdfSignWorkspace from "@/components/PdfSignWorkspace";
-import PdfCropWorkspace from "@/components/PdfCropWorkspace";
-import PdfToTextWorkspace from "@/components/PdfToTextWorkspace";
-import BulkImageResizerWorkspace from "@/components/BulkImageResizerWorkspace";
-import ImageCropperWorkspace from "@/components/ImageCropperWorkspace";
-import SvgMinifierWorkspace from "@/components/SvgMinifierWorkspace";
-import MortgageCalculatorWorkspace from "@/components/MortgageCalculatorWorkspace";
-import CapTableWorkspace from "@/components/CapTableWorkspace";
-import SaasLtvWorkspace from "@/components/SaasLtvWorkspace";
-import BreakEvenWorkspace from "@/components/BreakEvenWorkspace";
-import RegexTesterWorkspace from "@/components/RegexTesterWorkspace";
-import SqlFormatterWorkspace from "@/components/SqlFormatterWorkspace";
-import FileHasherWorkspace from "@/components/FileHasherWorkspace";
-import PasswordGeneratorWorkspace from "@/components/PasswordGeneratorWorkspace";
-import VoiceDictatorWorkspace from "@/components/VoiceDictatorWorkspace";
-import MarkdownConverterWorkspace from "@/components/MarkdownConverterWorkspace";
-import RandomPickerWorkspace from "@/components/RandomPickerWorkspace";
-import QrCodeWorkspace from "@/components/QrCodeWorkspace";
-import BoxShadowWorkspace from "@/components/BoxShadowWorkspace";
-import UnixTimestampWorkspace from "@/components/UnixTimestampWorkspace";
-import CronGeneratorWorkspace from "@/components/CronGeneratorWorkspace";
-import DiceRollerWorkspace from "@/components/DiceRollerWorkspace";
-import RandomTeamGeneratorWorkspace from "@/components/RandomTeamGeneratorWorkspace";
-import CoinFlipperWorkspace from "@/components/CoinFlipperWorkspace";
-import SpinTheWheelWorkspace from "@/components/SpinTheWheelWorkspace";
-import TwoZeroFourEightWorkspace from "@/components/TwoZeroFourEightWorkspace";
+import WorkspaceRenderer from "@/components/WorkspaceRenderer";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
@@ -116,57 +73,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
 
 
 
-const WORKSPACE_MAP: Record<string, React.ComponentType> = {
-  "json-formatter": JsonViewerWorkspace,
-  "case-converter": CaseConverterWorkspace,
-  "heic-to-jpg": HeicConverterWorkspace,
-  "pdf-merge": MergePDFWorkspace,
-  "pdf-split": SplitPDFWorkspace,
-  "pdf-compress": CompressPDFWorkspace,
-  "pdf-rotate": RotatePDFWorkspace,
-  "pdf-to-jpg": PdfToJpgWorkspace,
-  "jpg-to-pdf": JpgToPdfWorkspace,
-  "pdf-protect": ProtectPDFWorkspace,
-  "pdf-watermark": WatermarkPDFWorkspace,
-  "pdf-page-numbers": PageNumbersPDFWorkspace,
-  "pdf-organize": OrganizePDFWorkspace,
-  "pdf-unlock": UnlockPDFWorkspace,
-  "saas-mrr": SaasMrrWorkspace,
-  "startup-equity": StartupEquityWorkspace,
-  "base64-encoder": Base64Workspace,
-  "word-counter": TextCounterWorkspace,
-  "diff-checker": DiffCheckerWorkspace,
-  "jwt-debugger": JwtDebuggerWorkspace,
-  "url-encoder": UrlEncoderWorkspace,
-  "text-cleaner": TextCleanerWorkspace,
-  "pdf-sign": PdfSignWorkspace,
-  "pdf-crop": PdfCropWorkspace,
-  "pdf-to-text": PdfToTextWorkspace,
-  "bulk-image-resizer": BulkImageResizerWorkspace,
-  "image-cropper": ImageCropperWorkspace,
-  "svg-minifier": SvgMinifierWorkspace,
-  "mortgage-calculator": MortgageCalculatorWorkspace,
-  "cap-table": CapTableWorkspace,
-  "saas-ltv": SaasLtvWorkspace,
-  "break-even": BreakEvenWorkspace,
-  "regex-tester": RegexTesterWorkspace,
-  "sql-formatter": SqlFormatterWorkspace,
-  "file-hasher": FileHasherWorkspace,
-  "password-generator": PasswordGeneratorWorkspace,
-  "voice-dictator": VoiceDictatorWorkspace,
-  "markdown-converter": MarkdownConverterWorkspace,
-  "random-picker": RandomPickerWorkspace,
-  "qr-code-generator": QrCodeWorkspace,
-  "css-box-shadow": BoxShadowWorkspace,
-  "unix-timestamp-converter": UnixTimestampWorkspace,
-  "cron-generator": CronGeneratorWorkspace,
-  "dice-roller": DiceRollerWorkspace,
-  "random-team-generator": RandomTeamGeneratorWorkspace,
-  "coin-flipper": CoinFlipperWorkspace,
-  "spin-the-wheel": SpinTheWheelWorkspace,
-  "2048-game": TwoZeroFourEightWorkspace,
-  "token-counter": TokenCounterWorkspace,
-};
+
 
 const TOOL_ARTICLES: Record<
   string,
@@ -1072,6 +979,31 @@ const TOOL_ARTICLES: Record<
       }
     ]
   },
+  "html-to-jsx": {
+    title: "HTML to JSX Converter: Convert HTML templates, styles, and attributes to React JSX",
+    sections: [
+      {
+        heading: "Convert HTML templates to React JSX instantly and privately",
+        paragraphs: [
+          "HTML inline styles, classes, SVG attributes, and self-closing tags are not directly compatible with React. Manually editing templates to replace 'class' with 'className', 'for' with 'htmlFor', or parsing style strings into style objects is extremely tedious.",
+          "Our HTML to JSX Converter automates the entire process in your browser. All translations occur locally in your browser memory on your device, ensuring 100% privacy for your proprietary templates and designs."
+        ]
+      },
+      {
+        heading: "Features of the HTML to JSX Converter",
+        paragraphs: [
+          "The converter is packed with settings to help customize your JSX output:"
+        ],
+        listItems: [
+          "Attribute Mapping -- Automatically replaces 'class' with 'className', 'for' with 'htmlFor', and other React-specific properties.",
+          "Inline Style Parser -- Parses style strings and maps key-values into React style objects with camelCase keys.",
+          "Component Wrapper -- Wraps output elements inside a standard React functional component with a custom name.",
+          "SVG Compatibility -- Converts hyphenated SVG attributes (e.g. stroke-width, fill-opacity) into camelCase keys.",
+          "Formatting options -- Choose between 2-space or 4-space indentations or disable formatting as needed."
+        ]
+      }
+    ]
+  },
   "file-hasher": {
     title: "Client-Side File Hasher: Generate MD5, SHA-1, SHA-256, and SHA-512 Checksums",
     sections: [
@@ -1285,8 +1217,6 @@ export default async function ToolPage({ params }: ToolPageProps) {
       </div>
     );
   }
-
-  const WorkspaceComponent = WORKSPACE_MAP[toolId];
   const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
   const toolKey = toolId.replace(/-/g, "_");
   const workspaceDictionary = {
@@ -1456,11 +1386,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
             <MobileToolActions toolId={toolId} />
             <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
-              {WorkspaceComponent && (
-                <WorkspaceTranslationProvider dictionary={workspaceDictionary}>
-                  <WorkspaceComponent />
-                </WorkspaceTranslationProvider>
-              )}
+              <WorkspaceTranslationProvider dictionary={workspaceDictionary}>
+                <WorkspaceRenderer toolId={toolId} />
+              </WorkspaceTranslationProvider>
             </section>
 
             {/* Below Workspace Leaderboard Ad */}

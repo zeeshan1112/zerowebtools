@@ -143,5 +143,29 @@
     "wheel_spin_again": "Spin Again",
     "wheel_history": "History"
   },
+  "html_to_jsx": {
+    "placeholder_input": "Paste your HTML code here...",
+    "placeholder_output": "Your converted JSX will appear here...",
+    "convert_btn": "Convert to JSX",
+    "load_example": "Load Example",
+    "copy_btn": "Copy JSX",
+    "download_btn": "Download JSX",
+    "copied": "Copied!",
+    "settings_title": "Conversion Settings",
+    "settings_desc": "Configure the behavior and formatting of the generated JSX code.",
+    "option_wrapper": "Create component wrapper",
+    "option_wrapper_name": "Component Name",
+    "option_strip_comments": "Strip HTML comments",
+    "option_format_indent": "Format indentation",
+    "option_indent_size": "Indentation size",
+    "option_indent_2": "2 spaces",
+    "option_indent_3": "3 spaces",
+    "option_indent_4": "4 spaces",
+    "step_1": "Parsing HTML markup structure...",
+    "step_2": "Converting attributes (class -> className, for -> htmlFor)...",
+    "step_3": "Translating inline styles to JSX style objects...",
+    "step_4": "Formatting output component tree...",
+    "converting_overlay_title": "Converting HTML to JSX..."
+  },
   "articles": {}
 }

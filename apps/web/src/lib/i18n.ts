@@ -2667,6 +2667,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "قم بعدّ الرموز (Tokens) باستخدام أدوات النمذجة SOTA وتقدير تكاليف واجهة برمجة التطبيقات (API) محلياً مع خصوصية 100%.",
       "metaDescription": "احسب الرموز وقدر تكاليف الـ API محلياً للنماذج الحديثة (GPT-5.5، o1، Claude 4.7، Gemini 2.5، LLaMA 4). حدود رموز مرئية متناوبة، 100% خاص."
     }
+  },
+  "html-to-jsx": {
+    "es": {
+      "title": "Convertidor de HTML a JSX",
+      "description": "Convierta plantillas y propiedades HTML estándar en elementos JSX compatibles con React del lado del cliente.",
+      "metaDescription": "Convierta HTML a React JSX al instante: gratis y privado. Traduzca automáticamente clases, propiedades, estilos en línea y etiquetas de cierre automático. Sin cargas al servidor."
+    },
+    "de": {
+      "title": "HTML-zu-JSX-Konverter",
+      "description": "Konvertieren Sie Standard-HTML-Vorlagen und -Eigenschaften clientseitig in React-kompatible JSX-Elemente.",
+      "metaDescription": "HTML sofort in React JSX konvertieren – kostenlos und privat. Übersetzen Sie Klassen, Eigenschaften, Inline-Styles und selbstschließende Tags automatisch. Keine Server-Uploads."
+    },
+    "fr": {
+      "title": "Convertisseur HTML en JSX",
+      "description": "Convertissez des modèles et propriétés HTML standard en éléments JSX compatibles avec React côté client.",
+      "metaDescription": "Convertissez HTML en React JSX instantanément – gratuit et privé. Traduisez automatiquement les classes, les propriétés, les styles en ligne et les balises auto-fermantes. Aucun téléchargement sur le serveur."
+    },
+    "pt": {
+      "title": "Conversor de HTML para JSX",
+      "description": "Converta modelos e propriedades HTML padrão em elementos JSX compatíveis com React no lado do cliente.",
+      "metaDescription": "Converta HTML para React JSX instantaneamente — gratuito e privado. Traduza automaticamente classes, propriedades, estilos inline e tags de fechamento automático. Sem uploads no servidor."
+    },
+    "ja": {
+      "title": "HTMLからJSXへの変換ツール",
+      "description": "標準のHTMLテンプレートやプロパティを、クライアント側でReact対応のJSX要素に変換します。",
+      "metaDescription": "HTMLをReact JSXに即座に変換します。無料、プライベート、サーバーへのアップロード不要。クラス、属性、インラインスタイル、自己完結型タグを自動で変換。"
+    },
+    "zh": {
+      "title": "HTML 转 JSX 转换器",
+      "description": "在客户端将标准 HTML 模板和属性转换为与 React 兼容的 JSX 元素。",
+      "metaDescription": "立即将 HTML 转换为 React JSX — 免费且私密。自动转换 class、属性、内联样式和自闭合标签。无需上传服务器。"
+    },
+    "hi": {
+      "title": "HTML से JSX कनवर्टर",
+      "description": "क्लाइंट-साइड पर मानक HTML टेम्पलेट्स और प्रॉपर्टीज़ को React-संगत JSX तत्वों में बदलें।",
+      "metaDescription": "HTML को तुरंत React JSX में बदलें - मुफ़्त और निजी। क्लास, प्रॉपर्टीज़, इनलाइन स्टाइल और सेल्फ़-क्लोज़िंग टैग्स को कनवर्ट करें। कोई सर्ver अपलोड नहीं।"
+    },
+    "it": {
+      "title": "Convertitore da HTML a JSX",
+      "description": "Converti modelli e proprietà HTML standard in elementi JSX compatibili con React lato client.",
+      "metaDescription": "Converti HTML in React JSX all'istante: gratuito e privato. Traduci automaticamente classi, proprietà, stili inline e tag di chiusura automatica. Nessun caricamento sul server."
+    },
+    "ar": {
+      "title": "محول HTML إلى JSX",
+      "description": "تحويل قوالب وخصائص HTML القياسية إلى عناصر JSX متوافقة مع React محلياً في المتصفح.",
+      "metaDescription": "حول HTML إلى React JSX فوراً - مجاني وخاص. ترجمة تلقائية للفئات (class)، الخصائص، الأنماط المضمنة (inline styles)، والوسوم ذاتية الإغلاق. بدون رفع للملفات."
+    }
   }
 };
 

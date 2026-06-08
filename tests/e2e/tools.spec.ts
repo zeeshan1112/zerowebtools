@@ -2,6 +2,12 @@ import { test, expect } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
+async function navigateTo(page: any, url: string) {
+  await page.goto(url);
+  // Allow React hydration to complete on slow CI runner CPUs to prevent input event loss
+  await page.waitForTimeout(1200);
+}
+
 test.describe("ZeroWebTools Suite E2E Tests", () => {
   const dummyPdfPath = path.join(__dirname, "..", "fixtures", "dummy.pdf");
   const tempProtectedPath = path.join(__dirname, "..", "fixtures", `temp-protected-${Math.floor(Math.random() * 1000000)}.pdf`);
@@ -14,7 +20,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("1. JSON Formatter - Formatting & Validation", async ({ page }) => {
-    await page.goto("/tools/json-formatter");
+    await navigateTo(page, "/tools/json-formatter");
 
     // Check header
     await expect(page.locator("h1")).toContainText("JSON Formatter");
@@ -39,7 +45,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("2. SaaS MRR Projections - Math & Visual Calculation", async ({ page }) => {
-    await page.goto("/tools/saas-mrr");
+    await navigateTo(page, "/tools/saas-mrr");
 
     // Check headings
     await expect(page.locator("h1")).toContainText("SaaS MRR Projections");
@@ -59,7 +65,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("3. PDF Merge - Combining Documents", async ({ page }) => {
-    await page.goto("/tools/pdf-merge");
+    await navigateTo(page, "/tools/pdf-merge");
 
     // Check page
     await expect(page.locator("h1")).toContainText("Merge PDF");
@@ -88,7 +94,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("4. PDF Protect & Unlock Flow", async ({ page }) => {
     // --- Phase 4a: Protect PDF ---
-    await page.goto("/tools/pdf-protect");
+    await navigateTo(page, "/tools/pdf-protect");
     await expect(page.locator("h1")).toContainText("Protect PDF");
 
     // Upload dummy PDF
@@ -109,7 +115,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     expect(fs.existsSync(tempProtectedPath)).toBe(true);
 
     // --- Phase 4b: Unlock PDF (Wrong Password) ---
-    await page.goto("/tools/pdf-unlock");
+    await navigateTo(page, "/tools/pdf-unlock");
     await expect(page.locator("h1")).toContainText("Unlock PDF");
 
     // Upload newly protected PDF
@@ -138,7 +144,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("5. PDF Split", async ({ page }) => {
-    await page.goto("/tools/pdf-split");
+    await navigateTo(page, "/tools/pdf-split");
     await expect(page.locator("h1")).toContainText("Split PDF");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
@@ -157,7 +163,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("6. PDF Compress", async ({ page }) => {
-    await page.goto("/tools/pdf-compress");
+    await navigateTo(page, "/tools/pdf-compress");
     await expect(page.locator("h1")).toContainText("Compress PDF");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
@@ -174,7 +180,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("7. PDF Rotate", async ({ page }) => {
-    await page.goto("/tools/pdf-rotate");
+    await navigateTo(page, "/tools/pdf-rotate");
     await expect(page.locator("h1")).toContainText("Rotate PDF");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
@@ -191,7 +197,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("8. PDF to JPG Converter", async ({ page }) => {
-    await page.goto("/tools/pdf-to-jpg");
+    await navigateTo(page, "/tools/pdf-to-jpg");
     await expect(page.locator("h1")).toContainText("PDF to JPG");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
 
@@ -206,7 +212,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("9. JPG to PDF Converter", async ({ page }) => {
     const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
-    await page.goto("/tools/jpg-to-pdf");
+    await navigateTo(page, "/tools/jpg-to-pdf");
     await expect(page.locator("h1")).toContainText("JPG to PDF");
     await page.setInputFiles('input[type="file"]', dummyJpgPath);
     await expect(page.locator("text=dummy.jpg").first()).toBeVisible();
@@ -226,7 +232,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     page.on("console", (msg) => console.log(`BROWSER LOG [${msg.type()}]:`, msg.text()));
     page.on("pageerror", (err) => console.error("BROWSER EXCEPTION STACK:", err.stack || err.message));
 
-    await page.goto("/tools/pdf-watermark");
+    await navigateTo(page, "/tools/pdf-watermark");
     await expect(page.locator("h1")).toContainText("Add Watermark");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
@@ -246,7 +252,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("11. PDF Page Numbers", async ({ page }) => {
-    await page.goto("/tools/pdf-page-numbers");
+    await navigateTo(page, "/tools/pdf-page-numbers");
     await expect(page.locator("h1")).toContainText("Add Page Numbers");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
@@ -258,7 +264,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("12. PDF Organize", async ({ page }) => {
-    await page.goto("/tools/pdf-organize");
+    await navigateTo(page, "/tools/pdf-organize");
     await expect(page.locator("h1")).toContainText("Organize PDF");
     await page.setInputFiles('input[type="file"]', dummyPdfPath);
     await expect(page.locator("text=dummy.pdf").first()).toBeVisible();
@@ -275,7 +281,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("13. Case Converter - Interactive", async ({ page }) => {
-    await page.goto("/tools/case-converter");
+    await navigateTo(page, "/tools/case-converter");
     await expect(page.locator("h1")).toContainText("Case Converter");
 
     const input = page.locator("#text-input");
@@ -289,7 +295,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("14. HEIC Photo Converter - Graceful Error Path", async ({ page }) => {
     const dummyHeicPath = path.join(__dirname, "..", "fixtures", "dummy.heic");
-    await page.goto("/tools/heic-to-jpg");
+    await navigateTo(page, "/tools/heic-to-jpg");
     await expect(page.locator("h1")).toContainText("HEIC Photo Converter");
     await page.setInputFiles('input[type="file"]', dummyHeicPath);
     await expect(page.locator("text=dummy.heic").first()).toBeVisible();
@@ -300,7 +306,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("15. Startup Equity Vesting Modeler - Math Validation", async ({ page }) => {
-    await page.goto("/tools/startup-equity");
+    await navigateTo(page, "/tools/startup-equity");
     await expect(page.locator("h1")).toContainText("Equity Vesting Modeler");
 
     const estValue = page.locator("output").nth(1);
@@ -316,7 +322,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("16. Base64 Cipher Modeler - Interactive & File Upload", async ({ page }) => {
     const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
-    await page.goto("/tools/base64-encoder");
+    await navigateTo(page, "/tools/base64-encoder");
     await expect(page.locator("h1")).toContainText("Base64 Cipher Modeler");
 
     // Test text encoding
@@ -350,7 +356,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     }
 
     try {
-      await page.goto("/tools/word-counter");
+      await navigateTo(page, "/tools/word-counter");
       await expect(page.locator("h1")).toContainText("Word Counter Pro");
 
       // Target the main textarea
@@ -392,7 +398,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("18. Side-by-Side Diff Checker - Interactive comparison & View Switcher & Swap", async ({ page }) => {
-    await page.goto("/tools/diff-checker");
+    await navigateTo(page, "/tools/diff-checker");
     await expect(page.locator("h1")).toContainText("Side-by-Side Diff Checker");
 
     // Load example comparison
@@ -434,7 +440,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("19. JWT Debugger & Decoder - Interactive Verification", async ({ page }) => {
-    await page.goto("/tools/jwt-debugger");
+    await navigateTo(page, "/tools/jwt-debugger");
     await expect(page.locator("h1")).toContainText("JWT Debugger & Decoder");
 
     // Load example JWT
@@ -447,7 +453,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("20. URL Encoder & Parameter Grid Editor", async ({ page }) => {
-    await page.goto("/tools/url-encoder");
+    await navigateTo(page, "/tools/url-encoder");
     await expect(page.locator("h1")).toContainText("URL Encoder/Decoder & Parameter Grid");
 
     // Load Example URL
@@ -468,7 +474,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("21. Universal Text Cleaner - Clean, Sort, and Search-and-Replace", async ({ page }) => {
-    await page.goto("/tools/text-cleaner");
+    await navigateTo(page, "/tools/text-cleaner");
     await expect(page.locator("h1")).toContainText("Universal Text Cleaner");
 
     const inputArea = page.locator("textarea#text-cleaner-input");
@@ -502,7 +508,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("22. PDF Sign - Visual signature placement and save", async ({ page }) => {
-    await page.goto("/tools/pdf-sign");
+    await navigateTo(page, "/tools/pdf-sign");
     await expect(page.locator("h1")).toContainText("Sign PDF");
 
     // Upload dummy PDF
@@ -533,7 +539,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("23. PDF Crop & Page Resize - Visual margins crop and page resize", async ({ page }) => {
-    await page.goto("/tools/pdf-crop");
+    await navigateTo(page, "/tools/pdf-crop");
     await expect(page.locator("h1")).toContainText("PDF Crop & Page Resize");
 
     // Upload dummy PDF
@@ -563,7 +569,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("24. PDF to Text Extractor - Layout-preserving text extraction", async ({ page }) => {
-    await page.goto("/tools/pdf-to-text");
+    await navigateTo(page, "/tools/pdf-to-text");
     await expect(page.locator("h1")).toContainText("PDF to Text Extractor");
 
     // Upload dummy PDF
@@ -591,7 +597,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("25. Bulk Image Resizer - Sizing and format compress", async ({ page }) => {
     const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
-    await page.goto("/tools/bulk-image-resizer");
+    await navigateTo(page, "/tools/bulk-image-resizer");
     await expect(page.locator("h1")).toContainText("Bulk Image Resizer");
 
     // Upload image
@@ -607,7 +613,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
   test("26. Visual Image Cropper - Crop presets and shapes", async ({ page }) => {
     const dummyJpgPath = path.join(__dirname, "..", "fixtures", "dummy.jpg");
-    await page.goto("/tools/image-cropper");
+    await navigateTo(page, "/tools/image-cropper");
     await expect(page.locator("h1")).toContainText("Visual Image Cropper");
 
     // Upload image
@@ -624,7 +630,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("27. SVG Minifier - Strip namespaces and precision", async ({ page }) => {
-    await page.goto("/tools/svg-minifier");
+    await navigateTo(page, "/tools/svg-minifier");
     await expect(page.locator("h1")).toContainText("SVG Minifier");
 
     const inputArea = page.locator('textarea[placeholder*="Paste your raw"]');
@@ -639,7 +645,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("28. Mortgage & Loan Amortization - Schedule and payment", async ({ page }) => {
-    await page.goto("/tools/mortgage-calculator");
+    await navigateTo(page, "/tools/mortgage-calculator");
     await expect(page.locator("h1")).toContainText("Mortgage & Loan Amortization Schedule");
 
     // Verify monthly payment
@@ -652,7 +658,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("29. Startup Cap Table Modeler - Dilution round", async ({ page }) => {
-    await page.goto("/tools/cap-table");
+    await navigateTo(page, "/tools/cap-table");
     await expect(page.locator("h1")).toContainText("Startup Capitalization Table Modeler");
 
     // Add a shareholder
@@ -665,7 +671,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("30. SaaS CAC & LTV Retention Modeler - Metrics and curve", async ({ page }) => {
-    await page.goto("/tools/saas-ltv");
+    await navigateTo(page, "/tools/saas-ltv");
     await expect(page.locator("h1")).toContainText("SaaS CAC & LTV Retention Modeler");
 
     // Verify LTV payback outputs
@@ -675,7 +681,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("31. Break-Even Point Calculator - Expenses and intersection", async ({ page }) => {
-    await page.goto("/tools/break-even");
+    await navigateTo(page, "/tools/break-even");
     await expect(page.locator("h1")).toContainText("Break-Even Point Calculator");
 
     // Verify break even quantity and sales values
@@ -684,7 +690,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("32. Regex Tester - Match highlights", async ({ page }) => {
-    await page.goto("/tools/regex-tester");
+    await navigateTo(page, "/tools/regex-tester");
     await expect(page.locator("h1")).toContainText("Interactive Regex Tester");
     // Verify default email matcher highlights zerowebtools.com
     await expect(page.locator("mark").first()).toContainText("support@zerowebtools.com");
@@ -694,7 +700,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("33. SQL Formatter & Beautifier - Query Formatting", async ({ page }) => {
-    await page.goto("/tools/sql-formatter");
+    await navigateTo(page, "/tools/sql-formatter");
     await expect(page.locator("h1")).toContainText("SQL Formatter & Beautifier");
     // Load example
     await page.click('button:has-text("Load Example")');
@@ -706,7 +712,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("34. Client-Side File Hasher - Hashing Local Files", async ({ page }) => {
-    await page.goto("/tools/file-hasher");
+    await navigateTo(page, "/tools/file-hasher");
     await expect(page.locator("h1")).toContainText("Client-Side File Hasher");
 
     // Upload a simulated file
@@ -728,7 +734,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("35. Password Strength Meter & Generator", async ({ page }) => {
-    await page.goto("/tools/password-generator");
+    await navigateTo(page, "/tools/password-generator");
     await expect(page.locator("h1")).toContainText("Password Strength Meter & Generator");
 
     // Wait for hydration to complete and password to generate (placeholder text is gone)
@@ -749,7 +755,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("36. Voice Dictator & Reader - TTS and dictation fallback", async ({ page }) => {
-    await page.goto("/tools/voice-dictator");
+    await navigateTo(page, "/tools/voice-dictator");
     await expect(page.locator("h1")).toContainText("Voice Dictator & Reader");
     // Verify text area defaultValue
     await expect(page.locator("textarea")).toHaveValue(/dictate text here/);
@@ -759,7 +765,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("37. Markdown to HTML Converter - live conversions and preview", async ({ page }) => {
-    await page.goto("/tools/markdown-converter");
+    await navigateTo(page, "/tools/markdown-converter");
     await expect(page.locator("h1").first()).toContainText("Markdown ↔ HTML Converter");
     
     // Check markdown to HTML conversion
@@ -783,7 +789,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("38. List Shuffler & Random Picker - Draw Winners", async ({ page }) => {
-    await page.goto("/tools/random-picker");
+    await navigateTo(page, "/tools/random-picker");
     await expect(page.locator("h1")).toContainText("List Shuffler & Random Picker");
     
     // Draw winners
@@ -798,7 +804,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("39. QR Code Generator & Customizer - Visual QR output", async ({ page }) => {
-    await page.goto("/tools/qr-code-generator");
+    await navigateTo(page, "/tools/qr-code-generator");
     await expect(page.locator("h1").first()).toContainText("QR Code Generator & Customizer");
 
     // Check custom text input
@@ -813,7 +819,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("40. CSS Box Shadow Generator - live preview and copy code", async ({ page }) => {
-    await page.goto("/tools/css-box-shadow");
+    await navigateTo(page, "/tools/css-box-shadow");
     await expect(page.locator("h1").first()).toContainText("CSS Box Shadow Generator");
 
     // Tweak sliders
@@ -826,7 +832,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("41. Unix Timestamp Converter - ticking clock and conversions", async ({ page }) => {
-    await page.goto("/tools/unix-timestamp-converter");
+    await navigateTo(page, "/tools/unix-timestamp-converter");
     await expect(page.locator("h1").first()).toContainText("Unix Timestamp Converter");
 
     // Verify ticker buttons are visible
@@ -839,7 +845,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("42. Cron Expression Generator & Parser - visual tabs and parsing", async ({ page }) => {
-    await page.goto("/tools/cron-generator");
+    await navigateTo(page, "/tools/cron-generator");
     await expect(page.locator("h1").first()).toContainText("Cron Expression Generator & Parser");
 
     // Type a custom cron expression
@@ -852,7 +858,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("43. 3D Dice Roller - Configuration and Rolling", async ({ page }) => {
-    await page.goto("/tools/dice-roller");
+    await navigateTo(page, "/tools/dice-roller");
     await expect(page.locator("h2").first()).toContainText("3D Dice Roller");
 
     // Check default state (2 dice)
@@ -875,7 +881,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("44. Random Team Generator - Splitting and Parsing", async ({ page }) => {
-    await page.goto("/tools/random-team-generator");
+    await navigateTo(page, "/tools/random-team-generator");
     await expect(page.locator("h2").first()).toContainText("Random Team Generator");
 
     // Add names
@@ -899,7 +905,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
   });
 
   test("45. Coin Flipper - Flipping and Result", async ({ page }) => {
-    await page.goto("/tools/coin-flipper");
+    await navigateTo(page, "/tools/coin-flipper");
     await expect(page.locator("h2").first()).toContainText("Coin Flipper");
 
     // Click Flip
@@ -910,5 +916,35 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     
     // Wait for flip to complete (it takes 2 seconds, so 5s timeout is fine)
     await expect(page.locator("text=It's")).toBeVisible({ timeout: 5000 });
+  });
+
+  test("46. HTML to JSX Converter - formatting and component wrapping", async ({ page }) => {
+    await navigateTo(page, "/tools/html-to-jsx");
+    await expect(page.locator("h1")).toContainText("HTML to JSX Converter");
+
+    // Load example
+    await page.click('button:has-text("Load Example")');
+
+    // Verify textarea has example content
+    const rawHtmlTextarea = page.locator('textarea[placeholder*="Paste your HTML"]');
+    await expect(rawHtmlTextarea).toHaveValue(/Welcome to ZeroWebTools/);
+
+    // Convert
+    await page.click('button:has-text("Convert to JSX")');
+
+    // Wait for the simulated processing overlay to disappear
+    await expect(page.locator("text=Converting HTML to JSX...")).not.toBeVisible({ timeout: 5000 });
+
+    // Verify output has converted attributes (className, etc.)
+    const outputTextarea = page.locator('textarea[placeholder*="converted JSX will appear"]');
+    await expect(outputTextarea).toHaveValue(/className="card"/);
+    await expect(outputTextarea).toHaveValue(/htmlFor="newsletter-email"/);
+    await expect(outputTextarea).toHaveValue(/style=\{\{/);
+
+    // Test component wrapping option
+    await page.click('text=Create component wrapper');
+    // Verify component name input shows up and wraps the output code
+    await expect(page.locator("input#component-name-input")).toBeVisible();
+    await expect(outputTextarea).toHaveValue(/export default function MyComponent/);
   });
 });

@@ -30,7 +30,7 @@ jobs:
         run: npm run test:unit
 
       - name: Install Playwright OS Dependencies
-        run: npx playwright install-deps
+        run: npx playwright install chromium --with-deps
 
       - name: Run Playwright E2E Tests
         run: npm run test:e2e

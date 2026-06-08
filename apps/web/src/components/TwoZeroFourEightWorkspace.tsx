@@ -367,52 +367,55 @@ export default function TwoZeroFourEightWorkspace() {
         onTouchEnd={handleTouchEnd}
         className="relative aspect-square w-full rounded-2xl bg-zinc-900/60 dark:bg-black/40 border border-border/40 p-3 select-none touch-none shadow-xl overflow-hidden"
       >
-        {/* Background Grid Cells */}
-        <div className="grid grid-cols-4 grid-rows-4 gap-3 w-full h-full">
-          {Array(16)
-            .fill(null)
-            .map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-full rounded-xl bg-zinc-800/20 dark:bg-zinc-900/20 border border-zinc-700/10 dark:border-zinc-800/10"
-              />
-            ))}
-        </div>
+        {/* Game Board Wrapper */}
+        <div className="absolute inset-3 select-none">
+          {/* Background Grid Cells */}
+          <div className="grid grid-cols-4 grid-rows-4 gap-3 w-full h-full">
+            {Array(16)
+              .fill(null)
+              .map((_, i) => (
+                <div
+                  key={i}
+                  className="w-full h-full rounded-xl bg-zinc-800/20 dark:bg-zinc-900/20 border border-zinc-700/10 dark:border-zinc-800/10"
+                />
+              ))}
+          </div>
 
-        {/* Foreground Animated Tiles */}
-        <div className="absolute inset-3 pointer-events-none">
-          <AnimatePresence>
-            {tiles.map((tile) => {
-              const xPercent = tile.col * 25;
-              const yPercent = tile.row * 25;
+          {/* Foreground Animated Tiles */}
+          <div className="absolute inset-0 pointer-events-none">
+            <AnimatePresence>
+              {tiles.map((tile) => {
+                const xPercent = tile.col * 25;
+                const yPercent = tile.row * 25;
 
-              return (
-                <motion.div
-                  key={tile.id}
-                  layout
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 450,
-                    damping: 28,
-                  }}
-                  className={`absolute rounded-xl flex flex-col items-center justify-center font-extrabold shadow-md ${getTileFontSizeClass(
-                    tile.value
-                  )} ${getTileClass(tile.value)}`}
-                  style={{
-                    width: "calc(25% - 9px)",
-                    height: "calc(25% - 9px)",
-                    left: `calc(${xPercent}% + ${tile.col * 3}px)`,
-                    top: `calc(${yPercent}% + ${tile.row * 3}px)`,
-                  }}
-                >
-                  <span className="font-sans leading-none">{tile.value}</span>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                return (
+                  <motion.div
+                    key={tile.id}
+                    layout
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 450,
+                      damping: 28,
+                    }}
+                    className={`absolute rounded-xl flex flex-col items-center justify-center font-extrabold shadow-md ${getTileFontSizeClass(
+                      tile.value
+                    )} ${getTileClass(tile.value)}`}
+                    style={{
+                      width: "calc(25% - 0.5625rem)",
+                      height: "calc(25% - 0.5625rem)",
+                      left: `calc(${xPercent}% + ${tile.col * 0.1875}rem)`,
+                      top: `calc(${yPercent}% + ${tile.row * 0.1875}rem)`,
+                    }}
+                  >
+                    <span className="font-sans leading-none">{tile.value}</span>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Game Over Screen Overlay */}
