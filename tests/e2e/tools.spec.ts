@@ -911,4 +911,34 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Wait for flip to complete (it takes 2 seconds, so 5s timeout is fine)
     await expect(page.locator("text=It's")).toBeVisible({ timeout: 5000 });
   });
+
+  test("46. HTML to JSX Converter - formatting and component wrapping", async ({ page }) => {
+    await page.goto("/tools/html-to-jsx");
+    await expect(page.locator("h1")).toContainText("HTML to JSX Converter");
+
+    // Load example
+    await page.click('button:has-text("Load Example")');
+
+    // Verify textarea has example content
+    const rawHtmlTextarea = page.locator('textarea[placeholder*="Paste your HTML"]');
+    await expect(rawHtmlTextarea).toHaveValue(/Welcome to ZeroWebTools/);
+
+    // Convert
+    await page.click('button:has-text("Convert to JSX")');
+
+    // Wait for the simulated processing overlay to disappear
+    await expect(page.locator("text=Converting HTML to JSX...")).not.toBeVisible({ timeout: 5000 });
+
+    // Verify output has converted attributes (className, etc.)
+    const outputTextarea = page.locator('textarea[placeholder*="converted JSX will appear"]');
+    await expect(outputTextarea).toHaveValue(/className="card"/);
+    await expect(outputTextarea).toHaveValue(/htmlFor="newsletter-email"/);
+    await expect(outputTextarea).toHaveValue(/style=\{\{/);
+
+    // Test component wrapping option
+    await page.click('text=Create component wrapper');
+    // Verify component name input shows up and wraps the output code
+    await expect(page.locator("input#component-name-input")).toBeVisible();
+    await expect(outputTextarea).toHaveValue(/export default function MyComponent/);
+  });
 });
