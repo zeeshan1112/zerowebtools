@@ -1446,6 +1446,52 @@
         }
       ]
     },
+    "token-counter": {
+      "title": "Cómo contar tokens LLM y estimar los costos de API localmente",
+      "metaDescription": "Calcule el recuento de tokens y estime los costos de API para GPT-4, Claude y Gemini localmente en su navegador. Admite codificaciones Tiktoken cl100k y o200k.",
+      "sections": [
+        {
+          "heading": "Comprensión de los tokens LLM y las codificaciones de recuento",
+          "level": "h2",
+          "paragraphs": [
+            "Los modelos de lenguaje grande (LLM), como los modelos GPT de OpenAI, Claude de Anthropic y Gemini de Google, no procesan texto en caracteres o palabras. En cambio, dividen el texto en fragmentos de caracteres llamados tokens. Un token puede ser un solo carácter, una sílaba, una palabra o incluso parte de una palabra. Comprender el recuento exacto de tokens de sus solicitudes es crucial, ya que los proveedores de LLM cobran según el uso de tokens y los modelos tienen límites estrictos de ventana de contexto.",
+            "Los diferentes modelos utilizan diferentes algoritmos tokenizadores (o codificaciones de tokens) para analizar el texto. Por ejemplo, GPT-3.5 y GPT-4 usan la codificación 'cl100k_base', mientras que los modelos GPT-4o más nuevos usan la codificación 'o200k_base'. Comparar su texto entre estas codificaciones ayuda a optimizar las indicaciones para que se ajusten a los presupuestos y umbrales de contexto."
+          ]
+        },
+        {
+          "heading": "Por qué el recuento de tokens del lado del cliente es esencial para la seguridad",
+          "level": "h2",
+          "paragraphs": [
+            "Las plantillas de pastelería, las solicitudes de API y los bloques de código contienen con frecuencia datos confidenciales, incluidas claves de API, credenciales de bases de datos, estructuras de código patentadas o registros personales de clientes. Cargar este texto en servidores remotos para contar tokens expone su información a fugas de cumplimiento y seguridad. ZeroWebTools ejecuta el motor tokenizador completamente dentro de su navegador.",
+            "Nuestro contador de tokens LLM utiliza bibliotecas Javascript locales para cargar matrices de clasificación BPE (codificación de pares de bytes) en la memoria. El proceso de tokenización, la representación visual de los límites de las palabras y las estimaciones de precios se procesan en su CPU local. Sus mensajes privados y entradas de texto nunca tocan un servidor remoto."
+          ]
+        },
+        {
+          "heading": "Cómo utilizar el contador de tokens y el estimador de costos",
+          "level": "h2",
+          "listItems": [
+            "Ingrese su texto: pegue su mensaje, fragmento de código o arrastre y suelte un archivo de texto en el editor del espacio de trabajo.",
+            "Elija codificaciones de tokenizador: cambie entre cl100k_base (GPT-4), o200k_base (GPT-4o) o recuentos de tokens aproximados para Gemini y Claude.",
+            "Analice los pronósticos de costos: alterne las entradas de tarifas personalizadas o seleccione ajustes preestablecidos de precios de modelos (GPT-4o, Claude 3.5, Gemini 1.5) para ver la entrada exacta y la estimación del costo de finalización proyectado.",
+            "Inspeccionar los límites de los tokens: revise el texto resaltado en colores alternos para visualizar exactamente dónde el tokenizador divide las palabras en distintos componentes del token."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Mi mensaje pegado se envía a alguna base de datos o servidor de IA?",
+          "answer": "No. Todo el proceso de tokenización se ejecuta en el lado del cliente en la memoria de su navegador. Su texto permanece 100% privado y nunca sale de su computadora."
+        },
+        {
+          "question": "¿Cuál es la diferencia entre cl100k_base y o200k_base?",
+          "answer": "Son diccionarios de tokenización diferentes. o200k_base es un diccionario de vocabulario más nuevo y más amplio utilizado por GPT-4o que es más eficiente para código y texto que no está en inglés, lo que resulta en un menor recuento de tokens para la misma entrada."
+        },
+        {
+          "question": "¿Cómo se calculan las estimaciones de costos?",
+          "answer": "Los pronósticos de costos multiplican los tokens de entrada calculados y los tokens de salida proyectados por las tasas de precios del modelo seleccionado por millón de tokens. También puede personalizar estas tasas de entrada y salida manualmente."
+        }
+      ]
+    },
     "startup-equity": {
       "title": "Cómo calcular la adquisición de capital inicial",
       "metaDescription": "Modele sus opciones sobre acciones iniciales, dilución del fundador y cronogramas de adquisición de derechos de 4 años. Calculadora financiera gratuita para fundadores y primeros empleados.",
@@ -2448,6 +2494,172 @@
           "answer": "No. Por seguridad y privacidad, sus listas no se almacenan en nuestros servidores. Debe copiar su lista antes de actualizar la página."
         }
       ]
+    },
+    "dice-roller": {
+      "title": "Cómo tirar dados 3D online con física y sonido",
+      "metaDescription": "Lanza dados virtuales 3D en línea con física interactiva y anuncios de resultados hablados. Admite configuraciones D4, D6, D8, D10, D12, D20 y D100.",
+      "sections": [
+        {
+          "heading": "Simulación de tiradas de dados de mesa justas en línea",
+          "level": "h2",
+          "paragraphs": [
+            "Los juegos de mesa, los juegos de rol (como Dragones y Mazmorras) y las actividades en el aula a menudo requieren tirar dados. Cuando no hay dados físicos disponibles, un rodillo de dados digital es la alternativa perfecta. Sin embargo, muchos apostadores básicos en línea utilizan una generación de números aleatorios estática y plana que carece de la emoción de ver caer un dado físico.",
+            "Nuestro 3D Dice Roller utiliza vectores de animación basados ​​en la física para simular la gravedad, el rebote y la fricción del mundo real. Al representar rotaciones y volteretas en 3D en tiempo real, ofrece una experiencia de rodamiento auténtica y satisfactoria directamente desde su navegador web."
+          ]
+        },
+        {
+          "heading": "Configuraciones y funciones de mesa flexibles",
+          "level": "h2",
+          "listItems": [
+            "Dados estándar y poliédricos: tira dados estándar de seis caras (D6) con puntos tradicionales o elige poliedros de mesa especializados: D4, D8, D10, D12, D20 o D100.",
+            "Lanzamiento de varios dados: lanza desde 1 hasta 12 dados simultáneamente. La herramienta sumará automáticamente los totales.",
+            "Síntesis de sonido y voz: habilite sonidos realistas de colisión de dados y elija que el navegador diga los resultados en voz alta una vez que concluya la animación.",
+            "Aleatorización 100% del lado del cliente: sus tiradas se generan localmente utilizando semillas matemáticas de navegador seguras de alta entropía, lo que garantiza resultados justos e imparciales."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Es esta tirada de dados realmente aleatoria?",
+          "answer": "Sí. Los valores aleatorios se generan en el lado del cliente utilizando los motores matemáticos nativos de JavaScript, lo que garantiza resultados justos y completamente imparciales para todas las tiradas."
+        },
+        {
+          "question": "¿Cómo se renderizan los pips D6?",
+          "answer": "Para los dados estándar de 6 caras (D6), la herramienta genera configuraciones de puntos auténticas en un diseño de 3x3 en lugar de mostrar números simples, coincidiendo con el aspecto de los dados físicos."
+        }
+      ]
+    },
+    "random-team-generator": {
+      "title": "Cómo generar equipos y grupos aleatorios al instante",
+      "metaDescription": "Divida una lista de nombres en equipos o grupos aleatorios iguales. Creador de equipos totalmente privado y basado en navegador para juegos, clases y grupos de trabajo.",
+      "sections": [
+        {
+          "heading": "Team building imparcial para cualquier actividad",
+          "level": "h2",
+          "paragraphs": [
+            "Dividir una clase de estudiantes, compañeros de trabajo o jugadores en equipos iguales puede generar fácilmente prejuicios o quejas de injusticia. Los seleccionadores pueden favorecer a los amigos o los equipos pueden terminar desequilibrados. Un generador de equipos aleatorio elimina este sesgo al barajar instantáneamente las entradas de la lista y distribuirlas uniformemente en grupos.",
+            "Ya sea que necesite grupos para un taller, un partido deportivo, una actividad en el aula o un torneo de juegos, nuestro generador de equipos aleatorios garantiza un proceso de selección justo y transparente en segundos."
+          ]
+        },
+        {
+          "heading": "Configurar grupos y mantener la privacidad",
+          "level": "h2",
+          "listItems": [
+            "Opciones de entrada: pegue una lista de nombres separados por nuevas líneas o comas directamente en el panel del editor.",
+            "Métodos de agrupación: elija entre generar un número fijo de equipos (por ejemplo, dividirlos en 4 equipos) o definir un tamaño máximo por equipo (por ejemplo, 5 miembros por grupo).",
+            "Procesamiento del navegador local: sus listas, nombres y distribuciones de equipos se procesan completamente en su navegador. No se envían datos a servidores externos, protegiendo nombres personales y listas corporativas."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Las listas o los nombres de mi equipo se guardan en un servidor?",
+          "answer": "No, todas las listas de entrada y asignaciones de equipo se procesan estrictamente dentro de la memoria local de su navegador y nunca se cargan."
+        },
+        {
+          "question": "¿Puedo copiar los equipos generados fácilmente?",
+          "answer": "Sí, la herramienta genera equipos en tarjetas limpias con botones de copia con un solo clic para pegar fácilmente listas de equipos en correos electrónicos, chats o archivos de documentos."
+        }
+      ]
+    },
+    "coin-flipper": {
+      "title": "Cómo lanzar una moneda en línea para tomar decisiones aleatorias",
+      "metaDescription": "Lanza una moneda virtual en línea para obtener cara o cruz. Funciona del lado del cliente con generación aleatoria justa y animaciones de giro 3D limpias.",
+      "sections": [
+        {
+          "heading": "Resuelva sus decisiones al instante con un lanzamiento de moneda virtual",
+          "level": "h2",
+          "paragraphs": [
+            "Lanzar una moneda al aire es la forma más antigua y sencilla de resolver disputas menores, tomar decisiones 50/50 o elegir el orden de inicio de los juegos. Cuando no tienes una moneda física en el bolsillo, un lanzador de monedas en línea hace el trabajo al instante.",
+            "Nuestro lanzador de monedas virtual genera una limpia animación de lanzamiento de moneda en 3D y utiliza matemáticas del lado del cliente criptográficamente seguras para ofrecer una probabilidad real de 50/50. Resolver discusiones o tomar decisiones con confianza."
+          ]
+        },
+        {
+          "heading": "Características del lanzador de monedas virtual",
+          "level": "h2",
+          "listItems": [
+            "Múltiples monedas y temas personalizados: lanza monedas de oro estándar, rupias indias o fichas antiguas.",
+            "Seguimiento de estadísticas de sesión: mantiene la puntuación del total de lanzamientos, incluido el recuento de caras y cruces, para que pueda probar la probabilidad a lo largo del tiempo.",
+            "Efectos de sonido y física: incluye sonidos de volteo opcionales y animaciones de resorte para que el lanzamiento de la moneda se sienta receptivo."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿El lanzamiento de la moneda es exactamente 50/50?",
+          "answer": "Sí, la probabilidad es matemáticamente justa y se calcula utilizando generadores aleatorios seguros en su navegador, replicando un lanzamiento de moneda real."
+        },
+        {
+          "question": "¿Puedo realizar un seguimiento de mi historial de volteos?",
+          "answer": "Sí, la herramienta actualiza un tablero de estadísticas en vivo que rastrea los recuentos y porcentajes de caras y cruces durante la sesión activa del navegador."
+        }
+      ]
+    },
+    "spin-the-wheel": {
+      "title": "Cómo hacer girar una rueda de decisiones virtual en línea",
+      "metaDescription": "Cree una rueda personalizada de opciones y gírela para realizar selecciones aleatorias. Toma de decisiones totalmente del lado del cliente con sonidos y cortes personalizados.",
+      "sections": [
+        {
+          "heading": "Rompe la indecisión con una rueda de premios personalizada",
+          "level": "h2",
+          "paragraphs": [
+            "Elegir qué comer para la cena, elegir un ganador para una rifa o decidir qué tarea abordar primero puede generar fatiga en la toma de decisiones. Una herramienta de girar la rueda inyecta diversión y aleatoriedad en la elección. Al escribir tus opciones en una rueda de colores, puedes dejar que la gravedad y la física tomen la decisión final.",
+            "ZeroWebTools Spin the Wheel está diseñado para ejecutarse localmente en su navegador. Con física responsiva, efectos de sonido y pancartas de ganadores, es perfecto para sorteos, profesores y grupos indecisos."
+          ]
+        },
+        {
+          "heading": "Sectores avanzados y configuraciones personalizadas",
+          "level": "h2",
+          "listItems": [
+            "Listas de importación masiva: pegue una lista de nombres u opciones separados por una nueva línea para cargarlos todos en la rueda a la vez.",
+            "Control de volumen y audio: incluye efectos de sonido de procedimiento que aceleran y desaceleran dinámicamente coincidiendo con la velocidad de la rueda.",
+            "Seguridad completa: los sectores, el historial y las opciones se almacenan localmente en su dispositivo y nunca se envían a un servidor."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Puedo personalizar los nombres de los sectores?",
+          "answer": "Sí, puede editar, agregar o eliminar sectores dinámicamente. Los colores de los segmentos de la rueda se redistribuirán automáticamente para adaptarse a sus artículos."
+        },
+        {
+          "question": "¿El sonido funciona en dispositivos móviles?",
+          "answer": "Sí, la herramienta está optimizada para desbloquear canales de audio del navegador en eventos de clics móviles, lo que permite sonidos de ticks con latencia cero en iOS y Android."
+        }
+      ]
+    },
+    "2048-game": {
+      "title": "Cómo jugar el juego de rompecabezas 2048 en línea",
+      "metaDescription": "Juega al clásico juego de rompecabezas de fichas deslizantes 2048 en tu navegador. Guarde puntuaciones altas localmente, juego fuera de línea totalmente privado.",
+      "sections": [
+        {
+          "heading": "Cómo jugar y ganar 2048",
+          "level": "h2",
+          "paragraphs": [
+            "2048 es un juego de rompecabezas matemático de bloques deslizantes altamente adictivo. El juego se juega en una cuadrícula de 4x4. Cuando deslizas o presionas una tecla de flecha, todos los mosaicos se deslizan en esa dirección hasta donde pueden llegar. Si dos fichas del mismo número chocan mientras se deslizan, se fusionan en una sola ficha con la suma de sus valores (por ejemplo, 2 + 2 = 4, 4 + 4 = 8).",
+            "Tu objetivo es fusionar fichas estratégicamente para crear una ficha con el valor 2048. Si el tablero se llena por completo y no quedan movimientos válidos, el juego termina. Planificar los movimientos con antelación es fundamental para conseguir puntuaciones altas."
+          ]
+        },
+        {
+          "heading": "Funciones persistentes locales primero",
+          "level": "h2",
+          "listItems": [
+            "Tocar y deslizar con capacidad de respuesta: deslice mosaicos usando las teclas de flecha del teclado, WASD o gestos de deslizamiento en ventanas gráficas móviles.",
+            "Persistencia del estado: el juego guarda automáticamente tu tablero actual y tu puntuación en el almacenamiento local. Puedes cerrar la pestaña y continuar jugando más tarde.",
+            "Score Tracker: muestra su puntaje actual junto con su puntaje más alto de todos los tiempos."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Puedo jugar el juego sin conexión?",
+          "answer": "Sí. Una vez cargada la página web, la lógica del juego se ejecuta completamente en tu navegador local y no requiere una conexión a Internet activa."
+        },
+        {
+          "question": "¿El juego sube mi puntuación más alta?",
+          "answer": "No, todas las puntuaciones se guardan directamente en el almacenamiento local de su navegador, lo que garantiza que su actividad de juego permanezca completamente privada."
+        }
+      ]
     }
   },
   "spin_the_wheel": {
@@ -2480,6 +2692,7 @@
     "option_format_indent": "Formato de sangría",
     "option_indent_size": "Tamaño de sangría",
     "option_indent_2": "2 espacios",
+    "option_indent_3": "3 espacios",
     "option_indent_4": "4 espacios",
     "step_1": "Analizando la estructura de marcado HTML...",
     "step_2": "Convirtiendo atributos (clase -> nombre de clase, para -> htmlFor)...",

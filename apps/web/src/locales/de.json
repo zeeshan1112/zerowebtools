@@ -1446,6 +1446,52 @@
         }
       ]
     },
+    "token-counter": {
+      "title": "So zählen Sie LLM-Tokens und schätzen die API-Kosten vor Ort",
+      "metaDescription": "Berechnen Sie die Anzahl der Token und schätzen Sie die API-Kosten für GPT-4, Claude und Gemini lokal in Ihrem Browser. Unterstützt Tiktoken cl100k- und o200k-Kodierungen.",
+      "sections": [
+        {
+          "heading": "LLM-Token und Zählkodierungen verstehen",
+          "level": "h2",
+          "paragraphs": [
+            "Große Sprachmodelle (LLMs) wie die GPT-Modelle von OpenAI, Claude von Anthropic und Gemini von Google verarbeiten keinen Text in Zeichen oder Wörtern. Stattdessen zerlegen sie den Text in Zeichenblöcke, sogenannte Token. Ein Token kann ein einzelnes Zeichen, eine Silbe, ein Wort oder sogar ein Teil eines Wortes sein. Es ist von entscheidender Bedeutung, die genaue Token-Anzahl Ihrer Eingabeaufforderungen zu kennen, da LLM-Anbieter ihre Gebühren auf der Grundlage der Token-Nutzung abrechnen und Modelle strenge Kontextfensterbeschränkungen haben.",
+            "Verschiedene Modelle verwenden unterschiedliche Tokenizer-Algorithmen (oder Token-Kodierungen), um Text zu analysieren. Beispielsweise verwenden GPT-3.5 und GPT-4 die Kodierung „cl100k_base“, während neuere GPT-4o-Modelle die Kodierung „o200k_base“ verwenden. Der Vergleich Ihres Textes über diese Kodierungen hinweg hilft dabei, Eingabeaufforderungen so zu optimieren, dass sie in Budgets und Kontextschwellenwerte passen."
+          ]
+        },
+        {
+          "heading": "Warum die clientseitige Tokenzählung für die Sicherheit unerlässlich ist",
+          "level": "h2",
+          "paragraphs": [
+            "Gebäckvorlagen, API-Eingabeaufforderungen und Codeblöcke enthalten häufig vertrauliche Daten, darunter API-Schlüssel, Datenbankanmeldeinformationen, proprietäre Codestrukturen oder persönliche Kundenprotokolle. Wenn Sie diesen Text auf Remote-Server hochladen, um Token zu zählen, sind Ihre Informationen Compliance- und Sicherheitslücken ausgesetzt. ZeroWebTools führt die Tokenizer-Engine vollständig in Ihrem Browser aus.",
+            "Unser LLM-Token-Zähler nutzt lokale Javascript-Bibliotheken, um BPE-Rang-Arrays (Byte Pair Encoding) in den Speicher zu laden. Der Tokenisierungsprozess, das visuelle Rendern von Wortgrenzen und Preisschätzungen werden auf Ihrer lokalen CPU verarbeitet. Ihre privaten Eingabeaufforderungen und Texteingaben berühren niemals einen Remote-Server."
+          ]
+        },
+        {
+          "heading": "So verwenden Sie den Token Counter und den Kostenschätzer",
+          "level": "h2",
+          "listItems": [
+            "Geben Sie Ihren Text ein – Fügen Sie Ihre Eingabeaufforderung oder Ihr Code-Snippet ein oder ziehen Sie eine Textdatei per Drag & Drop in den Arbeitsbereich-Editor.",
+            "Wählen Sie Tokenizer-Kodierungen – Wechseln Sie zwischen cl100k_base (GPT-4), o200k_base (GPT-4o) oder ungefähren Token-Anzahlen für Gemini und Claude.",
+            "Analysieren Sie Kostenprognosen – Schalten Sie benutzerdefinierte Tarifeingaben um oder wählen Sie Modellpreisvoreinstellungen (GPT-4o, Claude 3.5, Gemini 1.5) aus, um die genaue Eingabe und die voraussichtliche Fertigstellungskostenschätzung anzuzeigen.",
+            "Überprüfen Sie die Token-Grenzen – Überprüfen Sie den in wechselnden Farben hervorgehobenen Text, um genau zu visualisieren, wo der Tokenizer Wörter in verschiedene Token-Komponenten aufteilt."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Wird meine eingefügte Eingabeaufforderung an eine Datenbank oder einen KI-Server gesendet?",
+          "answer": "Nein. Der gesamte Tokenisierungsprozess läuft clientseitig in Ihrem Browserspeicher ab. Ihr Text bleibt 100 % privat und verlässt niemals Ihren Computer."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen cl100k_base und o200k_base?",
+          "answer": "Es handelt sich um verschiedene Tokenisierungswörterbücher. o200k_base ist ein neueres Wörterbuch mit größerem Vokabular, das von GPT-4o verwendet wird und effizienter für Code und nicht-englischen Text ist, was zu einer geringeren Tokenanzahl für dieselbe Eingabe führt."
+        },
+        {
+          "question": "Wie werden die Kostenvoranschläge berechnet?",
+          "answer": "Kostenprognosen multiplizieren die berechneten Eingabe-Tokens und prognostizierten Ausgabe-Tokens mit den Preissätzen des ausgewählten Modells pro Million Token. Sie können diese Ein- und Ausgaberaten auch manuell anpassen."
+        }
+      ]
+    },
     "startup-equity": {
       "title": "So berechnen Sie die Eigenkapitalbeteiligung eines Startups",
       "metaDescription": "Modellieren Sie Ihre Startup-Aktienoptionen, Gründerverwässerung und 4-Jahres-Vestingpläne. Kostenloser Finanzrechner für Gründer und frühe Mitarbeiter.",
@@ -2448,6 +2494,172 @@
           "answer": "Nein. Aus Sicherheits- und Datenschutzgründen werden Ihre Listen nicht auf unseren Servern gespeichert. Sie müssen Ihre Liste kopieren, bevor Sie die Seite aktualisieren."
         }
       ]
+    },
+    "dice-roller": {
+      "title": "So würfeln Sie online mit Physik und Ton 3D-Würfel",
+      "metaDescription": "Lassen Sie virtuelle 3D-Würfel online mit interaktiver Physik und gesprochenen Ergebnisansagen rollen. Unterstützt die Konfigurationen D4, D6, D8, D10, D12, D20 und D100.",
+      "sections": [
+        {
+          "heading": "Faire Tabletop-Würfelwürfe online simulieren",
+          "level": "h2",
+          "paragraphs": [
+            "Bei Tischspielen, Rollenspielen (wie „Dungeons & Dragons“) und Aktivitäten im Klassenzimmer ist häufig das Würfeln erforderlich. Wenn keine physischen Würfel verfügbar sind, ist ein digitaler Würfelroller die perfekte Alternative. Allerdings verwenden viele einfache Online-Walzer eine flache, statische Zufallszahlengenerierung, bei der es an der Spannung mangelt, die das Herunterfallen eines physischen Würfels mit sich bringt.",
+            "Unser 3D-Würfelroller nutzt physikgesteuerte Animationsvektoren, um Schwerkraft, Sprungkraft und Reibung in der realen Welt zu simulieren. Durch die Wiedergabe von 3D-Rotationen und -Tumblings in Echtzeit bietet es ein authentisches, zufriedenstellendes Rollerlebnis direkt in Ihrem Webbrowser."
+          ]
+        },
+        {
+          "heading": "Flexible Tischkonfigurationen und Funktionen",
+          "level": "h2",
+          "listItems": [
+            "Standard- und polyedrische Würfel – Wirf standardmäßige sechsseitige Würfel (W6) mit traditionellen Punktpunkten oder wähle spezielle Polyeder auf dem Tisch: D4, D8, D10, D12, D20 oder D100.",
+            "Würfeln mit mehreren Würfeln – Wirf 1 bis 12 Würfel gleichzeitig. Das Tool summiert die Summen automatisch.",
+            "Ton- und Sprachsynthese – Aktivieren Sie realistische Würfelkollisionsgeräusche und lassen Sie den Browser die Würfelergebnisse laut vorlesen, sobald die Animation abgeschlossen ist.",
+            "100 % clientseitige Randomisierung – Ihre Rollen werden lokal mithilfe sicherer Browser-Mathe-Seeds mit hoher Entropie generiert, um faire und unvoreingenommene Ergebnisse zu gewährleisten."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Ist dieser Würfelwurf wirklich zufällig?",
+          "answer": "Ja. Die Zufallswerte werden clientseitig mithilfe der nativen Mathematik-Engines von JavaScript generiert, wodurch völlig unvoreingenommene und faire Ergebnisse für alle Würfe gewährleistet werden."
+        },
+        {
+          "question": "Wie werden D6-Pips gerendert?",
+          "answer": "Für standardmäßige 6-seitige Würfel (D6) rendert das Tool authentische Punktkonfigurationen in einem 3x3-Layout, anstatt einfache Zahlen anzuzeigen, was dem Aussehen physischer Würfel entspricht."
+        }
+      ]
+    },
+    "random-team-generator": {
+      "title": "So generieren Sie sofort zufällige Teams und Gruppen",
+      "metaDescription": "Teilen Sie eine Liste mit Namen in gleich große, zufällige Teams oder Gruppen auf. Vollständig privater, browserbasierter Teambuilder für Spiele, Kurse und Arbeitskohorten.",
+      "sections": [
+        {
+          "heading": "Unvoreingenommenes Teambuilding für jede Aktivität",
+          "level": "h2",
+          "paragraphs": [
+            "Die Aufteilung einer Klasse aus Schülern, Kollegen oder Spielern in gleichberechtigte Teams kann leicht zu Voreingenommenheit oder Beschwerden über Ungerechtigkeit führen. Picker bevorzugen möglicherweise Freunde, oder Teams können am Ende unausgeglichen sein. Ein zufälliger Teamgenerator beseitigt diese Verzerrung, indem Listeneinträge sofort gemischt und gleichmäßig auf Gruppen verteilt werden.",
+            "Ob Sie Gruppen für einen Workshop, ein Sportmatch, eine Klassenaktivität oder ein Gaming-Turnier benötigen, unser zufälliger Teamgenerator sorgt in Sekundenschnelle für einen fairen, transparenten Auswahlprozess."
+          ]
+        },
+        {
+          "heading": "Konfigurieren Sie Gruppen und wahren Sie den Datenschutz",
+          "level": "h2",
+          "listItems": [
+            "Eingabeoptionen – Fügen Sie eine durch Zeilenumbrüche oder Kommas getrennte Liste von Namen direkt in den Editorbereich ein.",
+            "Gruppierungsmethoden – Wählen Sie zwischen der Bildung einer festen Anzahl von Teams (z. B. Aufteilung in 4 Teams) oder der Definition einer maximalen Größe pro Team (z. B. 5 Mitglieder pro Gruppe).",
+            "Lokale Browserverarbeitung – Ihre Listen, Namen und Teamverteilungen werden vollständig in Ihrem Browser verarbeitet. Es werden keine Daten an externe Server gesendet, wodurch persönliche Namen und Unternehmenspläne geschützt werden."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Werden meine Mannschaftsaufstellungen oder Namen auf einem Server gespeichert?",
+          "answer": "Nein, alle Eingabelisten und Teamzuweisungen werden ausschließlich im lokalen Speicher Ihres Browsers verarbeitet und niemals hochgeladen."
+        },
+        {
+          "question": "Kann ich die generierten Teams einfach kopieren?",
+          "answer": "Ja, das Tool gibt Teams in sauberen Karten mit Kopierschaltflächen mit einem Klick aus, um Teamlisten einfach in E-Mails, Chats oder Dokumentdateien einzufügen."
+        }
+      ]
+    },
+    "coin-flipper": {
+      "title": "Wie man online eine Münze wirft, um zufällige Entscheidungen zu treffen",
+      "metaDescription": "Werfen Sie online eine virtuelle Münze, um Kopf oder Zahl zu erhalten. Funktioniert clientseitig mit fairer Zufallsgenerierung und sauberen 3D-Spinning-Animationen.",
+      "sections": [
+        {
+          "heading": "Erledigen Sie Entscheidungen sofort mit einem virtuellen Münzwurf",
+          "level": "h2",
+          "paragraphs": [
+            "Das Werfen einer Münze ist die älteste und einfachste Möglichkeit, kleinere Streitigkeiten beizulegen, 50/50-Entscheidungen zu treffen oder die Startreihenfolge für Spiele festzulegen. Wenn Sie keine physische Münze in der Tasche haben, erledigt ein Online-Münzwerfer die Arbeit sofort.",
+            "Unser virtueller Münzwerfer rendert eine saubere 3D-Münzwurfanimation und nutzt kryptografisch sichere, clientseitige Mathematik, um eine echte 50/50-Wahrscheinlichkeit zu liefern. Schlichten Sie Argumente oder treffen Sie Entscheidungen mit Zuversicht."
+          ]
+        },
+        {
+          "heading": "Funktionen des virtuellen Münzflippers",
+          "level": "h2",
+          "listItems": [
+            "Mehrere Währungen und benutzerdefinierte Themen – Werfen Sie Standard-Goldmünzen, indische Rupien oder Vintage-Token.",
+            "Sitzungsstatistik-Tracker – Erfasst die Gesamtpunktzahl aller Würfe, einschließlich der Kopf- und Zahlanzahl, sodass Sie die Wahrscheinlichkeit im Laufe der Zeit testen können.",
+            "Sound- und Physikeffekte – Enthält optionale Wendegeräusche und Federanimationen, damit sich der Münzwurf reaktionsschnell anfühlt."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Ist der Münzwurf genau 50/50?",
+          "answer": "Ja, die Wahrscheinlichkeit ist mathematisch fair und wird mithilfe sicherer Zufallsgeneratoren in Ihrem Browser berechnet, die einen echten Münzwurf nachbilden."
+        },
+        {
+          "question": "Kann ich meinen Flip-Verlauf verfolgen?",
+          "answer": "Ja, das Tool aktualisiert eine Live-Statistiktafel, die die Anzahl und Prozentsätze von Kopf und Zahl während Ihrer aktiven Browsersitzung verfolgt."
+        }
+      ]
+    },
+    "spin-the-wheel": {
+      "title": "So drehen Sie online ein virtuelles Entscheidungsrad",
+      "metaDescription": "Erstellen Sie ein benutzerdefiniertes Optionsrad und drehen Sie es, um eine zufällige Auswahl zu treffen. Vollständig kundenseitiger Entscheidungsträger mit Sounds und benutzerdefinierten Slices.",
+      "sections": [
+        {
+          "heading": "Brechen Sie die Unentschlossenheit mit einem benutzerdefinierten Gewinnrad",
+          "level": "h2",
+          "paragraphs": [
+            "Die Auswahl dessen, was man zum Abendessen essen möchte, die Auswahl eines Gewinners für eine Tombola oder die Entscheidung, welche Aufgabe man zuerst in Angriff nehmen möchte, kann zu Entscheidungsmüdigkeit führen. Ein Tool zum Drehen des Rades bringt Spaß und Zufälligkeit in die Auswahl. Indem Sie Ihre Optionen auf einem bunten Rad aufschreiben, können Sie der Schwerkraft und der Physik die endgültige Entscheidung überlassen.",
+            "ZeroWebTools Spin the Wheel ist für die lokale Ausführung in Ihrem Browser konzipiert. Mit reaktionsschneller Physik, tickenden Audio-Soundeffekten und Gewinner-Bannern ist es perfekt für Giveaways, Lehrer und unentschlossene Gruppen."
+          ]
+        },
+        {
+          "heading": "Erweiterte Slices und benutzerdefinierte Einstellungen",
+          "level": "h2",
+          "listItems": [
+            "Massenimportlisten – Fügen Sie eine durch Zeilenumbrüche getrennte Liste mit Namen oder Optionen ein, um sie alle auf einmal in das Rad zu laden.",
+            "Lautstärke- und Audiosteuerung – Enthält prozedural tickende Soundeffekte, die dynamisch an die Radgeschwindigkeit angepasst werden.",
+            "Vollständige Sicherheit – Slices, Verlauf und Optionen werden lokal auf Ihrem Gerät gespeichert und niemals an einen Server gesendet."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Kann ich die Slice-Namen anpassen?",
+          "answer": "Ja, Sie können Slices dynamisch bearbeiten, hinzufügen oder löschen. Die Farben der Radsegmente werden automatisch neu verteilt, damit sie zu Ihren Artikeln passen."
+        },
+        {
+          "question": "Funktioniert der Ton auf Mobilgeräten?",
+          "answer": "Ja, das Tool ist dafür optimiert, Browser-Audiokanäle bei mobilen Klickereignissen freizuschalten und so Tick-Sounds ohne Latenz auf iOS und Android zu ermöglichen."
+        }
+      ]
+    },
+    "2048-game": {
+      "title": "So spielen Sie das Puzzlespiel 2048 online",
+      "metaDescription": "Spielen Sie das klassische Schiebepuzzlespiel 2048 in Ihrem Browser. Speichern Sie Highscores lokal, völlig privates Offline-Spiel.",
+      "sections": [
+        {
+          "heading": "So spielen und gewinnen Sie 2048",
+          "level": "h2",
+          "paragraphs": [
+            "2048 ist ein fesselndes, mathematisches Schiebeblock-Puzzlespiel. Das Spiel wird auf einem 4x4-Raster gespielt. Wenn Sie wischen oder eine Pfeiltaste drücken, werden alle Kacheln so weit wie möglich in diese Richtung verschoben. Wenn zwei Kacheln mit der gleichen Nummer beim Gleiten kollidieren, verschmelzen sie mit der Summe ihrer Werte zu einer einzigen Kachel (z. B. 2 + 2 = 4, 4 + 4 = 8).",
+            "Ihr Ziel ist es, Plättchen strategisch zusammenzuführen, um ein Plättchen mit dem Wert 2048 zu erstellen. Wenn das Spielbrett vollständig gefüllt ist und keine gültigen Züge mehr übrig sind, endet das Spiel. Um hohe Punktzahlen zu erzielen, ist es wichtig, Bewegungen im Voraus zu planen."
+          ]
+        },
+        {
+          "heading": "Local-First-Persistent-Funktionen",
+          "level": "h2",
+          "listItems": [
+            "Reaktionsschnelles Berühren und Wischen – Verschieben Sie Kacheln mit den Pfeiltasten der Tastatur, WASD oder Wischgesten in mobilen Ansichtsfenstern.",
+            "Zustandspersistenz – Das Spiel speichert Ihr aktuelles Spielbrett und Ihren Punktestand automatisch im lokalen Speicher. Sie können die Registerkarte schließen und die Wiedergabe später fortsetzen.",
+            "Score Tracker – Zeigt Ihren aktuellen Punktestand zusammen mit Ihrem Allzeit-Highscore an."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Kann ich das Spiel offline spielen?",
+          "answer": "Ja. Sobald die Webseite geladen ist, läuft die Spiellogik vollständig in Ihrem lokalen Browser und erfordert keine aktive Internetverbindung."
+        },
+        {
+          "question": "Lädt das Spiel meinen Highscore hoch?",
+          "answer": "Nein, alle Ergebnisse werden direkt im localStorage Ihres Browsers gespeichert, sodass Ihre Spielaktivitäten vollständig privat bleiben."
+        }
+      ]
     }
   },
   "spin_the_wheel": {
@@ -2480,6 +2692,7 @@
     "option_format_indent": "Einzug formatieren",
     "option_indent_size": "Einzugsgröße",
     "option_indent_2": "2 Leerzeichen",
+    "option_indent_3": "3 Plätze",
     "option_indent_4": "4 Plätze",
     "step_1": "HTML-Markup-Struktur wird analysiert...",
     "step_2": "Konvertieren von Attributen (Klasse -> Klassenname, für -> htmlFor) ...",

@@ -1,11 +1,22 @@
 export type ToolStatus = "live" | "coming-soon";
 
+export interface SubQuery {
+  slug: string;
+  title: string;
+  metaDescription: string;
+  articleIntro?: {
+    heading: string;
+    paragraphs: string[];
+  };
+}
+
 export interface Tool {
   id: string;
   title: string;
   description: string;
   status: ToolStatus;
   metaDescription: string;
+  subQueries?: SubQuery[];
 }
 
 export interface ToolCategory {

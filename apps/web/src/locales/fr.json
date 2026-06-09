@@ -1446,6 +1446,52 @@
         }
       ]
     },
+    "token-counter": {
+      "title": "Comment compter les jetons LLM et estimer les coûts des API localement",
+      "metaDescription": "Calculez le nombre de jetons et estimez les coûts des API pour GPT-4, Claude et Gemini localement dans votre navigateur. Prend en charge les encodages Tiktoken cl100k et o200k.",
+      "sections": [
+        {
+          "heading": "Comprendre les jetons LLM et les encodages de comptage",
+          "level": "h2",
+          "paragraphs": [
+            "Les grands modèles linguistiques (LLM) comme les modèles GPT d'OpenAI, Claude d'Anthropic et Gemini de Google ne traitent pas le texte en caractères ou en mots. Au lieu de cela, ils décomposent le texte en morceaux de caractères appelés jetons. Un jeton peut être un seul caractère, une syllabe, un mot ou même une partie d'un mot. Comprendre le nombre exact de jetons de vos invites est crucial puisque les fournisseurs LLM facturent en fonction de l'utilisation des jetons et que les modèles ont des limites strictes de fenêtre de contexte.",
+            "Différents modèles utilisent différents algorithmes de tokenisation (ou encodages de jetons) pour analyser le texte. Par exemple, GPT-3.5 et GPT-4 utilisent l'encodage « cl100k_base », tandis que les modèles GPT-4o plus récents utilisent l'encodage « o200k_base ». La comparaison de votre texte avec ces encodages permet d'optimiser les invites pour les adapter aux budgets et aux seuils contextuels."
+          ]
+        },
+        {
+          "heading": "Pourquoi le comptage de jetons côté client est essentiel pour la sécurité",
+          "level": "h2",
+          "paragraphs": [
+            "Les modèles Pastry, les invites API et les blocs de code contiennent souvent des données sensibles, notamment des clés API, des informations d'identification de base de données, des structures de code propriétaires ou des journaux personnels de clients. Le téléchargement de ce texte sur des serveurs distants pour compter les jetons expose vos informations à des fuites de conformité et de sécurité. ZeroWebTools exécute le moteur de tokenisation entièrement dans votre navigateur.",
+            "Notre compteur de jetons LLM utilise des bibliothèques Javascript locales pour charger des tableaux de classement BPE (Byte Pair Encoding) en mémoire. Le processus de tokenisation, le rendu visuel des limites des mots et les estimations de prix sont traités sur votre processeur local. Vos invites privées et vos saisies de texte ne touchent jamais un serveur distant."
+          ]
+        },
+        {
+          "heading": "Comment utiliser le compteur de jetons et l'estimateur de coûts",
+          "level": "h2",
+          "listItems": [
+            "Saisissez votre texte : collez votre invite, votre extrait de code ou faites glisser et déposez un fichier texte dans l'éditeur d'espace de travail.",
+            "Choisissez les encodages Tokenizer – Basculez entre cl100k_base (GPT-4), o200k_base (GPT-4o) ou le nombre approximatif de jetons pour Gemini et Claude.",
+            "Analyser les prévisions de coûts - Basculez les entrées de taux personnalisées ou sélectionnez les préréglages de tarification du modèle (GPT-4o, Claude 3.5, Gemini 1.5) pour voir l'entrée exacte et l'estimation du coût d'achèvement projeté.",
+            "Inspecter les limites des jetons : examinez le texte surligné en couleurs alternées pour visualiser exactement où le tokeniseur divise les mots en composants de jetons distincts."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Mon invite collée est-elle envoyée à une base de données ou à des serveurs IA ?",
+          "answer": "Non. L’ensemble du processus de tokenisation s’exécute côté client dans la mémoire de votre navigateur. Votre texte reste 100% privé et ne quitte jamais votre ordinateur."
+        },
+        {
+          "question": "Quelle est la différence entre cl100k_base et o200k_base ?",
+          "answer": "Ce sont des dictionnaires de tokenisation différents. o200k_base est un dictionnaire de vocabulaire plus récent et plus volumineux utilisé par GPT-4o, qui est plus efficace pour le code et le texte non anglais, ce qui entraîne un nombre de jetons inférieur pour la même entrée."
+        },
+        {
+          "question": "Comment sont calculés les devis ?",
+          "answer": "Les prévisions de coûts multiplient les jetons d'entrée calculés et les jetons de sortie projetés par les taux de tarification du modèle sélectionné par million de jetons. Vous pouvez également personnaliser manuellement ces taux d’entrée et de sortie."
+        }
+      ]
+    },
     "startup-equity": {
       "title": "Comment calculer l'acquisition des capitaux propres d'une startup",
       "metaDescription": "Modélisez vos options d'achat d'actions de démarrage, la dilution du fondateur et les calendriers d'acquisition sur 4 ans. Calculateur financier gratuit pour les fondateurs et les premiers employés.",
@@ -2448,6 +2494,172 @@
           "answer": "Non. Pour des raisons de sécurité et de confidentialité, vos listes ne sont pas stockées sur nos serveurs. Vous devez copier votre liste avant de rafraîchir la page."
         }
       ]
+    },
+    "dice-roller": {
+      "title": "Comment lancer des dés 3D en ligne avec la physique et le son",
+      "metaDescription": "Lancez des dés virtuels 3D en ligne avec une physique interactive et des annonces vocales des résultats. Prend en charge les configurations D4, D6, D8, D10, D12, D20 et D100.",
+      "sections": [
+        {
+          "heading": "Simulation de lancers de dés équitables sur table en ligne",
+          "level": "h2",
+          "paragraphs": [
+            "Les jeux de table, les jeux de rôle (comme Donjons et Dragons) et les activités en classe nécessitent souvent de lancer des dés. Lorsque les dés physiques ne sont pas disponibles, un rouleau de dés numérique est l’alternative parfaite. Cependant, de nombreux jeux de rôle en ligne de base utilisent une génération de nombres aléatoires statiques et plats qui n'offrent pas l'excitation de regarder un dé physique tomber.",
+            "Notre rouleau de dés 3D utilise des vecteurs d'animation basés sur la physique pour simuler la gravité, le rebond et la friction du monde réel. En rendant les rotations et les culbutes 3D en temps réel, il offre une expérience de roulement authentique et satisfaisante directement dans votre navigateur Web."
+          ]
+        },
+        {
+          "heading": "Configurations et fonctionnalités de table flexibles",
+          "level": "h2",
+          "listItems": [
+            "Dés standard et polyédriques : lancez des dés standard à six faces (D6) avec des points traditionnels, ou choisissez des polyédriques de table spécialisés : D4, D8, D10, D12, D20 ou D100.",
+            "Lancer plusieurs dés : lancez de 1 à 12 dés simultanément. L'outil additionnera automatiquement les totaux.",
+            "Synthèse sonore et vocale - Activez des sons de collision de dés réalistes et choisissez que le navigateur prononce les résultats à haute voix une fois l'animation terminée.",
+            "Randomisation 100 % côté client – Vos rouleaux sont générés localement à l'aide de graines mathématiques de navigateur sécurisées à haute entropie, garantissant des résultats justes et impartiaux."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Ce lancer de dés est-il vraiment aléatoire ?",
+          "answer": "Oui. Les valeurs aléatoires sont générées côté client à l'aide des moteurs mathématiques natifs de JavaScript, garantissant des résultats totalement impartiaux et équitables pour tous les lancers."
+        },
+        {
+          "question": "Comment les pips D6 sont-ils rendus ?",
+          "answer": "Pour les dés standard à 6 faces (D6), l'outil restitue des configurations de points authentiques dans une disposition 3x3 plutôt que d'afficher des nombres simples, correspondant à l'apparence des dés physiques."
+        }
+      ]
+    },
+    "random-team-generator": {
+      "title": "Comment générer instantanément des équipes et des groupes aléatoires",
+      "metaDescription": "Divisez une liste de noms en équipes ou groupes aléatoires égaux. Générateur d'équipe entièrement privé, basé sur un navigateur, pour les jeux, les cours et les cohortes de travail.",
+      "sections": [
+        {
+          "heading": "Team Building impartial pour toute activité",
+          "level": "h2",
+          "paragraphs": [
+            "Diviser une classe d'étudiants, de collègues ou de joueurs en équipes égales peut facilement conduire à des préjugés ou à des plaintes pour injustice. Les sélectionneurs peuvent privilégier les amis, ou les équipes peuvent se retrouver déséquilibrées. Un générateur d'équipe aléatoire élimine ce biais en mélangeant instantanément les entrées de liste et en les répartissant uniformément en groupes.",
+            "Que vous ayez besoin de groupes pour un atelier, un match sportif, une activité en classe ou un tournoi de jeu, notre générateur d'équipes aléatoires garantit un processus de sélection équitable et transparent en quelques secondes."
+          ]
+        },
+        {
+          "heading": "Configurer les groupes et maintenir la confidentialité",
+          "level": "h2",
+          "listItems": [
+            "Options de saisie - Collez une liste de noms séparés par des nouvelles lignes ou des virgules directement dans le volet de l'éditeur.",
+            "Méthodes de regroupement - Choisissez entre générer un nombre fixe d'équipes (par exemple divisées en 4 équipes) ou définir une taille maximale par équipe (par exemple 5 membres par groupe).",
+            "Traitement du navigateur local : vos listes, noms et distributions d'équipe sont entièrement traités dans votre navigateur. Aucune donnée n'est envoyée à des serveurs externes, protégeant les noms personnels et les listes d'entreprise."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Les listes ou les noms de mes équipes sont-ils enregistrés sur un serveur ?",
+          "answer": "Non, toutes les listes de saisie et les affectations d'équipe sont traitées strictement dans la mémoire locale de votre navigateur et ne sont jamais téléchargées."
+        },
+        {
+          "question": "Puis-je copier facilement les équipes générées ?",
+          "answer": "Oui, l'outil génère des équipes sur des cartes vierges avec des boutons de copie en un clic pour coller facilement les listes d'équipes dans des e-mails, des discussions ou des fichiers de documents."
+        }
+      ]
+    },
+    "coin-flipper": {
+      "title": "Comment lancer une pièce en ligne pour des décisions aléatoires",
+      "metaDescription": "Lancez une pièce virtuelle en ligne pour pile ou face. Fonctionne côté client avec une génération aléatoire équitable et des animations de rotation 3D propres.",
+      "sections": [
+        {
+          "heading": "Réglez vos choix instantanément avec un tirage au sort virtuel",
+          "level": "h2",
+          "paragraphs": [
+            "Tirer à pile ou face est le moyen le plus ancien et le plus simple de résoudre des litiges mineurs, de prendre des décisions 50/50 ou de choisir l'ordre de départ des parties. Lorsque vous n'avez pas de pièce physique dans votre poche, un lanceur de pièces en ligne fait le travail instantanément.",
+            "Notre lanceur de pièces virtuel génère une animation de tirage au sort en 3D propre et utilise des mathématiques côté client cryptographiquement sécurisées pour offrir une véritable probabilité de 50/50. Réglez les arguments ou faites des choix en toute confiance."
+          ]
+        },
+        {
+          "heading": "Caractéristiques du Coin Flipper Virtuel",
+          "level": "h2",
+          "listItems": [
+            "Devises multiples et thèmes personnalisés : retournez des pièces d'or standard, des roupies indiennes ou des jetons vintage.",
+            "Suivi des statistiques de session : conserve le score total des retournements, y compris le nombre de têtes et de queues, afin que vous puissiez tester la probabilité au fil du temps.",
+            "Effets sonores et physiques - Comprend des sons de retournement en option et des animations à ressort pour rendre le tirage au sort réactif."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Le tirage au sort est-il exactement 50/50 ?",
+          "answer": "Oui, la probabilité est mathématiquement juste et calculée à l’aide de générateurs aléatoires sécurisés dans votre navigateur, reproduisant un véritable tirage au sort."
+        },
+        {
+          "question": "Puis-je suivre mon historique de flip ?",
+          "answer": "Oui, l'outil met à jour un tableau de statistiques en direct qui suit le nombre et les pourcentages de pile et face pendant votre session de navigateur active."
+        }
+      ]
+    },
+    "spin-the-wheel": {
+      "title": "Comment faire tourner une roue de décision virtuelle en ligne",
+      "metaDescription": "Créez une roue d'options personnalisée et faites-la tourner pour effectuer des sélections aléatoires. Décideur entièrement côté client avec sons et tranches personnalisées.",
+      "sections": [
+        {
+          "heading": "Brisez l'indécision avec une roue de prix personnalisée",
+          "level": "h2",
+          "paragraphs": [
+            "Choisir quoi manger pour le dîner, choisir un gagnant pour un tirage au sort ou décider quelle tâche entreprendre en premier peut conduire à une fatigue décisionnelle. Un outil qui fait tourner la roue injecte du plaisir et du hasard dans le choix. En écrivant vos options sur une roue colorée, vous pouvez laisser la gravité et la physique prendre la décision finale.",
+            "ZeroWebTools Spin the Wheel est conçu pour s'exécuter localement dans votre navigateur. Avec une physique réactive, des effets sonores audio et des bannières gagnantes, il est parfait pour les cadeaux, les enseignants et les groupes indécis."
+          ]
+        },
+        {
+          "heading": "Tranches avancées et paramètres personnalisés",
+          "level": "h2",
+          "listItems": [
+            "Listes d'importation en masse : collez une liste de noms ou d'options séparés par des sauts de ligne pour les charger tous dans la roue en même temps.",
+            "Contrôle du volume et de l'audio - Comprend des effets sonores de tic-tac procéduraux qui accélèrent et ralentissent de manière dynamique en fonction de la vitesse de la roue.",
+            "Sécurité complète : les tranches, l'historique et les options sont stockés localement sur votre appareil et ne sont jamais envoyés à un serveur."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Puis-je personnaliser les noms des tranches ?",
+          "answer": "Oui, vous pouvez modifier, ajouter ou supprimer des tranches de manière dynamique. Les couleurs des segments de roue seront automatiquement redistribuées pour s'adapter à vos articles."
+        },
+        {
+          "question": "Le son fonctionne-t-il sur les appareils mobiles ?",
+          "answer": "Oui, l'outil est optimisé pour déverrouiller les canaux audio du navigateur lors des événements de clic sur mobile, permettant ainsi des sons de tic-tac sans latence sur iOS et Android."
+        }
+      ]
+    },
+    "2048-game": {
+      "title": "Comment jouer au jeu de puzzle 2048 en ligne",
+      "metaDescription": "Jouez au jeu de puzzle classique à tuiles coulissantes 2048 dans votre navigateur. Enregistrez les meilleurs scores localement, jeu hors ligne entièrement privé.",
+      "sections": [
+        {
+          "heading": "Comment jouer et gagner 2048",
+          "level": "h2",
+          "paragraphs": [
+            "2048 est un jeu de puzzle mathématique à blocs coulissants très addictif. Le jeu se joue sur une grille 4x4. Lorsque vous faites glisser votre doigt ou appuyez sur une touche fléchée, toutes les tuiles glissent dans cette direction aussi loin que possible. Si deux tuiles du même numéro entrent en collision lors du glissement, elles fusionnent en une seule tuile avec la somme de leurs valeurs (par exemple 2 + 2 = 4, 4 + 4 = 8).",
+            "Votre objectif est de fusionner stratégiquement les tuiles pour créer une tuile de valeur 2048. Si le plateau se remplit complètement et qu'il ne reste plus de mouvements valides, la partie se termine. Planifier les mouvements à l’avance est essentiel pour obtenir des scores élevés."
+          ]
+        },
+        {
+          "heading": "Fonctionnalités persistantes locales d’abord",
+          "level": "h2",
+          "listItems": [
+            "Responsive Touch & Swipe - Faites glisser les vignettes à l'aide des touches fléchées du clavier, de WASD ou de gestes de balayage sur les fenêtres mobiles.",
+            "Persistance de l'état - Le jeu enregistre automatiquement votre tableau actuel et votre score dans le stockage local. Vous pouvez fermer l'onglet et reprendre la lecture plus tard.",
+            "Score Tracker - Affiche votre score actuel ainsi que votre score record de tous les temps."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Puis-je jouer au jeu hors ligne ?",
+          "answer": "Oui. Une fois la page Web chargée, la logique du jeu s'exécute entièrement dans votre navigateur local et ne nécessite pas de connexion Internet active."
+        },
+        {
+          "question": "Le jeu télécharge-t-il mon meilleur score ?",
+          "answer": "Non, tous les scores sont enregistrés directement dans le stockage local de votre navigateur, garantissant que votre activité de jeu reste totalement privée."
+        }
+      ]
     }
   },
   "spin_the_wheel": {
@@ -2480,6 +2692,7 @@
     "option_format_indent": "Mettre en forme l'indentation",
     "option_indent_size": "Taille de l'empreinte",
     "option_indent_2": "2 espaces",
+    "option_indent_3": "3 espaces",
     "option_indent_4": "4 espaces",
     "step_1": "Analyse de la structure du balisage HTML...",
     "step_2": "Conversion des attributs (class -> className, for -> htmlFor)...",
