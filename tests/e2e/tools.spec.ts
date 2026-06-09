@@ -42,6 +42,17 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await expect(page.locator(".overflow-auto").getByText("key1:")).toBeVisible();
     await expect(page.locator(".overflow-auto").getByText('"value1"')).toBeVisible();
     await expect(page.locator(".overflow-auto").getByText("nested:")).toBeVisible();
+
+    // Search keys and values
+    const searchInput = page.locator('input[placeholder*="Search keys"]');
+    await searchInput.fill("nested");
+    await expect(page.locator("mark").first()).toContainText("nested");
+
+    // Expand all and collapse all checks
+    await page.click('button:has-text("Collapse all")');
+    await expect(page.locator(".overflow-auto").getByText("num:")).not.toBeVisible();
+    await page.click('button:has-text("Expand all")');
+    await expect(page.locator(".overflow-auto").getByText("num:")).toBeVisible();
   });
 
   test("2. SaaS MRR Projections - Math & Visual Calculation", async ({ page }) => {
@@ -655,6 +666,11 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     const input = page.locator("#mortgage-principal-input");
     await input.fill("400000");
     await expect(page.locator("text=$2,026.74").first()).toBeVisible();
+
+    // Adjust Interest Rate and verify payment update
+    const rateInput = page.locator("#mortgage-rate-input");
+    await rateInput.fill("5.5");
+    await expect(page.locator("text=$2,271.16").first()).toBeVisible();
   });
 
   test("29. Startup Cap Table Modeler - Dilution round", async ({ page }) => {
@@ -668,6 +684,10 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
 
     // Verify addition
     await expect(page.locator("text=Investor C").first()).toBeVisible();
+
+    // Test removing shareholder
+    await page.click('button:has-text("✕")'); // remove founder 1
+    await expect(page.locator("text=Founder 1")).not.toBeVisible();
   });
 
   test("30. SaaS CAC & LTV Retention Modeler - Metrics and curve", async ({ page }) => {
@@ -946,5 +966,80 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Verify component name input shows up and wraps the output code
     await expect(page.locator("input#component-name-input")).toBeVisible();
     await expect(outputTextarea).toHaveValue(/export default function MyComponent/);
+  });
+
+  test("47. Token Counter & Cost Estimator - pricing and visual chunks", async ({ page }) => {
+    await navigateTo(page, "/tools/token-counter");
+    await expect(page.locator("h1")).toContainText("Token Counter");
+
+    // Enter a prompt
+    const textarea = page.locator("textarea");
+    await textarea.fill("Hello world! Let's count tokens.");
+
+    // Check stats are updated and non-zero
+    const tokenCount = page.locator("text=Tokens").locator("xpath=..").locator(".text-accent");
+    await expect(tokenCount).toBeVisible();
+    await expect(tokenCount).not.toHaveText("0");
+
+    // Adjust expected output slider
+    const slider = page.locator('input[type="range"]');
+    await slider.fill("1000");
+
+    // Verify completion cost updates
+    await expect(page.locator("text=Completion (Output) Cost")).toBeVisible();
+
+    // Toggle custom pricing
+    await page.click('button:has-text("Use Custom")');
+    const inputCostField = page.locator('input[type="number"]').first();
+    await inputCostField.fill("10.0");
+
+    // Verify custom rates apply
+    await expect(page.locator("text=Total Session Cost")).toBeVisible();
+
+    // Clear text
+    await page.click('button:has-text("Clear")');
+    await expect(textarea).toHaveValue("");
+  });
+
+  test("48. Spin the Wheel - option adding and spinning", async ({ page }) => {
+    await navigateTo(page, "/tools/spin-the-wheel");
+    await expect(page.locator("h2").first()).toContainText("Spin the Wheel");
+
+    // Add a new option
+    const optionInput = page.locator('input[placeholder*="Type an option"]');
+    await optionInput.fill("ZeroWebTools Special Option");
+    await optionInput.press("Enter");
+
+    // Verify option is added to list
+    await expect(page.locator("text=ZeroWebTools Special Option").first()).toBeVisible();
+
+    // Shuffle options
+    await page.click('button[title="Shuffle"]');
+
+    // Click spin button
+    await page.click('button:has-text("Spin the Wheel")');
+
+    // Wait for result to appear
+    await expect(page.locator("text=Result:")).toBeVisible({ timeout: 12000 });
+  });
+
+  test("49. 2048 Game - gameplay and reset", async ({ page }) => {
+    await navigateTo(page, "/tools/2048-game");
+    await expect(page.locator("h2").first()).toContainText("2048 Game");
+
+    // Verify scoreboard is visible
+    await expect(page.locator("text=Score").first()).toBeVisible();
+
+    // Trigger keyboard arrows to play
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowRight");
+
+    // Restart game
+    await page.click('button:has-text("Restart Game")');
+    // Verify score is reset
+    const scoreVal = page.locator("text=Score").locator("xpath=..").locator(".font-mono");
+    await expect(scoreVal).toHaveText("0");
   });
 });
