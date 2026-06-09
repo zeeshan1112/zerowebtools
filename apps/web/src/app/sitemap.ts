@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { CATEGORIES } from "@/lib/tools";
 import { HOW_TO_ARTICLES } from "@/lib/articles";
 import { LOCALES } from "@/lib/i18n";
+import { PROGRAMMATIC_SEO_DATA } from "@/lib/programmatic-seo-data";
 import { COMPARISONS } from "@/lib/comparisons";
 import { RECIPES } from "@/lib/recipes";
 import { CONVERSIONS } from "@/lib/conversions";
@@ -37,6 +38,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
         }
       }))
   );
+
+  const programmaticPages: MetadataRoute.Sitemap = [];
+  if (typeof PROGRAMMATIC_SEO_DATA !== "undefined") {
+    for (const [toolId, queries] of Object.entries(PROGRAMMATIC_SEO_DATA)) {
+      for (const q of queries) {
+        programmaticPages.push({
+          url: `${baseUrl}/tools/${toolId}/${q.slug}`,
+          lastModified: now,
+          changeFrequency: "weekly" as const,
+          priority: 0.6,
+          alternates: {
+            languages: buildLanguages(`/tools/${toolId}/${q.slug}`, baseUrl)
+          }
+        });
+      }
+    }
+  }
 
   const guidePages: MetadataRoute.Sitemap = HOW_TO_ARTICLES.map((article) => ({
     url: `${baseUrl}/how-to/${article.slug}`,
@@ -123,5 +141,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...comparePages,
     ...recipePages,
     ...conversionPages,
+    ...programmaticPages,
   ];
 }

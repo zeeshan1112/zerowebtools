@@ -21,6 +21,15 @@
 
 ## 🛠️ The Tool Suite
 
+Quick Navigation:
+* [PDF Suite Pro (14 tools)](#pdf-suite-pro-14-tools)
+* [Text Tools (6 tools)](#text-tools-6-tools)
+* [Developer Tools (7 tools)](#developer-tools-7-tools)
+* [Generators (7 tools)](#generators-7-tools)
+* [Creative & Image Tools (5 tools)](#creative--image-tools-5-tools)
+* [Financial & Growth Calculators (6 tools)](#financial--growth-calculators-6-tools)
+* [Fun & Interactive Games (5 tools)](#fun--interactive-games-5-tools)
+
 ### PDF Suite Pro (14 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
@@ -39,16 +48,32 @@
 | **Crop PDF & Page Resize** | [Try Live](https://zerowebtools.com/tools/pdf-crop) | Crop PDF margins and resize pages to standard layouts (A4, Letter, Legal) |
 | **PDF to Text Extractor** | [Try Live](https://zerowebtools.com/tools/pdf-to-text) | Extract raw text streams and rebuild structured page layouts locally |
 
-### Developer Utilities (12 tools)
+### Text Tools (6 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **Word Counter Pro** | [Try Live](https://zerowebtools.com/tools/word-counter) | Count words, characters, sentences, paragraphs, and analyze density & reading time |
+| **Case Converter** | [Try Live](https://zerowebtools.com/tools/case-converter) | Transform naming conventions between camelCase, snake_case, kebab-case, PascalCase |
+| **Universal Text Cleaner** | [Try Live](https://zerowebtools.com/tools/text-cleaner) | Clean spaces, deduplicate lines, remove empty lines, strip HTML, and sort lists |
+| **Voice Dictator & Reader** | [Try Live](https://zerowebtools.com/tools/voice-dictator) | Dictate speech to text and narrate text to speech offline using native Speech APIs |
+| **Markdown ↔ HTML Converter** | [Try Live](https://zerowebtools.com/tools/markdown-converter) | Convert Markdown markup to HTML and vice versa in real time with preview |
+| **List Shuffler & Random Picker** | [Try Live](https://zerowebtools.com/tools/random-picker) | Shuffle lists, draw random items, pick names, or choose raffle winners |
+
+### Developer Tools (7 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
 | **JSON Formatter** | [Try Live](https://zerowebtools.com/tools/json-formatter) | Validate, format, beautify, and explore JSON with a live tree view |
-| **Base64 Cipher Modeler** | [Try Live](https://zerowebtools.com/tools/base64-encoder) | Encode text or files to Base64 and decode them back to readable format |
 | **Side-by-Side Diff Checker** | [Try Live](https://zerowebtools.com/tools/diff-checker) | Compare two text blocks or code files to highlight modifications side-by-side |
 | **JWT Debugger & Decoder** | [Try Live](https://zerowebtools.com/tools/jwt-debugger) | Decode, parse, and validate JSON Web Tokens (JWT) header, payload, and signatures |
-| **URL Encoder/Decoder** | [Try Live](https://zerowebtools.com/tools/url-encoder) | Percent-encode/decode strings and edit query parameters interactively in a grid |
 | **Interactive Regex Tester** | [Try Live](https://zerowebtools.com/tools/regex-tester) | Test regular expressions, highlight matches, and check capturing groups |
 | **SQL Formatter & Beautifier** | [Try Live](https://zerowebtools.com/tools/sql-formatter) | Format, beautify, clean indentation, and capitalize SQL dialect statements |
+| **Token Counter & Cost Estimator** | [Try Live](https://zerowebtools.com/tools/token-counter) | Count tokens and estimate API costs client-side with 100% privacy |
+| **HTML to JSX Converter** | [Try Live](https://zerowebtools.com/tools/html-to-jsx) | Convert standard HTML templates and properties into React-compatible JSX elements |
+
+### Generators (7 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **Base64 Cipher Modeler** | [Try Live](https://zerowebtools.com/tools/base64-encoder) | Encode text or files to Base64 and decode them back to readable format |
+| **URL Encoder/Decoder** | [Try Live](https://zerowebtools.com/tools/url-encoder) | Percent-encode/decode strings and edit query parameters interactively in a grid |
 | **Client-Side File Hasher** | [Try Live](https://zerowebtools.com/tools/file-hasher) | Calculate MD5, SHA-1, SHA-256, and SHA-512 cryptographic checksum digests |
 | **Password Strength & Generator** | [Try Live](https://zerowebtools.com/tools/password-generator) | Generate secure random passwords and calculate cryptographic entropy strength |
 | **CSS Box Shadow Generator** | [Try Live](https://zerowebtools.com/tools/css-box-shadow) | Generate CSS box shadows visually with real-time preview and inset options |
@@ -64,24 +89,7 @@
 | **SVG Minifier & Cleaner** | [Try Live](https://zerowebtools.com/tools/svg-minifier) | Minify and optimize vector SVG markup by stripping comments and namespaces |
 | **QR Code Generator & Customizer** | [Try Live](https://zerowebtools.com/tools/qr-code-generator) | Generate customizable QR codes with custom colors and center logo overlays |
 
-### Writing & Content Utilities (6 tools)
-| Tool | Live Link | Description |
-|------|-----------|-------------|
-| **Word Counter Pro** | [Try Live](https://zerowebtools.com/tools/word-counter) | Count words, characters, sentences, paragraphs, and analyze density & reading time |
-| **Case Converter** | [Try Live](https://zerowebtools.com/tools/case-converter) | Transform naming conventions between camelCase, snake_case, kebab-case, PascalCase |
-| **Universal Text Cleaner** | [Try Live](https://zerowebtools.com/tools/text-cleaner) | Clean spaces, deduplicate lines, remove empty lines, strip HTML, and sort lists |
-| **Voice Dictator & Reader** | [Try Live](https://zerowebtools.com/tools/voice-dictator) | Dictate speech to text and narrate text to speech offline using native Speech APIs |
-| **Markdown ↔ HTML Converter** | [Try Live](https://zerowebtools.com/tools/markdown-converter) | Convert Markdown markup to HTML and vice versa in real time with preview |
-| **List Shuffler & Random Picker** | [Try Live](https://zerowebtools.com/tools/random-picker) | Shuffle lists, draw random items, pick names, or choose raffle winners |
-
-### Fun & Interactive (3 tools)
-| Tool | Live Link | Description |
-|------|-----------|-------------|
-| **3D Dice Roller** | [Try Live](https://zerowebtools.com/tools/dice-roller) | Roll multiple 3D dice with custom sides, animated physics, and voice announcement of totals |
-| **3D Coin Flipper** | [Try Live](https://zerowebtools.com/tools/coin-flipper) | Flip a realistic 3D coin with two currency designs for truly random heads or tails results |
-| **Random Team Generator** | [Try Live](https://zerowebtools.com/tools/random-team-generator) | Split a list of names into randomized teams or groups instantly |
-
-### Financial & Growth Modelers (6 tools)
+### Financial & Growth Calculators (6 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
 | **SaaS MRR Projections** | [Try Live](https://zerowebtools.com/tools/saas-mrr) | Forecast monthly recurring revenue, churn, and LTV with interactive charts |
@@ -90,6 +98,15 @@
 | **Startup Cap Table Modeler** | [Try Live](https://zerowebtools.com/tools/cap-table) | Model stock option pool dilutive rounds and share pricing dilution schedules |
 | **SaaS CAC & LTV Retention** | [Try Live](https://zerowebtools.com/tools/saas-ltv) | Forecast LTV:CAC efficiency, payback periods, and cohort decay curves |
 | **Break-Even Point Calculator** | [Try Live](https://zerowebtools.com/tools/break-even) | Model fixed vs variable costs, contribution margins, and break-even points |
+
+### Fun & Interactive Games (5 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **3D Dice Roller** | [Try Live](https://zerowebtools.com/tools/dice-roller) | Roll multiple 3D dice with custom sides, animated physics, and voice announcement of totals |
+| **3D Coin Flipper** | [Try Live](https://zerowebtools.com/tools/coin-flipper) | Flip a realistic 3D coin with two currency designs for truly random heads or tails results |
+| **Random Team Generator** | [Try Live](https://zerowebtools.com/tools/random-team-generator) | Split a list of names into randomized teams or groups instantly |
+| **Spin the Wheel** | [Try Live](https://zerowebtools.com/tools/spin-the-wheel) | Create a custom spin wheel, add options, and let fate decide with physics-driven spins |
+| **2048 Game** | [Try Live](https://zerowebtools.com/tools/2048-game) | Play the classic 2048 puzzle game, slide tiles, and merge matching numbers |
 
 ---
 
@@ -261,6 +278,19 @@ To publish the packaged extension:
    - Small Tile (440x280): `apps/extensions/developertools/small-promo-tile.png`
    - Marquee Tile (1400x560): `apps/extensions/developertools/marquee-promo-tile.png`
 5. Save your changes and click **Submit for review**.
+
+---
+
+## 🌍 Internationalization & Translation Workflow
+
+ZeroWebTools utilizes an automated translation orchestrator script `scratch/translate_all.js` to handle dynamic text extraction and parallel localization into target languages: Spanish (`es`), German (`de`), French (`fr`), Portuguese (`pt`), Japanese (`ja`), Chinese (`zh`), Hindi (`hi`), Italian (`it`), and Arabic (`ar`).
+
+### Workflow Details:
+- **Unified Translation Script**: Run `node scratch/translate_all.js` to scan, translate, and build output localized JSON packages and programmatic SEO bundles.
+- **Smart Concurrency & Throttling**: Implements a concurrent task queue (8 workers) with jitter, retry mechanisms, and rate-limit detection (throttling for HTTP 429/503) to prevent API blocks.
+- **Persistent Local Caching**: Saves translations locally to bypass network overhead and reuse existing keys for future updates.
+
+For a comprehensive guide on the translation architecture, custom configurations, and workflow guides for new tools, view the [Translation Workflow Documentation](file:///Users/zee/zeeshanahmad-io/zeelancebox/docs/translation_workflow.md).
 
 ---
 

@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { getAlternateLanguages } from "@/lib/i18n";
 import Link from "next/link";
+import { getTranslations, getLocalizedTool, LOCALES, SupportedLocale, getAlternateLanguages } from "@/lib/i18n";
+import { notFound } from "next/navigation";
 import WorkspaceRenderer from "@/components/WorkspaceRenderer";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
 import MobileToolActions from "@/components/MobileToolActions";
-import TelemetryTracker from "@/components/TelemetryTracker";
-import {
-  CATEGORIES,
+import { LOCALES_DATA } from "@/lib/locales";
+import { WorkspaceTranslationProvider } from "@/components/WorkspaceTranslationContext";
+import { HowToArticle } from "@/lib/articles";
+import { PROGRAMMATIC_SEO_DATA } from "@/lib/programmatic-seo-data";
+import { LOCALIZED_PROGRAMMATIC_SEO_DATA } from "@/lib/programmatic-seo-data-localized";
+import { CATEGORIES,
   getToolById,
   getCategoryForTool,
   CATEGORY_TAG_STYLES,
@@ -17,33 +21,44 @@ import {
 } from "@/lib/tools";
 
 interface ToolPageProps {
-  params: Promise<{ toolId: string }>;
+  params: Promise<{ toolId: string; subQuery: string; lang: string }>;
 }
 
 export async function generateStaticParams() {
-  const liveTools = CATEGORIES.flatMap((c) =>
-    c.tools.filter((t) => t.status === "live").map((t) => ({ toolId: t.id }))
-  );
-  return liveTools;
+  const params: { toolId: string; subQuery: string; lang: string }[] = [];
+  
+  if (!PROGRAMMATIC_SEO_DATA) return params;
+
+  for (const lang of LOCALES.filter(l => l !== "en")) {
+    for (const [toolId, queries] of Object.entries(PROGRAMMATIC_SEO_DATA)) {
+      for (const q of queries) {
+        params.push({ lang, toolId, subQuery: q.slug });
+      }
+    }
+  }
+  return params;
 }
 
 const BASE_URL = "https://zerowebtools.com";
 
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
-  const { toolId } = await params;
-  const tool = getToolById(toolId);
-  if (!tool) return { title: "Tool Not Found" };
+  const { toolId, subQuery, lang } = await params;
+  if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") return {};
 
-  const canonicalUrl = `${BASE_URL}/tools/${toolId}`;
-  const pageTitle = `${tool.title} — 100% Free & Private | ZeroWebTools`;
-  const ogDescription = tool.metaDescription;
+  const queries = (LOCALIZED_PROGRAMMATIC_SEO_DATA as any)?.[lang]?.[toolId] || PROGRAMMATIC_SEO_DATA?.[toolId] || [];
+  const seoData = queries.find((q: any) => q.slug === subQuery);
+  if (!seoData) return { title: "Not Found" };
+
+  const canonicalUrl = `${BASE_URL}/${lang}/tools/${toolId}/${subQuery}`;
+  const pageTitle = `${seoData.title} — 100% Free & Private | ZeroWebTools`;
+  const ogDescription = seoData.metaDescription;
 
   return {
     title: pageTitle,
-    description: tool.metaDescription,
+    description: ogDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: getAlternateLanguages(`/tools/${toolId}`),
+      languages: getAlternateLanguages(`/tools/${toolId}/${subQuery}`),
     },
     openGraph: {
       title: pageTitle,
@@ -1110,35 +1125,38 @@ const TOOL_ARTICLES: Record<
 };
 
 // Programmatic SEO Fallback Article Generator
-function generateFallbackArticle(tool: Tool, category?: ToolCategory) {
+function generateFallbackArticle(tool: Tool, t: Record<string, string>) {
+  const toolTitle = tool.title;
+  const toolDesc = tool.description.toLowerCase().replace(/\.$/, "");
+  
   return {
-    title: `${tool.title} Online: Free Client-Side Tool`,
+    title: t.fbTitle?.replace("{toolTitle}", toolTitle) || `${toolTitle} Online: Free Client-Side Tool`,
     sections: [
       {
-        heading: `What is the ${tool.title} Tool?`,
+        heading: t.fbQ1?.replace("{toolTitle}", toolTitle) || `What is the ${toolTitle} Tool?`,
         paragraphs: [
-          `The ${tool.title} tool is a free online utility that allows you to ${tool.description.toLowerCase().replace(/\.$/, "")} instantly in your browser. As part of the ZeroWebTools suite, it requires no software installations, no server uploads, and no account registrations.`,
-          `This tool is designed to work client-side, meaning that all data parsing, conversions, and rendering operations happen strictly in your browser session context. This guarantees absolute privacy and provides immediate execution speeds.`
+          (t.fbA1P1 || `The {toolTitle} tool is a free online utility that allows you to {toolDesc} instantly in your browser. As part of the ZeroWebTools suite, it requires no software installations, no server uploads, and no account registrations.`).replace("{toolTitle}", toolTitle).replace("{toolDesc}", toolDesc),
+          t.fbA1P2 || `This tool is designed to work client-side, meaning that all data parsing, conversions, and rendering operations happen strictly in your browser session context. This guarantees absolute privacy and provides immediate execution speeds.`
         ]
       },
       {
-        heading: `How to Use ${tool.title} Offline`,
+        heading: t.fbQ2?.replace("{toolTitle}", toolTitle) || `How to Use ${toolTitle} Offline`,
         paragraphs: [
-          `Operating this workspace is designed to be simple and accessible:`
+          t.fbA2P1 || `Operating this workspace is designed to be simple and accessible:`
         ],
         listItems: [
-          `Open the ${tool.title} page in any modern web browser.`,
-          `Upload your files, paste your code, or input parameters into the workspace sandbox area.`,
-          `Adjust the options or settings to suit your target output requirements.`,
-          `Click the processing button to trigger calculations locally on your CPU.`,
-          `Save the generated file or copy the formatted text output instantly.`
+          t.fbL1?.replace("{toolTitle}", toolTitle) || `Open the ${toolTitle} page in any modern web browser.`,
+          t.fbL2 || `Upload your files, paste your code, or input parameters into the workspace sandbox area.`,
+          t.fbL3 || `Adjust the options or settings to suit your target output requirements.`,
+          t.fbL4 || `Click the processing button to trigger calculations locally on your CPU.`,
+          t.fbL5 || `Save the generated file or copy the formatted text output instantly.`
         ]
       },
       {
-        heading: "100% Secure & Private Local Processing",
+        heading: t.fbQ3 || "100% Secure & Private Local Processing",
         paragraphs: [
-          `Security is the core pillar of ZeroWebTools. When you use the ${tool.title} tool, your input files, parameters, and results are never transmitted to external servers.`,
-          `Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control.`
+          t.fbA3P1?.replace("{toolTitle}", toolTitle) || `Security is the core pillar of ZeroWebTools. When you use the ${toolTitle} tool, your input files, parameters, and results are never transmitted to external servers.`,
+          t.fbA3P2 || `Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control.`
         ]
       }
     ]
@@ -1146,8 +1164,16 @@ function generateFallbackArticle(tool: Tool, category?: ToolCategory) {
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
-  const { toolId } = await params;
-  const tool = getToolById(toolId);
+  const { toolId, subQuery, lang } = await params;
+  const queries = (LOCALIZED_PROGRAMMATIC_SEO_DATA as any)?.[lang]?.[toolId] || PROGRAMMATIC_SEO_DATA?.[toolId] || [];
+  const seoData = queries.find((q: any) => q.slug === subQuery);
+  
+  if (!seoData) {
+    return <div className="p-20 text-center">Page Not Found</div>;
+  }
+  if (!LOCALES.includes(lang as SupportedLocale) || lang === "en") notFound();
+  const rawTool = getToolById(toolId);
+  const tool = rawTool ? getLocalizedTool(rawTool, lang) : undefined;
   const category = getCategoryForTool(toolId);
 
   if (!tool) {
@@ -1161,7 +1187,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
             The tool you are looking for does not exist or has been relocated.
           </p>
           <Link
-            href="/"
+            href={lang === "en" ? "/" : `/${lang}`}
             className="mt-6 inline-block rounded-xl bg-accent hover:bg-accent-hover text-white px-6 py-3 text-sm font-medium shadow-md shadow-accent/10 active:scale-[0.98] transition-all"
           >
             Back to Home
@@ -1192,7 +1218,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
             This tool is currently in active development. All operations will execute 100% locally in your browser. Check back soon!
           </p>
           <Link
-            href="/"
+            href={lang === "en" ? "/" : `/${lang}`}
             className="mt-6 inline-block rounded-xl bg-accent hover:bg-accent-hover text-white px-6 py-3 text-sm font-medium shadow-md shadow-accent/10 active:scale-[0.98] transition-all"
           >
             Browse Live Tools
@@ -1201,8 +1227,24 @@ export default async function ToolPage({ params }: ToolPageProps) {
       </div>
     );
   }
-
-  const article = TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined);
+  const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
+  const toolKey = toolId.replace(/-/g, "_");
+  const workspaceDictionary = {
+    ...(localeData?.common || {}),
+    ...(localeData?.[toolKey] || {}),
+    ...(lang === "en" ? require("@/locales/en.json").common : {}) // Fallback for english since LOCALES_DATA doesn't have "en"
+  };
+  const baseArticle = (localeData?.articles?.[toolId] || TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, workspaceDictionary) : undefined)) as HowToArticle | undefined;
+  const article = baseArticle ? { ...baseArticle } : undefined;
+  if (article && seoData?.articleIntro) {
+    article.sections = [
+      {
+        heading: seoData.articleIntro.heading,
+        paragraphs: seoData.articleIntro.paragraphs
+      },
+      ...(article.sections || [])
+    ];
+  }
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";
@@ -1265,19 +1307,19 @@ export default async function ToolPage({ params }: ToolPageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": `${BASE_URL}/`,
+        "item": `${BASE_URL}/${lang}`,
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": category?.title || "Tools",
-        "item": `${BASE_URL}/#${category?.slug || ""}`,
+        "item": `${BASE_URL}/${lang}/#${category?.slug || ""}`,
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": tool.title,
-        "item": `${BASE_URL}/tools/${toolId}`,
+        "name": seoData.title,
+        "item": `${BASE_URL}/${lang}/tools/${toolId}/${subQuery}`,
       },
     ],
   };
@@ -1303,7 +1345,6 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   return (
     <div className="min-h-screen pt-10 pb-20">
-      <TelemetryTracker toolId={toolId} />
       {/* Schema Injection */}
       <script
         type="application/ld+json"
@@ -1331,12 +1372,12 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {/* Dynamic Breadcrumbs & Title */}
         <section className="mb-6 space-y-3">
           <div className="flex items-center gap-1.5 text-xs text-ink-muted">
-            <Link href="/" className="hover:text-accent font-medium transition-colors">
+            <Link href={lang === "en" ? "/" : `/${lang}`} className="hover:text-accent font-medium transition-colors">
               Home
             </Link>
             <span>&gt;</span>
             {category ? (
-              <Link href={`/#${category.slug}`} className="hover:text-accent font-medium transition-colors truncate">
+              <Link href={lang === "en" ? `/#${category.slug}` : `/${lang}/#${category.slug}`} className="hover:text-accent font-medium transition-colors truncate">
                 {category.title}
               </Link>
             ) : (
@@ -1348,7 +1389,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-              {tool.title}
+              {seoData.title}
             </h1>
             {category && (
               <span className={`text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-border/20 ${tagStyle}`}>
@@ -1357,7 +1398,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
             )}
           </div>
           <p className="text-sm text-ink-secondary leading-relaxed max-w-[80ch]">
-            {tool.description}
+            {seoData.metaDescription}
           </p>
         </section>
 
@@ -1370,7 +1411,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
             <MobileToolActions toolId={toolId} />
             <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
-              <WorkspaceRenderer toolId={toolId} />
+              <WorkspaceTranslationProvider dictionary={workspaceDictionary}>
+                <WorkspaceRenderer toolId={toolId} />
+              </WorkspaceTranslationProvider>
             </section>
 
             {/* Below Workspace Leaderboard Ad */}

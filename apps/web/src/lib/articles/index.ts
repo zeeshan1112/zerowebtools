@@ -5,6 +5,7 @@ import { DEVTOOLS_ARTICLES } from "./devtools";
 import { FINANCE_ARTICLES } from "./finance";
 import { GENERATORS_ARTICLES } from "./generators";
 import { TEXT_ARTICLES } from "./text";
+import { FUN_ARTICLES } from "./fun";
 
 export const HOW_TO_ARTICLES: HowToArticle[] = [
   ...PDF_ARTICLES,
@@ -13,4 +14,5 @@ export const HOW_TO_ARTICLES: HowToArticle[] = [
   ...FINANCE_ARTICLES,
   ...GENERATORS_ARTICLES,
   ...TEXT_ARTICLES,
+  ...FUN_ARTICLES,
 ];

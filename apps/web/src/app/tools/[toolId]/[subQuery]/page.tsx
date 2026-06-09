@@ -7,8 +7,8 @@ import ArticleBlock from "@/components/ArticleBlock";
 import ToolSidebar from "@/components/ToolSidebar";
 import MobileToolActions from "@/components/MobileToolActions";
 import TelemetryTracker from "@/components/TelemetryTracker";
-import {
-  CATEGORIES,
+import { PROGRAMMATIC_SEO_DATA } from "@/lib/programmatic-seo-data";
+import { CATEGORIES,
   getToolById,
   getCategoryForTool,
   CATEGORY_TAG_STYLES,
@@ -17,33 +17,44 @@ import {
 } from "@/lib/tools";
 
 interface ToolPageProps {
-  params: Promise<{ toolId: string }>;
+  params: Promise<{ toolId: string; subQuery: string }>;
 }
 
 export async function generateStaticParams() {
-  const liveTools = CATEGORIES.flatMap((c) =>
-    c.tools.filter((t) => t.status === "live").map((t) => ({ toolId: t.id }))
-  );
-  return liveTools;
+  const params: { toolId: string; subQuery: string }[] = [];
+  
+  // Safe fallback if data isn't fully loaded yet during build
+  if (!PROGRAMMATIC_SEO_DATA) return params;
+
+  for (const [toolId, queries] of Object.entries(PROGRAMMATIC_SEO_DATA)) {
+    for (const q of queries) {
+      params.push({ toolId, subQuery: q.slug });
+    }
+  }
+  return params;
 }
 
 const BASE_URL = "https://zerowebtools.com";
 
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
-  const { toolId } = await params;
+  const { toolId, subQuery } = await params;
   const tool = getToolById(toolId);
   if (!tool) return { title: "Tool Not Found" };
 
-  const canonicalUrl = `${BASE_URL}/tools/${toolId}`;
-  const pageTitle = `${tool.title} — 100% Free & Private | ZeroWebTools`;
-  const ogDescription = tool.metaDescription;
+  const queries = PROGRAMMATIC_SEO_DATA?.[toolId] || [];
+  const seoData = queries.find(q => q.slug === subQuery);
+  if (!seoData) return { title: "Not Found" };
+
+  const canonicalUrl = `${BASE_URL}/tools/${toolId}/${subQuery}`;
+  const pageTitle = `${seoData.title} — 100% Free & Private | ZeroWebTools`;
+  const ogDescription = seoData.metaDescription;
 
   return {
     title: pageTitle,
-    description: tool.metaDescription,
+    description: ogDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: getAlternateLanguages(`/tools/${toolId}`),
+      languages: getAlternateLanguages(`/tools/${toolId}/${subQuery}`),
     },
     openGraph: {
       title: pageTitle,
@@ -1146,7 +1157,14 @@ function generateFallbackArticle(tool: Tool, category?: ToolCategory) {
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
-  const { toolId } = await params;
+  const { toolId, subQuery } = await params;
+  const queries = PROGRAMMATIC_SEO_DATA?.[toolId] || [];
+  const seoData = queries.find(q => q.slug === subQuery);
+  
+  if (!seoData) {
+    // Return 404 visually or redirect if missing
+    return <div className="p-20 text-center">Page Not Found</div>;
+  }
   const tool = getToolById(toolId);
   const category = getCategoryForTool(toolId);
 
@@ -1202,7 +1220,18 @@ export default async function ToolPage({ params }: ToolPageProps) {
     );
   }
 
-  const article = TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined);
+  const baseArticle = TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined);
+  const article = { ...baseArticle } as any;
+  if (article && seoData.articleIntro) {
+    // Inject the SEO targeted intro paragraph at the very top of the article
+    article.sections = [
+      {
+        heading: seoData.articleIntro.heading,
+        paragraphs: seoData.articleIntro.paragraphs
+      },
+      ...(article.sections || [])
+    ];
+  }
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";
@@ -1237,9 +1266,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
   let faqSchema = null;
   if (article && article.sections) {
     const faqs = article.sections
-      .filter((s) => s.paragraphs && s.paragraphs.length > 0)
+      .filter((s: any) => s.paragraphs && s.paragraphs.length > 0)
       .slice(0, 4)
-      .map((s) => ({
+      .map((s: any) => ({
         "@type": "Question",
         "name": s.heading,
         "acceptedAnswer": {
@@ -1276,8 +1305,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
       {
         "@type": "ListItem",
         "position": 3,
-        "name": tool.title,
-        "item": `${BASE_URL}/tools/${toolId}`,
+        "name": seoData.title,
+        "item": `${BASE_URL}/tools/${toolId}/${subQuery}`,
       },
     ],
   };
@@ -1285,14 +1314,14 @@ export default async function ToolPage({ params }: ToolPageProps) {
   // HowTo JSON-LD Schema — auto-generated from the first article section with listItems
   let howToSchema = null;
   if (article && article.sections) {
-    const howToSection = article.sections.find((s) => s.listItems && s.listItems.length > 0);
+    const howToSection = article.sections.find((s: any) => s.listItems && s.listItems.length > 0);
     if (howToSection) {
       howToSchema = {
         "@context": "https://schema.org",
         "@type": "HowTo",
         "name": howToSection.heading,
         "description": howToSection.paragraphs?.join(" ") || `Learn how to use the ${tool.title} tool.`,
-        "step": howToSection.listItems!.map((item, index) => ({
+        "step": howToSection.listItems!.map((item: any, index: number) => ({
           "@type": "HowToStep",
           "position": index + 1,
           "text": item,
@@ -1348,7 +1377,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-              {tool.title}
+              {seoData.title}
             </h1>
             {category && (
               <span className={`text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-border/20 ${tagStyle}`}>
@@ -1357,7 +1386,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
             )}
           </div>
           <p className="text-sm text-ink-secondary leading-relaxed max-w-[80ch]">
-            {tool.description}
+            {seoData.metaDescription}
           </p>
         </section>
 

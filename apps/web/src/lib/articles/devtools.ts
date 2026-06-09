@@ -286,5 +286,50 @@ export const DEVTOOLS_ARTICLES: HowToArticle[] = [
         answer: "Yes. Toggle the 'Create component wrapper' setting in the options card, specify your desired component name, and the converter will automatically export a clean React functional component."
       }
     ]
+  },
+  {
+    slug: "llm-token-counter-and-cost-estimator",
+    title: "How to Count LLM Tokens and Estimate API Costs Locally",
+    metaDescription: "Calculate token counts and estimate API costs for GPT-4, Claude, and Gemini locally in your browser. Supports Tiktoken cl100k and o200k encodings.",
+    toolId: "token-counter",
+    sections: [
+      {
+        heading: "Understanding LLM Tokens and Count Encodings",
+        paragraphs: [
+          "Large Language Models (LLMs) like OpenAI's GPT models, Anthropic's Claude, and Google's Gemini do not process text in characters or words. Instead, they break text down into chunks of characters called tokens. A token can be a single character, a syllable, a word, or even part of a word. Understanding the exact token count of your prompts is crucial since LLM providers charge based on token usage, and models have strict context window limits.",
+          "Different models use different tokenizer algorithms (or token encodings) to parse text. For example, GPT-3.5 and GPT-4 use the 'cl100k_base' encoding, while newer GPT-4o models use the 'o200k_base' encoding. Comparing your text across these encodings helps optimize prompts to fit within budgets and context thresholds."
+        ]
+      },
+      {
+        heading: "Why Client-Side Token Counting is Essential for Security",
+        paragraphs: [
+          "Pastry templates, API prompts, and code blocks frequently contain sensitive data, including API keys, database credentials, proprietary code structures, or personal customer logs. Uploading this text to remote servers to count tokens exposes your information to compliance and security leaks. ZeroWebTools runs the tokenizer engine entirely inside your browser.",
+          "Our LLM Token Counter utilizes local Javascript libraries to load BPE (Byte Pair Encoding) rank arrays in-memory. The tokenization process, visual word-boundary rendering, and price estimations are processed on your local CPU. Your private prompts and text inputs never touch a remote server."
+        ]
+      },
+      {
+        heading: "How to Use the Token Counter and Cost Estimator",
+        listItems: [
+          "Input Your Text -- Paste your prompt, code snippet, or drag and drop a text file into the workspace editor.",
+          "Choose Tokenizer Encodings -- Switch between cl100k_base (GPT-4), o200k_base (GPT-4o), or approximate token counts for Gemini and Claude.",
+          "Analyze Cost Forecasts -- Toggle custom rate inputs or select model pricing presets (GPT-4o, Claude 3.5, Gemini 1.5) to see the exact input and projected completion cost estimation.",
+          "Inspect Token Boundaries -- Review the text highlighted in alternating colors to visualize exactly where the tokenizer splits words into distinct token components."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "Is my pasted prompt sent to any database or AI servers?",
+        answer: "No. The entire tokenization process runs client-side in your browser memory. Your text remains 100% private and never leaves your computer."
+      },
+      {
+        question: "What is the difference between cl100k_base and o200k_base?",
+        answer: "They are different tokenization dictionaries. o200k_base is a newer, larger vocabulary dictionary used by GPT-4o which is more efficient for code and non-English text, resulting in lower token counts for the same input."
+      },
+      {
+        question: "How are the cost estimates calculated?",
+        answer: "Cost forecasts multiply the calculated input tokens and projected output tokens by the selected model's pricing rates per million tokens. You can also customize these input and output rates manually."
+      }
+    ]
   }
 ];
