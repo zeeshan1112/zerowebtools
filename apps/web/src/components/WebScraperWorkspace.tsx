@@ -262,7 +262,7 @@ export default function WebScraperWorkspace() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-hidden flex flex-col relative">
+      <div className="flex-1 overflow-hidden flex flex-col relative min-h-[500px]">
         
         {/* Missing Extension Warning */}
         {!extensionInstalled && (

@@ -184,13 +184,13 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const getTabCategorySlug = () => {
     switch (activeTab) {
       case "all":
-        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
+        return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
       case "pdf":
         return ["pdf-tools"];
       case "text":
-        return ["text-tools"];
+        return ["text-tools", "generators"];
       case "developer":
-        return ["developer-tools"];
+        return ["developer-tools", "generators"];
       case "generators":
         return ["generators"];
       case "image":
@@ -200,7 +200,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       case "fun":
         return ["fun"];
       default:
-        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
+        return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
     }
   };
 
