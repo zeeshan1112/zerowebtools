@@ -413,5 +413,58 @@ export const TEXT_ARTICLES: HowToArticle[] = [
         answer: "Absolutely not. Because the fetch request happens entirely on your own machine, our servers have zero visibility into what URLs you are typing into the tool."
       }
     ]
+  },
+  {
+    slug: "extract-youtube-transcripts",
+    title: "How to Extract YouTube Transcripts and Subtitles",
+    metaDescription: "Learn how to instantly extract and download YouTube video transcripts as plain text or .SRT files. 100% free and private browser tool.",
+    toolId: "youtube-transcript",
+    sections: [
+      {
+        heading: "Why Extract YouTube Transcripts?",
+        paragraphs: [
+          "YouTube videos are packed with valuable information, but scrubbing through hours of video to find specific details is time-consuming. By extracting the transcript, you can quickly read, search, and copy the content.",
+          "For content creators, downloading transcripts allows you to repurpose video content into blog posts, articles, or social media updates. For students and researchers, having a text version of a lecture makes taking notes and highlighting key concepts incredibly easy."
+        ]
+      },
+      {
+        heading: "How to Download YouTube Subtitles",
+        listItems: [
+          "Install the Companion Extension -- The extension securely bridges the gap, allowing your browser to fetch the YouTube captions directly.",
+          "Paste the Video URL -- Enter the link of any YouTube video into the text box.",
+          "Select the Language -- Choose from the available auto-generated or manually uploaded caption tracks.",
+          "Choose Your Format -- Toggle between the standard .SRT format (with timestamps) or a plain text paragraph view.",
+          "Download or Copy -- Copy the text to your clipboard or download it as a file with one click."
+        ]
+      },
+      {
+        heading: "Bypassing Server Limits Privately",
+        paragraphs: [
+          "Most online YouTube transcript extractors run on backend servers that quickly hit API rate limits or require you to pay for a premium subscription. They also track which videos you are analyzing.",
+          "By utilizing our local browser extension, the extraction happens directly on your machine. You fetch the data straight from YouTube's servers using your own connection, which means unlimited free extractions with absolute privacy."
+        ]
+      },
+      {
+        heading: "Converting to Standard SRT format",
+        paragraphs: [
+          "Video editors frequently need standard SubRip Subtitle (.SRT) files to import into software like Adobe Premiere Pro or DaVinci Resolve. YouTube's raw caption data is often returned in a proprietary XML format that editors cannot read.",
+          "Our tool parses this underlying XML and perfectly formats it into the standard SRT structure, ensuring the timestamps align perfectly with your video timeline."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "Why do I need to install an extension?",
+        answer: "YouTube's CORS policies prevent third-party websites from accessing its caption files directly. The extension allows your browser to securely fetch the data locally without routing it through a central server."
+      },
+      {
+        question: "Does this work for auto-generated captions?",
+        answer: "Yes! If the creator hasn't uploaded manual subtitles, the tool can extract YouTube's auto-generated ASR (Automatic Speech Recognition) tracks."
+      },
+      {
+        question: "Is there a limit on video length?",
+        answer: "No. Because the processing is done locally, you can extract transcripts from podcasts or lectures that are several hours long without any lag."
+      }
+    ]
   }
 ];

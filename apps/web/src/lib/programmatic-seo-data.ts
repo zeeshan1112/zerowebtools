@@ -3200,5 +3200,31 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         ]
       }
     }
+  ],
+  "youtube-transcript": [
+    {
+      "slug": "youtube-transcript-online-free",
+      "title": "Free Online YouTube Transcript Extractor",
+      "metaDescription": "Download YouTube transcripts and subtitles instantly for free. Save as SRT or plain text without any server limits or API costs.",
+      "articleIntro": {
+        "heading": "How to Extract YouTube Transcripts",
+        "paragraphs": [
+          "Extracting subtitles and transcripts from YouTube videos used to require expensive tools or slow API services. Our Free Online YouTube Transcript Extractor changes the game by fetching the closed captions directly from the video page.",
+          "Whether you are a content creator repurposing your videos into blog posts, or a student downloading lecture transcripts to study, this tool offers lightning-fast, 100% private text extraction right in your browser."
+        ]
+      }
+    },
+    {
+      "slug": "youtube-to-srt-converter",
+      "title": "YouTube to SRT Subtitle Converter",
+      "metaDescription": "Convert YouTube closed captions and auto-generated subtitles to standard .SRT files instantly. Free and secure.",
+      "articleIntro": {
+        "heading": "Convert YouTube to SRT Format",
+        "paragraphs": [
+          "If you are editing videos and need standard SubRip Subtitle (.SRT) files, our tool has you covered. It automatically formats the raw YouTube caption timings into perfect SRT files that you can import directly into Premiere Pro, Final Cut, or DaVinci Resolve.",
+          "Simply paste the video URL, select your language, and click download. It's completely free and processes entirely on your local machine."
+        ]
+      }
+    }
   ]
 };
