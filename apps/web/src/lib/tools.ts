@@ -33,7 +33,13 @@ export const CATEGORIES: ToolCategory[] = [
     description: "Leverage local machine learning and extension privileges for transcription, paywall bypass, and semantic analysis.",
     tools: [
       { id: "audio-transcriber", title: "Audio Transcriber Pro", description: "Transcribe audio files locally in your browser with precise timestamps using WebAssembly.", status: "live", metaDescription: "Transcribe MP3, WAV, and M4A audio files locally. 100% private." },
-      { id: "web-scraper", title: "Smart Article Reader", description: "Bypass news paywalls privately, convert articles to clean text, and read distraction-free.", status: "live", metaDescription: "Bypass news paywalls, extract websites to clean text, and read ad-free. 100% serverless and private." }
+      {
+        id: "token-counter",
+        title: "Token Counter & Cost Estimator",
+        description: "Count tokens using SOTA model tokenizers and estimate API costs client-side with 100% privacy.",
+        status: "live",
+        metaDescription: "Count tokens and estimate API costs locally for SOTA models (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Alternating visual token boundaries, 100% private.",
+      }
     ]
   },
   {
@@ -122,6 +128,7 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Shuffle lists randomly or pick random items/winners from your entries. Free, 100% private, and runs entirely in your browser. No server uploads.",
       },
+      { id: "web-scraper", title: "Smart Article Reader", description: "Bypass news paywalls privately, convert articles to clean text, and read distraction-free.", status: "live", metaDescription: "Bypass news paywalls, extract websites to clean text, and read ad-free. 100% serverless and private." }
     ],
   },
   {
@@ -163,13 +170,6 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Format, beautify, and capitalize SQL dialect statements client-side.",
         status: "live",
         metaDescription: "Beautify and format SQL statements instantly — free and private. Capitalize SQL keywords, format clauses, and clean indentation. No server uploads.",
-      },
-      {
-        id: "token-counter",
-        title: "Token Counter & Cost Estimator",
-        description: "Count tokens using SOTA model tokenizers and estimate API costs client-side with 100% privacy.",
-        status: "live",
-        metaDescription: "Count tokens and estimate API costs locally for SOTA models (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Alternating visual token boundaries, 100% private.",
       },
       {
         id: "html-to-jsx",
