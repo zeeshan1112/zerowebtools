@@ -138,6 +138,13 @@ export const CATEGORIES: ToolCategory[] = [
     description: "Validate, format, parse, and check your code and data structures client-side.",
     tools: [
       {
+        id: "api-client",
+        title: "REST API Client",
+        description: "Construct and execute HTTP requests privately bypassing CORS using the companion extension.",
+        status: "live",
+        metaDescription: "Test and debug REST APIs directly in your browser. 100% private, no cloud syncing, bypasses CORS. Supports GET, POST, custom headers, and localhost requests.",
+      },
+      {
         id: "json-formatter",
         title: "JSON Formatter",
         description: "Validate, beautify, and minify JSON data with real-time tree structure explorer.",
