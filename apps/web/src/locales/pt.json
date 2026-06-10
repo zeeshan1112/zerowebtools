@@ -2585,6 +2585,56 @@
           "answer": "Sim. Após a execução inicial ter baixado e armazenado em cache os arquivos do modelo, você pode desligar sua conexão com a Internet e realizar a transcrição totalmente offline."
         }
       ]
+    },
+    "web-scraper": {
+      "title": "Como ler e extrair artigos de forma privada",
+      "metaDescription": "Extraia texto de qualquer artigo com segurança em sua máquina local usando a extensão complementar. Sem rastreamento de servidor.",
+      "sections": [
+        {
+          "heading": "A importância da extração de artigos privados",
+          "level": "h2",
+          "paragraphs": [
+            "A maioria das ferramentas de leitura online e extratores de texto encaminham suas solicitações por meio de seus próprios servidores proxy. Isso significa que eles podem rastrear cada artigo que você lê, criar um perfil de seus interesses e registrar seu endereço IP. Para pesquisadores, jornalistas e usuários preocupados com a privacidade, este é um enorme vazamento de segurança.",
+            "Ao executar a lógica de extração localmente em sua própria máquina usando uma extensão de navegador complementar, você elimina totalmente o intermediário. Seu navegador busca o artigo diretamente da fonte, garantindo que nenhum servidor de terceiros veja o que você está lendo."
+          ]
+        },
+        {
+          "heading": "Como usar o leitor inteligente de artigos",
+          "level": "h2",
+          "listItems": [
+            "Instale a extensão complementar – A extensão atua como uma ponte local segura para buscar sites diretamente do seu navegador.",
+            "Cole o URL do artigo – Insira o endereço da web do artigo que deseja extrair.",
+            "Extrair conteúdo – A ferramenta buscará o HTML bruto localmente, removerá todos os anúncios e scripts de rastreamento e apresentará um texto limpo e legível.",
+            "Leia ou salve - Aproveite a experiência de leitura sem distrações ou copie o texto limpo para suas próprias anotações."
+          ]
+        },
+        {
+          "heading": "Ignorando as restrições de segurança com segurança",
+          "level": "h2",
+          "paragraphs": [
+            "Muitos sites usam políticas estritas de CORS (Cross-Origin Resource Sharing) e X-Frame-Options para evitar que outros sites carreguem seu conteúdo. Nossa extensão local remove automaticamente esses cabeçalhos restritivos dos URLs que você solicita explicitamente.",
+            "Isso permite que o aplicativo da web ZeroWebTools analise perfeitamente os dados localmente dentro do seu navegador sem ser bloqueado, dando a você o poder de um web scraper de back-end sem nunca precisar de um servidor de back-end."
+          ]
+        },
+        {
+          "heading": "Ignorando firewalls e usando arquivos da web",
+          "level": "h2",
+          "paragraphs": [
+            "Quando você está em uma rede restritiva, como uma intranet escolar ou corporativa, os firewalls geralmente bloqueiam o acesso direto a sites de notícias ou blogs. Como nossa extensão Smart Article Reader atua como um proxy independente dentro da sessão do seu navegador, muitas vezes ela pode ignorar o bloqueio básico da rede.",
+            "Além disso, se um site for completamente bloqueado ou desativado, nossa ferramenta consulta automaticamente o Web Archive público (Wayback Machine) para buscar um instantâneo em cache desbloqueado. Isto garante que você possa acessar as informações necessárias, independentemente das restrições da rede."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Por que preciso instalar uma extensão do navegador?",
+          "answer": "Os navegadores da Web impedem que sites busquem dados de outros sites (CORS). A extensão dá ao seu navegador a permissão necessária para buscar o artigo localmente, para que não precisemos usar um servidor proxy central."
+        },
+        {
+          "question": "Você acompanha os artigos que leio?",
+          "answer": "Absolutamente não. Como a solicitação de busca ocorre inteiramente em sua própria máquina, nossos servidores não têm visibilidade de quais URLs você está digitando na ferramenta."
+        }
+      ]
     }
   },
   "common": {
@@ -2781,5 +2831,17 @@
     "timestamp_format": "Formato de carimbo de data/hora",
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[HH:MM:SS]"
+  },
+  "web_scraper": {
+    "url_placeholder": "Cole o URL do artigo para ler sem anúncios...",
+    "extract_btn": "Leia o artigo",
+    "extracting": "Leitura...",
+    "tab_reader": "Visualização do leitor",
+    "tab_markdown": "Texto Simples",
+    "copy_markdown": "Copiar texto",
+    "missing_extension_title": "Extensão necessária",
+    "missing_extension_desc": "Para ignorar paywalls e restrições CORS, instale a extensão ZeroWebTools Companion.",
+    "download_extension": "Baixar extensão",
+    "error_extract": "Falha ao ler o conteúdo. Certifique-se de que o URL seja válido e que a extensão esteja instalada."
   }
 }

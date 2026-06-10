@@ -3162,5 +3162,43 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         ]
       }
     }
+  ],
+  "web-scraper": [
+    {
+      "slug": "web-scraper-online-free",
+      "title": "Free Online Smart Article Reader - Extract Text",
+      "metaDescription": "Looking for the best way to extract clean text from articles? Try our Free Online Smart Article Reader which offers 100% privacy and works instantly in your browser via our companion extension.",
+      "articleIntro": {
+        "heading": "How to Use the Free Online Smart Article Reader",
+        "paragraphs": [
+          "When it comes to reading articles distraction-free or extracting clean text from complex web pages, having the right tool makes all the difference. Our Smart Article Reader is designed to help you instantly strip away ads, popups, and clutter.",
+          "By utilizing our companion extension as a secure local bridge, this tool fetches the original article directly from your browser, ensuring absolute privacy. No tracking, no servers, just pure readable content."
+        ]
+      }
+    },
+    {
+      "slug": "web-scraper-private",
+      "title": "Private Article Extractor - 100% Secure",
+      "metaDescription": "Extract websites and read articles privately without server tracking. Try our completely offline-first Smart Article Reader.",
+      "articleIntro": {
+        "heading": "How to Read Articles Privately",
+        "paragraphs": [
+          "Most online article scrapers rely on remote servers that log your reading habits and IP address. We believe your data is yours alone. That's why our Smart Article Reader processes everything locally via your browser extension.",
+          "Enjoy peace of mind knowing that your reading history never touches our servers. Read smoothly and securely without compromising your personal privacy."
+        ]
+      }
+    },
+    {
+      "slug": "bypass-school-firewall-website-reader",
+      "title": "Bypass Firewall restrictions to read websites",
+      "metaDescription": "Read articles and websites blocked by school or corporate firewalls by using our local fetch extension and Web Archive proxy fallback.",
+      "articleIntro": {
+        "heading": "How to Read Websites Behind Firewalls",
+        "paragraphs": [
+          "When you are on a restrictive network, such as a school or corporate intranet, firewalls often block direct access to news sites or blogs. Because our Smart Article Reader extension acts as an independent proxy within your own browser session, it can bypass basic network blocking.",
+          "Additionally, if a website is completely blocked, our tool automatically queries the public Web Archive (Wayback Machine) to fetch an unblocked cached snapshot. This guarantees you can access the information you need, regardless of network restrictions."
+        ]
+      }
+    }
   ]
 };

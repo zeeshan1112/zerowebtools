@@ -2585,6 +2585,56 @@
           "answer": "Oui. Une fois que l'exécution initiale a téléchargé et mis en cache les fichiers de modèle, vous pouvez désactiver votre connexion Internet et effectuer une transcription complètement hors ligne."
         }
       ]
+    },
+    "web-scraper": {
+      "title": "Comment lire et extraire des articles en privé",
+      "metaDescription": "Extrayez le texte de n’importe quel article en toute sécurité sur votre ordinateur local à l’aide de l’extension compagnon. Pas de suivi du serveur.",
+      "sections": [
+        {
+          "heading": "L’importance de l’extraction d’articles privés",
+          "level": "h2",
+          "paragraphs": [
+            "La plupart des outils de lecture en ligne et des extracteurs de texte acheminent vos demandes via leurs propres serveurs proxy. Cela signifie qu'ils peuvent suivre chaque article que vous lisez, créer un profil sur vos intérêts et enregistrer votre adresse IP. Pour les chercheurs, les journalistes et les utilisateurs soucieux de leur vie privée, il s’agit d’une fuite de sécurité massive.",
+            "En exécutant la logique d'extraction localement sur votre propre ordinateur à l'aide d'une extension de navigateur associée, vous éliminez entièrement les intermédiaires. Votre navigateur récupère l'article directement à partir de la source, garantissant qu'aucun serveur tiers ne verra jamais ce que vous lisez."
+          ]
+        },
+        {
+          "heading": "Comment utiliser le lecteur d'articles intelligent",
+          "level": "h2",
+          "listItems": [
+            "Installez l'extension Companion – L'extension agit comme un pont local sécurisé pour récupérer des sites Web directement depuis votre navigateur.",
+            "Collez l'URL de l'article : saisissez l'adresse Web de l'article que vous souhaitez extraire.",
+            "Extraire le contenu - L'outil récupérera le code HTML brut localement, supprimera toutes les publicités et tous les scripts de suivi et vous présentera un texte clair et lisible.",
+            "Lire ou enregistrer : profitez d'une expérience de lecture sans distraction ou copiez le texte propre pour vos propres notes."
+          ]
+        },
+        {
+          "heading": "Contourner les restrictions de sécurité en toute sécurité",
+          "level": "h2",
+          "paragraphs": [
+            "De nombreux sites Web utilisent des politiques CORS (Cross-Origin Resource Sharing) strictes et des options X-Frame pour empêcher d'autres sites de charger leur contenu. Notre extension locale supprime automatiquement ces en-têtes restrictifs pour les URL que vous demandez explicitement.",
+            "Cela permet à l'application Web ZeroWebTools d'analyser de manière transparente les données localement dans votre navigateur sans être bloquée, vous offrant ainsi la puissance d'un grattoir Web backend sans jamais avoir besoin d'un serveur backend."
+          ]
+        },
+        {
+          "heading": "Contourner les pare-feu et utiliser les archives Web",
+          "level": "h2",
+          "paragraphs": [
+            "Lorsque vous utilisez un réseau restrictif, tel qu'un intranet d'école ou d'entreprise, les pare-feu bloquent souvent l'accès direct aux sites d'actualités ou aux blogs. Étant donné que notre extension Smart Article Reader agit comme un proxy indépendant au sein de votre propre session de navigateur, elle peut souvent contourner le blocage de base du réseau.",
+            "De plus, si un site Web est complètement bloqué ou supprimé, notre outil interroge automatiquement les archives Web publiques (Wayback Machine) pour récupérer un instantané mis en cache non bloqué. Cela garantit que vous pouvez accéder aux informations dont vous avez besoin, quelles que soient les restrictions du réseau."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Pourquoi dois-je installer une extension de navigateur ?",
+          "answer": "Les navigateurs Web empêchent les sites Web de récupérer des données sur d'autres sites Web (CORS). L'extension donne à votre navigateur l'autorisation dont il a besoin pour récupérer l'article localement afin que nous n'ayons pas besoin d'utiliser un serveur proxy central."
+        },
+        {
+          "question": "Suivez-vous les articles que je lis ?",
+          "answer": "Absolument pas. Étant donné que la demande de récupération s'effectue entièrement sur votre propre ordinateur, nos serveurs n'ont aucune visibilité sur les URL que vous saisissez dans l'outil."
+        }
+      ]
     }
   },
   "common": {
@@ -2781,5 +2831,17 @@
     "timestamp_format": "Format d'horodatage",
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[HH:MM:SS]"
+  },
+  "web_scraper": {
+    "url_placeholder": "Collez l'URL de l'article pour le lire sans publicité...",
+    "extract_btn": "Lire l'article",
+    "extracting": "En lisant...",
+    "tab_reader": "Vue du lecteur",
+    "tab_markdown": "Texte brut",
+    "copy_markdown": "Copier le texte",
+    "missing_extension_title": "Extension requise",
+    "missing_extension_desc": "Pour contourner les paywalls et les restrictions CORS, veuillez installer l'extension ZeroWebTools Companion.",
+    "download_extension": "Télécharger l'extension",
+    "error_extract": "Échec de la lecture du contenu. Assurez-vous que l'URL est valide et que l'extension est installée."
   }
 }

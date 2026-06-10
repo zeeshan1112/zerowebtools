@@ -2585,6 +2585,56 @@
           "answer": "Sí. Después de que la ejecución inicial haya descargado y almacenado en caché los archivos del modelo, puede apagar su conexión a Internet y realizar la transcripción completamente sin conexión."
         }
       ]
+    },
+    "web-scraper": {
+      "title": "Cómo leer y extraer artículos de forma privada",
+      "metaDescription": "Extraiga texto de cualquier artículo de forma segura en su máquina local utilizando la extensión complementaria. Sin seguimiento del servidor.",
+      "sections": [
+        {
+          "heading": "La importancia de la extracción de artículos privados",
+          "level": "h2",
+          "paragraphs": [
+            "La mayoría de las herramientas de lectura en línea y extractores de texto enrutan sus solicitudes a través de sus propios servidores proxy. Esto significa que pueden rastrear cada artículo que lee, crear un perfil sobre sus intereses y registrar su dirección IP. Para investigadores, periodistas y usuarios preocupados por la privacidad, se trata de una fuga de seguridad masiva.",
+            "Al ejecutar la lógica de extracción localmente en su propia máquina utilizando una extensión de navegador complementaria, elimina por completo al intermediario. Su navegador recupera el artículo directamente de la fuente, lo que garantiza que ningún servidor de terceros vea lo que está leyendo."
+          ]
+        },
+        {
+          "heading": "Cómo utilizar el lector de artículos inteligente",
+          "level": "h2",
+          "listItems": [
+            "Instale la extensión complementaria: la extensión actúa como un puente local seguro para buscar sitios web directamente desde su navegador.",
+            "Pegue la URL del artículo: ingrese la dirección web del artículo que desea extraer.",
+            "Extraer contenido: la herramienta buscará el HTML sin formato localmente, eliminará todos los anuncios y scripts de seguimiento y le presentará un texto limpio y legible.",
+            "Lea o guarde: disfrute de la experiencia de lectura sin distracciones o copie el texto limpio para sus propias notas."
+          ]
+        },
+        {
+          "heading": "Evitar las restricciones de seguridad de forma segura",
+          "level": "h2",
+          "paragraphs": [
+            "Muchos sitios web utilizan políticas estrictas de CORS (intercambio de recursos entre orígenes) y opciones X-Frame para evitar que otros sitios carguen su contenido. Nuestra extensión local elimina automáticamente estos encabezados restrictivos para las URL que usted solicita explícitamente.",
+            "Esto permite que la aplicación web ZeroWebTools analice sin problemas los datos localmente dentro de su navegador sin ser bloqueado, brindándole el poder de un raspador web backend sin necesidad de un servidor backend."
+          ]
+        },
+        {
+          "heading": "Evitar cortafuegos y utilizar archivos web",
+          "level": "h2",
+          "paragraphs": [
+            "Cuando estás en una red restrictiva, como la intranet de una escuela o una empresa, los firewalls a menudo bloquean el acceso directo a blogs o sitios de noticias. Debido a que nuestra extensión Smart Article Reader actúa como un proxy independiente dentro de su propia sesión de navegador, a menudo puede evitar el bloqueo básico de la red.",
+            "Además, si un sitio web se bloquea o se elimina por completo, nuestra herramienta consulta automáticamente el archivo web público (Wayback Machine) para recuperar una instantánea en caché desbloqueada. Esto garantiza que pueda acceder a la información que necesita, independientemente de las restricciones de la red."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Por qué necesito instalar una extensión del navegador?",
+          "answer": "Los navegadores web impiden que los sitios web obtengan datos de otros sitios web (CORS). La extensión le otorga a su navegador el permiso que necesita para buscar el artículo localmente, de modo que no tengamos que usar un servidor proxy central."
+        },
+        {
+          "question": "¿Realizas un seguimiento de los artículos que leo?",
+          "answer": "En absoluto. Debido a que la solicitud de recuperación se realiza completamente en su propia máquina, nuestros servidores no tienen visibilidad de las URL que está escribiendo en la herramienta."
+        }
+      ]
     }
   },
   "common": {
@@ -2781,5 +2831,17 @@
     "timestamp_format": "Formato de marca de tiempo",
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[HH:MM:SS]"
+  },
+  "web_scraper": {
+    "url_placeholder": "Pegue la URL del artículo para leerlo sin publicidad...",
+    "extract_btn": "Leer artículo",
+    "extracting": "Lectura...",
+    "tab_reader": "Vista del lector",
+    "tab_markdown": "Texto sin formato",
+    "copy_markdown": "Copiar texto",
+    "missing_extension_title": "Extensión requerida",
+    "missing_extension_desc": "Para evitar los muros de pago y las restricciones de CORS, instale la extensión ZeroWebTools Companion.",
+    "download_extension": "Descargar extensión",
+    "error_extract": "No se pudo leer el contenido. Asegúrese de que la URL sea válida y que la extensión esté instalada."
   }
 }

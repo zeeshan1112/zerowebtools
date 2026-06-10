@@ -2585,6 +2585,56 @@
           "answer": "SÌ. Dopo che l'esecuzione iniziale ha scaricato e memorizzato nella cache i file del modello, è possibile disattivare la connessione Internet ed eseguire la trascrizione completamente offline."
         }
       ]
+    },
+    "web-scraper": {
+      "title": "Come leggere ed estrarre articoli in privato",
+      "metaDescription": "Estrai il testo da qualsiasi articolo in modo sicuro sul tuo computer locale utilizzando l'estensione complementare. Nessun monitoraggio del server.",
+      "sections": [
+        {
+          "heading": "L'importanza dell'estrazione di articoli privati",
+          "level": "h2",
+          "paragraphs": [
+            "La maggior parte degli strumenti di lettura e degli estrattori di testo online instradano le tue richieste attraverso i propri server proxy. Ciò significa che possono tenere traccia di ogni singolo articolo che leggi, creare un profilo sui tuoi interessi e registrare il tuo indirizzo IP. Per ricercatori, giornalisti e utenti attenti alla privacy, si tratta di un’enorme perdita di sicurezza.",
+            "Eseguendo la logica di estrazione localmente sul tuo computer utilizzando un'estensione del browser complementare, elimini completamente l'intermediario. Il tuo browser recupera l'articolo direttamente dalla fonte, garantendo che nessun server di terze parti veda mai ciò che stai leggendo."
+          ]
+        },
+        {
+          "heading": "Come utilizzare il lettore di articoli intelligente",
+          "level": "h2",
+          "listItems": [
+            "Installa l'estensione complementare: l'estensione funge da ponte locale sicuro per recuperare i siti Web direttamente dal tuo browser.",
+            "Incolla l'URL dell'articolo: inserisci l'indirizzo web dell'articolo che desideri estrarre.",
+            "Estrai contenuto: lo strumento recupererà localmente l'HTML non elaborato, eliminerà tutti gli annunci e gli script di monitoraggio e ti presenterà un testo pulito e leggibile.",
+            "Leggi o salva: goditi l'esperienza di lettura senza distrazioni o copia il testo pulito per i tuoi appunti."
+          ]
+        },
+        {
+          "heading": "Bypassare le restrizioni di sicurezza in modo sicuro",
+          "level": "h2",
+          "paragraphs": [
+            "Molti siti Web utilizzano rigide politiche CORS (Cross-Origin Resource Sharing) e opzioni X-Frame per impedire ad altri siti di caricare i propri contenuti. La nostra estensione locale rimuove automaticamente queste intestazioni restrittive per gli URL richiesti esplicitamente.",
+            "Ciò consente all'app Web ZeroWebTools di analizzare perfettamente i dati localmente all'interno del tuo browser senza essere bloccati, offrendoti la potenza di un web scraper backend senza mai aver bisogno di un server backend."
+          ]
+        },
+        {
+          "heading": "Aggirare i firewall e utilizzare gli archivi Web",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si utilizza una rete restrittiva, ad esempio una intranet scolastica o aziendale, i firewall spesso bloccano l'accesso diretto a siti di notizie o blog. Poiché la nostra estensione Smart Article Reader agisce come proxy indipendente all'interno della sessione del tuo browser, spesso può aggirare il blocco di rete di base.",
+            "Inoltre, se un sito Web viene completamente bloccato o rimosso, il nostro strumento interroga automaticamente l'archivio Web pubblico (Wayback Machine) per recuperare uno snapshot memorizzato nella cache non bloccato. Ciò garantisce che tu possa accedere alle informazioni di cui hai bisogno, indipendentemente dalle restrizioni della rete."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Perché devo installare un'estensione del browser?",
+          "answer": "I browser Web impediscono ai siti Web di recuperare dati da altri siti Web (CORS). L'estensione fornisce al tuo browser l'autorizzazione necessaria per recuperare l'articolo localmente, quindi non dobbiamo utilizzare un server proxy centrale."
+        },
+        {
+          "question": "Tieni traccia degli articoli che leggo?",
+          "answer": "Assolutamente no. Poiché la richiesta di recupero avviene interamente sul tuo computer, i nostri server non hanno visibilità su quali URL stai digitando nello strumento."
+        }
+      ]
     }
   },
   "common": {
@@ -2781,5 +2831,17 @@
     "timestamp_format": "Formato timestamp",
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[OO:MM:SS]"
+  },
+  "web_scraper": {
+    "url_placeholder": "Incolla l'URL dell'articolo per leggerlo senza pubblicità...",
+    "extract_btn": "Leggi l'articolo",
+    "extracting": "Lettura...",
+    "tab_reader": "Visualizzazione lettore",
+    "tab_markdown": "Testo semplice",
+    "copy_markdown": "Copia testo",
+    "missing_extension_title": "Estensione richiesta",
+    "missing_extension_desc": "Per aggirare i paywall e le restrizioni CORS, installa l'estensione ZeroWebTools Companion.",
+    "download_extension": "Scarica estensione",
+    "error_extract": "Impossibile leggere il contenuto. Assicurati che l'URL sia valido e che l'estensione sia installata."
   }
 }
