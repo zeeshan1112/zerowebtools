@@ -268,8 +268,8 @@ export default function WebScraperWorkspace() {
         {!extensionInstalled && (
           <div className="absolute inset-0 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm z-10 flex items-center justify-center p-6 text-center">
             <div className="max-w-md bg-white dark:bg-neutral-800 p-8 rounded-xl shadow-xl border border-neutral-200 dark:border-neutral-700">
-              <div className="text-4xl mb-4 flex justify-center text-ink dark:text-white opacity-80">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.047-.899.277-1.045.732a3.003 3.003 0 0 0 .546 3.197 3 3 0 0 1 0 4.242 3 3 0 0 1-4.242 0 3.003 3.003 0 0 0-3.197-.546c-.455.146-.779.575-.732 1.045.04.283-.062.564-.276.837l-1.611 1.611c-.47.47-1.087.706-1.704.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.878-.289c-.493.074-1.011-.122-1.341-.563a3.001 3.001 0 0 1-.365-3.327 3.001 3.001 0 0 0-.365-3.327 3.001 3.001 0 0 1 0-4.242 3 3 0 0 1 4.242 0c1.077 1.077 2.658 1.157 3.82.261.353-.271.492-.743.342-1.168a3 3 0 0 0-3.037-2.036c-.47.047-.899-.277-1.045-.732a3.003 3.003 0 0 1 .546-3.197 3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0 3.003 3.003 0 0 1-3.197.546c-.455-.146-.779-.575-.732-1.045.04-.283.062-.564.276-.837l1.611-1.611c.47-.47 1.087-.706 1.704-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.878.289.493-.074 1.011.122 1.341.563a3.001 3.001 0 0 0 .365 3.327 3.001 3.001 0 0 1 .365 3.327 3.001 3.001 0 0 0 0 4.242 3 3 0 0 0 4.242 0c1.077-1.077 2.658-1.157 3.82-.261.353.271.492.743.342 1.168a3 3 0 0 1-3.037 2.036z"/></svg>
+              <div className="text-4xl mb-6 flex justify-center text-ink dark:text-white opacity-80">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5,9.5h-3v-2c0-1.66-1.34-3-3-3s-3,1.34-3,3v2h-3C6.12,9.5,5,10.62,5,12v3h2c1.66,0,3,1.34,3,3s-1.34,3-3,3h-2v3c0,1.38,1.12,2.5,2.5,2.5h3v-2c0-1.66,1.34-3,3-3s3,1.34,3,3v2h3c1.38,0,2.5-1.12,2.5-2.5v-3h-2c-1.66,0-3-1.34-3-3s1.34-3,3-3h2V12C22,10.62,20.88,9.5,19.5,9.5z"/></svg>
               </div>
               <h3 className="text-xl font-bold mb-2 text-neutral-900 dark:text-white">
                 {t("web_scraper.missing_extension_title", "Extension Required")}
@@ -277,8 +277,8 @@ export default function WebScraperWorkspace() {
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 {t("web_scraper.missing_extension_desc", "Please install the companion extension to bypass paywalls.")}
               </p>
-              <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm py-2 px-4 rounded-lg mb-6 font-medium flex items-center justify-center gap-2">
-                <span>🛡️</span> 100% Private & Secure. We do not track or record your browsing data.
+              <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm py-2.5 px-4 rounded-lg mb-6 font-medium flex items-center justify-center gap-2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> 100% Private & Secure. We do not track or record your browsing data.
               </div>
               <a
                 href="/extensions"
