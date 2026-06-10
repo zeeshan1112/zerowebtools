@@ -66,6 +66,7 @@ const CoinFlipperWorkspace = dynamic(() => import("@/components/CoinFlipperWorks
 const SpinTheWheelWorkspace = dynamic(() => import("@/components/SpinTheWheelWorkspace"), { loading: WorkspaceLoader });
 const TwoZeroFourEightWorkspace = dynamic(() => import("@/components/TwoZeroFourEightWorkspace"), { loading: WorkspaceLoader });
 const HtmlToJsxWorkspace = dynamic(() => import("@/components/HtmlToJsxWorkspace"), { loading: WorkspaceLoader });
+const AudioTranscriberWorkspace = dynamic(() => import("@/components/AudioTranscriberWorkspace"), { loading: WorkspaceLoader });
 
 const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "json-formatter": JsonViewerWorkspace,
@@ -118,6 +119,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "2048-game": TwoZeroFourEightWorkspace,
   "token-counter": TokenCounterWorkspace,
   "html-to-jsx": HtmlToJsxWorkspace,
+  "audio-transcriber": AudioTranscriberWorkspace,
 };
 
 export default function WorkspaceRenderer({ toolId }: { toolId: string }) {

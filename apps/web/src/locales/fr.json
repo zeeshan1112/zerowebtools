@@ -2530,6 +2530,61 @@
           "answer": "Non. Pour des raisons de sécurité et de confidentialité, vos listes ne sont pas stockées sur nos serveurs. Vous devez copier votre liste avant de rafraîchir la page."
         }
       ]
+    },
+    "audio-transcriber": {
+      "title": "Comment transcrire de l'audio en texte localement avec des horodatages",
+      "metaDescription": "Transcrivez les fichiers audio MP3, WAV et M4A localement et en privé dans votre navigateur. Générez des horodatages précis des segments et modifiez les transcriptions côté client.",
+      "sections": [
+        {
+          "heading": "Le besoin d’une transcription audio sécurisée",
+          "level": "h2",
+          "paragraphs": [
+            "La transcription d'entretiens, d'enregistrements de réunions, de conférences et de dictées en texte est cruciale pour l'accessibilité, la documentation et la création de contenu. Cependant, les services de transcription en ligne standard nécessitent le téléchargement de vos fichiers audio sur des serveurs cloud. Cela expose les discussions confidentielles de l’entreprise, les entretiens privés et les informations personnelles sensibles à des bases de données tierces.",
+            "Pour sécuriser vos données, la transcription locale sur l'appareil est la solution idéale. En convertissant la parole en texte directement dans votre navigateur, vos fichiers audio ne quittent jamais votre appareil. Cela garantit une confidentialité absolue des données et supprime les files d'attente du serveur, vous permettant de transcrire les fichiers instantanément."
+          ]
+        },
+        {
+          "heading": "Comment transcrire l'audio localement",
+          "level": "h2",
+          "listItems": [
+            "Télécharger un fichier audio : sélectionnez ou faites glisser et déposez votre fichier MP3, WAV, M4A, OGG ou WEBM dans la zone de dépôt sécurisée.",
+            "Configurer les paramètres Whisper – Sélectionnez le modèle en anglais uniquement pour la vitesse ou le modèle multilingue pour transcrire d'autres langues. Vous pouvez également spécifier la langue de saisie ou la laisser se détecter automatiquement.",
+            "Exécuter la transcription WebAssembly : cliquez sur le bouton Trancrire. Le navigateur décode l'audio, le rééchantillonne à 16 kHz et exécute le modèle Whisper dans un Web Worker local.",
+            "Réviser et modifier la transcription : explorez l'onglet Paragraphes pour une lecture claire, ou passez à l'onglet Horodatages pour consulter les segments chronologiques avec des horodatages. Vous pouvez modifier le texte directement dans le navigateur.",
+            "Exporter la transcription : copiez le texte dans votre presse-papiers ou téléchargez-le sous forme de fichier texte brut (.txt) en un seul clic."
+          ]
+        },
+        {
+          "heading": "Apprentissage automatique WebAssembly sur appareil",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools utilise les moteurs avancés ONNX Runtime et Hugging Face Transformers compilés sur WebAssembly pour effectuer un apprentissage automatique sur l'appareil. Lorsque vous exécutez le transcripteur pour la première fois, un modèle Whisper Tiny quantifié est téléchargé (~ 75 Mo).",
+            "Une fois téléchargé, le modèle est mis en cache localement dans le cache de stockage de votre navigateur. Lors de toutes les exécutions ultérieures, le modèle se charge instantanément à partir du disque, permettant une transcription complète hors ligne sans connexion réseau. Tous les calculs s'effectuent localement sur votre CPU/GPU, garantissant une latence nulle et aucune fuite de confidentialité."
+          ]
+        },
+        {
+          "heading": "Horodatages précis et édition interactive",
+          "level": "h2",
+          "paragraphs": [
+            "Lors de la transcription d'enregistrements plus longs, l'horodatage des segments est essentiel pour naviguer dans le contenu. Notre transcripteur génère des horodatages de début précis pour chaque segment, vous permettant de localiser rapidement où des mots spécifiques ont été prononcés.",
+            "De plus, l'éditeur de transcription interactif vous permet de corriger à la volée tout mot mal entendu ou tout formatage dans les vues de liste de paragraphes et d'horodatage. Cela garantit que votre document final exporté est soigné, précis et prêt à être publié."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Mes données audio sont-elles téléchargées sur un serveur ?",
+          "answer": "Non. La transcription est effectuée entièrement localement sur le CPU/GPU de votre ordinateur à l'aide de WebAssembly. Vos fichiers audio et transcriptions de texte ne sont jamais téléchargés ou partagés."
+        },
+        {
+          "question": "Combien de temps prend la transcription ?",
+          "answer": "La vitesse de traitement dépend du matériel CPU/GPU de votre appareil et de la longueur du fichier audio. Pour la plupart des appareils modernes, un clip audio de 5 minutes est transcrit en moins d’une minute."
+        },
+        {
+          "question": "Puis-je utiliser l’outil complètement hors ligne ?",
+          "answer": "Oui. Une fois que l'exécution initiale a téléchargé et mis en cache les fichiers de modèle, vous pouvez désactiver votre connexion Internet et effectuer une transcription complètement hors ligne."
+        }
+      ]
     }
   },
   "common": {
@@ -2699,5 +2754,32 @@
     "step_3": "Traduction des styles en ligne en objets de style JSX...",
     "step_4": "Formatage de l'arborescence des composants de sortie...",
     "converting_overlay_title": "Conversion de HTML en JSX..."
+  },
+  "audio_transcriber": {
+    "drop_zone_prompt": "Déposez un fichier audio ici ou cliquez pour parcourir",
+    "drop_zone_prompt_sub": "Prend en charge MP3, WAV, M4A, OGG, WEBM — Transcription 100 % privée côté client",
+    "model_selection": "Sélectionnez le modèle Whisper",
+    "model_desc_tiny_en": "Whisper Tiny (en anglais uniquement, ~ 75 Mo) — Rapide et très précis pour l'anglais.",
+    "model_desc_tiny": "Whisper Tiny (multilingue, ~ 75 Mo) — Prend en charge plus de 90 langues. Détecte automatiquement la langue parlée.",
+    "warning_initial_download": "⚠️ La première exécution téléchargera le modèle d'IA d'environ 75 Mo dans le cache local de votre navigateur. Les exécutions suivantes sont instantanées.",
+    "language_label": "Langue audio",
+    "auto_detect": "Langue de détection automatique",
+    "transcribe_btn": "Transcrire l'audio",
+    "transcribing": "Transcription...",
+    "download_progress": "Modèle de téléchargement : {progress} %",
+    "loading_model": "Chargement du modèle Whisper AI...",
+    "resampling_audio": "Décodage et rééchantillonnage audio (16 kHz)...",
+    "running_inference": "Exécution de la transcription (cela peut prendre une minute)...",
+    "done": "Transcription terminée !",
+    "tab_paragraphs": "Paragraphes",
+    "tab_timestamps": "Affichage des horodatages",
+    "copy_btn": "Copier la transcription",
+    "clear_btn": "Clair",
+    "download_btn": "Télécharger la transcription (.txt)",
+    "empty_prompt": "Téléchargez un fichier audio et cliquez sur Transcrire pour afficher les résultats.",
+    "error_audio_decode": "Échec du décodage du fichier audio. Veuillez vous assurer qu'il s'agit d'un format audio valide.",
+    "timestamp_format": "Format d'horodatage",
+    "format_mm_ss": "[MM:SS]",
+    "format_hh_mm_ss": "[HH:MM:SS]"
   }
 }

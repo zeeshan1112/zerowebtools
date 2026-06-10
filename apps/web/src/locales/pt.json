@@ -2530,6 +2530,61 @@
           "answer": "Não. Por questões de segurança e privacidade, suas listas não são armazenadas em nossos servidores. Você deve copiar sua lista antes de atualizar a página."
         }
       ]
+    },
+    "audio-transcriber": {
+      "title": "Como transcrever áudio para texto localmente com carimbos de data/hora",
+      "metaDescription": "Transcreva arquivos de áudio MP3, WAV e M4A localmente e de forma privada em seu navegador. Gere carimbos de data/hora de segmento precisos e edite transcrições no lado do cliente.",
+      "sections": [
+        {
+          "heading": "A necessidade de transcrição segura de áudio",
+          "level": "h2",
+          "paragraphs": [
+            "Transcrever entrevistas, gravações de reuniões, palestras e ditados em texto é crucial para acessibilidade, documentação e criação de conteúdo. No entanto, os serviços padrão de transcrição online exigem o upload de seus arquivos de áudio para servidores em nuvem. Isso expõe discussões confidenciais da empresa, entrevistas privadas e informações pessoais confidenciais a bancos de dados de terceiros.",
+            "Para proteger seus dados, a transcrição local no dispositivo é a solução ideal. Ao converter fala em texto diretamente no seu navegador, seus arquivos de áudio nunca saem do seu dispositivo. Isso garante privacidade absoluta dos dados e remove filas do servidor, permitindo transcrever arquivos instantaneamente."
+          ]
+        },
+        {
+          "heading": "Como transcrever áudio localmente",
+          "level": "h2",
+          "listItems": [
+            "Carregar arquivo de áudio – Selecione ou arraste e solte seu arquivo MP3, WAV, M4A, OGG ou WEBM na zona de lançamento segura.",
+            "Definir configurações de sussurro – Selecione o modelo somente em inglês para velocidade ou o modelo multilíngue para transcrever outros idiomas. Você também pode especificar o idioma de entrada ou permitir a detecção automática.",
+            "Execute a transcrição do WebAssembly - Clique no botão Transcrever. O navegador decodifica o áudio, faz uma nova amostragem para 16kHz e executa o modelo Whisper dentro de um Web Worker local.",
+            "Revise e edite a transcrição - Explore a guia Parágrafos para uma leitura limpa ou alterne para a guia Carimbos de data e hora para revisar segmentos cronológicos com carimbos de data e hora. Você pode editar o texto diretamente no navegador.",
+            "Exportar transcrição – Copie o texto para a área de transferência ou baixe-o como um arquivo de texto simples (.txt) com um único clique."
+          ]
+        },
+        {
+          "heading": "Aprendizado de máquina WebAssembly no dispositivo",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools utiliza os mecanismos avançados ONNX Runtime e Hugging Face Transformers compilados para WebAssembly para realizar aprendizado de máquina no dispositivo. Quando você executa o transcritor pela primeira vez, um modelo quantizado do Whisper Tiny é baixado (~75 MB).",
+            "Depois de baixado, o modelo é armazenado em cache localmente no armazenamento em cache do seu navegador. Em todas as execuções subsequentes, o modelo é carregado instantaneamente do disco, permitindo a transcrição offline completa sem conexão de rede. Todos os cálculos acontecem localmente em sua CPU/GPU, garantindo zero latência e zero vazamentos de privacidade."
+          ]
+        },
+        {
+          "heading": "Carimbos de data e hora precisos e edição interativa",
+          "level": "h2",
+          "paragraphs": [
+            "Ao transcrever gravações mais longas, ter carimbos de data/hora do segmento é essencial para navegar no conteúdo. Nosso transcritor gera carimbos de data/hora de início precisos para cada segmento, permitindo localizar rapidamente onde palavras específicas foram faladas.",
+            "Além disso, o editor de transcrição interativo permite corrigir quaisquer palavras mal ouvidas ou formatação em tempo real nas visualizações de parágrafo e de lista de carimbo de data/hora. Isso garante que seu documento final exportado seja refinado, preciso e pronto para publicação."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Meus dados de áudio são carregados em um servidor?",
+          "answer": "Não. A transcrição é realizada totalmente localmente na CPU/GPU do seu computador usando WebAssembly. Seus arquivos de áudio e transcrições de texto nunca são carregados ou compartilhados."
+        },
+        {
+          "question": "Quanto tempo leva a transcrição?",
+          "answer": "A velocidade de processamento depende do hardware CPU/GPU do seu dispositivo e da duração do arquivo de áudio. Para a maioria dos dispositivos modernos, um clipe de áudio de 5 minutos é transcrito em menos de um minuto."
+        },
+        {
+          "question": "Posso usar a ferramenta totalmente offline?",
+          "answer": "Sim. Após a execução inicial ter baixado e armazenado em cache os arquivos do modelo, você pode desligar sua conexão com a Internet e realizar a transcrição totalmente offline."
+        }
+      ]
     }
   },
   "common": {
@@ -2699,5 +2754,32 @@
     "step_3": "Traduzindo estilos embutidos em objetos de estilo JSX...",
     "step_4": "Formatando árvore de componentes de saída...",
     "converting_overlay_title": "Convertendo HTML em JSX..."
+  },
+  "audio_transcriber": {
+    "drop_zone_prompt": "Solte um arquivo de áudio aqui ou clique para navegar",
+    "drop_zone_prompt_sub": "Suporta MP3, WAV, M4A, OGG, WEBM — transcrição 100% privada do lado do cliente",
+    "model_selection": "Selecione o modelo Whisper",
+    "model_desc_tiny_en": "Whisper Tiny (somente em inglês, ~75 MB) — Rápido e altamente preciso para inglês.",
+    "model_desc_tiny": "Whisper Tiny (multilíngue, ~75 MB) — Suporta mais de 90 idiomas. Detecta automaticamente o idioma da fala.",
+    "warning_initial_download": "⚠️ A primeira execução fará o download do modelo AI de aproximadamente 75 MB para o cache local do seu navegador. As execuções subsequentes são instantâneas.",
+    "language_label": "Idioma de áudio",
+    "auto_detect": "Detecção automática de idioma",
+    "transcribe_btn": "Transcrever áudio",
+    "transcribing": "Transcrevendo...",
+    "download_progress": "Baixando modelo: {progress}%",
+    "loading_model": "Carregando modelo Whisper AI...",
+    "resampling_audio": "Decodificação e Reamostragem de Áudio (16kHz)...",
+    "running_inference": "Executando a transcrição (isso pode levar um minuto)...",
+    "done": "Transcrição concluída!",
+    "tab_paragraphs": "Parágrafos",
+    "tab_timestamps": "Visualização de carimbos de data/hora",
+    "copy_btn": "Copiar transcrição",
+    "clear_btn": "Claro",
+    "download_btn": "Baixar transcrição (.txt)",
+    "empty_prompt": "Carregue um arquivo de áudio e clique em Transcrever para ver os resultados.",
+    "error_audio_decode": "Falha ao decodificar o arquivo de áudio. Certifique-se de que é um formato de áudio válido.",
+    "timestamp_format": "Formato de carimbo de data/hora",
+    "format_mm_ss": "[MM:SS]",
+    "format_hh_mm_ss": "[HH:MM:SS]"
   }
 }

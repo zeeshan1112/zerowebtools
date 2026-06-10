@@ -2530,6 +2530,61 @@
           "answer": "No. Per motivi di sicurezza e privacy, i tuoi elenchi non vengono archiviati sui nostri server. È necessario copiare l'elenco prima di aggiornare la pagina."
         }
       ]
+    },
+    "audio-transcriber": {
+      "title": "Come trascrivere l'audio in testo localmente con i timestamp",
+      "metaDescription": "Trascrivi file audio MP3, WAV e M4A localmente e privatamente nel tuo browser. Genera timestamp precisi dei segmenti e modifica le trascrizioni lato client.",
+      "sections": [
+        {
+          "heading": "La necessità di una trascrizione audio sicura",
+          "level": "h2",
+          "paragraphs": [
+            "Trascrivere interviste, registrazioni di riunioni, conferenze e dettati in testo è fondamentale per l'accessibilità, la documentazione e la creazione di contenuti. Tuttavia, i servizi di trascrizione online standard richiedono il caricamento dei file audio su server cloud. Ciò espone discussioni aziendali riservate, interviste private e informazioni personali sensibili a database di terze parti.",
+            "Per proteggere i tuoi dati, la trascrizione locale sul dispositivo è la soluzione ideale. Convertendo la voce in testo direttamente nel tuo browser, i tuoi file audio non lasceranno mai il tuo dispositivo. Ciò garantisce l'assoluta riservatezza dei dati e rimuove le code del server, consentendoti di trascrivere i file istantaneamente."
+          ]
+        },
+        {
+          "heading": "Come trascrivere l'audio localmente",
+          "level": "h2",
+          "listItems": [
+            "Carica file audio: seleziona o trascina e rilascia il tuo file MP3, WAV, M4A, OGG o WEBM nella zona di rilascio sicura.",
+            "Configura le impostazioni Whisper: seleziona il modello solo inglese per la velocità o il modello multilingue per trascrivere altre lingue. Puoi anche specificare la lingua di input o lasciare che venga rilevata automaticamente.",
+            "Esegui la trascrizione WebAssembly: fai clic sul pulsante Trascrivi. Il browser decodifica l'audio, lo ricampiona a 16kHz ed esegue il modello Whisper all'interno di un Web Worker locale.",
+            "Rivedi e modifica la trascrizione: esplora la scheda Paragrafi per una lettura pulita oppure passa alla scheda Timestamp per rivedere i segmenti cronologici con timestamp. Puoi modificare il testo direttamente nel browser.",
+            "Esporta trascrizione: copia il testo negli appunti o scaricalo come file di testo normale (.txt) con un solo clic."
+          ]
+        },
+        {
+          "heading": "Apprendimento automatico di WebAssembly sul dispositivo",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools utilizza i motori avanzati ONNX Runtime e Hugging Face Transformers compilati in WebAssembly per eseguire l'apprendimento automatico sul dispositivo. Quando si esegue il trascrittore per la prima volta, viene scaricato un modello Whisper Tiny quantizzato (~75 MB).",
+            "Una volta scaricato, il modello viene memorizzato nella cache locale nell'archivio cache del browser. In tutte le esecuzioni successive, il modello viene caricato immediatamente dal disco, consentendo la trascrizione offline completa senza una connessione di rete. Tutti i calcoli avvengono localmente sulla tua CPU/GPU, garantendo zero latenza e zero perdite di privacy."
+          ]
+        },
+        {
+          "heading": "Timestamp precisi e editing interattivo",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si trascrivono registrazioni più lunghe, disporre di timestamp dei segmenti è essenziale per navigare nel contenuto. Il nostro trascrittore genera timestamp di inizio precisi per ciascun segmento, consentendoti di individuare rapidamente dove sono state pronunciate parole specifiche.",
+            "Inoltre, l'editor di trascrizione interattivo ti consente di correggere al volo eventuali parole o formattazioni errate sia nella visualizzazione dell'elenco dei paragrafi sia in quella dell'elenco dei timestamp. Ciò garantisce che il documento finale esportato sia raffinato, accurato e pronto per la pubblicazione."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "I miei dati audio vengono caricati su un server?",
+          "answer": "No. La trascrizione viene eseguita completamente localmente sulla CPU/GPU del tuo computer utilizzando WebAssembly. I tuoi file audio e le trascrizioni di testo non vengono mai caricati o condivisi."
+        },
+        {
+          "question": "Quanto tempo richiede la trascrizione?",
+          "answer": "La velocità di elaborazione dipende dall'hardware CPU/GPU del tuo dispositivo e dalla lunghezza del file audio. Per la maggior parte dei dispositivi moderni, una clip audio di 5 minuti viene trascritta in meno di un minuto."
+        },
+        {
+          "question": "Posso utilizzare lo strumento completamente offline?",
+          "answer": "SÌ. Dopo che l'esecuzione iniziale ha scaricato e memorizzato nella cache i file del modello, è possibile disattivare la connessione Internet ed eseguire la trascrizione completamente offline."
+        }
+      ]
     }
   },
   "common": {
@@ -2699,5 +2754,32 @@
     "step_3": "Traduzione degli stili in linea in oggetti di stile JSX...",
     "step_4": "Formattazione dell'albero dei componenti di output...",
     "converting_overlay_title": "Conversione da HTML a JSX..."
+  },
+  "audio_transcriber": {
+    "drop_zone_prompt": "Trascina qui un file audio o fai clic per sfogliarlo",
+    "drop_zone_prompt_sub": "Supporta MP3, WAV, M4A, OGG, WEBM: trascrizione lato client privata al 100%",
+    "model_selection": "Seleziona il modello Whisper",
+    "model_desc_tiny_en": "Whisper Tiny (solo inglese, ~75 MB): veloce ed estremamente preciso per l'inglese.",
+    "model_desc_tiny": "Whisper Tiny (multilingue, ~75 MB): supporta oltre 90 lingue. Rileva automaticamente la lingua vocale.",
+    "warning_initial_download": "⚠️ La prima esecuzione scaricherà il modello AI da ~75 MB nella cache locale del tuo browser. Le corse successive sono istantanee.",
+    "language_label": "Lingua audio",
+    "auto_detect": "Rilevamento automatico della lingua",
+    "transcribe_btn": "Trascrivere l'audio",
+    "transcribing": "Trascrizione...",
+    "download_progress": "Download del modello: {progress}%",
+    "loading_model": "Caricamento del modello Whisper AI...",
+    "resampling_audio": "Decodifica e ricampionamento audio (16kHz)...",
+    "running_inference": "Esecuzione della trascrizione (l'operazione potrebbe richiedere un minuto)...",
+    "done": "Trascrizione completata!",
+    "tab_paragraphs": "Paragrafi",
+    "tab_timestamps": "Visualizzazione timestamp",
+    "copy_btn": "Copia trascrizione",
+    "clear_btn": "Chiaro",
+    "download_btn": "Scarica la trascrizione (.txt)",
+    "empty_prompt": "Carica un file audio e fai clic su Trascrivi per visualizzare i risultati.",
+    "error_audio_decode": "Impossibile decodificare il file audio. Assicurati che sia un formato audio valido.",
+    "timestamp_format": "Formato timestamp",
+    "format_mm_ss": "[MM:SS]",
+    "format_hh_mm_ss": "[OO:MM:SS]"
   }
 }

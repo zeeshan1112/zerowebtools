@@ -2530,6 +2530,61 @@
           "answer": "不会。出于安全和隐私考虑，您的列表不会存储在我们的服务器上。您必须在刷新页面之前复制列表。"
         }
       ]
+    },
+    "audio-transcriber": {
+      "title": "如何使用时间戳将音频转录为本地文本",
+      "metaDescription": "在浏览器中本地私密地转录 MP3、WAV 和 M4A 音频文件。生成精确的片段时间戳并在客户端编辑脚本。",
+      "sections": [
+        {
+          "heading": "安全音频转录的需求",
+          "level": "h2",
+          "paragraphs": [
+            "将采访、会议录音、讲座和听写转录为文本对于可访问性、文档和内容创建至关重要。但是，标准在线转录服务需要将音频文件上传到云服务器。这会将公司机密讨论、私人采访和敏感个人信息暴露给第三方数据库。",
+            "为了保护您的数据，设备上的本地转录是理想的解决方案。通过直接在浏览器中将语音转换为文本，您的音频文件永远不会离开您的设备。这保证了绝对的数据隐私并消除了服务器队列，使您可以立即转录文件。"
+          ]
+        },
+        {
+          "heading": "如何在本地转录音频",
+          "level": "h2",
+          "listItems": [
+            "上传音频文件 - 选择或将 MP3、WAV、M4A、OGG 或 WEBM 文件拖放到安全放置区中。",
+            "配置 Whisper 设置 - 选择纯英语模型以提高速度，或选择多语言模型以转录其他语言。您还可以指定输入语言或让它自动检测。",
+            "运行 WebAssembly 转录 - 单击“转录”按钮。浏览器对音频进行解码，将其重新采样到 16kHz，并在本地 Web Worker 中运行 Whisper 模型。",
+            "查看和编辑文字记录 - 探索“段落”选项卡以进行清晰的阅读，或切换到“时间戳”选项卡以查看带有时间戳的时间段。您可以直接在浏览器中编辑文本。",
+            "导出成绩单 - 将文本复制到剪贴板或单击一下将其下载为纯文本文件 (.txt)。"
+          ]
+        },
+        {
+          "heading": "设备上的 WebAssembly 机器学习",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools 利用编译到 WebAssembly 的先进 ONNX 运行时和 Hugging Face Transformers 引擎来执行设备上机器学习。当您第一次运行转录器时，会下载量化的 Whisper Tiny 模型（约 75MB）。",
+            "下载后，模型将本地缓存在浏览器的缓存存储中。在所有后续运行中，模型会立即从磁盘加载，从而无需网络连接即可实现完整的离线转录。所有计算都在您的 CPU/GPU 上本地进行，确保零延迟和零隐私泄漏。"
+          ]
+        },
+        {
+          "heading": "精确的时间戳和交互式编辑",
+          "level": "h2",
+          "paragraphs": [
+            "当转录较长的录音时，拥有片段时间戳对于导航内容至关重要。我们的转录器为每个片段生成精确的开始时间戳，使您可以快速找到说出特定单词的位置。",
+            "此外，交互式转录编辑器可以让您在段落和时间戳列表视图中即时纠正任何听错的单词或格式。这可确保您的最终导出文档完善、准确并准备好发布。"
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "我的音频数据是否上传到服务器？",
+          "answer": "不会。转录完全是使用 WebAssembly 在计算机的 CPU/GPU 上本地执行的。您的音频文件和文本记录永远不会上传或共享。"
+        },
+        {
+          "question": "转录需要多长时间？",
+          "answer": "处理速度取决于设备的 CPU/GPU 硬件和音频文件的长度。对于大多数现代设备来说，5 分钟的音频剪辑可在一分钟内完成转录。"
+        },
+        {
+          "question": "我可以完全离线使用该工具吗？",
+          "answer": "是的。初始运行下载并缓存模型文件后，您可以关闭互联网连接并完全离线执行转录。"
+        }
+      ]
     }
   },
   "common": {
@@ -2699,5 +2754,32 @@
     "step_3": "将内联样式转换为 JSX 样式对象...",
     "step_4": "正在格式化输出组件树...",
     "converting_overlay_title": "将 HTML 转换为 JSX..."
+  },
+  "audio_transcriber": {
+    "drop_zone_prompt": "将音频文件拖放到此处或单击浏览",
+    "drop_zone_prompt_sub": "支持 MP3、WAV、M4A、OGG、WEBM — 100% 私人客户端转录",
+    "model_selection": "选择耳语型号",
+    "model_desc_tiny_en": "Whisper Tiny（仅限英语，~75MB）— 快速且高度准确的英语。",
+    "model_desc_tiny": "Whisper Tiny（多语言，~75MB）— 支持 90 多种语言。自动检测语音语言。",
+    "warning_initial_download": "⚠️ 首次运行会​​将约 75MB 的 AI 模型下载到浏览器的本地缓存中。随后的运行是即时的。",
+    "language_label": "音频语言",
+    "auto_detect": "自动检测语言",
+    "transcribe_btn": "转录音频",
+    "transcribing": "正在抄写...",
+    "download_progress": "下载模型：{progress}%",
+    "loading_model": "正在加载 Whisper AI 模型...",
+    "resampling_audio": "音频解码和重采样 (16kHz)...",
+    "running_inference": "运行转录（这可能需要一分钟）...",
+    "done": "转录完毕！",
+    "tab_paragraphs": "段落",
+    "tab_timestamps": "时间戳视图",
+    "copy_btn": "复制成绩单",
+    "clear_btn": "清除",
+    "download_btn": "下载成绩单 (.txt)",
+    "empty_prompt": "上传音频文件并单击“转录”以查看结果。",
+    "error_audio_decode": "无法解码音频文件。请确保它是有效的音频格式。",
+    "timestamp_format": "时间戳格式",
+    "format_mm_ss": "[分：SS]",
+    "format_hh_mm_ss": "[时:分:秒]"
   }
 }

@@ -113,6 +113,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Shuffle lists randomly or pick random items/winners from your entries. Free, 100% private, and runs entirely in your browser. No server uploads.",
       },
+      {
+        id: "audio-transcriber",
+        title: "Audio Transcriber Pro",
+        description: "Transcribe audio files locally in your browser with precise timestamps using WebAssembly.",
+        status: "live",
+        metaDescription: "Transcribe MP3, WAV, and M4A audio files locally and privately in your browser. Features precise segment timestamps, text editing, and text downloads. 100% private.",
+      },
     ],
   },
   {

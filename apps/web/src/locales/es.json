@@ -2530,6 +2530,61 @@
           "answer": "No. Por seguridad y privacidad, sus listas no se almacenan en nuestros servidores. Debe copiar su lista antes de actualizar la página."
         }
       ]
+    },
+    "audio-transcriber": {
+      "title": "Cómo transcribir audio a texto localmente con marcas de tiempo",
+      "metaDescription": "Transcribe archivos de audio MP3, WAV y M4A de forma local y privada en tu navegador. Genere marcas de tiempo de segmentos precisas y edite transcripciones en el lado del cliente.",
+      "sections": [
+        {
+          "heading": "La necesidad de una transcripción de audio segura",
+          "level": "h2",
+          "paragraphs": [
+            "Transcribir entrevistas, grabaciones de reuniones, conferencias y dictados en texto es crucial para la accesibilidad, la documentación y la creación de contenido. Sin embargo, los servicios de transcripción en línea estándar requieren cargar sus archivos de audio en servidores en la nube. Esto expone discusiones confidenciales de la empresa, entrevistas privadas e información personal confidencial a bases de datos de terceros.",
+            "Para proteger sus datos, la transcripción local en el dispositivo es la solución ideal. Al convertir voz en texto directamente en su navegador, sus archivos de audio nunca salen de su dispositivo. Esto garantiza la privacidad absoluta de los datos y elimina las colas del servidor, lo que le permite transcribir archivos al instante."
+          ]
+        },
+        {
+          "heading": "Cómo transcribir audio localmente",
+          "level": "h2",
+          "listItems": [
+            "Cargar archivo de audio: seleccione o arrastre y suelte su archivo MP3, WAV, M4A, OGG o WEBM en la zona de colocación segura.",
+            "Configure los ajustes de Whisper: seleccione el modelo solo en inglés para mayor velocidad o el modelo multilingüe para transcribir otros idiomas. También puede especificar el idioma de entrada o dejar que se detecte automáticamente.",
+            "Ejecute la transcripción de WebAssembly: haga clic en el botón Transcribir. El navegador decodifica el audio, lo vuelve a muestrear a 16 kHz y ejecuta el modelo Whisper dentro de un Web Worker local.",
+            "Revisar y editar transcripción: explore la pestaña Párrafos para una lectura clara o cambie a la pestaña Marcas de tiempo para revisar segmentos cronológicos con marcas de tiempo. Puede editar el texto directamente en el navegador.",
+            "Exportar transcripción: copie el texto a su portapapeles o descárguelo como un archivo de texto sin formato (.txt) con un solo clic."
+          ]
+        },
+        {
+          "heading": "Aprendizaje automático de WebAssembly en el dispositivo",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools utiliza los motores avanzados ONNX Runtime y Hugging Face Transformers compilados en WebAssembly para realizar aprendizaje automático en el dispositivo. Cuando ejecuta el transcriptor por primera vez, se descarga un modelo cuantificado de Whisper Tiny (~75 MB).",
+            "Una vez descargado, el modelo se almacena en caché localmente en el almacenamiento en caché de su navegador. En todas las ejecuciones posteriores, el modelo se carga instantáneamente desde el disco, lo que permite una transcripción completa sin conexión a la red. Todos los cálculos se realizan localmente en su CPU/GPU, lo que garantiza cero latencia y cero fugas de privacidad."
+          ]
+        },
+        {
+          "heading": "Marcas de tiempo precisas y edición interactiva",
+          "level": "h2",
+          "paragraphs": [
+            "Al transcribir grabaciones más largas, tener marcas de tiempo de segmentos es esencial para navegar por el contenido. Nuestro transcriptor genera marcas de tiempo de inicio precisas para cada segmento, lo que le permite localizar rápidamente dónde se pronunciaron palabras específicas.",
+            "Además, el editor de transcripciones interactivo le permite corregir cualquier palabra o formato mal escuchado sobre la marcha tanto en la vista de párrafo como en la lista de marcas de tiempo. Esto garantiza que su documento final exportado esté pulido, sea preciso y esté listo para su publicación."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Mis datos de audio se cargan en un servidor?",
+          "answer": "No. La transcripción se realiza completamente localmente en la CPU/GPU de su computadora mediante WebAssembly. Sus archivos de audio y transcripciones de texto nunca se cargan ni se comparten."
+        },
+        {
+          "question": "¿Cuánto tiempo lleva la transcripción?",
+          "answer": "La velocidad de procesamiento depende del hardware CPU/GPU de su dispositivo y de la longitud del archivo de audio. Para la mayoría de los dispositivos modernos, un clip de audio de 5 minutos se transcribe en menos de un minuto."
+        },
+        {
+          "question": "¿Puedo utilizar la herramienta completamente sin conexión?",
+          "answer": "Sí. Después de que la ejecución inicial haya descargado y almacenado en caché los archivos del modelo, puede apagar su conexión a Internet y realizar la transcripción completamente sin conexión."
+        }
+      ]
     }
   },
   "common": {
@@ -2699,5 +2754,32 @@
     "step_3": "Traduciendo estilos en línea a objetos de estilo JSX...",
     "step_4": "Formateando el árbol de componentes de salida...",
     "converting_overlay_title": "Convirtiendo HTML a JSX..."
+  },
+  "audio_transcriber": {
+    "drop_zone_prompt": "Suelta un archivo de audio aquí o haz clic para explorar",
+    "drop_zone_prompt_sub": "Admite MP3, WAV, M4A, OGG, WEBM: transcripción 100% privada del lado del cliente",
+    "model_selection": "Seleccione el modelo Whisper",
+    "model_desc_tiny_en": "Whisper Tiny (solo en inglés, ~75 MB): rápido y muy preciso para inglés.",
+    "model_desc_tiny": "Whisper Tiny (multilingüe, ~75 MB): admite más de 90 idiomas. Detecta automáticamente el lenguaje del habla.",
+    "warning_initial_download": "⚠️ La primera ejecución descargará el modelo de IA de ~75 MB en la memoria caché local de su navegador. Las ejecuciones posteriores son instantáneas.",
+    "language_label": "Idioma de audio",
+    "auto_detect": "Idioma de detección automática",
+    "transcribe_btn": "Transcribir audio",
+    "transcribing": "Transcribiendo...",
+    "download_progress": "Modelo de descarga: {progreso}%",
+    "loading_model": "Cargando modelo de IA de Whisper...",
+    "resampling_audio": "Decodificación y remuestreo de audio (16kHz)...",
+    "running_inference": "Ejecutando la transcripción (esto puede tardar un minuto)...",
+    "done": "Transcripción completa!",
+    "tab_paragraphs": "Párrafos",
+    "tab_timestamps": "Vista de marcas de tiempo",
+    "copy_btn": "Copiar transcripción",
+    "clear_btn": "Claro",
+    "download_btn": "Descargar transcripción (.txt)",
+    "empty_prompt": "Cargue un archivo de audio y haga clic en Transcribir para ver los resultados.",
+    "error_audio_decode": "No se pudo decodificar el archivo de audio. Asegúrese de que sea un formato de audio válido.",
+    "timestamp_format": "Formato de marca de tiempo",
+    "format_mm_ss": "[MM:SS]",
+    "format_hh_mm_ss": "[HH:MM:SS]"
   }
 }

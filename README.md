@@ -23,7 +23,7 @@
 
 Quick Navigation:
 * [PDF Suite Pro (14 tools)](#pdf-suite-pro-14-tools)
-* [Text Tools (6 tools)](#text-tools-6-tools)
+* [Text Tools (7 tools)](#text-tools-7-tools)
 * [Developer Tools (7 tools)](#developer-tools-7-tools)
 * [Generators (7 tools)](#generators-7-tools)
 * [Creative & Image Tools (5 tools)](#creative--image-tools-5-tools)
@@ -48,7 +48,7 @@ Quick Navigation:
 | **Crop PDF & Page Resize** | [Try Live](https://zerowebtools.com/tools/pdf-crop) | Crop PDF margins and resize pages to standard layouts (A4, Letter, Legal) |
 | **PDF to Text Extractor** | [Try Live](https://zerowebtools.com/tools/pdf-to-text) | Extract raw text streams and rebuild structured page layouts locally |
 
-### Text Tools (6 tools)
+### Text Tools (7 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
 | **Word Counter Pro** | [Try Live](https://zerowebtools.com/tools/word-counter) | Count words, characters, sentences, paragraphs, and analyze density & reading time |
@@ -57,6 +57,7 @@ Quick Navigation:
 | **Voice Dictator & Reader** | [Try Live](https://zerowebtools.com/tools/voice-dictator) | Dictate speech to text and narrate text to speech offline using native Speech APIs |
 | **Markdown ↔ HTML Converter** | [Try Live](https://zerowebtools.com/tools/markdown-converter) | Convert Markdown markup to HTML and vice versa in real time with preview |
 | **List Shuffler & Random Picker** | [Try Live](https://zerowebtools.com/tools/random-picker) | Shuffle lists, draw random items, pick names, or choose raffle winners |
+| **Audio Transcriber Pro** | [Try Live](https://zerowebtools.com/tools/audio-transcriber) | Transcribe audio files locally in your browser with precise timestamps using WebAssembly |
 
 ### Developer Tools (7 tools)
 | Tool | Live Link | Description |
