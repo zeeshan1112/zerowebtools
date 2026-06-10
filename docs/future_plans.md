@@ -193,3 +193,28 @@ export default function ServiceWorkerRegister() {
   return null;
 }
 ```
+
+---
+
+## ⚡ Phase 6: ZeroWebTools Companion & Advanced Privileged Tools (3-6 Months)
+
+To transition ZeroWebTools from a simple utility site to a high-traction, desktop-class platform, we will launch the **ZeroWebTools Companion** extension to unlock privileged operations.
+
+### 1. Extension Rebranding & Setup
+* **Name change**: Rebrand from `ZeroWebTools - Developer Utilities` to `ZeroWebTools Companion`.
+* **Manifest updates**: Add `unlimitedStorage` and YouTube streaming domain permissions (`*://*.youtube.com/*`, `*://*.googlevideo.com/*`) in `manifest.json`.
+* **Communication bridge**: Establish the content-script handshake and `externally_connectable` rules to allow `localhost` and `zerowebtools.com` pages to send commands to the background worker.
+
+### 2. Rolling Out Extension-Dependent Features
+We will implement these tools in order of development feasibility and traffic traction:
+1. **YouTube Direct Audio Transcriber**: Hook into the new Whisper Tiny pipeline to transcribe YouTube links in under 60 seconds.
+2. **YouTube Video/Audio Downloader**: Client-side media buffer downloading with in-browser track merging and MP3 transcoding.
+3. **REST API Client**: A CORS-exempt local network requester for developers to test their local endpoints privately.
+4. **Universal Web Scraper & Markdown Converter**: Client-side content extractor supporting cookie inheritance to bypass generic scrapers' limits.
+
+### 3. Activating the Growth Loop
+* Add call-to-actions (CTAs) in the transcriber and downloader workspaces. When a user pastes a URL requiring external access, check for the Companion extension:
+  * **If detected**: Process the request instantly with high speed.
+  * **If not detected**: Open a stylized overlay drawer showing a quick video tutorial and a single-click download link to the Chrome Web Store / Firefox Add-ons portal.
+* Target keywords around offline, private downloading and local API consoles to rank organically without paying for high backend server resources.
+
