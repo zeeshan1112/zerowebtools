@@ -95,7 +95,7 @@ function injectFloatingButton() {
 
 function openReaderMode() {
   const targetUrl = window.location.href;
-  const scraperUrl = `http://localhost:3000/tools/web-scraper?url=${encodeURIComponent(targetUrl)}`;
+  const scraperUrl = `https://www.zerowebtools.com/tools/web-scraper?url=${encodeURIComponent(targetUrl)}`;
   window.open(scraperUrl, '_blank');
 }
 
