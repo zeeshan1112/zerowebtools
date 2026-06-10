@@ -69,6 +69,7 @@ const SLUG_TO_TAB: Record<string, "all" | "pdf" | "image" | "developer" | "gener
 
 const TAB_TO_SLUG: Record<string, string> = {
   all: "all-tools",
+  ai: "ai-tools",
   pdf: "pdf-tools",
   text: "text-tools",
   developer: "developer-tools",
@@ -83,7 +84,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "ai" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -184,13 +185,15 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const getTabCategorySlug = () => {
     switch (activeTab) {
       case "all":
-        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
+        return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
+      case "ai":
+        return ["ai-tools"];
       case "pdf":
         return ["pdf-tools"];
       case "text":
-        return ["text-tools"];
+        return ["text-tools", "generators"];
       case "developer":
-        return ["developer-tools"];
+        return ["developer-tools", "generators"];
       case "generators":
         return ["generators"];
       case "image":
@@ -200,7 +203,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       case "fun":
         return ["fun"];
       default:
-        return ["pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
+        return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
     }
   };
 
@@ -356,6 +359,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
               {/* Micro tool tags shortcut below search */}
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-2 text-[10px] sm:text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
                 <span>SUITES:</span>
+                <a href="#tools-directory" onClick={() => setActiveTab("ai")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">AI Tools</a>
+                <span>•</span>
                 <a href="#tools-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Tools</a>
                 <span>•</span>
                 <a href="#tools-directory" onClick={() => setActiveTab("image")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Image Tools</a>
@@ -427,8 +432,16 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     </p>
                     
                     <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                      <span className="text-ink-muted font-mono font-bold tracking-wider">
+                      <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
                         {tagLabel}
+                        {tool.id === "web-scraper" && (
+                          <>
+                            <span className="mx-1.5 opacity-50">•</span>
+                            <span className="flex items-center" title="Requires Companion Extension">
+                              <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
+                            </span>
+                          </>
+                        )}
                       </span>
                       <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                         LAUNCH
@@ -489,8 +502,16 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       </p>
 
                       <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                        <span className="text-ink-muted font-mono font-bold tracking-wider">
+                        <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
                           {tagLabel}
+                          {tool.id === "web-scraper" && (
+                            <>
+                              <span className="mx-1.5 opacity-50">•</span>
+                            <span className="flex items-center" title="Requires Companion Extension">
+                              <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
+                            </span>
+                            </>
+                          )}
                         </span>
                         <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                           LAUNCH
@@ -515,6 +536,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             <div className="flex flex-wrap items-center gap-1">
               {[
                 { id: "all", label: t.allTools },
+                { id: "ai", label: (t as any).aiTools || "AI Tools" },
                 { id: "pdf", label: t.pdfTools },
                 { id: "image", label: t.imageTools },
                 { id: "developer", label: t.developerTools },
@@ -618,8 +640,16 @@ const tool = getLocalizedTool(rawTool, lang);
 
                             {isLive ? (
                               <div className="mt-4 flex items-center justify-between text-[10px] select-none border-t border-border/20 pt-2 relative z-10">
-                                <span className="text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
+                                <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
                                   {tagLabel}
+                                  {tool.id === "web-scraper" && (
+                                    <>
+                                      <span className="mx-1.5 opacity-50">•</span>
+                                      <span className="flex items-center" title="Requires Companion Extension">
+                                        <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
+                                      </span>
+                                    </>
+                                  )}
                                 </span>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                                   LAUNCH

@@ -67,6 +67,7 @@ const SpinTheWheelWorkspace = dynamic(() => import("@/components/SpinTheWheelWor
 const TwoZeroFourEightWorkspace = dynamic(() => import("@/components/TwoZeroFourEightWorkspace"), { loading: WorkspaceLoader });
 const HtmlToJsxWorkspace = dynamic(() => import("@/components/HtmlToJsxWorkspace"), { loading: WorkspaceLoader });
 const AudioTranscriberWorkspace = dynamic(() => import("@/components/AudioTranscriberWorkspace"), { loading: WorkspaceLoader });
+const WebScraperWorkspace = dynamic(() => import("@/components/WebScraperWorkspace"), { loading: WorkspaceLoader });
 
 const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "json-formatter": JsonViewerWorkspace,
@@ -120,6 +121,7 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "token-counter": TokenCounterWorkspace,
   "html-to-jsx": HtmlToJsxWorkspace,
   "audio-transcriber": AudioTranscriberWorkspace,
+  "web-scraper": WebScraperWorkspace,
 };
 
 export default function WorkspaceRenderer({ toolId }: { toolId: string }) {

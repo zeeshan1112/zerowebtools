@@ -11,7 +11,7 @@
     "dev:web": "npm run dev --workspace=apps/web",
     "build:web": "npm run build --workspace=apps/web",
     "build:tools-core": "npm run build --workspace=@hub/tools-core",
-    "build:extension": "mkdir -p apps/extensions/developertools/dist && esbuild apps/extensions/developertools/popup.js --bundle --loader:.js=ts --outfile=apps/extensions/developertools/dist/popup.js && cp apps/extensions/developertools/popup.html apps/extensions/developertools/dist/ && cp apps/extensions/developertools/manifest.json apps/extensions/developertools/dist/ && cp -r apps/extensions/developertools/icons apps/extensions/developertools/dist/ && cd apps/extensions/developertools/dist && zip -r ../developertools-extension.zip . -x \"*.zip\"",
+    "build:extension": "mkdir -p apps/extensions/developertools/dist && esbuild apps/extensions/developertools/popup.js --bundle --loader:.js=ts --outfile=apps/extensions/developertools/dist/popup.js && cp apps/extensions/developertools/popup.html apps/extensions/developertools/manifest.json apps/extensions/developertools/background.js apps/extensions/developertools/content.js apps/extensions/developertools/dist/ && cp -r apps/extensions/developertools/icons apps/extensions/developertools/dist/ && cd apps/extensions/developertools/dist && zip -r ../developertools-extension.zip . -x \"*.zip\"",
     "lint": "npm run lint --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test:unit": "vitest run",
@@ -26,6 +26,7 @@
     "@pdfsmaller/pdf-encrypt-lite": "^1.0.2",
     "heic-to": "^1.4.3",
     "heic2any": "^0.0.4",
+    "jsdom": "^29.1.1",
     "jszip": "^3.10.1",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.7.284"

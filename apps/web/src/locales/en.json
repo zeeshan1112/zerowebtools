@@ -194,5 +194,17 @@
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[HH:MM:SS]"
   },
+  "web_scraper": {
+    "url_placeholder": "Paste article URL to read ad-free...",
+    "extract_btn": "Read Article",
+    "extracting": "Reading...",
+    "tab_reader": "Reader View",
+    "tab_markdown": "Plain Text",
+    "copy_markdown": "Copy Text",
+    "missing_extension_title": "Extension Required",
+    "missing_extension_desc": "To bypass paywalls and CORS restrictions, please install the ZeroWebTools Companion extension.",
+    "download_extension": "Download Extension",
+    "error_extract": "Failed to read content. Ensure the URL is valid and the extension is installed."
+  },
   "articles": {}
 }
