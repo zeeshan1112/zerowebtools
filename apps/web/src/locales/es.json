@@ -2615,6 +2615,14 @@
             "Muchos sitios web utilizan políticas estrictas de CORS (intercambio de recursos entre orígenes) y opciones X-Frame para evitar que otros sitios carguen su contenido. Nuestra extensión local elimina automáticamente estos encabezados restrictivos para las URL que usted solicita explícitamente.",
             "Esto permite que la aplicación web ZeroWebTools analice sin problemas los datos localmente dentro de su navegador sin ser bloqueado, brindándole el poder de un raspador web backend sin necesidad de un servidor backend."
           ]
+        },
+        {
+          "heading": "Evitar cortafuegos y utilizar archivos web",
+          "level": "h2",
+          "paragraphs": [
+            "Cuando estás en una red restrictiva, como la intranet de una escuela o una empresa, los firewalls a menudo bloquean el acceso directo a blogs o sitios de noticias. Debido a que nuestra extensión Smart Article Reader actúa como un proxy independiente dentro de su propia sesión de navegador, a menudo puede evitar el bloqueo básico de la red.",
+            "Además, si un sitio web se bloquea o se elimina por completo, nuestra herramienta consulta automáticamente el archivo web público (Wayback Machine) para recuperar una instantánea en caché desbloqueada. Esto garantiza que pueda acceder a la información que necesita, independientemente de las restricciones de la red."
+          ]
         }
       ],
       "faqs": [

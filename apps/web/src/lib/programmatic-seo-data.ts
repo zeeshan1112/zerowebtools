@@ -3187,6 +3187,18 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
           "Enjoy peace of mind knowing that your reading history never touches our servers. Read smoothly and securely without compromising your personal privacy."
         ]
       }
+    },
+    {
+      "slug": "bypass-school-firewall-website-reader",
+      "title": "Bypass Firewall restrictions to read websites",
+      "metaDescription": "Read articles and websites blocked by school or corporate firewalls by using our local fetch extension and Web Archive proxy fallback.",
+      "articleIntro": {
+        "heading": "How to Read Websites Behind Firewalls",
+        "paragraphs": [
+          "When you are on a restrictive network, such as a school or corporate intranet, firewalls often block direct access to news sites or blogs. Because our Smart Article Reader extension acts as an independent proxy within your own browser session, it can bypass basic network blocking.",
+          "Additionally, if a website is completely blocked, our tool automatically queries the public Web Archive (Wayback Machine) to fetch an unblocked cached snapshot. This guarantees you can access the information you need, regardless of network restrictions."
+        ]
+      }
     }
   ]
 };

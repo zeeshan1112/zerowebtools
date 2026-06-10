@@ -2615,6 +2615,14 @@
             "Molti siti Web utilizzano rigide politiche CORS (Cross-Origin Resource Sharing) e opzioni X-Frame per impedire ad altri siti di caricare i propri contenuti. La nostra estensione locale rimuove automaticamente queste intestazioni restrittive per gli URL richiesti esplicitamente.",
             "Ciò consente all'app Web ZeroWebTools di analizzare perfettamente i dati localmente all'interno del tuo browser senza essere bloccati, offrendoti la potenza di un web scraper backend senza mai aver bisogno di un server backend."
           ]
+        },
+        {
+          "heading": "Aggirare i firewall e utilizzare gli archivi Web",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si utilizza una rete restrittiva, ad esempio una intranet scolastica o aziendale, i firewall spesso bloccano l'accesso diretto a siti di notizie o blog. Poiché la nostra estensione Smart Article Reader agisce come proxy indipendente all'interno della sessione del tuo browser, spesso può aggirare il blocco di rete di base.",
+            "Inoltre, se un sito Web viene completamente bloccato o rimosso, il nostro strumento interroga automaticamente l'archivio Web pubblico (Wayback Machine) per recuperare uno snapshot memorizzato nella cache non bloccato. Ciò garantisce che tu possa accedere alle informazioni di cui hai bisogno, indipendentemente dalle restrizioni della rete."
+          ]
         }
       ],
       "faqs": [

@@ -21,6 +21,8 @@ export default function WebScraperWorkspace() {
   const [contentHtml, setContentHtml] = useState("");
   const [contentMarkdown, setContentMarkdown] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"reader" | "markdown">("reader");
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // Check if extension is installed on mount
   useEffect(() => {
@@ -78,6 +80,23 @@ export default function WebScraperWorkspace() {
     });
   };
 
+  const fetchFromWayback = async (targetUrl: string) => {
+    try {
+      const response = await fetch(`https://archive.org/wayback/available?url=${encodeURIComponent(targetUrl)}`);
+      const data = await response.json();
+      if (data && data.archived_snapshots && data.archived_snapshots.closest && data.archived_snapshots.closest.url) {
+        let waybackUrl = data.archived_snapshots.closest.url;
+        const res: any = await proxyFetchViaExtension(waybackUrl, false);
+        processHtml(res.body, false);
+      } else {
+        throw new Error("Not available in Web Archive");
+      }
+    } catch (e: any) {
+      setError(t("web_scraper.error_extract", "Failed to extract. Website may be blocking access and no public archive was found."));
+      setIsExtracting(false);
+    }
+  };
+
   const extractContent = () => {
     if (!url) return;
     setIsExtracting(true);
@@ -125,8 +144,8 @@ export default function WebScraperWorkspace() {
       proxyFetchViaExtension(targetUrl, true)
         .then((res: any) => processHtml(res.body, fetchedFromFreedium))
         .catch(e => {
-          setError(e.message || "Failed to extract");
-          setIsExtracting(false);
+          // If direct fetch fails (firewall or strong block), fallback to Web Archive
+          fetchFromWayback(targetUrl);
         });
     } catch (e: any) {
       setError("Invalid URL");
@@ -229,6 +248,8 @@ export default function WebScraperWorkspace() {
 
   const copyMarkdown = () => {
     navigator.clipboard.writeText(contentMarkdown);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
   };
 
   return (
@@ -299,8 +320,43 @@ export default function WebScraperWorkspace() {
 
         {/* Content View */}
         {contentHtml && !error && (
-          <div className="flex-1 overflow-auto bg-neutral-50 dark:bg-neutral-900 p-6 min-h-[500px]">
-            <div className="max-w-prose mx-auto prose prose-lg prose-neutral dark:prose-invert prose-img:rounded-xl prose-headings:font-bold" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+          <div className="flex-1 overflow-auto bg-neutral-50 dark:bg-neutral-900 p-6 min-h-[500px] flex flex-col relative">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex bg-neutral-200 dark:bg-neutral-800 p-1 rounded-lg">
+                <button
+                  onClick={() => setViewMode('reader')}
+                  className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${viewMode === 'reader' ? 'bg-white dark:bg-neutral-700 shadow-sm text-ink dark:text-white' : 'text-neutral-500 hover:text-ink dark:hover:text-white'}`}
+                >
+                  Reader View
+                </button>
+                <button
+                  onClick={() => setViewMode('markdown')}
+                  className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${viewMode === 'markdown' ? 'bg-white dark:bg-neutral-700 shadow-sm text-ink dark:text-white' : 'text-neutral-500 hover:text-ink dark:hover:text-white'}`}
+                >
+                  Markdown
+                </button>
+              </div>
+              
+              {viewMode === 'markdown' && (
+                <button onClick={copyMarkdown} className="text-sm font-bold text-accent hover:opacity-80 flex items-center gap-1.5 transition-all">
+                  {copySuccess ? (
+                    <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!</>
+                  ) : (
+                    <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg> Copy Markdown</>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {viewMode === 'reader' ? (
+              <div className="max-w-prose mx-auto prose prose-lg prose-neutral dark:prose-invert prose-img:rounded-xl prose-headings:font-bold w-full" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+            ) : (
+              <textarea
+                 value={contentMarkdown}
+                 readOnly
+                 className="flex-1 w-full bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-xl p-4 font-mono text-sm focus:outline-none resize-none min-h-[400px]"
+              />
+            )}
           </div>
         )}
       </div>

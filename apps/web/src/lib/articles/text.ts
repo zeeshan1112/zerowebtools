@@ -394,6 +394,13 @@ export const TEXT_ARTICLES: HowToArticle[] = [
           "Many websites use strict CORS (Cross-Origin Resource Sharing) policies and X-Frame-Options to prevent other sites from loading their content. Our local extension automatically strips these restrictive headers for the URLs you explicitly request.",
           "This allows the ZeroWebTools web app to seamlessly parse the data locally inside your browser without being blocked, giving you the power of a backend web scraper without ever needing a backend server."
         ]
+      },
+      {
+        heading: "Bypassing Firewalls and Using Web Archives",
+        paragraphs: [
+          "When you are on a restrictive network, such as a school or corporate intranet, firewalls often block direct access to news sites or blogs. Because our Smart Article Reader extension acts as an independent proxy within your own browser session, it can often bypass basic network blocking.",
+          "Additionally, if a website is completely blocked or taken down, our tool automatically queries the public Web Archive (Wayback Machine) to fetch an unblocked cached snapshot. This guarantees you can access the information you need, regardless of network restrictions."
+        ]
       }
     ],
     faqs: [

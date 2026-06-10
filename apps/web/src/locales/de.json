@@ -2615,6 +2615,14 @@
             "Viele Websites verwenden strenge CORS-Richtlinien (Cross-Origin Resource Sharing) und X-Frame-Optionen, um zu verhindern, dass andere Websites ihre Inhalte laden. Unsere lokale Erweiterung entfernt diese restriktiven Header automatisch für die URLs, die Sie explizit anfordern.",
             "Dadurch kann die ZeroWebTools-Web-App die Daten nahtlos lokal in Ihrem Browser analysieren, ohne blockiert zu werden, sodass Sie die Leistung eines Backend-Web-Scraper erhalten, ohne jemals einen Backend-Server zu benötigen."
           ]
+        },
+        {
+          "heading": "Umgehen von Firewalls und Verwenden von Webarchiven",
+          "level": "h2",
+          "paragraphs": [
+            "Wenn Sie sich in einem restriktiven Netzwerk befinden, beispielsweise in einem Schul- oder Unternehmensintranet, blockieren Firewalls häufig den direkten Zugriff auf Nachrichtenseiten oder Blogs. Da unsere Smart Article Reader-Erweiterung als unabhängiger Proxy innerhalb Ihrer eigenen Browsersitzung fungiert, kann sie häufig grundlegende Netzwerkblockierungen umgehen.",
+            "Wenn eine Website vollständig blockiert oder entfernt wird, fragt unser Tool außerdem automatisch das öffentliche Webarchiv (Wayback Machine) ab, um einen nicht blockierten, zwischengespeicherten Snapshot abzurufen. Dies garantiert Ihnen den Zugriff auf die benötigten Informationen, unabhängig von Netzwerkbeschränkungen."
+          ]
         }
       ],
       "faqs": [

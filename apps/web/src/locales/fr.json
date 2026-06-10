@@ -2615,6 +2615,14 @@
             "De nombreux sites Web utilisent des politiques CORS (Cross-Origin Resource Sharing) strictes et des options X-Frame pour empêcher d'autres sites de charger leur contenu. Notre extension locale supprime automatiquement ces en-têtes restrictifs pour les URL que vous demandez explicitement.",
             "Cela permet à l'application Web ZeroWebTools d'analyser de manière transparente les données localement dans votre navigateur sans être bloquée, vous offrant ainsi la puissance d'un grattoir Web backend sans jamais avoir besoin d'un serveur backend."
           ]
+        },
+        {
+          "heading": "Contourner les pare-feu et utiliser les archives Web",
+          "level": "h2",
+          "paragraphs": [
+            "Lorsque vous utilisez un réseau restrictif, tel qu'un intranet d'école ou d'entreprise, les pare-feu bloquent souvent l'accès direct aux sites d'actualités ou aux blogs. Étant donné que notre extension Smart Article Reader agit comme un proxy indépendant au sein de votre propre session de navigateur, elle peut souvent contourner le blocage de base du réseau.",
+            "De plus, si un site Web est complètement bloqué ou supprimé, notre outil interroge automatiquement les archives Web publiques (Wayback Machine) pour récupérer un instantané mis en cache non bloqué. Cela garantit que vous pouvez accéder aux informations dont vous avez besoin, quelles que soient les restrictions du réseau."
+          ]
         }
       ],
       "faqs": [
