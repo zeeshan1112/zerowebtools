@@ -95,7 +95,12 @@ function injectFloatingButton() {
 
 function openReaderMode() {
   const targetUrl = window.location.href;
-  const scraperUrl = `https://www.zerowebtools.com/tools/web-scraper?url=${encodeURIComponent(targetUrl)}`;
+  
+  // Detect if extension is loaded unpacked (development) or installed from Web Store (production)
+  const isDev = !('update_url' in chrome.runtime.getManifest());
+  const baseUrl = isDev ? 'http://localhost:3000' : 'https://www.zerowebtools.com';
+  
+  const scraperUrl = `${baseUrl}/tools/web-scraper?url=${encodeURIComponent(targetUrl)}`;
   window.open(scraperUrl, '_blank');
 }
 
