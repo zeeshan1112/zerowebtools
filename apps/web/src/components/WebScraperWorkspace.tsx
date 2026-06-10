@@ -268,7 +268,9 @@ export default function WebScraperWorkspace() {
         {!extensionInstalled && (
           <div className="absolute inset-0 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm z-10 flex items-center justify-center p-6 text-center">
             <div className="max-w-md bg-white dark:bg-neutral-800 p-8 rounded-xl shadow-xl border border-neutral-200 dark:border-neutral-700">
-              <div className="text-4xl mb-4">🔌</div>
+              <div className="text-4xl mb-4 flex justify-center text-ink dark:text-white opacity-80">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.047-.899.277-1.045.732a3.003 3.003 0 0 0 .546 3.197 3 3 0 0 1 0 4.242 3 3 0 0 1-4.242 0 3.003 3.003 0 0 0-3.197-.546c-.455.146-.779.575-.732 1.045.04.283-.062.564-.276.837l-1.611 1.611c-.47.47-1.087.706-1.704.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.878-.289c-.493.074-1.011-.122-1.341-.563a3.001 3.001 0 0 1-.365-3.327 3.001 3.001 0 0 0-.365-3.327 3.001 3.001 0 0 1 0-4.242 3 3 0 0 1 4.242 0c1.077 1.077 2.658 1.157 3.82.261.353-.271.492-.743.342-1.168a3 3 0 0 0-3.037-2.036c-.47.047-.899-.277-1.045-.732a3.003 3.003 0 0 1 .546-3.197 3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0 3.003 3.003 0 0 1-3.197.546c-.455-.146-.779-.575-.732-1.045.04-.283.062-.564.276-.837l1.611-1.611c.47-.47 1.087-.706 1.704-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.878.289.493-.074 1.011.122 1.341.563a3.001 3.001 0 0 0 .365 3.327 3.001 3.001 0 0 1 .365 3.327 3.001 3.001 0 0 0 0 4.242 3 3 0 0 0 4.242 0c1.077-1.077 2.658-1.157 3.82-.261.353.271.492.743.342 1.168a3 3 0 0 1-3.037 2.036z"/></svg>
+              </div>
               <h3 className="text-xl font-bold mb-2 text-neutral-900 dark:text-white">
                 {t("web_scraper.missing_extension_title", "Extension Required")}
               </h3>

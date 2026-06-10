@@ -432,8 +432,17 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     </p>
                     
                     <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                      <span className="text-ink-muted font-mono font-bold tracking-wider">
+                      <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
                         {tagLabel}
+                        {tool.id === "web-scraper" && (
+                          <>
+                            <span className="mx-1.5 opacity-50">•</span>
+                            <span className="flex items-center gap-1 text-accent" title="Requires Companion Extension">
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.047-.899.277-1.045.732a3.003 3.003 0 0 0 .546 3.197 3 3 0 0 1 0 4.242 3 3 0 0 1-4.242 0 3.003 3.003 0 0 0-3.197-.546c-.455.146-.779.575-.732 1.045.04.283-.062.564-.276.837l-1.611 1.611c-.47.47-1.087.706-1.704.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.878-.289c-.493.074-1.011-.122-1.341-.563a3.001 3.001 0 0 1-.365-3.327 3.001 3.001 0 0 0-.365-3.327 3.001 3.001 0 0 1 0-4.242 3 3 0 0 1 4.242 0c1.077 1.077 2.658 1.157 3.82.261.353-.271.492-.743.342-1.168a3 3 0 0 0-3.037-2.036c-.47.047-.899-.277-1.045-.732a3.003 3.003 0 0 1 .546-3.197 3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0 3.003 3.003 0 0 1-3.197.546c-.455-.146-.779-.575-.732-1.045.04-.283.062-.564.276-.837l1.611-1.611c.47-.47 1.087-.706 1.704-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.878.289.493-.074 1.011.122 1.341.563a3.001 3.001 0 0 0 .365 3.327 3.001 3.001 0 0 1 .365 3.327 3.001 3.001 0 0 0 0 4.242 3 3 0 0 0 4.242 0c1.077-1.077 2.658-1.157 3.82-.261.353.271.492.743.342 1.168a3 3 0 0 1-3.037 2.036z"/></svg>
+                              EXTENSION REQUIRED
+                            </span>
+                          </>
+                        )}
                       </span>
                       <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                         LAUNCH
@@ -485,9 +494,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       <div className="flex items-start gap-2.5">
                         {/* Monochromatic SVG Title Icons */}
                         {getToolIcon(tool.id)}
-                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink flex items-center">
+                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
                           {tool.title}
-                          {tool.id === "web-scraper" && <span className="ml-1.5 text-xs opacity-70" title="Requires ZeroWebTools Companion Extension">🔌</span>}
                         </h3>
                       </div>
                       <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
@@ -495,8 +503,17 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       </p>
 
                       <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                        <span className="text-ink-muted font-mono font-bold tracking-wider">
+                        <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
                           {tagLabel}
+                          {tool.id === "web-scraper" && (
+                            <>
+                              <span className="mx-1.5 opacity-50">•</span>
+                              <span className="flex items-center gap-1 text-accent" title="Requires Companion Extension">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.047-.899.277-1.045.732a3.003 3.003 0 0 0 .546 3.197 3 3 0 0 1 0 4.242 3 3 0 0 1-4.242 0 3.003 3.003 0 0 0-3.197-.546c-.455.146-.779.575-.732 1.045.04.283-.062.564-.276.837l-1.611 1.611c-.47.47-1.087.706-1.704.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.878-.289c-.493.074-1.011-.122-1.341-.563a3.001 3.001 0 0 1-.365-3.327 3.001 3.001 0 0 0-.365-3.327 3.001 3.001 0 0 1 0-4.242 3 3 0 0 1 4.242 0c1.077 1.077 2.658 1.157 3.82.261.353-.271.492-.743.342-1.168a3 3 0 0 0-3.037-2.036c-.47.047-.899-.277-1.045-.732a3.003 3.003 0 0 1 .546-3.197 3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0 3.003 3.003 0 0 1-3.197.546c-.455-.146-.779-.575-.732-1.045.04-.283.062-.564.276-.837l1.611-1.611c.47-.47 1.087-.706 1.704-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.878.289.493-.074 1.011.122 1.341.563a3.001 3.001 0 0 0 .365 3.327 3.001 3.001 0 0 1 .365 3.327 3.001 3.001 0 0 0 0 4.242 3 3 0 0 0 4.242 0c1.077-1.077 2.658-1.157 3.82-.261.353.271.492.743.342 1.168a3 3 0 0 1-3.037 2.036z"/></svg>
+                                EXTENSION REQUIRED
+                              </span>
+                            </>
+                          )}
                         </span>
                         <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                           LAUNCH
@@ -614,9 +631,8 @@ const tool = getLocalizedTool(rawTool, lang);
                               <div className="flex items-start gap-2.5">
                                 {/* Title vector glyph */}
                                 {getToolIcon(tool.id)}
-                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 flex items-center ${isLive ? "text-ink" : "text-ink-muted"}`}>
+                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 ${isLive ? "text-ink" : "text-ink-muted"}`}>
                                   {tool.title}
-                                  {tool.id === "web-scraper" && <span className="ml-1.5 text-xs opacity-70" title="Requires ZeroWebTools Companion Extension">🔌</span>}
                                 </h4>
                               </div>
                               <p className={`text-[11px] leading-relaxed ${isLive ? "text-ink-secondary" : "text-ink-muted"}`}>
@@ -626,8 +642,17 @@ const tool = getLocalizedTool(rawTool, lang);
 
                             {isLive ? (
                               <div className="mt-4 flex items-center justify-between text-[10px] select-none border-t border-border/20 pt-2 relative z-10">
-                                <span className="text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
+                                <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
                                   {tagLabel}
+                                  {tool.id === "web-scraper" && (
+                                    <>
+                                      <span className="mx-1.5 opacity-50">•</span>
+                                      <span className="flex items-center gap-1 text-accent" title="Requires Companion Extension">
+                                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.047-.899.277-1.045.732a3.003 3.003 0 0 0 .546 3.197 3 3 0 0 1 0 4.242 3 3 0 0 1-4.242 0 3.003 3.003 0 0 0-3.197-.546c-.455.146-.779.575-.732 1.045.04.283-.062.564-.276.837l-1.611 1.611c-.47.47-1.087.706-1.704.706s-1.233-.235-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.878-.289c-.493.074-1.011-.122-1.341-.563a3.001 3.001 0 0 1-.365-3.327 3.001 3.001 0 0 0-.365-3.327 3.001 3.001 0 0 1 0-4.242 3 3 0 0 1 4.242 0c1.077 1.077 2.658 1.157 3.82.261.353-.271.492-.743.342-1.168a3 3 0 0 0-3.037-2.036c-.47.047-.899-.277-1.045-.732a3.003 3.003 0 0 1 .546-3.197 3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0 3.003 3.003 0 0 1-3.197.546c-.455-.146-.779-.575-.732-1.045.04-.283.062-.564.276-.837l1.611-1.611c.47-.47 1.087-.706 1.704-.706s1.233.235 1.704.706l1.568 1.568c.23.23.556.338.878.289.493-.074 1.011.122 1.341.563a3.001 3.001 0 0 0 .365 3.327 3.001 3.001 0 0 1 .365 3.327 3.001 3.001 0 0 0 0 4.242 3 3 0 0 0 4.242 0c1.077-1.077 2.658-1.157 3.82-.261.353.271.492.743.342 1.168a3 3 0 0 1-3.037 2.036z"/></svg>
+                                        EXTENSION REQUIRED
+                                      </span>
+                                    </>
+                                  )}
                                 </span>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                                   LAUNCH
