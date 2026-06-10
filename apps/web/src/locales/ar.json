@@ -2781,5 +2781,17 @@
     "timestamp_format": "تنسيق الطابع الزمني",
     "format_mm_ss": "[مم:س س]",
     "format_hh_mm_ss": "[س:د:س س]"
+  },
+  "web_scraper": {
+    "url_placeholder": "الصق عنوان URL للمقالة لقراءتها بدون إعلانات...",
+    "extract_btn": "اقرأ المقال",
+    "extracting": "قراءة...",
+    "tab_reader": "عرض القارئ",
+    "tab_markdown": "نص عادي",
+    "copy_markdown": "نسخ النص",
+    "missing_extension_title": "التمديد مطلوب",
+    "missing_extension_desc": "لتجاوز نظام حظر الاشتراك غير المدفوع وقيود CORS، يرجى تثبيت ملحق ZeroWebTools Companion.",
+    "download_extension": "تنزيل الامتداد",
+    "error_extract": "فشل في قراءة المحتوى. تأكد من صحة عنوان URL ومن تثبيت الامتداد."
   }
 }

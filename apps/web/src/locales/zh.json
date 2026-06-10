@@ -2781,5 +2781,17 @@
     "timestamp_format": "时间戳格式",
     "format_mm_ss": "[分：SS]",
     "format_hh_mm_ss": "[时:分:秒]"
+  },
+  "web_scraper": {
+    "url_placeholder": "粘贴文章网址即可无广告阅读...",
+    "extract_btn": "阅读文章",
+    "extracting": "阅读...",
+    "tab_reader": "读者视图",
+    "tab_markdown": "纯文本",
+    "copy_markdown": "复制文本",
+    "missing_extension_title": "需要延期",
+    "missing_extension_desc": "要绕过付费墙和 CORS 限制，请安装 ZeroWebTools Companion 扩展。",
+    "download_extension": "下载扩展",
+    "error_extract": "无法读取内容。确保 URL 有效并且扩展已安装。"
   }
 }

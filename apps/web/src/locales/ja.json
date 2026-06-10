@@ -2781,5 +2781,17 @@
     "timestamp_format": "タイムスタンプの形式",
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[HH:MM:SS]"
+  },
+  "web_scraper": {
+    "url_placeholder": "記事の URL を貼り付けて広告なしで読んでください...",
+    "extract_btn": "記事を読む",
+    "extracting": "読む...",
+    "tab_reader": "リーダービュー",
+    "tab_markdown": "プレーンテキスト",
+    "copy_markdown": "テキストをコピーする",
+    "missing_extension_title": "拡張子が必要です",
+    "missing_extension_desc": "ペイウォールと CORS 制限をバイパスするには、ZeroWebTools Companion 拡張機能をインストールしてください。",
+    "download_extension": "拡張機能をダウンロード",
+    "error_extract": "コンテンツの読み取りに失敗しました。 URL が有効であり、拡張機能がインストールされていることを確認してください。"
   }
 }

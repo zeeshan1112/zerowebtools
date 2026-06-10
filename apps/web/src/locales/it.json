@@ -2781,5 +2781,17 @@
     "timestamp_format": "Formato timestamp",
     "format_mm_ss": "[MM:SS]",
     "format_hh_mm_ss": "[OO:MM:SS]"
+  },
+  "web_scraper": {
+    "url_placeholder": "Incolla l'URL dell'articolo per leggerlo senza pubblicità...",
+    "extract_btn": "Leggi l'articolo",
+    "extracting": "Lettura...",
+    "tab_reader": "Visualizzazione lettore",
+    "tab_markdown": "Testo semplice",
+    "copy_markdown": "Copia testo",
+    "missing_extension_title": "Estensione richiesta",
+    "missing_extension_desc": "Per aggirare i paywall e le restrizioni CORS, installa l'estensione ZeroWebTools Companion.",
+    "download_extension": "Scarica estensione",
+    "error_extract": "Impossibile leggere il contenuto. Assicurati che l'URL sia valido e che l'estensione sia installata."
   }
 }
