@@ -275,7 +275,7 @@ export default function WebScraperWorkspace() {
                 {t("web_scraper.missing_extension_title", "Extension Required")}
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
-                {t("web_scraper.missing_extension_desc", "Please install the companion extension to bypass paywalls.")}
+                {t("web_scraper.missing_extension_desc", "Please install the companion extension to securely fetch cross-origin articles.")}
               </p>
               <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm py-2.5 px-4 rounded-lg mb-6 font-medium flex items-center justify-center gap-2">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> 100% Private & Secure. We do not track or record your browsing data.
