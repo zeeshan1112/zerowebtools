@@ -365,5 +365,46 @@ export const TEXT_ARTICLES: HowToArticle[] = [
         answer: "Yes. After the initial run has downloaded and cached the model files, you can turn off your internet connection and perform transcription completely offline."
       }
     ]
+  },
+  {
+    slug: "extract-articles-privately",
+    title: "How to Read and Extract Articles Privately",
+    metaDescription: "Extract text from any article safely on your local machine using the companion extension. No server tracking.",
+    toolId: "web-scraper",
+    sections: [
+      {
+        heading: "The Importance of Private Article Extraction",
+        paragraphs: [
+          "Most online reading tools and text extractors route your requests through their own proxy servers. This means they can track every single article you read, build a profile on your interests, and log your IP address. For researchers, journalists, and privacy-conscious users, this is a massive security leak.",
+          "By running the extraction logic locally on your own machine using a companion browser extension, you cut out the middleman entirely. Your browser fetches the article directly from the source, guaranteeing that no third-party servers ever see what you are reading."
+        ]
+      },
+      {
+        heading: "How to Use the Smart Article Reader",
+        listItems: [
+          "Install the Companion Extension -- The extension acts as a secure local bridge to fetch websites directly from your browser.",
+          "Paste the Article URL -- Enter the web address of the article you want to extract.",
+          "Extract Content -- The tool will fetch the raw HTML locally, strip away all ads and tracking scripts, and present you with clean, readable text.",
+          "Read or Save -- Enjoy the distraction-free reading experience, or copy the clean text for your own notes."
+        ]
+      },
+      {
+        heading: "Bypassing Security Restrictions Safely",
+        paragraphs: [
+          "Many websites use strict CORS (Cross-Origin Resource Sharing) policies and X-Frame-Options to prevent other sites from loading their content. Our local extension automatically strips these restrictive headers for the URLs you explicitly request.",
+          "This allows the ZeroWebTools web app to seamlessly parse the data locally inside your browser without being blocked, giving you the power of a backend web scraper without ever needing a backend server."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "Why do I need to install a browser extension?",
+        answer: "Web browsers block websites from fetching data from other websites (CORS). The extension gives your browser the permission it needs to fetch the article locally so we don't have to use a central proxy server."
+      },
+      {
+        question: "Do you track the articles I read?",
+        answer: "Absolutely not. Because the fetch request happens entirely on your own machine, our servers have zero visibility into what URLs you are typing into the tool."
+      }
+    ]
   }
 ];
