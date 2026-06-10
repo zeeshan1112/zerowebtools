@@ -268,8 +268,8 @@ export default function WebScraperWorkspace() {
         {!extensionInstalled && (
           <div className="absolute inset-0 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm z-10 flex items-center justify-center p-6 text-center">
             <div className="max-w-md bg-white dark:bg-neutral-800 p-8 rounded-xl shadow-xl border border-neutral-200 dark:border-neutral-700">
-              <div className="text-4xl mb-6 flex justify-center text-ink dark:text-white opacity-80">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5,9.5h-3v-2c0-1.66-1.34-3-3-3s-3,1.34-3,3v2h-3C6.12,9.5,5,10.62,5,12v3h2c1.66,0,3,1.34,3,3s-1.34,3-3,3h-2v3c0,1.38,1.12,2.5,2.5,2.5h3v-2c0-1.66,1.34-3,3-3s3,1.34,3,3v2h3c1.38,0,2.5-1.12,2.5-2.5v-3h-2c-1.66,0-3-1.34-3-3s1.34-3,3-3h2V12C22,10.62,20.88,9.5,19.5,9.5z"/></svg>
+              <div className="mb-6 flex justify-center opacity-90">
+                <img src="/chrome_extension_icon.webp" alt="Chrome Extension" className="w-16 h-16 object-contain" />
               </div>
               <h3 className="text-xl font-bold mb-2 text-neutral-900 dark:text-white">
                 {t("web_scraper.missing_extension_title", "Extension Required")}

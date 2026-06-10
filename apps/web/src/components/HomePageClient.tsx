@@ -437,8 +437,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                         {tool.id === "web-scraper" && (
                           <>
                             <span className="mx-1.5 opacity-50">•</span>
-                            <span className="flex items-center text-accent opacity-80" title="Requires Companion Extension">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5,9.5h-3v-2c0-1.66-1.34-3-3-3s-3,1.34-3,3v2h-3C6.12,9.5,5,10.62,5,12v3h2c1.66,0,3,1.34,3,3s-1.34,3-3,3h-2v3c0,1.38,1.12,2.5,2.5,2.5h3v-2c0-1.66,1.34-3,3-3s3,1.34,3,3v2h3c1.38,0,2.5-1.12,2.5-2.5v-3h-2c-1.66,0-3-1.34-3-3s1.34-3,3-3h2V12C22,10.62,20.88,9.5,19.5,9.5z"/></svg>
+                            <span className="flex items-center" title="Requires Companion Extension">
+                              <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
                             </span>
                           </>
                         )}
@@ -507,8 +507,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                           {tool.id === "web-scraper" && (
                             <>
                               <span className="mx-1.5 opacity-50">•</span>
-                            <span className="flex items-center text-accent opacity-80" title="Requires Companion Extension">
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5,9.5h-3v-2c0-1.66-1.34-3-3-3s-3,1.34-3,3v2h-3C6.12,9.5,5,10.62,5,12v3h2c1.66,0,3,1.34,3,3s-1.34,3-3,3h-2v3c0,1.38,1.12,2.5,2.5,2.5h3v-2c0-1.66,1.34-3,3-3s3,1.34,3,3v2h3c1.38,0,2.5-1.12,2.5-2.5v-3h-2c-1.66,0-3-1.34-3-3s1.34-3,3-3h2V12C22,10.62,20.88,9.5,19.5,9.5z"/></svg>
+                            <span className="flex items-center" title="Requires Companion Extension">
+                              <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
                             </span>
                             </>
                           )}
@@ -645,8 +645,8 @@ const tool = getLocalizedTool(rawTool, lang);
                                   {tool.id === "web-scraper" && (
                                     <>
                                       <span className="mx-1.5 opacity-50">•</span>
-                                      <span className="flex items-center text-accent opacity-80" title="Requires Companion Extension">
-                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5,9.5h-3v-2c0-1.66-1.34-3-3-3s-3,1.34-3,3v2h-3C6.12,9.5,5,10.62,5,12v3h2c1.66,0,3,1.34,3,3s-1.34,3-3,3h-2v3c0,1.38,1.12,2.5,2.5,2.5h3v-2c0-1.66,1.34-3,3-3s3,1.34,3,3v2h3c1.38,0,2.5-1.12,2.5-2.5v-3h-2c-1.66,0-3-1.34-3-3s1.34-3,3-3h2V12C22,10.62,20.88,9.5,19.5,9.5z"/></svg>
+                                      <span className="flex items-center" title="Requires Companion Extension">
+                                        <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
                                       </span>
                                     </>
                                   )}
