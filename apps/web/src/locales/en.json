@@ -167,5 +167,32 @@
     "step_4": "Formatting output component tree...",
     "converting_overlay_title": "Converting HTML to JSX..."
   },
+  "audio_transcriber": {
+    "drop_zone_prompt": "Drop an audio file here or click to browse",
+    "drop_zone_prompt_sub": "Supports MP3, WAV, M4A, OGG, WEBM — 100% private client-side transcription",
+    "model_selection": "Select Whisper Model",
+    "model_desc_tiny_en": "Whisper Tiny (English-only, ~75MB) — Fast and highly accurate for English.",
+    "model_desc_tiny": "Whisper Tiny (Multilingual, ~75MB) — Supports 90+ languages. Auto-detects speech language.",
+    "warning_initial_download": "⚠️ First run will download the ~75MB AI model to your browser's local cache. Subsequent runs are instant.",
+    "language_label": "Audio Language",
+    "auto_detect": "Auto-Detect Language",
+    "transcribe_btn": "Transcribe Audio",
+    "transcribing": "Transcribing...",
+    "download_progress": "Downloading Model: {progress}%",
+    "loading_model": "Loading Whisper AI Model...",
+    "resampling_audio": "Decoding and Resampling Audio (16kHz)...",
+    "running_inference": "Running transcription (this may take a minute)...",
+    "done": "Transcription complete!",
+    "tab_paragraphs": "Paragraphs",
+    "tab_timestamps": "Timestamps View",
+    "copy_btn": "Copy Transcript",
+    "clear_btn": "Clear",
+    "download_btn": "Download Transcript (.txt)",
+    "empty_prompt": "Upload an audio file and click Transcribe to view results.",
+    "error_audio_decode": "Failed to decode audio file. Please ensure it is a valid audio format.",
+    "timestamp_format": "Timestamp Format",
+    "format_mm_ss": "[MM:SS]",
+    "format_hh_mm_ss": "[HH:MM:SS]"
+  },
   "articles": {}
 }

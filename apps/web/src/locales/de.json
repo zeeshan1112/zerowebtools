@@ -2530,6 +2530,61 @@
           "answer": "Nein. Aus Sicherheits- und Datenschutzgründen werden Ihre Listen nicht auf unseren Servern gespeichert. Sie müssen Ihre Liste kopieren, bevor Sie die Seite aktualisieren."
         }
       ]
+    },
+    "audio-transcriber": {
+      "title": "So transkribieren Sie Audio lokal mit Zeitstempeln in Text",
+      "metaDescription": "Transkribieren Sie MP3-, WAV- und M4A-Audiodateien lokal und privat in Ihrem Browser. Generieren Sie präzise Zeitstempel für Segmente und bearbeiten Sie Transkripte clientseitig.",
+      "sections": [
+        {
+          "heading": "Die Notwendigkeit einer sicheren Audiotranskription",
+          "level": "h2",
+          "paragraphs": [
+            "Das Transkribieren von Interviews, Besprechungsaufzeichnungen, Vorträgen und Diktaten in Text ist für die Zugänglichkeit, Dokumentation und Inhaltserstellung von entscheidender Bedeutung. Standardmäßige Online-Transkriptionsdienste erfordern jedoch das Hochladen Ihrer Audiodateien auf Cloud-Server. Dadurch werden vertrauliche Unternehmensbesprechungen, private Interviews und sensible persönliche Informationen an Datenbanken Dritter weitergegeben.",
+            "Zur Sicherung Ihrer Daten ist die lokale Transkription auf dem Gerät die ideale Lösung. Durch die Konvertierung von Sprache in Text direkt in Ihrem Browser verlassen Ihre Audiodateien nie Ihr Gerät. Dies garantiert absoluten Datenschutz und eliminiert Serverwarteschlangen, sodass Sie Dateien sofort transkribieren können."
+          ]
+        },
+        {
+          "heading": "So transkribieren Sie Audio lokal",
+          "level": "h2",
+          "listItems": [
+            "Audiodatei hochladen – Wählen Sie Ihre MP3-, WAV-, M4A-, OGG- oder WEBM-Datei aus oder ziehen Sie sie per Drag & Drop in die sichere Dropzone.",
+            "Flüstereinstellungen konfigurieren – Wählen Sie das Nur-Englisch-Modell für die Geschwindigkeit oder das Mehrsprachige Modell, um andere Sprachen zu transkribieren. Sie können auch die Eingabesprache festlegen oder diese automatisch erkennen lassen.",
+            "WebAssembly-Transkription ausführen – Klicken Sie auf die Schaltfläche „Transkribieren“. Der Browser dekodiert das Audio, resampelt es auf 16 kHz und führt das Whisper-Modell in einem lokalen Web Worker aus.",
+            "Überprüfen und bearbeiten Sie das Transkript – Erkunden Sie die Registerkarte „Absätze“ für sauberes Lesen oder wechseln Sie zur Registerkarte „Zeitstempel“, um chronologische Segmente mit Zeitstempeln zu überprüfen. Sie können den Text direkt im Browser bearbeiten.",
+            "Transkript exportieren – Kopieren Sie den Text in Ihre Zwischenablage oder laden Sie ihn mit einem einzigen Klick als reine Textdatei (.txt) herunter."
+          ]
+        },
+        {
+          "heading": "WebAssembly Machine Learning auf dem Gerät",
+          "level": "h2",
+          "paragraphs": [
+            "ZeroWebTools nutzt die fortschrittlichen ONNX Runtime- und Hugging Face Transformers-Engines, die in WebAssembly kompiliert wurden, um maschinelles Lernen auf dem Gerät durchzuführen. Wenn Sie den Transcriber zum ersten Mal ausführen, wird ein quantisiertes Whisper Tiny-Modell heruntergeladen (~75 MB).",
+            "Nach dem Herunterladen wird das Modell lokal im Cache-Speicher Ihres Browsers zwischengespeichert. Bei allen nachfolgenden Läufen wird das Modell sofort von der Festplatte geladen, sodass eine vollständige Offline-Transkription ohne Netzwerkverbindung möglich ist. Alle Berechnungen erfolgen lokal auf Ihrer CPU/GPU, sodass keine Latenz und keine Datenschutzlecks entstehen."
+          ]
+        },
+        {
+          "heading": "Präzise Zeitstempel und interaktive Bearbeitung",
+          "level": "h2",
+          "paragraphs": [
+            "Bei der Transkription längerer Aufzeichnungen sind Zeitstempel der Segmente für die Navigation im Inhalt unerlässlich. Unser Transkriptor generiert für jedes Segment präzise Startzeitstempel, sodass Sie schnell feststellen können, wo bestimmte Wörter gesprochen wurden.",
+            "Darüber hinaus können Sie mit dem interaktiven Transkripteditor sowohl in der Absatz- als auch in der Zeitstempellistenansicht sofort alle falsch verstandenen Wörter oder Formatierungen korrigieren. Dadurch wird sichergestellt, dass Ihr endgültiges exportiertes Dokument ausgefeilt, genau und zur Veröffentlichung bereit ist."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Werden meine Audiodaten auf einen Server hochgeladen?",
+          "answer": "Nein. Die Transkription wird mithilfe von WebAssembly vollständig lokal auf der CPU/GPU Ihres Computers durchgeführt. Ihre Audiodateien und Texttranskripte werden niemals hochgeladen oder geteilt."
+        },
+        {
+          "question": "Wie lange dauert die Transkription?",
+          "answer": "Die Verarbeitungsgeschwindigkeit hängt von der CPU/GPU-Hardware Ihres Geräts und der Länge der Audiodatei ab. Bei den meisten modernen Geräten dauert die Transkription eines 5-minütigen Audioclips weniger als eine Minute."
+        },
+        {
+          "question": "Kann ich das Tool komplett offline nutzen?",
+          "answer": "Ja. Nachdem beim ersten Durchlauf die Modelldateien heruntergeladen und zwischengespeichert wurden, können Sie Ihre Internetverbindung ausschalten und die Transkription vollständig offline durchführen."
+        }
+      ]
     }
   },
   "common": {
@@ -2699,5 +2754,32 @@
     "step_3": "Übersetzen von Inline-Stilen in JSX-Stilobjekte ...",
     "step_4": "Ausgabekomponentenbaum wird formatiert...",
     "converting_overlay_title": "HTML in JSX konvertieren..."
+  },
+  "audio_transcriber": {
+    "drop_zone_prompt": "Legen Sie hier eine Audiodatei ab oder klicken Sie zum Durchsuchen",
+    "drop_zone_prompt_sub": "Unterstützt MP3, WAV, M4A, OGG, WEBM – 100 % private Transkription auf Client-Seite",
+    "model_selection": "Wählen Sie Whisper-Modell",
+    "model_desc_tiny_en": "Whisper Tiny (nur Englisch, ~75 MB) – Schnell und hochpräzise für Englisch.",
+    "model_desc_tiny": "Whisper Tiny (mehrsprachig, ~75 MB) – Unterstützt über 90 Sprachen. Erkennt die Sprachsprache automatisch.",
+    "warning_initial_download": "⚠️ Beim ersten Start wird das ca. 75 MB große KI-Modell in den lokalen Cache Ihres Browsers heruntergeladen. Nachfolgende Läufe erfolgen sofort.",
+    "language_label": "Audiosprache",
+    "auto_detect": "Sprache automatisch erkennen",
+    "transcribe_btn": "Audio transkribieren",
+    "transcribing": "Transkribieren...",
+    "download_progress": "Modell wird heruntergeladen: {progress}%",
+    "loading_model": "Whisper AI-Modell wird geladen...",
+    "resampling_audio": "Dekodierung und Resampling von Audio (16 kHz)...",
+    "running_inference": "Transkription wird ausgeführt (dies kann eine Minute dauern)...",
+    "done": "Transkription abgeschlossen!",
+    "tab_paragraphs": "Absätze",
+    "tab_timestamps": "Zeitstempelansicht",
+    "copy_btn": "Transkript kopieren",
+    "clear_btn": "Klar",
+    "download_btn": "Transkript herunterladen (.txt)",
+    "empty_prompt": "Laden Sie eine Audiodatei hoch und klicken Sie auf „Transkribieren“, um die Ergebnisse anzuzeigen.",
+    "error_audio_decode": "Audiodatei konnte nicht dekodiert werden. Bitte stellen Sie sicher, dass es sich um ein gültiges Audioformat handelt.",
+    "timestamp_format": "Zeitstempelformat",
+    "format_mm_ss": "[MM:SS]",
+    "format_hh_mm_ss": "[HH:MM:SS]"
   }
 }

@@ -312,5 +312,58 @@ export const TEXT_ARTICLES: HowToArticle[] = [
         answer: "No. For security and privacy, your lists are not stored on our servers. You must copy your list before refreshing the page."
       }
     ]
+  },
+  {
+    slug: "transcribe-audio-to-text-timestamps",
+    title: "How to Transcribe Audio to Text Locally with Timestamps",
+    metaDescription: "Transcribe MP3, WAV, and M4A audio files locally and privately in your browser. Generate precise segment timestamps and edit transcripts client-side.",
+    toolId: "audio-transcriber",
+    sections: [
+      {
+        heading: "The Need for Secure Audio Transcription",
+        paragraphs: [
+          "Transcribing interviews, meeting recordings, lectures, and dictations into text is crucial for accessibility, documentation, and content creation. However, standard online transcription services require uploading your audio files to cloud servers. This exposes confidential company discussions, private interviews, and sensitive personal information to third-party databases.",
+          "To secure your data, on-device local transcription is the ideal solution. By converting speech to text directly in your browser, your audio files never leave your device. This guarantees absolute data privacy and removes server queues, allowing you to transcribe files instantly."
+        ]
+      },
+      {
+        heading: "How to Transcribe Audio Locally",
+        listItems: [
+          "Upload Audio File -- Select or drag and drop your MP3, WAV, M4A, OGG, or WEBM file into the secure dropzone.",
+          "Configure Whisper Settings -- Select the English-only model for speed or the Multilingual model to transcribe other languages. You can also specify the input language or let it auto-detect.",
+          "Run WebAssembly Transcription -- Click the Transcribe button. The browser decodes the audio, resamples it to 16kHz, and runs the Whisper model inside a local Web Worker.",
+          "Review and Edit Transcript -- Explore the Paragraphs tab for clean reading, or switch to the Timestamps tab to review chronological segments with timestamps. You can edit the text directly in the browser.",
+          "Export Transcript -- Copy the text to your clipboard or download it as a plain text file (.txt) with a single click."
+        ]
+      },
+      {
+        heading: "On-Device WebAssembly Machine Learning",
+        paragraphs: [
+          "ZeroWebTools utilizes the advanced ONNX Runtime and Hugging Face Transformers engines compiled to WebAssembly to perform on-device machine learning. When you run the transcriber for the first time, a quantized Whisper Tiny model is downloaded (~75MB).",
+          "Once downloaded, the model is cached locally in your browser's Cache Storage. On all subsequent runs, the model loads instantly from disk, enabling complete offline transcription without a network connection. All computations happen locally on your CPU/GPU, ensuring zero latency and zero privacy leaks."
+        ]
+      },
+      {
+        heading: "Precise Timestamps and Interactive Editing",
+        paragraphs: [
+          "When transcribing longer recordings, having segment timestamps is essential for navigating the content. Our transcriber generates precise start timestamps for each segment, allowing you to quickly locate where specific words were spoken.",
+          "Furthermore, the interactive transcript editor lets you correct any misheard words or formatting on the fly in both the paragraph and timestamp list views. This ensures your final exported document is polished, accurate, and ready for publication."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "Is my audio data uploaded to a server?",
+        answer: "No. The transcription is performed completely locally on your computer's CPU/GPU using WebAssembly. Your audio files and text transcripts are never uploaded or shared."
+      },
+      {
+        question: "How long does the transcription take?",
+        answer: "The processing speed depends on your device's CPU/GPU hardware and the length of the audio file. For most modern devices, a 5-minute audio clip transcribes in under a minute."
+      },
+      {
+        question: "Can I use the tool completely offline?",
+        answer: "Yes. After the initial run has downloaded and cached the model files, you can turn off your internet connection and perform transcription completely offline."
+      }
+    ]
   }
 ];

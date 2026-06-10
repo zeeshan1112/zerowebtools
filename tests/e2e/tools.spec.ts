@@ -1042,4 +1042,20 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     const scoreVal = page.locator("text=Score").locator("xpath=..").locator(".font-mono");
     await expect(scoreVal).toHaveText("0");
   });
+
+  test("50. Audio Transcriber Pro - mounting and options", async ({ page }) => {
+    await navigateTo(page, "/tools/audio-transcriber");
+    await expect(page.locator("h1")).toContainText("Audio Transcriber Pro");
+    
+    // Verify file input is attached to DOM
+    const fileInput = page.locator('input[type="file"]');
+    await expect(fileInput).toBeAttached();
+
+    // Verify Whisper model options
+    await expect(page.locator("button:has-text('English Only')")).toBeVisible();
+    await expect(page.locator("button:has-text('Multilingual')")).toBeVisible();
+
+    // Verify dropzone instructions
+    await expect(page.locator("text=Drop an audio").first()).toBeVisible();
+  });
 });
