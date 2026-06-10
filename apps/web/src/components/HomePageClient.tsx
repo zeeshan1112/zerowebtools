@@ -485,8 +485,9 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       <div className="flex items-start gap-2.5">
                         {/* Monochromatic SVG Title Icons */}
                         {getToolIcon(tool.id)}
-                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
+                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink flex items-center">
                           {tool.title}
+                          {tool.id === "web-scraper" && <span className="ml-1.5 text-xs opacity-70" title="Requires ZeroWebTools Companion Extension">🔌</span>}
                         </h3>
                       </div>
                       <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
@@ -613,8 +614,9 @@ const tool = getLocalizedTool(rawTool, lang);
                               <div className="flex items-start gap-2.5">
                                 {/* Title vector glyph */}
                                 {getToolIcon(tool.id)}
-                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 ${isLive ? "text-ink" : "text-ink-muted"}`}>
+                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 flex items-center ${isLive ? "text-ink" : "text-ink-muted"}`}>
                                   {tool.title}
+                                  {tool.id === "web-scraper" && <span className="ml-1.5 text-xs opacity-70" title="Requires ZeroWebTools Companion Extension">🔌</span>}
                                 </h4>
                               </div>
                               <p className={`text-[11px] leading-relaxed ${isLive ? "text-ink-secondary" : "text-ink-muted"}`}>

@@ -272,9 +272,12 @@ export default function WebScraperWorkspace() {
               <h3 className="text-xl font-bold mb-2 text-neutral-900 dark:text-white">
                 {t("web_scraper.missing_extension_title", "Extension Required")}
               </h3>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-6">
+              <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 {t("web_scraper.missing_extension_desc", "Please install the companion extension to bypass paywalls.")}
               </p>
+              <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm py-2 px-4 rounded-lg mb-6 font-medium flex items-center justify-center gap-2">
+                <span>🛡️</span> 100% Private & Secure. We do not track or record your browsing data.
+              </div>
               <a
                 href="/extensions"
                 className="inline-block px-6 py-3 bg-ink dark:bg-white text-surface dark:text-ink hover:opacity-80 font-medium rounded-lg transition-all"
