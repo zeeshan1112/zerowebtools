@@ -349,7 +349,8 @@ export default function ResumeBuilderWorkspace() {
           {[
             { id: "executive", name: "Executive ATS", desc: "Single column, clean" },
             { id: "creative", name: "Creative Dual", desc: "Two columns, modern" },
-            { id: "classic", name: "Traditional Classic", desc: "Serif font, elegant" }
+            { id: "classic", name: "Traditional Classic", desc: "Serif font, elegant" },
+            { id: "elegant", name: "Elegant Header", desc: "Modern serif, bold header" }
           ].map(tpl => (
             <button
               key={tpl.id}

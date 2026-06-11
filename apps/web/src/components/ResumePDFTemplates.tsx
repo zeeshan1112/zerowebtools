@@ -520,6 +520,121 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
   );
 };
 
+const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
+  const pColor = data.settings.primaryColor;
+  
+  return (
+    <Page size="A4" style={{ ...s.page, fontFamily: 'Times-Roman', padding: 40, paddingTop: 40, paddingBottom: 40 }}>
+      {/* Header */}
+      <View style={{ backgroundColor: pColor, marginHorizontal: -40, marginTop: -40, marginBottom: 30, paddingVertical: 35, paddingHorizontal: 40, alignItems: 'center' }}>
+        <View style={{ width: 40, height: 1, backgroundColor: '#ffffff', marginBottom: 15, opacity: 0.6 }}></View>
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#ffffff', marginBottom: 12, fontFamily: 'Times-Bold', lineHeight: 1.1 }}>
+          {data.personal.fullName}
+        </Text>
+        <Text style={{ fontSize: 9, color: '#ffffff', opacity: 0.9 }}>
+          {[data.personal.location, data.personal.phone, data.personal.email, data.personal.website].filter(Boolean).join('  |  ')}
+        </Text>
+      </View>
+
+      {/* Body */}
+      <View style={{ paddingTop: 0 }}>
+        {data.settings.sectionOrder.map(sec => {
+          if (sec === "personal" && data.personal.summary) return (
+            <View key={sec} style={{ marginBottom: 15 }}>
+              <View wrap={false} minPresenceAhead={60}>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Summary</Text>
+              </View>
+              <Text style={{ fontSize: 10, color: '#6b7280', lineHeight: 1.5 }}>{data.personal.summary}</Text>
+            </View>
+          );
+
+          if (sec === "skills" && data.skills.length > 0) return (
+            <View key={sec} style={{ marginBottom: 15 }}>
+              <View wrap={false} minPresenceAhead={60}>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Skills</Text>
+              </View>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', rowGap: 4, columnGap: 16 }}>
+                {data.skills.flatMap(s => s.skills.split(',')).map((skill, i) => (
+                  <Text key={i} style={{ fontSize: 10, color: '#6b7280' }}>• {skill.trim()}</Text>
+                ))}
+              </View>
+            </View>
+          );
+
+          if (sec === "experience" && data.experience.length > 0) return (
+            <View key={sec} style={{ marginBottom: 15 }}>
+              <View wrap={false} minPresenceAhead={60}>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Experience</Text>
+              </View>
+              {data.experience.map(item => (
+                <View key={item.id} style={{ marginBottom: 12 }}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, color: '#374151', textTransform: 'uppercase' }}>
+                      {item.title} <Text style={{ fontFamily: 'Times-Roman', color: '#9ca3af', textTransform: 'none' }}>| {item.dateStart} {item.dateStart && item.dateEnd ? "-" : ""} {item.dateEnd}</Text>
+                    </Text>
+                    <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, color: '#6b7280', marginBottom: 4 }}>{item.subtitle} - {item.location}</Text>
+                  </View>
+                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.4 }}>
+                    {formatBullets(item.description)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+
+          if (sec === "education" && data.education.length > 0) return (
+            <View key={sec} style={{ marginBottom: 15 }}>
+              <View wrap={false} minPresenceAhead={60}>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Education and Training</Text>
+              </View>
+              {data.education.map(item => (
+                <View key={item.id} style={{ marginBottom: 12 }}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, color: '#374151' }}>
+                      {item.subtitle} - {item.location} <Text style={{ fontFamily: 'Times-Roman', color: '#9ca3af' }}>| {item.title}</Text>
+                    </Text>
+                    <Text style={{ fontSize: 10, color: '#9ca3af' }}>{item.dateEnd}</Text>
+                  </View>
+                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.4 }}>
+                    {formatBullets(item.description)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+
+          if (sec === "projects" && data.projects.length > 0) return (
+            <View key={sec} style={{ marginBottom: 15 }}>
+              <View wrap={false} minPresenceAhead={60}>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Projects</Text>
+              </View>
+              {data.projects.map(item => (
+                <View key={item.id} style={{ marginBottom: 12 }}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, color: '#374151' }}>
+                      {item.title} <Text style={{ fontFamily: 'Times-Roman', color: '#9ca3af' }}>| {item.dateStart} {item.dateStart && item.dateEnd ? "-" : ""} {item.dateEnd}</Text>
+                    </Text>
+                    <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, color: '#6b7280', marginBottom: 4 }}>{item.subtitle} - {item.location}</Text>
+                  </View>
+                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.4 }}>
+                    {formatBullets(item.description)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+          
+          return null;
+        })}
+      </View>
+    </Page>
+  );
+};
 
 export const ResumeDocument = ({ data }: { data: ResumeData }) => {
   return (
@@ -527,6 +642,7 @@ export const ResumeDocument = ({ data }: { data: ResumeData }) => {
       {data.settings.template === "executive" && <TemplateExecutivePDF data={data} />}
       {data.settings.template === "creative" && <TemplateCreativePDF data={data} />}
       {data.settings.template === "classic" && <TemplateClassicPDF data={data} />}
+      {data.settings.template === "elegant" && <TemplateElegantPDF data={data} />}
     </Document>
   );
 };

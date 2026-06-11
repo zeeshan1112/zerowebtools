@@ -39,7 +39,7 @@ export interface ResumeData {
   projects: ResumeItem[];
   customSections: CustomSection[];
   settings: {
-    template: "executive" | "creative" | "classic";
+    template: "executive" | "creative" | "classic" | "elegant";
     primaryColor: string;
     sectionOrder: string[];
   };
