@@ -413,6 +413,33 @@ export default function ResumeBuilderWorkspace() {
           ))}
         </Reorder.Group>
       </div>
+
+      <div>
+        <h3 className="text-sm font-bold text-ink mb-2">Layout Density</h3>
+        <p className="text-[11px] text-ink-muted mb-3">Optimize space to fit more content on a single page.</p>
+        <div className="p-4 bg-surface-elevated/40 border border-border/60 rounded-xl relative z-10 bg-white dark:bg-neutral-900">
+          <div className="flex justify-between items-center mb-3">
+            <div className="text-sm font-bold text-ink">Spacing Multiplier</div>
+            <div className="text-xs font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-md">
+              {data.settings.layoutSpacing ? data.settings.layoutSpacing.toFixed(1) + 'x' : '1.0x'}
+            </div>
+          </div>
+          <input 
+            type="range" 
+            min="0.5" 
+            max="1.5" 
+            step="0.1"
+            value={data.settings.layoutSpacing ?? 1.0}
+            onChange={(e) => updateSetting("layoutSpacing", parseFloat(e.target.value))}
+            className="w-full accent-accent"
+          />
+          <div className="flex justify-between text-[10px] text-ink-muted mt-2 font-medium">
+            <span>Compact (0.5x)</span>
+            <span>Normal (1.0x)</span>
+            <span>Spacious (1.5x)</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 

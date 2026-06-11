@@ -12,7 +12,7 @@ Font.register({
   ]
 });
 
-const s = StyleSheet.create({
+const getStyles = (spacing: number = 1) => StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#ffffff',
@@ -22,20 +22,20 @@ const s = StyleSheet.create({
     color: '#1a1a1a',
   },
   section: {
-    marginBottom: 12,
+    marginBottom: 12 * spacing,
   },
   headerText: {
     fontSize: 24,
     fontWeight: 700,
     textTransform: 'uppercase',
     letterSpacing: 2,
-    marginBottom: 10,
+    marginBottom: 14,
   },
   subHeaderText: {
     fontSize: 12,
     fontWeight: 500,
     color: '#4b5563',
-    marginBottom: 12,
+    marginBottom: 12 * spacing,
   },
   contactInfo: {
     flexDirection: 'row',
@@ -49,12 +49,12 @@ const s = StyleSheet.create({
     fontWeight: 700,
     textTransform: 'uppercase',
     letterSpacing: 1,
-    marginBottom: 8,
+    marginBottom: 8 * spacing,
     marginTop: 8,
     paddingBottom: 2,
   },
   itemBlock: {
-    marginBottom: 10,
+    marginBottom: 10 * spacing,
   },
   itemHeaderRow: {
     flexDirection: 'row',
@@ -114,7 +114,7 @@ const s = StyleSheet.create({
   }
 });
 
-const formatBullets = (text: string) => {
+const formatBullets = (text: string, s: any) => {
   if (!text) return null;
   return text.split(/(?:\r?\n|\\n)/).filter(Boolean).map((line, i) => {
     const isBullet = line.trim().startsWith('•') || line.trim().startsWith('-');
@@ -133,9 +133,10 @@ const formatBullets = (text: string) => {
 
 const TemplateExecutivePDF = ({ data }: { data: ResumeData }) => {
   const pColor = data.settings.primaryColor;
+  const s = getStyles(data.settings.layoutSpacing ?? 1);
   
   return (
-    <Page size="A4" style={{ ...s.page, padding: 40 }}>
+    <Page size="A4" style={{ ...s.page, padding: 40 * (data.settings.layoutSpacing ?? 1) }}>
       {/* Header */}
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <Text style={{ ...s.headerText, color: pColor }}>{data.personal.fullName}</Text>
@@ -175,7 +176,7 @@ const TemplateExecutivePDF = ({ data }: { data: ResumeData }) => {
                 </View>
                 </View>
                 <View style={s.itemDescription}>
-                  {formatBullets(item.description)}
+                  {formatBullets(item.description, s)}
                 </View>
               </View>
             ))}
@@ -198,7 +199,7 @@ const TemplateExecutivePDF = ({ data }: { data: ResumeData }) => {
                 </View>
                 </View>
                 <View style={s.itemDescription}>
-                  {formatBullets(item.description)}
+                  {formatBullets(item.description, s)}
                 </View>
               </View>
             ))}
@@ -221,7 +222,7 @@ const TemplateExecutivePDF = ({ data }: { data: ResumeData }) => {
                 </View>
                 </View>
                 <View style={s.itemDescription}>
-                  {formatBullets(item.description)}
+                  {formatBullets(item.description, s)}
                 </View>
               </View>
             ))}
@@ -247,15 +248,16 @@ const TemplateExecutivePDF = ({ data }: { data: ResumeData }) => {
 
 const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
   const pColor = data.settings.primaryColor;
+  const s = getStyles(data.settings.layoutSpacing ?? 1);
   
   return (
     <Page size="A4" style={{ ...s.page, flexDirection: 'row' }}>
       {/* Sidebar */}
-      <View style={{ width: '35%', backgroundColor: pColor, padding: 30, color: '#ffffff' }}>
+      <View style={{ width: '35%', backgroundColor: pColor, padding: 30 * (data.settings.layoutSpacing ?? 1), color: '#ffffff' }}>
         {data.personal.photoUrl && (
           <Image src={data.personal.photoUrl} style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 20, alignSelf: 'center' }} />
         )}
-        <Text style={{ fontSize: 20, fontWeight: 700, textTransform: 'uppercase', marginBottom: 12 }}>{data.personal.fullName}</Text>
+        <Text style={{ fontSize: 20, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16 }}>{data.personal.fullName}</Text>
         <Text style={{ fontSize: 10, opacity: 0.8, marginBottom: 35 }}>{data.personal.jobTitle}</Text>
 
         <View style={{ marginBottom: 30, gap: 12, fontSize: 9, opacity: 0.9 }}>
@@ -299,11 +301,11 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
 
         {data.skills.length > 0 && (
           <View>
-            <Text style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.2)', paddingBottom: 4, marginBottom: 10 }}>SKILLS</Text>
+            <Text style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.2)', paddingBottom: 4, marginBottom: 10 * (data.settings.layoutSpacing ?? 1) }}>SKILLS</Text>
             {data.skills.map(item => (
-              <View key={item.id} style={{ marginBottom: 12 }}>
+              <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                 <Text style={{ fontSize: 9, fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>{item.category}</Text>
-                <Text style={{ fontSize: 9, opacity: 0.9, lineHeight: 1.4 }}>{item.skills.split(',').map(s => s.trim()).join(' • ')}</Text>
+                <Text style={{ fontSize: 9, opacity: 0.9, lineHeight: 1.5 }}>{item.skills.split(',').map(s => s.trim()).join(' • ')}</Text>
               </View>
             ))}
           </View>
@@ -311,10 +313,10 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
       </View>
 
       {/* Main Content */}
-      <View style={{ width: '65%', padding: 30, backgroundColor: '#ffffff' }}>
+      <View style={{ width: '65%', padding: 30 * (data.settings.layoutSpacing ?? 1), backgroundColor: '#ffffff' }}>
         {data.personal.summary && (
           <View style={s.section}>
-            <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+            <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 * (data.settings.layoutSpacing ?? 1) }}>
               <View style={{ width: 30, height: 2, backgroundColor: pColor, marginRight: 8 }}></View>
               <Text style={{ fontSize: 14, fontWeight: 700, color: pColor, textTransform: 'uppercase', letterSpacing: 1 }}>PROFILE</Text>
             </View>
@@ -325,7 +327,7 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
         {data.settings.sectionOrder.filter(sec => sec !== "skills").map(sec => {
           if (sec === "experience" && data.experience.length > 0) return (
             <View key={sec} style={{ marginTop: 10 }}>
-              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 * (data.settings.layoutSpacing ?? 1) }}>
                 <View style={{ width: 30, height: 2, backgroundColor: pColor, marginRight: 8 }}></View>
                 <Text style={{ fontSize: 14, fontWeight: 700, color: pColor, textTransform: 'uppercase', letterSpacing: 1 }}>EXPERIENCE</Text>
               </View>
@@ -342,7 +344,7 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
                   </View>
                   </View>
                   <View style={{ color: '#4b5563', fontSize: 9 }}>
-                    {formatBullets(item.description)}
+                    {formatBullets(item.description, s)}
                   </View>
                 </View>
               ))}
@@ -351,7 +353,7 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
 
           if (sec === "education" && data.education.length > 0) return (
             <View key={sec} style={{ marginTop: 10 }}>
-              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 * (data.settings.layoutSpacing ?? 1) }}>
                 <View style={{ width: 30, height: 2, backgroundColor: pColor, marginRight: 8 }}></View>
                 <Text style={{ fontSize: 14, fontWeight: 700, color: pColor, textTransform: 'uppercase', letterSpacing: 1 }}>EDUCATION</Text>
               </View>
@@ -368,7 +370,7 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
                   </View>
                   </View>
                   <View style={{ color: '#4b5563', fontSize: 9 }}>
-                    {formatBullets(item.description)}
+                    {formatBullets(item.description, s)}
                   </View>
                 </View>
               ))}
@@ -377,7 +379,7 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
 
           if (sec === "projects" && data.projects.length > 0) return (
             <View key={sec} style={{ marginTop: 10 }}>
-              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 * (data.settings.layoutSpacing ?? 1) }}>
                 <View style={{ width: 30, height: 2, backgroundColor: pColor, marginRight: 8 }}></View>
                 <Text style={{ fontSize: 14, fontWeight: 700, color: pColor, textTransform: 'uppercase', letterSpacing: 1 }}>PROJECTS</Text>
               </View>
@@ -394,7 +396,7 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
                   </View>
                   </View>
                   <View style={{ color: '#4b5563', fontSize: 9 }}>
-                    {formatBullets(item.description)}
+                    {formatBullets(item.description, s)}
                   </View>
                 </View>
               ))}
@@ -410,9 +412,10 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
 
 const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
   const pColor = data.settings.primaryColor;
+  const s = getStyles(data.settings.layoutSpacing ?? 1);
   
   return (
-    <Page size="A4" style={{ ...s.page, fontFamily: 'Times-Roman', padding: 40 }}>
+    <Page size="A4" style={{ ...s.page, fontFamily: 'Times-Roman', padding: 40 * (data.settings.layoutSpacing ?? 1) }}>
       {/* Header */}
       <View style={{ alignItems: 'center', marginBottom: 24 }}>
         <Text style={{ fontSize: 26, fontWeight: 700, textTransform: 'uppercase', marginBottom: 16, color: pColor }}>{data.personal.fullName}</Text>
@@ -436,9 +439,9 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
       {data.settings.sectionOrder.map(sec => {
         if (sec === "experience" && data.experience.length > 0) return (
           <View key={sec} style={s.section}>
-            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 }}>EXPERIENCE</Text>
+            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>EXPERIENCE</Text>
             {data.experience.map(item => (
-              <View key={item.id} style={{ marginBottom: 12 }}>
+              <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                 <View wrap={false} minPresenceAhead={40}>
                 <View style={s.itemHeaderRow}>
                   <Text style={{ fontSize: 11, fontWeight: 700 }}>{item.subtitle}</Text>
@@ -450,7 +453,7 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
                 </View>
                 </View>
                 <View style={{ fontSize: 10, color: '#111', paddingLeft: 10 }}>
-                  {formatBullets(item.description)}
+                  {formatBullets(item.description, s)}
                 </View>
               </View>
             ))}
@@ -459,9 +462,9 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
 
         if (sec === "education" && data.education.length > 0) return (
           <View key={sec} style={s.section}>
-            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 }}>EDUCATION</Text>
+            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>EDUCATION</Text>
             {data.education.map(item => (
-              <View key={item.id} style={{ marginBottom: 12 }}>
+              <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                 <View wrap={false} minPresenceAhead={40}>
                 <View style={s.itemHeaderRow}>
                   <Text style={{ fontSize: 11, fontWeight: 700 }}>{item.subtitle}</Text>
@@ -473,7 +476,7 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
                 </View>
                 </View>
                 <View style={{ fontSize: 10, color: '#111', paddingLeft: 10 }}>
-                  {formatBullets(item.description)}
+                  {formatBullets(item.description, s)}
                 </View>
               </View>
             ))}
@@ -482,9 +485,9 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
 
         if (sec === "projects" && data.projects.length > 0) return (
           <View key={sec} style={s.section}>
-            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 }}>PROJECTS</Text>
+            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>PROJECTS</Text>
             {data.projects.map(item => (
-              <View key={item.id} style={{ marginBottom: 12 }}>
+              <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                 <View wrap={false} minPresenceAhead={40}>
                 <View style={s.itemHeaderRow}>
                   <Text style={{ fontSize: 11, fontWeight: 700 }}>{item.subtitle}</Text>
@@ -496,7 +499,7 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
                 </View>
                 </View>
                 <View style={{ fontSize: 10, color: '#111', paddingLeft: 10 }}>
-                  {formatBullets(item.description)}
+                  {formatBullets(item.description, s)}
                 </View>
               </View>
             ))}
@@ -505,7 +508,7 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
 
         if (sec === "skills" && data.skills.length > 0) return (
           <View key={sec} style={s.section}>
-            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 }}>SKILLS</Text>
+            <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>SKILLS</Text>
             {data.skills.map(item => (
               <View key={item.id} style={{ flexDirection: 'row', marginBottom: 4, fontSize: 10 }}>
                 <Text style={{ fontWeight: 700, width: 120 }}>{item.category}:</Text>
@@ -522,13 +525,14 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
 
 const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
   const pColor = data.settings.primaryColor;
+  const s = getStyles(data.settings.layoutSpacing ?? 1);
   
   return (
-    <Page size="A4" style={{ ...s.page, fontFamily: 'Times-Roman', padding: 40, paddingTop: 40, paddingBottom: 40 }}>
+    <Page size="A4" style={{ ...s.page, fontFamily: 'Times-Roman', padding: 40 * (data.settings.layoutSpacing ?? 1), paddingTop: 40 * (data.settings.layoutSpacing ?? 1), paddingBottom: 40 * (data.settings.layoutSpacing ?? 1) }}>
       {/* Header */}
-      <View style={{ backgroundColor: pColor, marginHorizontal: -40, marginTop: -40, marginBottom: 30, paddingVertical: 35, paddingHorizontal: 40, alignItems: 'center' }}>
-        <View style={{ width: 40, height: 1, backgroundColor: '#ffffff', marginBottom: 15, opacity: 0.6 }}></View>
-        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#ffffff', marginBottom: 12, fontFamily: 'Times-Bold', lineHeight: 1.1 }}>
+      <View style={{ backgroundColor: pColor, marginHorizontal: -40 * (data.settings.layoutSpacing ?? 1), marginTop: -40 * (data.settings.layoutSpacing ?? 1), marginBottom: 30, paddingVertical: 35, paddingHorizontal: 40 * (data.settings.layoutSpacing ?? 1), alignItems: 'center' }}>
+        <View style={{ width: 40, height: 1, backgroundColor: '#ffffff', marginBottom: 15 * (data.settings.layoutSpacing ?? 1), opacity: 0.6 }}></View>
+        <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#ffffff', marginBottom: 16, fontFamily: 'Times-Bold', lineHeight: 1.1 }}>
           {data.personal.fullName}
         </Text>
         <Text style={{ fontSize: 9, color: '#ffffff', opacity: 0.9 }}>
@@ -540,20 +544,20 @@ const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
       <View style={{ paddingTop: 0 }}>
         {data.settings.sectionOrder.map(sec => {
           if (sec === "personal" && data.personal.summary) return (
-            <View key={sec} style={{ marginBottom: 15 }}>
+            <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>
               <View wrap={false} minPresenceAhead={60}>
-                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
-                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Summary</Text>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}>Summary</Text>
               </View>
               <Text style={{ fontSize: 10, color: '#6b7280', lineHeight: 1.5 }}>{data.personal.summary}</Text>
             </View>
           );
 
           if (sec === "skills" && data.skills.length > 0) return (
-            <View key={sec} style={{ marginBottom: 15 }}>
+            <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>
               <View wrap={false} minPresenceAhead={60}>
-                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
-                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Skills</Text>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}>Skills</Text>
               </View>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', rowGap: 4, columnGap: 16 }}>
                 {data.skills.flatMap(s => s.skills.split(',')).map((skill, i) => (
@@ -564,21 +568,21 @@ const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
           );
 
           if (sec === "experience" && data.experience.length > 0) return (
-            <View key={sec} style={{ marginBottom: 15 }}>
+            <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>
               <View wrap={false} minPresenceAhead={60}>
-                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
-                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Experience</Text>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}>Experience</Text>
               </View>
               {data.experience.map(item => (
-                <View key={item.id} style={{ marginBottom: 12 }}>
+                <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                   <View wrap={false} minPresenceAhead={40}>
                     <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, color: '#374151', textTransform: 'uppercase' }}>
                       {item.title} <Text style={{ fontFamily: 'Times-Roman', color: '#9ca3af', textTransform: 'none' }}>| {item.dateStart} {item.dateStart && item.dateEnd ? "-" : ""} {item.dateEnd}</Text>
                     </Text>
                     <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, color: '#6b7280', marginBottom: 4 }}>{item.subtitle} - {item.location}</Text>
                   </View>
-                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.4 }}>
-                    {formatBullets(item.description)}
+                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.5 }}>
+                    {formatBullets(item.description, s)}
                   </View>
                 </View>
               ))}
@@ -586,21 +590,21 @@ const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
           );
 
           if (sec === "education" && data.education.length > 0) return (
-            <View key={sec} style={{ marginBottom: 15 }}>
+            <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>
               <View wrap={false} minPresenceAhead={60}>
-                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
-                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Education and Training</Text>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}>Education and Training</Text>
               </View>
               {data.education.map(item => (
-                <View key={item.id} style={{ marginBottom: 12 }}>
+                <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                   <View wrap={false} minPresenceAhead={40}>
                     <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, color: '#374151' }}>
                       {item.subtitle} - {item.location} <Text style={{ fontFamily: 'Times-Roman', color: '#9ca3af' }}>| {item.title}</Text>
                     </Text>
                     <Text style={{ fontSize: 10, color: '#9ca3af' }}>{item.dateEnd}</Text>
                   </View>
-                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.4 }}>
-                    {formatBullets(item.description)}
+                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.5 }}>
+                    {formatBullets(item.description, s)}
                   </View>
                 </View>
               ))}
@@ -608,21 +612,21 @@ const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
           );
 
           if (sec === "projects" && data.projects.length > 0) return (
-            <View key={sec} style={{ marginBottom: 15 }}>
+            <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>
               <View wrap={false} minPresenceAhead={60}>
-                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 }}></View>
-                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 }}>Projects</Text>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}>Projects</Text>
               </View>
               {data.projects.map(item => (
-                <View key={item.id} style={{ marginBottom: 12 }}>
+                <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
                   <View wrap={false} minPresenceAhead={40}>
                     <Text style={{ fontFamily: 'Times-Bold', fontSize: 11, color: '#374151' }}>
                       {item.title} <Text style={{ fontFamily: 'Times-Roman', color: '#9ca3af' }}>| {item.dateStart} {item.dateStart && item.dateEnd ? "-" : ""} {item.dateEnd}</Text>
                     </Text>
                     <Text style={{ fontFamily: 'Times-Bold', fontSize: 10, color: '#6b7280', marginBottom: 4 }}>{item.subtitle} - {item.location}</Text>
                   </View>
-                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.4 }}>
-                    {formatBullets(item.description)}
+                  <View style={{ fontSize: 10, color: '#6b7280', paddingLeft: 10, lineHeight: 1.5 }}>
+                    {formatBullets(item.description, s)}
                   </View>
                 </View>
               ))}

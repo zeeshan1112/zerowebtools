@@ -42,6 +42,7 @@ export interface ResumeData {
     template: "executive" | "creative" | "classic" | "elegant";
     primaryColor: string;
     sectionOrder: string[];
+    layoutSpacing?: number;
   };
 }
 
@@ -119,6 +120,7 @@ export const DEFAULT_RESUME: ResumeData = {
   settings: {
     template: "executive",
     primaryColor: "#0f172a",
-    sectionOrder: ["experience", "education", "skills", "projects"]
+    sectionOrder: ["experience", "education", "skills", "projects"],
+    layoutSpacing: 1
   }
 };
