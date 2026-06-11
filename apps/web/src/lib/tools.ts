@@ -243,6 +243,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Build cron schedule expressions visually or parse raw cron expressions into readable English. View next 5 runtime dates. 100% private.",
       },
+      {
+        id: "resume-builder",
+        title: "Client-Side Resume Builder",
+        description: "Build, preview, and print a pristine, multi-page professional resume natively in your browser.",
+        status: "live",
+        metaDescription: "100% private client-side resume builder. Design professional, ATS-friendly, pristine multi-page resumes and print to PDF natively without cloud uploads.",
+      },
     ],
   },
   {

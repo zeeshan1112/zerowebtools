@@ -34,6 +34,7 @@ const TOOL_WORKFLOW_TAGS: Record<string, string> = {
   "color-converter": "COLOR",
   "saas-mrr": "GROWTH",
   "startup-equity": "VESTING",
+  "resume-builder": "RESUME",
 };
 
 // Stagger variant variables
