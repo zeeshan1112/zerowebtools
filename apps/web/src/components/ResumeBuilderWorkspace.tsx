@@ -34,6 +34,12 @@ const moveItem = <T,>(list: T[], index: number, direction: -1 | 1): T[] => {
 export default function ResumeBuilderWorkspace() {
   const t = useWorkspaceTranslation();
   const [data, setData] = useState<ResumeData>(DEFAULT_RESUME);
+  
+  useEffect(() => {
+    if (!data.customSections) {
+      setData(prev => ({ ...prev, customSections: [] }));
+    }
+  }, [data.customSections]);
   const [previewData, setPreviewData] = useState<ResumeData>(DEFAULT_RESUME);
   const [activeTab, setActiveTab] = useState<"content" | "design">("content");
   const [activeEditorSection, setActiveEditorSection] = useState<string>("personal");
@@ -137,7 +143,7 @@ export default function ResumeBuilderWorkspace() {
   };
 
   // --- Handlers ---
-  const updatePersonal = (field: keyof ResumeData["personal"], value: string) => {
+  const updatePersonal = (field: keyof ResumeData["personal"], value: any) => {
     setData(prev => ({ ...prev, personal: { ...prev.personal, [field]: value } }));
   };
 
@@ -145,7 +151,7 @@ export default function ResumeBuilderWorkspace() {
     setData(prev => ({ ...prev, settings: { ...prev.settings, [field]: value } }));
   };
 
-  const updateItem = (category: keyof ResumeData, index: number, field: keyof ResumeItem, value: string) => {
+  const updateItem = (category: keyof ResumeData, index: number, field: keyof ResumeItem, value: any) => {
     setData(prev => {
       const arr = [...(prev[category] as any[])];
       arr[index] = { ...arr[index], [field]: value };
@@ -169,6 +175,67 @@ export default function ResumeBuilderWorkspace() {
       arr.splice(index, 1);
       return { ...prev, [category]: arr };
     });
+  };
+
+
+  const addCustomSection = () => {
+    const id = "custom-" + Date.now();
+    setData(prev => ({
+      ...prev,
+      customSections: [...(prev.customSections || []), { id, title: "New Section", items: [] }],
+      settings: { ...prev.settings, sectionOrder: [...prev.settings.sectionOrder, id] }
+    }));
+    setActiveEditorSection(id);
+  };
+
+  const deleteCustomSection = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setData(prev => ({
+      ...prev,
+      customSections: (prev.customSections || []).filter(c => c.id !== id),
+      settings: { ...prev.settings, sectionOrder: prev.settings.sectionOrder.filter(s => s !== id) }
+    }));
+    if (activeEditorSection === id) setActiveEditorSection("personal");
+  };
+
+  const updateCustomSectionTitle = (id: string, title: string) => {
+    setData(prev => ({
+      ...prev,
+      customSections: (prev.customSections || []).map(c => c.id === id ? { ...c, title } : c)
+    }));
+  };
+
+  const addCustomItem = (sectionId: string) => {
+    setData(prev => ({
+      ...prev,
+      customSections: (prev.customSections || []).map(c => c.id === sectionId ? {
+        ...c, items: [...c.items, { id: "item-" + Date.now(), title: "", company: "", location: "", date: "", description: "", subtitle: "", dateStart: "", dateEnd: "" }]
+      } : c)
+    }));
+  };
+
+  const updateCustomItem = (sectionId: string, index: number, field: string, value: any) => {
+    setData(prev => ({
+      ...prev,
+      customSections: (prev.customSections || []).map(c => {
+        if (c.id !== sectionId) return c;
+        const newItems = [...c.items];
+        newItems[index] = { ...newItems[index], [field]: value };
+        return { ...c, items: newItems };
+      })
+    }));
+  };
+
+  const deleteCustomItem = (sectionId: string, index: number) => {
+    setData(prev => ({
+      ...prev,
+      customSections: (prev.customSections || []).map(c => {
+        if (c.id !== sectionId) return c;
+        const newItems = [...c.items];
+        newItems.splice(index, 1);
+        return { ...c, items: newItems };
+      })
+    }));
   };
 
   const reorderItem = (category: keyof ResumeData, index: number, dir: -1 | 1) => {
@@ -223,8 +290,12 @@ export default function ResumeBuilderWorkspace() {
               </div>
             </div>
             <div>
-              <label className="text-xs font-bold text-ink-muted mb-1 block">Description (Supports bullets)</label>
+              <label className="text-xs font-bold text-ink-muted mb-1 block">Description</label>
               <textarea value={item.description} onChange={e => updateItem(category, index, "description", e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40 h-24 resize-none" />
+              <label className="flex items-center gap-2 mt-2 cursor-pointer w-max">
+                <input type="checkbox" checked={item.isBulleted || false} onChange={e => updateItem(category, index, "isBulleted", e.target.checked)} className="w-3.5 h-3.5 rounded border-border text-accent focus:ring-accent" />
+                <span className="text-[11px] font-medium text-ink-muted">Format new lines as bullet points</span>
+              </label>
             </div>
           </div>
         )}
@@ -245,6 +316,28 @@ export default function ResumeBuilderWorkspace() {
             {sec}
           </button>
         ))}
+
+        {(data.customSections || []).map(sec => (
+          <div key={sec.id} className="relative group inline-flex">
+            <button 
+              onClick={() => setActiveEditorSection(sec.id)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${activeEditorSection === sec.id ? "bg-accent text-white pr-8" : "bg-surface border border-border text-ink-muted hover:text-ink pr-8"}`}
+            >
+              {sec.title}
+            </button>
+            <button
+              onClick={(e) => deleteCustomSection(sec.id, e)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:bg-red-500/20 rounded"
+              title="Delete Section"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+            </button>
+          </div>
+        ))}
+        <button onClick={addCustomSection} className="px-3 py-1.5 rounded-lg text-sm font-bold text-accent border border-dashed border-accent hover:bg-accent/10 transition-colors">
+          + Add Section
+        </button>
+
       </div>
 
       {activeEditorSection === "personal" && (
@@ -337,6 +430,73 @@ export default function ResumeBuilderWorkspace() {
           </button>
         </div>
       )}
+
+      {activeEditorSection.startsWith("custom-") && (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
+          {(() => {
+            const customSec = (data.customSections || []).find(c => c.id === activeEditorSection);
+            if (!customSec) return null;
+            return (
+              <>
+                <div className="flex flex-col gap-2 mb-6">
+                  <label className="text-xs font-bold text-ink-muted uppercase tracking-wider">Section Name</label>
+                  <input
+                    value={customSec.title}
+                    onChange={(e) => updateCustomSectionTitle(customSec.id, e.target.value)}
+                    className="text-lg font-bold bg-surface dark:bg-neutral-800 border border-border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent/40"
+                    placeholder="e.g. Patents, Publications, Certifications"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  {customSec.items.map((item, index) => (
+                    <div key={item.id} className="relative p-5 bg-surface-elevated/40 border border-border/60 rounded-xl shadow-sm backdrop-blur-sm group">
+                      <button onClick={() => deleteCustomItem(customSec.id, index)} className="absolute top-4 right-4 p-2 text-ink-muted hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md opacity-0 group-hover:opacity-100 transition-all">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+                      </button>
+                      <div className="grid gap-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="text-xs font-bold text-ink-muted mb-1 block">Title / Name</label>
+                            <input value={item.title} onChange={e => updateCustomItem(customSec.id, index, "title", e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" />
+                          </div>
+                          <div>
+                            <label className="text-xs font-bold text-ink-muted mb-1 block">Subtitle / Organization</label>
+                            <input value={item.subtitle} onChange={e => updateCustomItem(customSec.id, index, "subtitle", e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="text-xs font-bold text-ink-muted mb-1 block">Start Date</label>
+                            <input value={item.dateStart} onChange={e => updateCustomItem(customSec.id, index, "dateStart", e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" />
+                          </div>
+                          <div>
+                            <label className="text-xs font-bold text-ink-muted mb-1 block">End Date / Location</label>
+                            <input value={item.location} onChange={e => updateCustomItem(customSec.id, index, "location", e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="text-xs font-bold text-ink-muted mb-1 block">Description</label>
+                          <textarea value={item.description} onChange={e => updateCustomItem(customSec.id, index, "description", e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40 h-24 resize-none" />
+                          <label className="flex items-center gap-2 mt-2 cursor-pointer w-max">
+                            <input type="checkbox" checked={item.isBulleted || false} onChange={e => updateCustomItem(customSec.id, index, "isBulleted", e.target.checked)} className="w-3.5 h-3.5 rounded border-border text-accent focus:ring-accent" />
+                            <span className="text-[11px] font-medium text-ink-muted">Format new lines as bullet points</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <button onClick={() => addCustomItem(customSec.id)} className="w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-dashed border-border text-ink-muted hover:border-accent hover:text-accent hover:bg-accent/5 transition-all font-medium">
+                    + Add Item
+                  </button>
+                </div>
+              </>
+            );
+          })()}
+        </div>
+      )}
+
     </div>
   );
 

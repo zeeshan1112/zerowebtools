@@ -114,10 +114,10 @@ const getStyles = (spacing: number = 1) => StyleSheet.create({
   }
 });
 
-const formatBullets = (text: string, s: any) => {
+const formatBullets = (text: string, s: any, forceBullets?: boolean) => {
   if (!text) return null;
   return text.split(/(?:\r?\n|\\n)/).filter(Boolean).map((line, i) => {
-    const isBullet = line.trim().startsWith('•') || line.trim().startsWith('-');
+    const isBullet = forceBullets || line.trim().startsWith('•') || line.trim().startsWith('-');
     const content = line.replace(/^[•-]\s*/, '').trim();
     if (isBullet) {
       return (
@@ -160,6 +160,33 @@ const TemplateExecutivePDF = ({ data }: { data: ResumeData }) => {
 
       {/* Sections */}
       {data.settings.sectionOrder.map(sec => {
+        
+        if (sec.startsWith("custom-")) {
+          const customSec = (data.customSections || []).find(c => c.id === sec);
+          if (customSec && customSec.items.length > 0) return (
+            <View key={sec} style={s.section}>
+              <Text wrap={false} minPresenceAhead={60} style={{ ...s.sectionTitle, color: pColor, borderBottomWidth: 1, borderBottomColor: pColor }}>{customSec.title.toUpperCase()}</Text>
+              {customSec.items.map(item => (
+                <View key={item.id} style={s.itemBlock}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <View style={s.itemHeaderRow}>
+                      <Text style={s.itemTitle}>{item.title}</Text>
+                      <Text style={s.itemDate}>{item.dateStart}</Text>
+                    </View>
+                    <View style={s.itemSubtitleRow}>
+                      <Text style={s.itemSubtitle}>{item.subtitle}</Text>
+                      <Text style={s.itemLocation}>{item.location}</Text>
+                    </View>
+                  </View>
+                  <View style={s.itemDescription}>
+                    {formatBullets(item.description, s, item.isBulleted)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+        }
+
         if (sec === "experience" && data.experience.length > 0) return (
           <View key={sec} style={s.section}>
             <Text wrap={false} minPresenceAhead={60} style={{ ...s.sectionTitle, color: pColor, borderBottomWidth: 1, borderBottomColor: pColor }}>PROFESSIONAL EXPERIENCE</Text>
@@ -325,6 +352,36 @@ const TemplateCreativePDF = ({ data }: { data: ResumeData }) => {
         )}
 
         {data.settings.sectionOrder.filter(sec => sec !== "skills").map(sec => {
+          
+        if (sec.startsWith("custom-")) {
+          const customSec = (data.customSections || []).find(c => c.id === sec);
+          if (customSec && customSec.items.length > 0) return (
+            <View key={sec} style={{ marginTop: 10 }}>
+              <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 * (data.settings.layoutSpacing ?? 1) }}>
+                <View style={{ width: 30, height: 2, backgroundColor: pColor, marginRight: 8 }}></View>
+                <Text style={{ fontSize: 14, fontWeight: 700, color: pColor, textTransform: 'uppercase', letterSpacing: 1 }}>{customSec.title.toUpperCase()}</Text>
+              </View>
+              {customSec.items.map(item => (
+                <View key={item.id} style={s.itemBlock}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <View style={s.itemHeaderRow}>
+                      <Text style={s.itemTitle}>{item.title}</Text>
+                      <Text style={s.itemDate}>{item.dateStart}</Text>
+                    </View>
+                    <View style={s.itemSubtitleRow}>
+                      <Text style={s.itemSubtitle}>{item.subtitle}</Text>
+                      <Text style={s.itemLocation}>{item.location}</Text>
+                    </View>
+                  </View>
+                  <View style={s.itemDescription}>
+                    {formatBullets(item.description, s, item.isBulleted)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+        }
+
           if (sec === "experience" && data.experience.length > 0) return (
             <View key={sec} style={{ marginTop: 10 }}>
               <View minPresenceAhead={60} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 * (data.settings.layoutSpacing ?? 1) }}>
@@ -437,6 +494,33 @@ const TemplateClassicPDF = ({ data }: { data: ResumeData }) => {
 
       {/* Sections */}
       {data.settings.sectionOrder.map(sec => {
+        
+        if (sec.startsWith("custom-")) {
+          const customSec = (data.customSections || []).find(c => c.id === sec);
+          if (customSec && customSec.items.length > 0) return (
+            <View key={sec} style={s.section}>
+              <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>{customSec.title.toUpperCase()}</Text>
+              {customSec.items.map(item => (
+                <View key={item.id} style={{ marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <View style={s.itemHeaderRow}>
+                      <Text style={{ fontSize: 11, fontWeight: 700 }}>{item.subtitle}</Text>
+                      <Text style={s.itemLocation}>{item.location}</Text>
+                    </View>
+                    <View style={s.itemSubtitleRow}>
+                      <Text style={{ fontSize: 10, fontStyle: 'italic', color: '#111' }}>{item.title}</Text>
+                      <Text style={s.itemDate}>{item.dateStart}</Text>
+                    </View>
+                  </View>
+                  <View style={s.itemDescription}>
+                    {formatBullets(item.description, s, item.isBulleted)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+        }
+
         if (sec === "experience" && data.experience.length > 0) return (
           <View key={sec} style={s.section}>
             <Text wrap={false} minPresenceAhead={60} style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 4, marginBottom: 12 * (data.settings.layoutSpacing ?? 1) }}>EXPERIENCE</Text>
@@ -566,6 +650,36 @@ const TemplateElegantPDF = ({ data }: { data: ResumeData }) => {
               </View>
             </View>
           );
+
+          
+        if (sec.startsWith("custom-")) {
+          const customSec = (data.customSections || []).find(c => c.id === sec);
+          if (customSec && customSec.items.length > 0) return (
+            <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>
+              <View wrap={false} minPresenceAhead={60}>
+                <View style={{ width: 30, height: 1, backgroundColor: '#d1d5db', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}></View>
+                <Text style={{ fontSize: 14, color: pColor, fontFamily: 'Times-Bold', marginBottom: 6 * (data.settings.layoutSpacing ?? 1) }}>{customSec.title}</Text>
+              </View>
+              {customSec.items.map(item => (
+                <View key={item.id} style={s.itemBlock}>
+                  <View wrap={false} minPresenceAhead={40}>
+                    <View style={s.itemHeaderRow}>
+                      <Text style={s.itemTitle}>{item.title}</Text>
+                      <Text style={s.itemDate}>{item.dateStart}</Text>
+                    </View>
+                    <View style={s.itemSubtitleRow}>
+                      <Text style={s.itemSubtitle}>{item.subtitle}</Text>
+                      <Text style={s.itemLocation}>{item.location}</Text>
+                    </View>
+                  </View>
+                  <View style={s.itemDescription}>
+                    {formatBullets(item.description, s, item.isBulleted)}
+                  </View>
+                </View>
+              ))}
+            </View>
+          );
+        }
 
           if (sec === "experience" && data.experience.length > 0) return (
             <View key={sec} style={{ marginBottom: 15 * (data.settings.layoutSpacing ?? 1) }}>

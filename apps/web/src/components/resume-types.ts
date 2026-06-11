@@ -6,6 +6,7 @@ export interface ResumeItem {
   dateEnd: string;
   location: string;
   description: string;
+    isBulleted?: boolean;
 }
 
 export interface SkillItem {
