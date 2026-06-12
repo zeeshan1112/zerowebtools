@@ -37,8 +37,7 @@ const messageHandler = (request, sender, sendResponse) => {
     fetch(targetUrl, {
       method: method,
       headers: fetchHeaders,
-      body: request.body,
-      credentials: "include"
+      body: request.body
     })
     .then(response => {
       const responseHeaders = {};
