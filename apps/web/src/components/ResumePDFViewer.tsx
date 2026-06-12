@@ -7,9 +7,11 @@ import { ResumeData } from "./resume-types";
 
 interface Props {
   data: ResumeData;
+  className?: string;
+  showToolbar?: boolean;
 }
 
-const ReactPDFViewer = ({ data }: Props) => {
+const ReactPDFViewer = ({ data, className = "absolute inset-0", showToolbar = true }: Props) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -19,8 +21,8 @@ const ReactPDFViewer = ({ data }: Props) => {
   if (!mounted) return null;
 
   return (
-    <div className="absolute inset-0">
-      <PDFViewer style={{ width: "100%", height: "100%", border: "none" }} showToolbar={true}>
+    <div className={className}>
+      <PDFViewer style={{ width: "100%", height: "100%", border: "none" }} showToolbar={showToolbar}>
         <ResumeDocument data={data} />
       </PDFViewer>
     </div>

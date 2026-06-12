@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Reorder } from "framer-motion";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
+import { pdf } from "@react-pdf/renderer";
+import { ResumeDocument } from "./ResumePDFTemplates";
 
 const ReactPDFViewer = dynamic(() => import("./ResumePDFViewer"), {
   ssr: false,
@@ -42,6 +44,25 @@ export default function ResumeBuilderWorkspace() {
   }, [data.customSections]);
   const [previewData, setPreviewData] = useState<ResumeData>(DEFAULT_RESUME);
   const [activeTab, setActiveTab] = useState<"content" | "design">("content");
+  const [viewMode, setViewMode] = useState<"edit" | "preview">("edit");
+  const [isBuildingPdf, setIsBuildingPdf] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setIsBuildingPdf(true);
+    try {
+      const blob = await pdf(<ResumeDocument data={data} />).toBlob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Resume-${data.personal.fullName?.replace(/\s+/g, '-') || 'Builder'}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to generate PDF:", error);
+    } finally {
+      setIsBuildingPdf(false);
+    }
+  };
   const [activeEditorSection, setActiveEditorSection] = useState<string>("personal");
 
   // LocalStorage Sync
@@ -505,20 +526,29 @@ export default function ResumeBuilderWorkspace() {
       <div>
         <h3 className="text-sm font-bold text-ink mb-1">Choose Template</h3>
         <p className="text-[11px] text-ink-secondary mb-4">Select the foundational layout for your resume.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-4 gap-3 w-full max-w-2xl">
           {[
-            { id: "executive", name: "Executive ATS", desc: "Single column, clean" },
-            { id: "creative", name: "Creative Dual", desc: "Two columns, modern" },
-            { id: "classic", name: "Traditional Classic", desc: "Serif font, elegant" },
-            { id: "elegant", name: "Elegant Header", desc: "Modern serif, bold header" }
+            { id: "executive", name: "Executive ATS", img: "/templates/executive.png" },
+            { id: "creative", name: "Creative Dual", img: "/templates/creative.png" },
+            { id: "classic", name: "Traditional Classic", img: "/templates/classic.png" },
+            { id: "elegant", name: "Elegant Header", img: "/templates/elegant.png" }
           ].map(tpl => (
             <button
               key={tpl.id}
               onClick={() => updateSetting("template", tpl.id)}
-              className={`p-3 rounded-xl border-2 transition-all flex flex-col items-start gap-1 ${data.settings.template === tpl.id ? "border-accent bg-accent/5 ring-1 ring-accent/20" : "border-border/60 bg-surface hover:border-accent/50"}`}
+              className={`group relative aspect-[1/1.414] w-full rounded-xl overflow-hidden border-[3px] transition-all ${data.settings.template === tpl.id ? "border-ink shadow-lg scale-[1.02]" : "border-transparent hover:border-border hover:shadow-md bg-neutral-100"}`}
             >
-              <div className="font-bold text-ink text-xs">{tpl.name}</div>
-              <div className="text-[10px] text-ink-muted leading-tight">{tpl.desc}</div>
+              <img 
+                src={tpl.img} 
+                alt={tpl.name} 
+                className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-90" 
+                onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/300x424/e5e7eb/9ca3af?text=' + tpl.name.replace(/ /g, '+') }} 
+              />
+              {data.settings.template === tpl.id && (
+                <div className="absolute top-2 right-2 bg-ink text-white rounded-full p-1 shadow-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6L9 17l-5-5"></path></svg>
+                </div>
+              )}
             </button>
           ))}
         </div>
@@ -538,12 +568,12 @@ export default function ResumeBuilderWorkspace() {
           <div className="relative">
             <input 
               type="color" 
-              value={data.settings.primaryColor}
-              onChange={e => updateSetting("primaryColor", e.target.value)}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              value={data.settings.primaryColor || "#2563eb"} 
+              onChange={(e) => updateSetting("primaryColor", e.target.value)}
+              className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
             />
-            <div className="w-10 h-10 rounded-full border-2 border-dashed border-ink/30 flex items-center justify-center bg-surface-elevated/50 hover:bg-surface-elevated transition-colors">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 5v14M5 12h14"/></svg>
+            <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center bg-surface hover:bg-surface-elevated transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"></path></svg>
             </div>
           </div>
         </div>
@@ -606,48 +636,60 @@ export default function ResumeBuilderWorkspace() {
   return (
     <div className="flex flex-col h-full bg-surface-elevated/40 dark:bg-neutral-900/40 rounded-3xl border border-border overflow-hidden shadow-2xl font-sans relative min-h-[850px] print:h-auto print:min-h-0 print:overflow-visible print:border-none print:shadow-none print:bg-white">
       
-      {/* Top Pane: Editor */}
-      <div className="w-full shrink-0 flex flex-col border-b border-border/50 bg-surface/80 backdrop-blur-xl z-40 relative max-h-[50vh] lg:max-h-[60vh] transition-all duration-300 print:hidden">
-        <div className="p-4 sm:p-5 border-b border-border/50 bg-gradient-to-b from-surface to-surface/80 flex justify-between items-center shrink-0">
-          <div className="flex items-center gap-4">
-            <h2 className="font-bold text-ink text-lg">Resume Builder</h2>
-            <button 
-              onClick={() => setPreviewData(data)}
-              className="px-4 py-2 bg-accent text-white font-bold rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm flex items-center gap-2 border border-accent/20"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-              </svg>
-              Refresh Preview
-            </button>
-          </div>
-          <div className="bg-surface-elevated/40 p-1 rounded-xl border border-border/50 inline-flex shadow-inner">
-            <button onClick={() => setActiveTab("content")} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === "content" ? "bg-surface shadow-sm text-accent" : "text-ink-muted hover:text-ink"}`}>Content</button>
-            <button onClick={() => setActiveTab("design")} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === "design" ? "bg-surface shadow-sm text-accent" : "text-ink-muted hover:text-ink"}`}>Design & Templates</button>
-          </div>
+      {/* Global Toggle Header */}
+      <div className="flex-none p-4 sm:p-5 border-b border-border/50 bg-gradient-to-b from-surface to-surface/80 flex items-center justify-between sticky top-0 z-50">
+        <div className="flex flex-col">
+          <h2 className="font-bold text-ink text-lg">Resume Builder</h2>
+        </div>
+        
+        {/* The Toggle */}
+        <div className="bg-surface-elevated/80 p-1 rounded-xl border border-border/50 shadow-inner flex">
+          <button 
+            onClick={() => setViewMode("edit")} 
+            className={`px-6 py-2 text-xs font-bold rounded-lg transition-all ${viewMode === "edit" ? "bg-surface shadow-sm text-ink border border-border/50" : "text-ink-muted hover:text-ink"}`}
+          >
+            Edit Content
+          </button>
+          <button 
+            onClick={() => setViewMode("preview")} 
+            className={`px-6 py-2 text-xs font-bold rounded-lg transition-all ${viewMode === "preview" ? "bg-ink shadow-md text-surface" : "text-ink-muted hover:text-ink"}`}
+          >
+            View Resume
+          </button>
         </div>
 
-        <div className="flex-1 overflow-auto p-5 custom-scrollbar flex flex-col justify-between">
-          <div className="space-y-6">
-            {activeTab === "content" ? EditorContent() : EditorDesign()}
-          </div>
-          
-          <div className="flex gap-2 mt-8 pt-4 border-t border-border/40">
-            <button onClick={handleDownloadJson} className="flex-1 py-2.5 bg-surface border border-border rounded-lg text-xs font-bold hover:bg-surface-elevated transition-colors">Export JSON</button>
-            <label className="flex-1 py-2.5 bg-surface border border-border rounded-lg text-xs font-bold hover:bg-surface-elevated transition-colors text-center cursor-pointer">
-              Import JSON
-              <input type="file" accept=".json" onChange={handleUploadJson} className="hidden" />
-            </label>
-          </div>
-        </div>
+        <button onClick={handleDownloadPdf} disabled={isBuildingPdf} className="px-4 py-2 bg-ink text-surface font-bold rounded-lg text-xs hover:bg-ink-secondary transition-colors disabled:opacity-50 flex items-center gap-2">
+          {isBuildingPdf ? "Generating..." : "Download PDF"}
+        </button>
       </div>
 
-      {/* Bottom Pane: PDF Preview */}
-      <div className="flex-1 flex flex-col bg-neutral-100 dark:bg-neutral-950 relative overflow-hidden min-h-[1200px] print:h-auto print:overflow-visible print:bg-white">
+      <div className="flex-1 relative overflow-hidden flex flex-row">
         
-        {/* PDF Viewer */}
-        <div className="flex-1 w-full h-full relative z-0">
-          <ReactPDFViewer data={previewData} />
+        {/* Pane 1: Editor */}
+        <div className={`absolute inset-0 bg-surface/50 backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${viewMode === "edit" ? "translate-x-0 z-40" : "-translate-x-full z-0 pointer-events-none opacity-0"}`}>
+          <div className="p-3 border-b border-border/50 bg-surface/80 flex justify-center gap-2">
+            <button onClick={() => setActiveTab("content")} className={`px-6 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === "content" ? "bg-surface border border-border shadow-sm text-ink" : "text-ink-muted hover:text-ink"}`}>Content</button>
+            <button onClick={() => setActiveTab("design")} className={`px-6 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === "design" ? "bg-surface border border-border shadow-sm text-ink" : "text-ink-muted hover:text-ink"}`}>Design & Templates</button>
+          </div>
+          
+          <div className="flex-1 overflow-auto p-4 sm:p-8 custom-scrollbar">
+            <div className="max-w-3xl mx-auto space-y-8 pb-32">
+              {activeTab === "content" ? EditorContent() : EditorDesign()}
+              
+              <div className="flex gap-4 mt-12 pt-8 border-t border-border/40">
+                <button onClick={handleDownloadJson} className="flex-1 py-3 bg-surface border border-border/60 rounded-xl text-xs font-bold hover:bg-surface-elevated transition-colors text-ink">Export Source (JSON)</button>
+                <label className="flex-1 py-3 bg-surface border border-border/60 rounded-xl text-xs font-bold hover:bg-surface-elevated transition-colors text-ink text-center cursor-pointer">
+                  Import Source
+                  <input type="file" accept=".json" onChange={handleUploadJson} className="hidden" />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pane 2: PDF Preview */}
+        <div className={`absolute inset-0 bg-neutral-100 dark:bg-neutral-950 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${viewMode === "preview" ? "translate-x-0 z-40" : "translate-x-full z-0 pointer-events-none opacity-0"}`}>
+          <ReactPDFViewer data={data} />
         </div>
       </div>
     </div>
