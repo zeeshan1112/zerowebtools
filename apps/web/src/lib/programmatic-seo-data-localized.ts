@@ -3200,6 +3200,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
             "Además, si un sitio web está completamente bloqueado, nuestra herramienta consulta automáticamente el archivo web público (Wayback Machine) para recuperar una instantánea en caché desbloqueada. Esto garantiza que pueda acceder a la información que necesita, independientemente de las restricciones de la red."
           ]
         }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "Lector de artículos limpio: sin distracciones",
+        "metaDescription": "Lea artículos de forma limpia y sin distracciones. Elimine anuncios y ventanas emergentes al instante con nuestra herramienta gratuita.",
+        "articleIntro": {
+          "heading": "Leer artículos sin distracciones",
+          "paragraphs": [
+            "¿Estás cansado de las ventanas emergentes, los vídeos de reproducción automática y los enormes carteles publicitarios que arruinan tu experiencia de lectura? Nuestro Clean Article Reader analiza el contenido principal de cualquier página web y lo presenta en una hermosa vista optimizada para tipografía.",
+            "Disfrute leyendo en línea como debe ser. Texto puro, títulos claros y cero distracciones."
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "Lector web sin publicidad en línea",
+        "metaDescription": "Transforme cualquier URL en una experiencia de lectura sin publicidad. Nuestro raspador inteligente recupera el contenido de forma segura y lo formatea para leerlo.",
+        "articleIntro": {
+          "heading": "Transforme las URL en contenido sin publicidad",
+          "paragraphs": [
+            "Evite las redes publicitarias agresivas y los rastreadores pesados ​​con nuestro lector web sin publicidad. Simplemente pegue un enlace y renderizaremos instantáneamente el contenido del texto.",
+            "Debido a que la extracción se realiza localmente en su máquina, sus hábitos de lectura no se rastrean en absoluto."
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "Extractor de transcripciones de YouTube gratuito en línea",
+        "metaDescription": "Descarga transcripciones y subtítulos de YouTube al instante y gratis. Guarde como SRT o texto sin formato sin límites de servidor ni costos de API.",
+        "articleIntro": {
+          "heading": "Cómo extraer transcripciones de YouTube",
+          "paragraphs": [
+            "La extracción de subtítulos y transcripciones de vídeos de YouTube solía requerir herramientas costosas o servicios API lentos. Nuestro extractor de transcripciones de YouTube gratuito en línea cambia las reglas del juego al obtener los subtítulos directamente desde la página del video.",
+            "Si usted es un creador de contenido que reutiliza sus videos en publicaciones de blog o un estudiante que descarga transcripciones de conferencias para estudiar, esta herramienta ofrece extracción de texto ultrarrápida y 100% privada directamente en su navegador."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "Convertidor de subtítulos de YouTube a SRT",
+        "metaDescription": "Convierta instantáneamente subtítulos cerrados y subtítulos generados automáticamente de YouTube en archivos .SRT estándar. Gratis y seguro.",
+        "articleIntro": {
+          "heading": "Convertir YouTube a formato SRT",
+          "paragraphs": [
+            "Si está editando videos y necesita archivos estándar SubRip Subtitle (.SRT), nuestra herramienta lo tiene cubierto. Formatea automáticamente los tiempos sin procesar de los subtítulos de YouTube en archivos SRT perfectos que puedes importar directamente a Premiere Pro, Final Cut o DaVinci Resolve.",
+            "Simplemente pegue la URL del video, seleccione su idioma y haga clic en descargar. Es completamente gratuito y se procesa completamente en su máquina local."
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "Descargar subtítulos de YouTube como texto",
+        "metaDescription": "Descarga los subtítulos de cualquier vídeo de YouTube como texto limpio. Descargador de transcripciones rápido, gratuito y privado.",
+        "articleIntro": {
+          "heading": "Descargar subtítulos de vídeo fácilmente",
+          "paragraphs": [
+            "¿Necesita capturar rápidamente el texto de un vídeo? Nuestra herramienta le permite descargar subtítulos de YouTube como texto sin formato, sin marcas de tiempo ni desorden de formatos.",
+            "Perfecto para crear resúmenes, estudiar o generar contenido de blog a partir de material de vídeo."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "Extractor de texto de vídeo de YouTube",
+        "metaDescription": "Extraiga todo el texto hablado de un vídeo de YouTube al instante. No es necesario registrarse.",
+        "articleIntro": {
+          "heading": "Extrae texto de cualquier vídeo de YouTube",
+          "paragraphs": [
+            "Deja de transcribir videos manualmente. Nuestro extractor de texto se conecta directamente a las pistas de subtítulos ocultos de YouTube para extraer cada palabra hablada a la perfección.",
+            "Con soporte para docenas de idiomas y subtítulos generados automáticamente, puedes extraer la transcripción exacta que necesitas en segundos."
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "Herramienta privada de transcripción de YouTube",
+        "metaDescription": "Transcribe vídeos de YouTube de forma privada. Nuestra herramienta se ejecuta localmente en su navegador, por lo que su historial de extracción nunca se registra.",
+        "articleIntro": {
+          "heading": "Transcripción de vídeo 100% privada",
+          "paragraphs": [
+            "A diferencia de los robots de transcripción basados ​​en la nube que guardan su historial, nuestra herramienta funciona completamente en su navegador mediante proxy API a nivel de extensión.",
+            "Tus datos son sólo tuyos. Transcribe con confianza sabiendo que ningún servidor monitorea los videos que estás analizando."
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "Creador de currículums profesional en línea",
+        "metaDescription": "Cree un currículum profesional y compatible con ATS en línea de forma gratuita. Sin registro, sin marcas de agua, completamente privado.",
+        "articleIntro": {
+          "heading": "Cree un currículum profesional",
+          "paragraphs": [
+            "Elaborar el currículum perfecto es el primer paso para conseguir el trabajo de tus sueños. Nuestro Creador de currículums profesional proporciona plantillas limpias y modernas diseñadas para aprobar los sistemas de seguimiento de candidatos (ATS).",
+            "Todo se ejecuta en su navegador, lo que significa que sus datos de contacto personales y su historial laboral nunca se cargan en un servidor corporativo."
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "Creador de currículums compatible con ATS",
+        "metaDescription": "Diseñe un currículum compatible con ATS que pase la evaluación automatizada. Creador de currículums en línea gratuito.",
+        "articleIntro": {
+          "heading": "Pase el ATS con facilidad",
+          "paragraphs": [
+            "Muchos candidatos calificados son rechazados simplemente porque su currículum utiliza gráficos complejos que confunden a los sistemas de seguimiento de candidatos. Nuestras plantillas están optimizadas estructuralmente para que los robots ATS las puedan leer perfectamente.",
+            "Concéntrese en su contenido mientras nuestro motor maneja la representación y el diseño precisos del PDF."
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "Generador de currículum 100% privado",
+        "metaDescription": "Genera tu currículum de forma privada. Nuestro creador de currículums del lado del cliente nunca carga sus datos a ningún servidor.",
+        "articleIntro": {
+          "heading": "Tus datos siguen siendo tuyos",
+          "paragraphs": [
+            "La mayoría de los creadores de currículums en línea te obligan a crear una cuenta y recopilar tus datos personales. Adoptamos un enfoque radicalmente diferente: nuestro generador se ejecuta completamente sin conexión dentro de su navegador.",
+            "Su número de teléfono, dirección e historial profesional nunca salen de su dispositivo. Imprima en PDF de forma segura."
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "Creador gratuito de currículums en PDF",
+        "metaDescription": "Cree y descargue un currículum en PDF de forma gratuita. Sin muros de pago ocultos ni marcas de agua.",
+        "articleIntro": {
+          "heading": "Descargue su PDF al instante",
+          "paragraphs": [
+            "No se deje engañar por herramientas que le permiten crear un currículum solo para cobrarle $15 en el paso final de descarga. Nuestro creador de currículums en PDF gratuito es completamente gratuito de principio a fin.",
+            "Genere archivos PDF ilimitados y modifique su diseño tantas veces como desee sin tener que pagar."
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "Sin registro Creador de currículum",
+        "metaDescription": "Comience a crear su currículum inmediatamente sin crear una cuenta. Rápido, gratuito e intuitivo.",
+        "articleIntro": {
+          "heading": "Comience a construir al instante",
+          "paragraphs": [
+            "Evite el tedioso proceso de registro y comience a redactar su currículum de inmediato. Nuestro creador de currículums sin registro valora su tiempo y privacidad.",
+            "Su progreso se guarda localmente en su navegador, por lo que puede cerrar la pestaña y regresar más tarde sin necesidad de una contraseña."
+          ]
+        }
       }
     ]
   },
@@ -6400,6 +6548,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
           "paragraphs": [
             "Wenn Sie sich in einem restriktiven Netzwerk befinden, beispielsweise in einem Schul- oder Unternehmensintranet, blockieren Firewalls häufig den direkten Zugriff auf Nachrichtenseiten oder Blogs. Da unsere Smart Article Reader-Erweiterung als unabhängiger Proxy innerhalb Ihrer eigenen Browsersitzung fungiert, kann sie grundlegende Netzwerkblockierungen umgehen.",
             "Wenn eine Website vollständig blockiert ist, fragt unser Tool außerdem automatisch das öffentliche Webarchiv (Wayback Machine) ab, um einen nicht blockierten, zwischengespeicherten Snapshot abzurufen. Dies garantiert Ihnen den Zugriff auf die benötigten Informationen, unabhängig von Netzwerkbeschränkungen."
+          ]
+        }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "Sauberer Artikelleser – ablenkungsfrei",
+        "metaDescription": "Lesen Sie Artikel sauber und ohne Ablenkungen. Entfernen Sie Anzeigen und Popups sofort mit unserem kostenlosen Tool.",
+        "articleIntro": {
+          "heading": "Artikel ohne Ablenkung lesen",
+          "paragraphs": [
+            "Haben Sie genug von Popups, automatisch abgespielten Videos und riesigen Werbebannern, die Ihr Leseerlebnis ruinieren? Unser Clean Article Reader analysiert den Kerninhalt jeder Webseite und präsentiert ihn in einer schönen, typografieoptimierten Ansicht.",
+            "Viel Spaß beim Online-Lesen, so wie es sein sollte. Reiner Text, klare Überschriften und keine Ablenkungen."
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "Werbefreier Web Reader online",
+        "metaDescription": "Verwandeln Sie jede URL in ein werbefreies Leseerlebnis. Unser intelligenter Scraper ruft den Inhalt sicher ab und formatiert ihn zum Lesen.",
+        "articleIntro": {
+          "heading": "Verwandeln Sie URLs in werbefreie Inhalte",
+          "paragraphs": [
+            "Umgehen Sie aggressive Werbenetzwerke und starke Tracker mit unserem werbefreien Web Reader. Fügen Sie einfach einen Link ein und wir rendern den Textinhalt sofort.",
+            "Da die Extraktion lokal auf Ihrem Computer erfolgt, bleiben Ihre Lesegewohnheiten völlig unberücksichtigt."
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "Kostenloser Online-Transkript-Extraktor für YouTube",
+        "metaDescription": "Laden Sie YouTube-Transkripte und Untertitel sofort und kostenlos herunter. Speichern Sie als SRT oder als Klartext ohne Serverbeschränkungen oder API-Kosten.",
+        "articleIntro": {
+          "heading": "So extrahieren Sie YouTube-Transkripte",
+          "paragraphs": [
+            "Das Extrahieren von Untertiteln und Transkripten aus YouTube-Videos erforderte früher teure Tools oder langsame API-Dienste. Unser kostenloser Online-Transkript-Extraktor für YouTube verändert das Spiel, indem er die Untertitel direkt von der Videoseite abruft.",
+            "Ganz gleich, ob Sie als Content-Ersteller Ihre Videos in Blog-Beiträge umwandeln oder als Student Vorlesungsmitschriften zum Lernen herunterladen, dieses Tool bietet eine blitzschnelle, 100 % private Textextraktion direkt in Ihrem Browser."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "YouTube-zu-SRT-Untertitelkonverter",
+        "metaDescription": "Konvertieren Sie YouTube-Untertitel und automatisch generierte Untertitel sofort in Standard-SRT-Dateien. Kostenlos und sicher.",
+        "articleIntro": {
+          "heading": "Konvertieren Sie YouTube in das SRT-Format",
+          "paragraphs": [
+            "Wenn Sie Videos bearbeiten und Standard-SubRip-Untertiteldateien (.SRT) benötigen, ist unser Tool genau das Richtige für Sie. Es formatiert die Rohdaten der YouTube-Untertitel automatisch in perfekte SRT-Dateien, die Sie direkt in Premiere Pro, Final Cut oder DaVinci Resolve importieren können.",
+            "Fügen Sie einfach die Video-URL ein, wählen Sie Ihre Sprache aus und klicken Sie auf „Herunterladen“. Es ist völlig kostenlos und wird vollständig auf Ihrem lokalen Computer ausgeführt."
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "Laden Sie YouTube-Untertitel als Text herunter",
+        "metaDescription": "Laden Sie die Untertitel aller YouTube-Videos als Klartext herunter. Schneller, kostenloser und privater Transkript-Downloader.",
+        "articleIntro": {
+          "heading": "Laden Sie ganz einfach Videountertitel herunter",
+          "paragraphs": [
+            "Müssen Sie schnell den Text aus einem Video abrufen? Mit unserem Tool können Sie YouTube-Untertitel als einfachen Text ohne Zeitstempel oder Formatierungswirrwarr herunterladen.",
+            "Perfekt zum Erstellen von Zusammenfassungen, zum Studieren oder zum Generieren von Blog-Inhalten aus Videomaterial."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "YouTube-Videotext-Extraktor",
+        "metaDescription": "Extrahieren Sie sofort den gesamten gesprochenen Text aus einem YouTube-Video. Keine Anmeldung erforderlich.",
+        "articleIntro": {
+          "heading": "Extrahieren Sie Text aus jedem YouTube-Video",
+          "paragraphs": [
+            "Hören Sie auf, Videos manuell zu transkribieren. Unser Textextraktor lässt sich direkt in die versteckten Untertitelspuren von YouTube einbinden, um jedes gesprochene Wort perfekt herauszuholen.",
+            "Dank der Unterstützung Dutzender Sprachen und automatisch generierter Untertitel können Sie in Sekundenschnelle genau das Transkript extrahieren, das Sie benötigen."
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "Privates YouTube-Transkriptionstool",
+        "metaDescription": "YouTube-Videos privat transkribieren. Unser Tool wird lokal in Ihrem Browser ausgeführt, sodass Ihr Extraktionsverlauf niemals protokolliert wird.",
+        "articleIntro": {
+          "heading": "100 % private Videotranskription",
+          "paragraphs": [
+            "Im Gegensatz zu cloudbasierten Transkriptions-Bots, die Ihren Verlauf speichern, funktioniert unser Tool vollständig in Ihrem Browser und nutzt API-Proxying auf Erweiterungsebene.",
+            "Ihre Daten gehören allein Ihnen. Transkribieren Sie mit der Gewissheit, dass kein Server überwacht, welche Videos Sie analysieren."
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "Professioneller Online-Lebenslauf-Builder",
+        "metaDescription": "Erstellen Sie kostenlos online einen professionellen, ATS-freundlichen Lebenslauf. Keine Anmeldung, keine Wasserzeichen, völlig privat.",
+        "articleIntro": {
+          "heading": "Erstellen Sie einen professionellen Lebenslauf",
+          "paragraphs": [
+            "Die Erstellung des perfekten Lebenslaufs ist der erste Schritt auf dem Weg zu Ihrem Traumjob. Unser professioneller Lebenslauf-Builder bietet saubere, moderne Vorlagen, die für das Bestehen von Bewerber-Tracking-Systemen (ATS) konzipiert sind.",
+            "Alles läuft in Ihrem Browser, was bedeutet, dass Ihre persönlichen Kontaktdaten und Ihr Arbeitsverlauf niemals auf einen Unternehmensserver hochgeladen werden."
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "ATS-freundlicher Resume Maker",
+        "metaDescription": "Entwerfen Sie einen ATS-freundlichen Lebenslauf, der die automatische Prüfung besteht. Kostenloser Online-Lebenslauf-Ersteller.",
+        "articleIntro": {
+          "heading": "Bestehen Sie den ATS mit Leichtigkeit",
+          "paragraphs": [
+            "Viele qualifizierte Bewerber werden einfach deshalb abgelehnt, weil ihr Lebenslauf komplexe Grafiken enthält, die Bewerber-Tracking-Systeme verwirren. Unsere Vorlagen sind strukturell so optimiert, dass sie von ATS-Bots perfekt lesbar sind.",
+            "Konzentrieren Sie sich auf Ihre Inhalte, während unsere Engine die präzise PDF-Wiedergabe und das Layout übernimmt."
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "100 % privater Lebenslaufgenerator",
+        "metaDescription": "Erstellen Sie Ihren Lebenslauf privat. Unser clientseitiger Lebenslaufersteller lädt Ihre Daten niemals auf einen Server hoch.",
+        "articleIntro": {
+          "heading": "Ihre Daten bleiben Ihre",
+          "paragraphs": [
+            "Die meisten Online-Lebenslaufersteller zwingen Sie dazu, ein Konto zu erstellen und Ihre persönlichen Daten zu erfassen. Wir verfolgen einen völlig anderen Ansatz: Unser Generator läuft vollständig offline in Ihrem Browser.",
+            "Ihre Telefonnummer, Adresse und Ihr beruflicher Werdegang verlassen niemals Ihr Gerät. Sicher als PDF drucken."
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "Kostenloser PDF-Lebenslauf-Ersteller",
+        "metaDescription": "Erstellen Sie kostenlos einen PDF-Lebenslauf und laden Sie ihn herunter. Keine versteckten Paywalls oder Wasserzeichen.",
+        "articleIntro": {
+          "heading": "Laden Sie Ihr PDF sofort herunter",
+          "paragraphs": [
+            "Lassen Sie sich nicht von Tools täuschen, mit denen Sie einen Lebenslauf erstellen können, nur um Ihnen beim letzten Download-Schritt 15 US-Dollar in Rechnung zu stellen. Unser kostenloser PDF-Lebenslauf-Ersteller ist von Anfang bis Ende völlig kostenlos.",
+            "Generieren Sie unbegrenzt PDFs und optimieren Sie Ihr Design so oft Sie möchten, ohne auf eine Paywall zu stoßen."
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "Kein Registrierungs-Lebenslauf-Builder",
+        "metaDescription": "Beginnen Sie sofort mit der Erstellung Ihres Lebenslaufs, ohne ein Konto zu erstellen. Schnell, kostenlos und intuitiv.",
+        "articleIntro": {
+          "heading": "Beginnen Sie sofort mit dem Bauen",
+          "paragraphs": [
+            "Überspringen Sie den langwierigen Registrierungsprozess und beginnen Sie sofort mit der Erstellung Ihres Lebenslaufs. Unser Resume Builder ohne Anmeldung schätzt Ihre Zeit und Privatsphäre.",
+            "Ihr Fortschritt wird lokal in Ihrem Browser gespeichert, sodass Sie den Tab schließen und später zurückkehren können, ohne jemals ein Passwort zu benötigen."
           ]
         }
       }
@@ -9604,6 +9900,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
             "De plus, si un site Web est complètement bloqué, notre outil interroge automatiquement l'archive Web publique (Wayback Machine) pour récupérer un instantané mis en cache non bloqué. Cela garantit que vous pouvez accéder aux informations dont vous avez besoin, quelles que soient les restrictions du réseau."
           ]
         }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "Lecteur d'articles propre - Sans distraction",
+        "metaDescription": "Lisez les articles proprement, sans distractions. Supprimez instantanément les publicités et les popups à l'aide de notre outil gratuit.",
+        "articleIntro": {
+          "heading": "Lire les articles sans distraction",
+          "paragraphs": [
+            "Fatigué des popups, des vidéos en lecture automatique et des bannières publicitaires massives qui gâchent votre expérience de lecture ? Notre Clean Article Reader analyse le contenu principal de n’importe quelle page Web et le présente dans une belle vue optimisée pour la typographie.",
+            "Profitez de la lecture en ligne comme elle est censée être. Texte pur, titres clairs et zéro distraction."
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "Lecteur Web en ligne sans publicité",
+        "metaDescription": "Transformez n'importe quelle URL en une expérience de lecture sans publicité. Notre grattoir intelligent récupère le contenu en toute sécurité et le formate pour la lecture.",
+        "articleIntro": {
+          "heading": "Transformez les URL en contenu sans publicité",
+          "paragraphs": [
+            "Contournez les réseaux publicitaires agressifs et les trackers lourds avec notre lecteur Web sans publicité. Collez simplement un lien et nous rendrons instantanément le contenu du texte.",
+            "Étant donné que l’extraction s’effectue localement sur votre machine, vos habitudes de lecture ne sont absolument pas suivies."
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "Extracteur de transcription YouTube en ligne gratuit",
+        "metaDescription": "Téléchargez instantanément et gratuitement les transcriptions et les sous-titres YouTube. Enregistrez au format SRT ou texte brut sans aucune limite de serveur ni coût d'API.",
+        "articleIntro": {
+          "heading": "Comment extraire des transcriptions YouTube",
+          "paragraphs": [
+            "L'extraction de sous-titres et de transcriptions de vidéos YouTube nécessitait auparavant des outils coûteux ou des services API lents. Notre extracteur de transcription YouTube en ligne gratuit change la donne en récupérant les sous-titres directement à partir de la page vidéo.",
+            "Que vous soyez un créateur de contenu réutilisant vos vidéos dans des articles de blog ou un étudiant téléchargeant des transcriptions de cours pour étudier, cet outil offre une extraction de texte ultra-rapide et 100 % privée directement dans votre navigateur."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "Convertisseur de sous-titres YouTube en SRT",
+        "metaDescription": "Convertissez instantanément les sous-titres codés et les sous-titres générés automatiquement en fichiers .SRT standard. Gratuit et sécurisé.",
+        "articleIntro": {
+          "heading": "Convertir YouTube au format SRT",
+          "paragraphs": [
+            "Si vous éditez des vidéos et avez besoin de fichiers SubRip Subtitle (.SRT) standard, notre outil est là pour vous. Il formate automatiquement les timings bruts des sous-titres YouTube en fichiers SRT parfaits que vous pouvez importer directement dans Premiere Pro, Final Cut ou DaVinci Resolve.",
+            "Collez simplement l'URL de la vidéo, sélectionnez votre langue et cliquez sur télécharger. C'est entièrement gratuit et entièrement traité sur votre ordinateur local."
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "Télécharger les sous-titres YouTube sous forme de texte",
+        "metaDescription": "Téléchargez les sous-titres de n'importe quelle vidéo YouTube sous forme de texte clair. Téléchargeur de transcription rapide, gratuit et privé.",
+        "articleIntro": {
+          "heading": "Téléchargez facilement des sous-titres vidéo",
+          "paragraphs": [
+            "Besoin de récupérer rapidement le texte d'une vidéo ? Notre outil vous permet de télécharger des sous-titres YouTube sous forme de texte brut, sans horodatage ni encombrement de formatage.",
+            "Parfait pour créer des résumés, étudier ou générer du contenu de blog à partir de matériel vidéo."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "Extracteur de texte vidéo YouTube",
+        "metaDescription": "Extrayez instantanément tout le texte parlé d’une vidéo YouTube. Aucune inscription requise.",
+        "articleIntro": {
+          "heading": "Extraire le texte de n'importe quelle vidéo YouTube",
+          "paragraphs": [
+            "Arrêtez de transcrire les vidéos manuellement. Notre extracteur de texte se connecte directement aux pistes de sous-titres cachés de YouTube pour extraire parfaitement chaque mot prononcé.",
+            "Grâce à la prise en charge de dizaines de langues et aux sous-titres générés automatiquement, vous pouvez extraire la transcription exacte dont vous avez besoin en quelques secondes."
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "Outil de transcription YouTube privé",
+        "metaDescription": "Transcrivez des vidéos YouTube en privé. Notre outil s'exécute localement dans votre navigateur afin que votre historique d'extraction ne soit jamais enregistré.",
+        "articleIntro": {
+          "heading": "Transcription vidéo 100 % privée",
+          "paragraphs": [
+            "Contrairement aux robots de transcription basés sur le cloud qui enregistrent votre historique, notre outil fonctionne entièrement dans votre navigateur à l'aide d'un proxy API au niveau de l'extension.",
+            "Vos données vous appartiennent uniquement. Transcrivez en toute confiance en sachant qu'aucun serveur ne surveille les vidéos que vous analysez."
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "Générateur de CV professionnel en ligne",
+        "metaDescription": "Créez gratuitement un CV professionnel et compatible ATS en ligne. Pas d'inscription, pas de filigrane, complètement privé.",
+        "articleIntro": {
+          "heading": "Créer un CV professionnel",
+          "paragraphs": [
+            "Rédiger le CV parfait est la première étape pour décrocher l’emploi de vos rêves. Notre outil de création de CV professionnel fournit des modèles épurés et modernes conçus pour passer les tests des systèmes de suivi des candidats (ATS).",
+            "Tout s'exécute dans votre navigateur, ce qui signifie que vos coordonnées personnelles et votre historique professionnel ne sont jamais téléchargés sur un serveur d'entreprise."
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "Créateur de CV compatible ATS",
+        "metaDescription": "Concevez un CV compatible ATS qui passe la sélection automatisée. Créateur de CV en ligne gratuit.",
+        "articleIntro": {
+          "heading": "Réussissez l'ATS en toute simplicité",
+          "paragraphs": [
+            "De nombreux candidats qualifiés sont rejetés simplement parce que leur CV utilise des graphiques complexes qui perturbent les systèmes de suivi des candidats. Nos modèles sont structurellement optimisés pour être parfaitement lisibles par les robots ATS.",
+            "Concentrez-vous sur votre contenu pendant que notre moteur gère le rendu et la mise en page précis des PDF."
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "Générateur de CV 100% Privé",
+        "metaDescription": "Générez votre CV en privé. Notre créateur de CV côté client ne télécharge jamais vos données sur aucun serveur.",
+        "articleIntro": {
+          "heading": "Vos données restent les vôtres",
+          "paragraphs": [
+            "La plupart des créateurs de CV en ligne vous obligent à créer un compte et à récolter vos données personnelles. Nous adoptons une approche radicalement différente : notre générateur fonctionne entièrement hors ligne dans votre navigateur.",
+            "Votre numéro de téléphone, votre adresse et votre historique de carrière ne quittent jamais votre appareil. Imprimez au format PDF en toute sécurité."
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "Créateur de CV PDF gratuit",
+        "metaDescription": "Créez et téléchargez gratuitement un CV PDF. Pas de paywalls ou de filigranes cachés.",
+        "articleIntro": {
+          "heading": "Téléchargez votre PDF instantanément",
+          "paragraphs": [
+            "Ne vous laissez pas tromper par des outils qui vous permettent de créer un CV uniquement pour vous facturer 15 $ à la dernière étape de téléchargement. Notre créateur de CV PDF gratuit est entièrement gratuit du début à la fin.",
+            "Générez un nombre illimité de PDF et modifiez votre conception autant de fois que vous le souhaitez sans vous heurter à un paywall."
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "Générateur de CV sans inscription",
+        "metaDescription": "Commencez immédiatement à créer votre CV sans créer de compte. Rapide, gratuit et intuitif.",
+        "articleIntro": {
+          "heading": "Commencez à construire instantanément",
+          "paragraphs": [
+            "Évitez le processus d'inscription fastidieux et commencez immédiatement à rédiger votre CV. Notre créateur de CV sans inscription valorise votre temps et votre confidentialité.",
+            "Votre progression est enregistrée localement dans votre navigateur, vous pouvez donc fermer l'onglet et y revenir plus tard sans jamais avoir besoin d'un mot de passe."
+          ]
+        }
       }
     ]
   },
@@ -12804,6 +13248,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
           "paragraphs": [
             "Quando você está em uma rede restritiva, como uma intranet escolar ou corporativa, os firewalls geralmente bloqueiam o acesso direto a sites de notícias ou blogs. Como nossa extensão Smart Article Reader atua como um proxy independente dentro da sessão do seu navegador, ela pode contornar o bloqueio básico da rede.",
             "Além disso, se um site estiver completamente bloqueado, nossa ferramenta consulta automaticamente o Web Archive público (Wayback Machine) para buscar um instantâneo em cache desbloqueado. Isto garante que você possa acessar as informações necessárias, independentemente das restrições da rede."
+          ]
+        }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "Leitor de artigos limpos - sem distrações",
+        "metaDescription": "Leia artigos de forma limpa, sem distrações. Remova anúncios e pop-ups instantaneamente usando nossa ferramenta gratuita.",
+        "articleIntro": {
+          "heading": "Leia artigos sem distração",
+          "paragraphs": [
+            "Cansado de pop-ups, vídeos de reprodução automática e enormes banners publicitários que arruinam sua experiência de leitura? Nosso Clean Article Reader analisa o conteúdo principal de qualquer página da web e o apresenta em uma bela visualização otimizada para tipografia.",
+            "Aproveite a leitura on-line do jeito que deveria ser. Texto puro, títulos claros e zero distrações."
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "Leitor da Web sem anúncios on-line",
+        "metaDescription": "Transforme qualquer URL em uma experiência de leitura sem anúncios. Nosso raspador inteligente busca o conteúdo com segurança e o formata para leitura.",
+        "articleIntro": {
+          "heading": "Transforme URLs em conteúdo sem anúncios",
+          "paragraphs": [
+            "Evite redes de anúncios agressivas e rastreadores pesados ​​com nosso leitor da Web sem anúncios. Basta colar um link e renderizamos instantaneamente o conteúdo do texto.",
+            "Como a extração ocorre localmente em sua máquina, seus hábitos de leitura permanecem completamente indetectáveis."
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "Extrator de transcrição online gratuito do YouTube",
+        "metaDescription": "Baixe transcrições e legendas do YouTube instantaneamente e gratuitamente. Salve como SRT ou texto simples sem limites de servidor ou custos de API.",
+        "articleIntro": {
+          "heading": "Como extrair transcrições do YouTube",
+          "paragraphs": [
+            "Extrair legendas e transcrições de vídeos do YouTube costumava exigir ferramentas caras ou serviços de API lentos. Nosso extrator de transcrição on-line gratuito do YouTube muda o jogo, obtendo as legendas ocultas diretamente da página do vídeo.",
+            "Quer você seja um criador de conteúdo que redireciona seus vídeos para postagens de blog ou um estudante que baixa transcrições de palestras para estudar, esta ferramenta oferece extração de texto 100% privada e extremamente rápida diretamente no seu navegador."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "Conversor de legendas do YouTube para SRT",
+        "metaDescription": "Converta legendas ocultas e legendas geradas automaticamente do YouTube em arquivos .SRT padrão instantaneamente. Gratuito e seguro.",
+        "articleIntro": {
+          "heading": "Converter YouTube para formato SRT",
+          "paragraphs": [
+            "Se você estiver editando vídeos e precisar de arquivos SubRip Subtitle (.SRT) padrão, nossa ferramenta tem o que você precisa. Ele formata automaticamente os tempos brutos das legendas do YouTube em arquivos SRT perfeitos que você pode importar diretamente para o Premiere Pro, Final Cut ou DaVinci Resolve.",
+            "Basta colar o URL do vídeo, selecionar seu idioma e clicar em download. É totalmente gratuito e processa inteiramente em sua máquina local."
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "Baixe legendas do YouTube como texto",
+        "metaDescription": "Baixe as legendas de qualquer vídeo do YouTube como texto limpo. Downloader de transcrições rápido, gratuito e privado.",
+        "articleIntro": {
+          "heading": "Baixe legendas de vídeo facilmente",
+          "paragraphs": [
+            "Precisa pegar rapidamente o texto de um vídeo? Nossa ferramenta permite que você baixe legendas do YouTube como texto simples, sem carimbos de data e hora ou confusão de formatação.",
+            "Perfeito para criar resumos, estudar ou gerar conteúdo de blog a partir de material de vídeo."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "Extrator de texto de vídeo do YouTube",
+        "metaDescription": "Extraia instantaneamente todo o texto falado de um vídeo do YouTube. Não é necessária inscrição.",
+        "articleIntro": {
+          "heading": "Extraia texto de qualquer vídeo do YouTube",
+          "paragraphs": [
+            "Pare de transcrever vídeos manualmente. Nosso extrator de texto se conecta diretamente às faixas de legenda oculta do YouTube para extrair perfeitamente cada palavra falada.",
+            "Com suporte para dezenas de idiomas e legendas geradas automaticamente, você pode extrair a transcrição exata necessária em segundos."
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "Ferramenta privada de transcrição do YouTube",
+        "metaDescription": "Transcreva vídeos do YouTube de forma privada. Nossa ferramenta é executada localmente no seu navegador para que seu histórico de extração nunca seja registrado.",
+        "articleIntro": {
+          "heading": "Transcrição de vídeo 100% privada",
+          "paragraphs": [
+            "Ao contrário dos bots de transcrição baseados em nuvem que salvam seu histórico, nossa ferramenta opera inteiramente em seu navegador usando proxy de API em nível de extensão.",
+            "Seus dados são somente seus. Transcreva com segurança, sabendo que nenhum servidor está monitorando os vídeos que você está analisando."
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "Construtor de currículo profissional on-line",
+        "metaDescription": "Crie um currículo profissional e compatível com ATS online gratuitamente. Sem inscrição, sem marcas d'água, totalmente privado.",
+        "articleIntro": {
+          "heading": "Crie um currículo profissional",
+          "paragraphs": [
+            "Elaborar o currículo perfeito é o primeiro passo para conseguir o emprego dos sonhos. Nosso Professional Resume Builder fornece modelos limpos e modernos que são projetados para passar nos Sistemas de Rastreamento de Candidatos (ATS).",
+            "Tudo é executado no seu navegador, o que significa que seus dados pessoais de contato e histórico de trabalho nunca são carregados em um servidor corporativo."
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "Criador de currículos compatível com ATS",
+        "metaDescription": "Elabore um currículo compatível com ATS que passe na triagem automatizada. Criador de currículo online gratuito.",
+        "articleIntro": {
+          "heading": "Passe no ATS com facilidade",
+          "paragraphs": [
+            "Muitos candidatos qualificados são rejeitados simplesmente porque seus currículos usam gráficos complexos que confundem os Sistemas de Rastreamento de Candidatos. Nossos modelos são estruturalmente otimizados para serem perfeitamente legíveis pelos bots ATS.",
+            "Concentre-se no seu conteúdo enquanto nosso mecanismo cuida da renderização e do layout precisos do PDF."
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "Gerador de currículo 100% privado",
+        "metaDescription": "Gere seu currículo de forma privada. Nosso criador de currículos do lado do cliente nunca carrega seus dados para nenhum servidor.",
+        "articleIntro": {
+          "heading": "Seus dados permanecem seus",
+          "paragraphs": [
+            "A maioria dos criadores de currículos on-line força você a criar uma conta e coletar seus dados pessoais. Adotamos uma abordagem radicalmente diferente: nosso gerador funciona totalmente offline dentro do seu navegador.",
+            "Seu número de telefone, endereço e histórico de carreira nunca saem do seu dispositivo. Imprima em PDF com segurança."
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "Criador de currículo em PDF grátis",
+        "metaDescription": "Crie e baixe um currículo em PDF gratuitamente. Sem paywalls ou marcas d’água ocultas.",
+        "articleIntro": {
+          "heading": "Baixe seu PDF instantaneamente",
+          "paragraphs": [
+            "Não se deixe enganar por ferramentas que permitem criar um currículo apenas para cobrar US$ 15 na etapa final do download. Nosso Free PDF Resume Creator é totalmente gratuito do início ao fim.",
+            "Gere PDFs ilimitados e ajuste seu design quantas vezes quiser sem acessar um acesso pago."
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "Sem criador de currículo de inscrição",
+        "metaDescription": "Comece a construir seu currículo imediatamente, sem criar uma conta. Rápido, gratuito e intuitivo.",
+        "articleIntro": {
+          "heading": "Comece a construir instantaneamente",
+          "paragraphs": [
+            "Evite o tedioso processo de registro e comece a redigir seu currículo imediatamente. Nosso No Signup Resume Builder valoriza seu tempo e privacidade.",
+            "Seu progresso é salvo localmente no seu navegador, para que você possa fechar a aba e retornar mais tarde sem precisar de uma senha."
           ]
         }
       }
@@ -16008,6 +16600,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
             "さらに、Web サイトが完全にブロックされている場合、当社のツールは自動的にパブリック Web アーカイブ (ウェイバック マシン) にクエリを実行し、ブロックされていないキャッシュされたスナップショットを取得します。これにより、ネットワークの制限に関係なく、必要な情報にアクセスできることが保証されます。"
           ]
         }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "クリーンな記事リーダー - 気を散らすことのない",
+        "metaDescription": "気が散ることなく記事をすっきりと読むことができます。無料ツールを使用して、広告やポップアップを即座に削除します。",
+        "articleIntro": {
+          "heading": "気を散らさずに記事を読む",
+          "paragraphs": [
+            "読書体験を台無しにするポップアップ、自動再生ビデオ、大量の広告バナーにうんざりしていませんか?当社の Clean Article Reader は、あらゆる Web ページの核となるコンテンツを解析し、タイポグラフィーに最適化された美しいビューで表示します。",
+            "本来あるべき方法でオンライン読書をお楽しみください。純粋なテキスト、明確な見出し、そして気を散らすものはありません。"
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "広告なしのオンライン Web リーダー",
+        "metaDescription": "あらゆる URL を広告なしの読書体験に変えます。当社のスマート スクレイパーはコンテンツを安全に取得し、読み取り用にフォーマットします。",
+        "articleIntro": {
+          "heading": "URL を広告なしのコンテンツに変換する",
+          "paragraphs": [
+            "広告なしの Web リーダーを使用して、攻撃的な広告ネットワークや大量のトラッカーを回避します。リンクを貼り付けるだけで、テキスト コンテンツが即座にレンダリングされます。",
+            "抽出はマシン上でローカルに行われるため、読書習慣は完全に追跡されません。"
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "無料のオンライン YouTube トランスクリプト抽出ツール",
+        "metaDescription": "YouTube のトランスクリプトと字幕を無料ですぐにダウンロードできます。サーバー制限や API コストなしで、SRT またはプレーン テキストとして保存できます。",
+        "articleIntro": {
+          "heading": "YouTube トランスクリプトを抽出する方法",
+          "paragraphs": [
+            "YouTube 動画から字幕やトランスクリプトを抽出するには、高価なツールか低速の API サービスが必要でした。当社の無料オンライン YouTube トランスクリプト エクストラクターは、ビデオ ページからクローズド キャプションを直接取得することで、ゲームを一変させます。",
+            "ビデオをブログ投稿に再利用するコンテンツ作成者であっても、講義の記録をダウンロードして勉強する学生であっても、このツールはブラウザ上で超高速かつ 100% プライベート テキスト抽出を提供します。"
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "YouTubeからSRTへの字幕コンバーター",
+        "metaDescription": "YouTube のクローズド キャプションと自動生成された字幕を標準の .SRT ファイルに即座に変換します。無料で安全です。",
+        "articleIntro": {
+          "heading": "YouTube を SRT 形式に変換する",
+          "paragraphs": [
+            "ビデオを編集していて、標準の SubRip 字幕 (.SRT) ファイルが必要な場合は、当社のツールが対応します。未加工の YouTube キャプション タイミングを完璧な SRT ファイルに自動的にフォーマットし、Premiere Pro、Final Cut、または DaVinci Resolve に直接インポートできます。",
+            "ビデオの URL を貼り付け、言語を選択して、[ダウンロード] をクリックするだけです。これは完全に無料で、完全にローカル マシン上で処理されます。"
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "YouTube の字幕をテキストとしてダウンロード",
+        "metaDescription": "YouTube 動画の字幕をクリーン テキストとしてダウンロードします。高速、無料、プライベートのトランスクリプトダウンローダー。",
+        "articleIntro": {
+          "heading": "動画の字幕を簡単にダウンロード",
+          "paragraphs": [
+            "ビデオからテキストをすばやく取得する必要がありますか?私たちのツールを使用すると、タイムスタンプや乱雑なフォーマットを使用せずに、YouTube 字幕をプレーン テキストとしてダウンロードできます。",
+            "概要の作成、学習、またはビデオ素材からブログ コンテンツを生成するのに最適です。"
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "YouTubeビデオテキスト抽出ツール",
+        "metaDescription": "YouTube ビデオからすべての音声テキストを瞬時に抽出します。サインアップは必要ありません。",
+        "articleIntro": {
+          "heading": "任意の YouTube 動画からテキストを抽出",
+          "paragraphs": [
+            "ビデオを手動で転写するのはやめてください。私たちのテキスト抽出ツールは、YouTube の隠されたキャプション トラックに直接接続して、話されたすべての単語を完全に抽出します。",
+            "数十の言語と自動生成されたキャプションのサポートにより、必要な正確なトランスクリプトを数秒で抽出できます。"
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "プライベート YouTube 文字起こしツール",
+        "metaDescription": "YouTube 動画を非公開で文字起こしします。当社のツールはブラウザ内でローカルに実行されるため、抽出履歴が記録されることはありません。",
+        "articleIntro": {
+          "heading": "100% プライベートビデオの文字起こし",
+          "paragraphs": [
+            "履歴を保存するクラウドベースの文字起こしボットとは異なり、私たちのツールは拡張機能レベルの API プロキシを使用してブラウザ内で完全に動作します。",
+            "あなたのデータはあなただけのものです。分析しているビデオを監視しているサーバーはないので、自信を持って文字起こしを行ってください。"
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "オンラインのプロフェッショナル履歴書ビルダー",
+        "metaDescription": "プロフェッショナルで ATS 対応の履歴書をオンラインで無料で作成できます。サインアップや透かしはなく、完全にプライベートです。",
+        "articleIntro": {
+          "heading": "専門的な履歴書を作成する",
+          "paragraphs": [
+            "完璧な履歴書を作成することは、夢の仕事を獲得するための第一歩です。当社のプロフェッショナル履歴書ビルダーは、応募者追跡システム (ATS) に合格するように設計されたクリーンで最新のテンプレートを提供します。",
+            "すべてがブラウザ内で実行されるため、個人の連絡先の詳細や職歴が企業サーバーにアップロードされることはありません。"
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "ATS フレンドリーな履歴書メーカー",
+        "metaDescription": "自動審査に合格する ATS 対応の履歴書をデザインします。無料のオンライン履歴書メーカー。",
+        "articleIntro": {
+          "heading": "ATSを楽々通過",
+          "paragraphs": [
+            "資格のある候補者の多くは、履歴書に応募者追跡システムを混乱させる複雑なグラフィックが使用されているという理由だけで拒否されます。当社のテンプレートは、ATS ボットが完全に読み取れるように構造的に最適化されています。",
+            "当社のエンジンが正確な PDF レンダリングとレイアウトを処理している間、コンテンツに集中できます。"
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "100% プライベート履歴書ジェネレーター",
+        "metaDescription": "履歴書を非公開で作成します。当社のクライアント側の履歴書メーカーは、あなたのデータをサーバーにアップロードすることはありません。",
+        "articleIntro": {
+          "heading": "データはあなたのもののまま",
+          "paragraphs": [
+            "ほとんどのオンライン履歴書ビルダーでは、アカウントの作成と個人データの収集が強制されます。私たちは根本的に異なるアプローチを採用しています。ジェネレーターはブラウザ内で完全にオフラインで実行されます。",
+            "電話番号、住所、職歴がデバイスから離れることはありません。安全に PDF に印刷します。"
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "無料のPDF履歴書作成ツール",
+        "metaDescription": "PDF履歴書を無料で作成してダウンロードできます。隠されたペイウォールやウォーターマークはありません。",
+        "articleIntro": {
+          "heading": "PDFをすぐにダウンロード",
+          "paragraphs": [
+            "履歴書を作成できるツールに騙されないでください。最終ダウンロード段階で 15 ドル請求されるだけです。当社の無料 PDF 履歴書作成ツールは、最初から最後まで完全に無料です。",
+            "無制限の PDF を生成し、料金の壁にぶつかることなく何度でもデザインを調整できます。"
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "サインアップなしの履歴書ビルダー",
+        "metaDescription": "アカウントを作成せずに、すぐに履歴書の作成を始めてください。高速、無料、そして直感的。",
+        "articleIntro": {
+          "heading": "すぐに構築を開始",
+          "paragraphs": [
+            "面倒な登録プロセスをスキップして、すぐに履歴書の作成を始めてください。サインアップ不要の履歴書ビルダーは、あなたの時間とプライバシーを大切にしています。",
+            "進行状況はブラウザにローカルに保存されるため、パスワードを必要とせずにタブを閉じて後で戻ることができます。"
+          ]
+        }
       }
     ]
   },
@@ -19208,6 +19948,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
           "paragraphs": [
             "当您使用限制性网络（例如学校或公司内部网）时，防火墙通常会阻止对新闻网站或博客的直接访问。由于我们的智能文章阅读器扩展在您自己的浏览器会话中充当独立代理，因此它可以绕过基本的网络阻止。",
             "此外，如果网站被完全阻止，我们的工具会自动查询公共网络档案（Wayback Machine）以获取未阻止的缓存快照。这保证您可以访问所需的信息，而不受网络限制。"
+          ]
+        }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "干净的文章阅读器 - 无干扰",
+        "metaDescription": "干净利落地阅读文章，不受干扰。使用我们的免费工具立即去除广告和弹出窗口。",
+        "articleIntro": {
+          "heading": "阅读文章，不受干扰",
+          "paragraphs": [
+            "厌倦了弹出窗口、自动播放视频和大量广告横幅破坏您的阅读体验？我们的干净文章阅读器可以解析任何网页的核心内容，并以漂亮的、排版优化的视图呈现它。",
+            "按原样享受在线阅读。纯文本、清晰标题、零干扰。"
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "无广告在线网络阅读器",
+        "metaDescription": "将任何 URL 转变为无广告的阅读体验。我们的智能抓取工具可以安全地获取内容并对其进行格式化以供阅读。",
+        "articleIntro": {
+          "heading": "将 URL 转换为无广告内容",
+          "paragraphs": [
+            "使用我们的无广告网络阅读器绕过激进的广告网络和重型跟踪器。只需粘贴链接，我们就会立即呈现文本内容。",
+            "由于提取发生在您的本地计算机上，因此您的阅读习惯完全不会被跟踪。"
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "免费在线 YouTube 脚本提取器",
+        "metaDescription": "立即免费下载 YouTube 文字记录和字幕。保存为 SRT 或纯文本，没有任何服务器限制或 API 成本。",
+        "articleIntro": {
+          "heading": "如何提取 YouTube 文字记录",
+          "paragraphs": [
+            "过去，从 YouTube 视频中提取字幕和文字记录需要昂贵的工具或缓慢的 API 服务。我们的免费在线 YouTube 脚本提取器通过直接从视频页面获取隐藏式字幕来改变游戏规则。",
+            "无论您是将视频重新调整为博客文章的内容创建者，还是下载讲座成绩单进行学习的学生，此工具都可以在您的浏览器中提供闪电般快速、100% 私密的文本提取。"
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "YouTube 到 SRT 字幕转换器",
+        "metaDescription": "立即将 YouTube 隐藏式字幕和自动生成的字幕转换为标准 .SRT 文件。免费且安全。",
+        "articleIntro": {
+          "heading": "将 YouTube 转换为 SRT 格式",
+          "paragraphs": [
+            "如果您正在编辑视频并需要标准 SubRip 字幕 (.SRT) 文件，我们的工具可以满足您的需求。它会自动将原始 YouTube 字幕计时格式化为完美的 SRT 文件，您可以将其直接导入 Premiere Pro、Final Cut 或 DaVinci Resolve。",
+            "只需粘贴视频 URL，选择您的语言，然后单击下载。它是完全免费的，并且完全在您的本地计算机上进行处理。"
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "将 YouTube 字幕下载为文本",
+        "metaDescription": "将任何 YouTube 视频的字幕下载为纯文本。快速、免费且私密的成绩单下载器。",
+        "articleIntro": {
+          "heading": "轻松下载视频字幕",
+          "paragraphs": [
+            "需要快速抓取视频中的文本吗？我们的工具允许您以纯文本形式下载 YouTube 字幕，没有时间戳或格式混乱。",
+            "非常适合创建摘要、学习或从视频材料生成博客内容。"
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "YouTube 视频文本提取器",
+        "metaDescription": "立即从 YouTube 视频中提取所有语音文本。无需注册。",
+        "articleIntro": {
+          "heading": "从任何 YouTube 视频中提取文本",
+          "paragraphs": [
+            "停止手动转录视频。我们的文本提取器直接连接到 YouTube 的隐藏字幕轨道，以完美地提取每个口语单词。",
+            "通过支持数十种语言和自动生成的字幕，您可以在几秒钟内提取所需的准确文字记录。"
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "私人 YouTube 转录工具",
+        "metaDescription": "私下转录 YouTube 视频。我们的工具在您的浏览器本地运行，因此您的提取历史记录永远不会被记录。",
+        "articleIntro": {
+          "heading": "100% 私人视频转录",
+          "paragraphs": [
+            "与保存您的历史记录的基于云的转录机器人不同，我们的工具完全在您的浏览器中使用扩展级 API 代理运行。",
+            "您的数据仅属于您自己。放心转录，知道没有服务器监控您正在分析的视频。"
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "专业在线简历制作者",
+        "metaDescription": "免费在线创建专业且适合 ATS 的简历。无需注册，无水印，完全私密。",
+        "articleIntro": {
+          "heading": "打造专业简历",
+          "paragraphs": [
+            "制作完美的简历是获得梦想工作的第一步。我们的专业简历生成器提供干净、现代的模板，旨在通过申请人跟踪系统 (ATS)。",
+            "一切都在您的浏览器中运行，这意味着您的个人联系方式和工作历史记录永远不会上传到公司服务器。"
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "ATS 友好的简历制作工具",
+        "metaDescription": "设计一份适合 ATS 并通过自动筛选的简历。免费在线简历制作工具。",
+        "articleIntro": {
+          "heading": "轻松通过 ATS",
+          "paragraphs": [
+            "许多合格的候选人被拒绝只是因为他们的简历使用了复杂的图形，使申请人跟踪系统感到困惑。我们的模板在结构上进行了优化，可以被 ATS 机器人完美读取。",
+            "让我们的引擎处理精确的 PDF 渲染和布局，让您专注于您的内容。"
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "100% 私人简历生成器",
+        "metaDescription": "私下生成您的简历。我们的客户端简历制作工具绝不会将您的数据上传到任何服务器。",
+        "articleIntro": {
+          "heading": "您的数据归您所有",
+          "paragraphs": [
+            "大多数在线简历创建者都会强迫您创建一个帐户并收集您的个人数据。我们采取了一种完全不同的方法：我们的生成器在您的浏览器中完全离线运行。",
+            "您的电话号码、地址和职业历史永远不会离开您的设备。安全地打印为 PDF。"
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "免费 PDF 简历创建器",
+        "metaDescription": "免费创建并下载 PDF 简历。没有隐藏的付费墙或水印。",
+        "articleIntro": {
+          "heading": "立即下载您的 PDF",
+          "paragraphs": [
+            "不要被那些让您制作简历却在最后下载步骤收取 15 美元费用的工具所欺骗。我们的免费 PDF 简历创建器自始至终完全免费。",
+            "生成无限的 PDF 并根据需要多次调整您的设计，而无需付费。"
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "无需注册简历生成器",
+        "metaDescription": "立即开始构建您的简历，无需创建帐户。快速、免费且直观。",
+        "articleIntro": {
+          "heading": "立即开始构建",
+          "paragraphs": [
+            "跳过繁琐的注册过程，立即开始起草简历。我们的免注册简历生成器重视您的时间和隐私。",
+            "您的进度保存在浏览器本地，因此您可以关闭选项卡并稍后返回，而无需密码。"
           ]
         }
       }
@@ -22412,6 +23300,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
             "इसके अतिरिक्त, यदि कोई वेबसाइट पूरी तरह से अवरुद्ध है, तो हमारा टूल स्वचालित रूप से एक अनब्लॉक कैश्ड स्नैपशॉट लाने के लिए सार्वजनिक वेब आर्काइव (वेबैक मशीन) पर सवाल उठाता है। यह गारंटी देता है कि आप नेटवर्क प्रतिबंधों की परवाह किए बिना अपनी आवश्यक जानकारी तक पहुंच सकते हैं।"
           ]
         }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "स्वच्छ लेख पाठक - व्याकुलता मुक्त",
+        "metaDescription": "बिना ध्यान भटकाए साफ-सुथरे लेख पढ़ें। हमारे मुफ़्त टूल का उपयोग करके विज्ञापनों और पॉपअप को तुरंत हटाएँ।",
+        "articleIntro": {
+          "heading": "व्याकुलता मुक्त होकर लेख पढ़ें",
+          "paragraphs": [
+            "क्या आप पॉपअप, ऑटोप्लेइंग वीडियो और बड़े पैमाने पर विज्ञापन बैनरों से थक गए हैं जो आपके पढ़ने के अनुभव को बर्बाद कर रहे हैं? हमारा क्लीन आर्टिकल रीडर किसी भी वेबपेज की मुख्य सामग्री को पार्स करता है और उसे एक सुंदर, टाइपोग्राफी-अनुकूलित दृश्य में प्रस्तुत करता है।",
+            "ऑनलाइन पढ़ने का उसी तरह आनंद लें, जिस तरह लिया जाना चाहिए। शुद्ध पाठ, स्पष्ट शीर्षक और शून्य विकर्षण।"
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "विज्ञापन-मुक्त वेब रीडर ऑनलाइन",
+        "metaDescription": "किसी भी URL को विज्ञापन-मुक्त पढ़ने के अनुभव में बदलें। हमारा स्मार्ट स्क्रेपर सामग्री को सुरक्षित रूप से लाता है और उसे पढ़ने के लिए प्रारूपित करता है।",
+        "articleIntro": {
+          "heading": "यूआरएल को विज्ञापन-मुक्त सामग्री में बदलें",
+          "paragraphs": [
+            "हमारे विज्ञापन-मुक्त वेब रीडर के साथ आक्रामक विज्ञापन नेटवर्क और भारी ट्रैकर्स को बायपास करें। बस एक लिंक चिपकाएँ और हम तुरंत पाठ्य सामग्री प्रस्तुत कर देंगे।",
+            "चूंकि निष्कर्षण आपकी मशीन पर स्थानीय रूप से होता है, इसलिए आपकी पढ़ने की आदतें पूरी तरह से ट्रैक से बाहर रहती हैं।"
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "मुफ़्त ऑनलाइन यूट्यूब ट्रांस्क्रिप्ट एक्सट्रैक्टर",
+        "metaDescription": "YouTube प्रतिलेख और उपशीर्षक तुरंत निःशुल्क डाउनलोड करें। बिना किसी सर्वर सीमा या एपीआई लागत के एसआरटी या सादे पाठ के रूप में सहेजें।",
+        "articleIntro": {
+          "heading": "यूट्यूब ट्रांस्क्रिप्ट कैसे निकालें",
+          "paragraphs": [
+            "YouTube वीडियो से उपशीर्षक और प्रतिलेख निकालने के लिए महंगे टूल या धीमी एपीआई सेवाओं की आवश्यकता होती है। हमारा मुफ़्त ऑनलाइन यूट्यूब ट्रांस्क्रिप्ट एक्सट्रैक्टर सीधे वीडियो पेज से बंद कैप्शन लाकर गेम को बदल देता है।",
+            "चाहे आप अपने वीडियो को ब्लॉग पोस्ट में पुन: उपयोग करने वाले सामग्री निर्माता हों, या अध्ययन के लिए व्याख्यान प्रतिलेख डाउनलोड करने वाले छात्र हों, यह टूल आपके ब्राउज़र में बिजली की तेजी से, 100% निजी पाठ निष्कर्षण प्रदान करता है।"
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "यूट्यूब से एसआरटी उपशीर्षक कनवर्टर",
+        "metaDescription": "YouTube बंद कैप्शन और स्वचालित रूप से जेनरेट किए गए उपशीर्षक को तुरंत मानक .SRT फ़ाइलों में बदलें। मुफ़्त और सुरक्षित.",
+        "articleIntro": {
+          "heading": "यूट्यूब को एसआरटी फॉर्मेट में बदलें",
+          "paragraphs": [
+            "यदि आप वीडियो संपादित कर रहे हैं और मानक सबरिप सबटाइटल (.SRT) फ़ाइलों की आवश्यकता है, तो हमारा टूल आपकी मदद करेगा। यह स्वचालित रूप से कच्चे YouTube कैप्शन समय को सही SRT फ़ाइलों में प्रारूपित करता है जिन्हें आप सीधे प्रीमियर प्रो, फ़ाइनल कट, या डेविंसी रिज़ॉल्यूशन में आयात कर सकते हैं।",
+            "बस वीडियो यूआरएल पेस्ट करें, अपनी भाषा चुनें और डाउनलोड पर क्लिक करें। यह पूरी तरह से मुफ़्त है और पूरी तरह से आपकी स्थानीय मशीन पर प्रोसेस होता है।"
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "YouTube उपशीर्षक को टेक्स्ट के रूप में डाउनलोड करें",
+        "metaDescription": "किसी भी YouTube वीडियो के उपशीर्षक को साफ़ टेक्स्ट के रूप में डाउनलोड करें। तेज़, मुफ़्त और निजी ट्रांसक्रिप्ट डाउनलोडर।",
+        "articleIntro": {
+          "heading": "वीडियो उपशीर्षक आसानी से डाउनलोड करें",
+          "paragraphs": [
+            "क्या आपको किसी वीडियो से तुरंत टेक्स्ट प्राप्त करने की आवश्यकता है? हमारा टूल आपको टाइमस्टैम्प या फ़ॉर्मेटिंग अव्यवस्था के बिना YouTube उपशीर्षक को सादे पाठ के रूप में डाउनलोड करने की अनुमति देता है।",
+            "वीडियो सामग्री से सारांश बनाने, अध्ययन करने या ब्लॉग सामग्री तैयार करने के लिए बिल्कुल सही।"
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "यूट्यूब वीडियो टेक्स्ट एक्सट्रैक्टर",
+        "metaDescription": "YouTube वीडियो से बोले गए सभी टेक्स्ट तुरंत निकालें। कोई साइनअप आवश्यक नहीं है.",
+        "articleIntro": {
+          "heading": "किसी भी यूट्यूब वीडियो से टेक्स्ट निकालें",
+          "paragraphs": [
+            "वीडियो को मैन्युअल रूप से ट्रांसक्राइब करना बंद करें. हमारा टेक्स्ट एक्सट्रैक्टर बोले गए प्रत्येक शब्द को पूरी तरह से बाहर निकालने के लिए सीधे YouTube के छिपे हुए कैप्शन ट्रैक से जुड़ जाता है।",
+            "दर्जनों भाषाओं और स्वतः-निर्मित कैप्शन के समर्थन के साथ, आप सेकंडों में अपनी आवश्यक सटीक प्रतिलेख निकाल सकते हैं।"
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "निजी यूट्यूब ट्रांसक्रिप्शन टूल",
+        "metaDescription": "YouTube वीडियो को निजी तौर पर ट्रांसक्राइब करें. हमारा टूल आपके ब्राउज़र में स्थानीय रूप से चलता है इसलिए आपका निष्कर्षण इतिहास कभी भी लॉग नहीं किया जाता है।",
+        "articleIntro": {
+          "heading": "100% निजी वीडियो ट्रांसक्रिप्शन",
+          "paragraphs": [
+            "आपके इतिहास को सहेजने वाले क्लाउड-आधारित ट्रांसक्रिप्शन बॉट के विपरीत, हमारा टूल एक्सटेंशन-स्तरीय एपीआई प्रॉक्सीिंग का उपयोग करके आपके ब्राउज़र में पूरी तरह से काम करता है।",
+            "आपका डेटा केवल आपका है. यह जानते हुए आत्मविश्वास से ट्रांसक्राइब करें कि आप किन वीडियो का विश्लेषण कर रहे हैं, इसकी निगरानी कोई सर्वर नहीं कर रहा है।"
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "पेशेवर बायोडाटा बिल्डर ऑनलाइन",
+        "metaDescription": "निःशुल्क ऑनलाइन एक पेशेवर, एटीएस-अनुकूल बायोडाटा बनाएं। कोई साइनअप नहीं, कोई वॉटरमार्क नहीं, पूरी तरह से निजी।",
+        "articleIntro": {
+          "heading": "एक व्यावसायिक बायोडाटा बनाएं",
+          "paragraphs": [
+            "सही बायोडाटा तैयार करना आपके सपनों की नौकरी पाने के लिए पहला कदम है। हमारा प्रोफेशनल रेज़्यूमे बिल्डर स्वच्छ, आधुनिक टेम्पलेट प्रदान करता है जो आवेदक ट्रैकिंग सिस्टम (एटीएस) को पास करने के लिए डिज़ाइन किया गया है।",
+            "सब कुछ आपके ब्राउज़र में चलता है, जिसका अर्थ है कि आपके व्यक्तिगत संपर्क विवरण और कार्य इतिहास कभी भी कॉर्पोरेट सर्वर पर अपलोड नहीं किए जाते हैं।"
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "एटीएस-अनुकूल बायोडाटा निर्माता",
+        "metaDescription": "एक एटीएस-अनुकूल बायोडाटा डिज़ाइन करें जो स्वचालित स्क्रीनिंग पास करता हो। निःशुल्क ऑनलाइन बायोडाटा निर्माता।",
+        "articleIntro": {
+          "heading": "आसानी से एटीएस पास करें",
+          "paragraphs": [
+            "कई योग्य उम्मीदवारों को सिर्फ इसलिए खारिज कर दिया जाता है क्योंकि उनका बायोडाटा जटिल ग्राफिक्स का उपयोग करता है जो आवेदक ट्रैकिंग सिस्टम को भ्रमित करता है। हमारे टेम्प्लेट एटीएस बॉट्स द्वारा पूरी तरह से पढ़ने योग्य होने के लिए संरचनात्मक रूप से अनुकूलित हैं।",
+            "अपनी सामग्री पर ध्यान केंद्रित करें जबकि हमारा इंजन सटीक पीडीएफ रेंडरिंग और लेआउट को संभालता है।"
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "100% निजी बायोडाटा जेनरेटर",
+        "metaDescription": "अपना बायोडाटा निजी तौर पर तैयार करें। हमारा क्लाइंट-साइड रेज़्यूमे निर्माता कभी भी आपका डेटा किसी सर्वर पर अपलोड नहीं करता है।",
+        "articleIntro": {
+          "heading": "आपका डेटा आपका ही रहता है",
+          "paragraphs": [
+            "अधिकांश ऑनलाइन रेज़्यूमे निर्माता आपको एक खाता बनाने और आपका व्यक्तिगत डेटा प्राप्त करने के लिए बाध्य करते हैं। हम बिल्कुल अलग दृष्टिकोण अपनाते हैं: हमारा जनरेटर आपके ब्राउज़र के अंदर पूरी तरह से ऑफ़लाइन चलता है।",
+            "आपका फ़ोन नंबर, पता और करियर इतिहास आपके डिवाइस को कभी नहीं छोड़ता। पीडीएफ में सुरक्षित रूप से प्रिंट करें।"
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "निःशुल्क पीडीएफ बायोडाटा निर्माता",
+        "metaDescription": "निःशुल्क पीडीएफ बायोडाटा बनाएं और डाउनलोड करें। कोई छिपा हुआ पेवॉल या वॉटरमार्क नहीं।",
+        "articleIntro": {
+          "heading": "तुरंत अपना पीडीएफ डाउनलोड करें",
+          "paragraphs": [
+            "ऐसे टूल के बहकावे में न आएं जो आपको अंतिम डाउनलोड चरण पर केवल $15 चार्ज करने के लिए बायोडाटा बनाने की सुविधा देते हैं। हमारा मुफ़्त पीडीएफ रेज़्यूमे क्रिएटर शुरू से अंत तक पूरी तरह से मुफ़्त है।",
+            "असीमित पीडीएफ जेनरेट करें और पेवॉल पर क्लिक किए बिना जितनी बार चाहें अपने डिज़ाइन में बदलाव करें।"
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "कोई साइनअप बायोडाटा बिल्डर नहीं",
+        "metaDescription": "बिना खाता बनाए तुरंत अपना बायोडाटा बनाना शुरू करें। तेज़, मुफ़्त और सहज ज्ञान युक्त।",
+        "articleIntro": {
+          "heading": "तुरंत निर्माण शुरू करें",
+          "paragraphs": [
+            "थकाऊ पंजीकरण प्रक्रिया को छोड़ें और तुरंत अपना बायोडाटा तैयार करना शुरू करें। हमारा नो साइनअप रेज़्यूमे बिल्डर आपके समय और गोपनीयता को महत्व देता है।",
+            "आपकी प्रगति आपके ब्राउज़र में स्थानीय रूप से सहेजी जाती है, ताकि आप टैब को बंद कर सकें और बाद में पासवर्ड की आवश्यकता के बिना वापस लौट सकें।"
+          ]
+        }
       }
     ]
   },
@@ -25614,6 +26650,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
             "Inoltre, se un sito Web è completamente bloccato, il nostro strumento interroga automaticamente l'archivio Web pubblico (Wayback Machine) per recuperare uno snapshot memorizzato nella cache non bloccato. Ciò garantisce che tu possa accedere alle informazioni di cui hai bisogno, indipendentemente dalle restrizioni della rete."
           ]
         }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "Lettore di articoli pulito: senza distrazioni",
+        "metaDescription": "Leggi gli articoli in modo pulito senza distrazioni. Elimina immediatamente pubblicità e popup utilizzando il nostro strumento gratuito.",
+        "articleIntro": {
+          "heading": "Leggi gli articoli senza distrazioni",
+          "paragraphs": [
+            "Stanco di popup, video a riproduzione automatica e enormi banner pubblicitari che rovinano la tua esperienza di lettura? Il nostro lettore di articoli puliti analizza il contenuto principale di qualsiasi pagina web e lo presenta in una bella vista ottimizzata per la tipografia.",
+            "Divertiti a leggere online come doveva essere. Testo puro, titoli chiari e zero distrazioni."
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "Lettore Web online senza pubblicità",
+        "metaDescription": "Trasforma qualsiasi URL in un'esperienza di lettura senza pubblicità. Il nostro raschietto intelligente recupera il contenuto in modo sicuro e lo formatta per la lettura.",
+        "articleIntro": {
+          "heading": "Trasforma gli URL in contenuti senza pubblicità",
+          "paragraphs": [
+            "Evita le reti pubblicitarie aggressive e i tracker pesanti con il nostro lettore web senza pubblicità. Basta incollare un collegamento e visualizzeremo immediatamente il contenuto del testo.",
+            "Poiché l'estrazione avviene localmente sul tuo computer, le tue abitudini di lettura rimangono completamente non tracciate."
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "Estrattore di trascrizioni YouTube online gratuito",
+        "metaDescription": "Scarica subito e gratuitamente le trascrizioni e i sottotitoli di YouTube. Salva come SRT o testo normale senza limiti di server o costi API.",
+        "articleIntro": {
+          "heading": "Come estrarre le trascrizioni di YouTube",
+          "paragraphs": [
+            "L'estrazione di sottotitoli e trascrizioni dai video di YouTube richiedeva strumenti costosi o servizi API lenti. Il nostro estrattore di trascrizioni YouTube online gratuito cambia il gioco recuperando i sottotitoli direttamente dalla pagina del video.",
+            "Che tu sia un creatore di contenuti che ripropone i tuoi video in post di blog o uno studente che scarica le trascrizioni delle lezioni per studiare, questo strumento offre un'estrazione di testo privata al 100% rapidissima direttamente nel tuo browser."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "Convertitore di sottotitoli da YouTube a SRT",
+        "metaDescription": "Converti istantaneamente i sottotitoli codificati di YouTube e i sottotitoli generati automaticamente in file .SRT standard. Gratuito e sicuro.",
+        "articleIntro": {
+          "heading": "Converti YouTube in formato SRT",
+          "paragraphs": [
+            "Se stai modificando video e hai bisogno di file SubRip Subtitle (.SRT) standard, il nostro strumento è quello che fa per te. Formatta automaticamente i tempi grezzi dei sottotitoli di YouTube in file SRT perfetti che puoi importare direttamente in Premiere Pro, Final Cut o DaVinci Resolve.",
+            "Basta incollare l'URL del video, selezionare la lingua e fare clic su Scarica. È completamente gratuito e viene elaborato interamente sul tuo computer locale."
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "Scarica i sottotitoli di YouTube come testo",
+        "metaDescription": "Scarica i sottotitoli di qualsiasi video di YouTube come testo pulito. Downloader di trascrizioni veloce, gratuito e privato.",
+        "articleIntro": {
+          "heading": "Scarica facilmente i sottotitoli video",
+          "paragraphs": [
+            "Hai bisogno di catturare rapidamente il testo da un video? Il nostro strumento ti consente di scaricare i sottotitoli di YouTube come testo semplice senza timestamp o confusione di formattazione.",
+            "Perfetto per creare riassunti, studiare o generare contenuti di blog da materiale video."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "Estrattore di testo video di YouTube",
+        "metaDescription": "Estrai istantaneamente tutto il testo parlato da un video di YouTube. Nessuna registrazione richiesta.",
+        "articleIntro": {
+          "heading": "Estrai testo da qualsiasi video di YouTube",
+          "paragraphs": [
+            "Smetti di trascrivere i video manualmente. Il nostro estrattore di testo si collega direttamente alle tracce dei sottotitoli nascosti di YouTube per estrarre perfettamente ogni parola pronunciata.",
+            "Con il supporto di decine di lingue e sottotitoli generati automaticamente, puoi estrarre l'esatta trascrizione di cui hai bisogno in pochi secondi."
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "Strumento di trascrizione YouTube privato",
+        "metaDescription": "Trascrivi i video di YouTube in privato. Il nostro strumento viene eseguito localmente nel tuo browser, quindi la cronologia delle estrazioni non viene mai registrata.",
+        "articleIntro": {
+          "heading": "Trascrizione video privata al 100%.",
+          "paragraphs": [
+            "A differenza dei bot di trascrizione basati su cloud che salvano la cronologia, il nostro strumento funziona interamente nel tuo browser utilizzando il proxy API a livello di estensione.",
+            "I tuoi dati sono solo tuoi. Trascrivi con sicurezza sapendo che nessun server sta monitorando i video che stai analizzando."
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "Creazione di curriculum professionale online",
+        "metaDescription": "Crea online gratuitamente un curriculum professionale e compatibile con ATS. Nessuna registrazione, nessuna filigrana, completamente privato.",
+        "articleIntro": {
+          "heading": "Costruisci un curriculum professionale",
+          "paragraphs": [
+            "Creare il curriculum perfetto è il primo passo per ottenere il lavoro dei tuoi sogni. Il nostro generatore di curriculum professionale fornisce modelli puliti e moderni progettati per superare i sistemi di tracciamento dei candidati (ATS).",
+            "Tutto viene eseguito nel tuo browser, il che significa che i tuoi dettagli di contatto personali e la cronologia lavorativa non vengono mai caricati su un server aziendale."
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "Creatore di curriculum compatibile con ATS",
+        "metaDescription": "Progetta un curriculum compatibile con ATS che superi lo screening automatizzato. Creatore di curriculum online gratuito.",
+        "articleIntro": {
+          "heading": "Supera l'ATS con facilità",
+          "paragraphs": [
+            "Molti candidati qualificati vengono rifiutati semplicemente perché il loro curriculum utilizza una grafica complessa che confonde i sistemi di tracciamento dei candidati. I nostri template sono strutturalmente ottimizzati per essere perfettamente leggibili dai bot ATS.",
+            "Concentrati sui tuoi contenuti mentre il nostro motore gestisce il rendering e il layout precisi del PDF."
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "Generatore di curriculum privato al 100%.",
+        "metaDescription": "Genera il tuo curriculum in privato. Il nostro creatore di curriculum lato client non carica mai i tuoi dati su nessun server.",
+        "articleIntro": {
+          "heading": "I tuoi dati restano tuoi",
+          "paragraphs": [
+            "La maggior parte dei creatori di curriculum online ti obbliga a creare un account e a raccogliere i tuoi dati personali. Adottiamo un approccio radicalmente diverso: il nostro generatore funziona interamente offline all'interno del tuo browser.",
+            "Il tuo numero di telefono, indirizzo e cronologia professionale non lasciano mai il tuo dispositivo. Stampa in PDF in modo sicuro."
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "Creatore di curriculum PDF gratuito",
+        "metaDescription": "Crea e scarica gratuitamente un curriculum in PDF. Nessun paywall o filigrana nascosti.",
+        "articleIntro": {
+          "heading": "Scarica il tuo PDF istantaneamente",
+          "paragraphs": [
+            "Non farti ingannare da strumenti che ti consentono di creare un curriculum solo per farti pagare $ 15 nella fase finale del download. Il nostro creatore di curriculum PDF gratuito è completamente gratuito dall'inizio alla fine.",
+            "Genera PDF illimitati e modifica il tuo design tutte le volte che vuoi senza incorrere in un limite di pagamento."
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "Nessuna registrazione per la creazione di curriculum",
+        "metaDescription": "Inizia subito a creare il tuo curriculum senza creare un account. Veloce, gratuito e intuitivo.",
+        "articleIntro": {
+          "heading": "Inizia a costruire immediatamente",
+          "paragraphs": [
+            "Evita il noioso processo di registrazione e inizia subito a redigere il tuo curriculum. Il nostro generatore di curriculum senza registrazione valorizza il tuo tempo e la tua privacy.",
+            "I tuoi progressi vengono salvati localmente nel tuo browser, quindi puoi chiudere la scheda e tornare in seguito senza bisogno di una password."
+          ]
+        }
       }
     ]
   },
@@ -28814,6 +29998,154 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
           "paragraphs": [
             "عندما تكون على شبكة مقيدة، مثل شبكة الإنترانت الخاصة بالمدرسة أو الشركة، غالبًا ما تمنع جدران الحماية الوصول المباشر إلى مواقع الأخبار أو المدونات. نظرًا لأن ملحق Smart Article Reader الخاص بنا يعمل بمثابة وكيل مستقل داخل جلسة المتصفح الخاصة بك، فيمكنه تجاوز حظر الشبكة الأساسي.",
             "بالإضافة إلى ذلك، إذا تم حظر موقع ويب بالكامل، فإن أداتنا تستعلم تلقائيًا عن أرشيف الويب العام (Wayback Machine) لجلب لقطة مخبأة غير محظورة. وهذا يضمن أنه يمكنك الوصول إلى المعلومات التي تحتاجها، بغض النظر عن قيود الشبكة."
+          ]
+        }
+      },
+      {
+        "slug": "clean-article-reader",
+        "title": "قارئ المادة النظيفة - خالية من التشتيت",
+        "metaDescription": "قراءة المقالات بشكل نظيف دون الانحرافات. قم بإزالة الإعلانات والنوافذ المنبثقة على الفور باستخدام أداتنا المجانية.",
+        "articleIntro": {
+          "heading": "قراءة المقالات الهاء مجانا",
+          "paragraphs": [
+            "هل سئمت من النوافذ المنبثقة ومقاطع الفيديو التي يتم تشغيلها تلقائيًا واللافتات الإعلانية الضخمة التي تدمر تجربة القراءة الخاصة بك؟ يقوم قارئ المقالات النظيف الخاص بنا بتحليل المحتوى الأساسي لأي صفحة ويب ويقدمه بطريقة جميلة ومُحسَّنة للطباعة.",
+            "استمتع بالقراءة عبر الإنترنت بالطريقة التي كان من المفترض أن تكون عليها. نص خالص، وعناوين واضحة، وبدون أي تشتيتات."
+          ]
+        }
+      },
+      {
+        "slug": "ad-free-web-reader",
+        "title": "قارئ ويب خالي من الإعلانات على الإنترنت",
+        "metaDescription": "قم بتحويل أي عنوان URL إلى تجربة قراءة خالية من الإعلانات. تقوم مكشطةنا الذكية بجلب المحتوى بشكل آمن وتنسيقه للقراءة.",
+        "articleIntro": {
+          "heading": "تحويل عناوين URL إلى محتوى خالٍ من الإعلانات",
+          "paragraphs": [
+            "تجاوز شبكات الإعلانات العدوانية وأجهزة التتبع الثقيلة باستخدام قارئ الويب الخالي من الإعلانات. ما عليك سوى لصق رابط وسنعرض محتوى النص على الفور.",
+            "ونظرًا لأن عملية الاستخراج تتم محليًا على جهازك، فإن عادات القراءة الخاصة بك تظل غير قابلة للتتبع تمامًا."
+          ]
+        }
+      }
+    ],
+    "youtube-transcript": [
+      {
+        "slug": "youtube-transcript-online-free",
+        "title": "برنامج استخراج نصوص اليوتيوب مجانا على الانترنت",
+        "metaDescription": "قم بتنزيل النصوص والترجمات من YouTube على الفور مجانًا. احفظ بتنسيق SRT أو نص عادي دون أي حدود للخادم أو تكاليف API.",
+        "articleIntro": {
+          "heading": "كيفية استخراج نصوص يوتيوب",
+          "paragraphs": [
+            "يُستخدم استخراج الترجمات والنصوص من مقاطع فيديو YouTube للمطالبة بأدوات باهظة الثمن أو خدمات API بطيئة. يقوم برنامج YouTube Transcript Extractor المجاني عبر الإنترنت بتغيير اللعبة عن طريق جلب التسميات التوضيحية المغلقة مباشرةً من صفحة الفيديو.",
+            "سواء كنت منشئ محتوى يعيد استخدام مقاطع الفيديو الخاصة بك في منشورات مدونة، أو طالبًا يقوم بتنزيل نصوص المحاضرات للدراسة، فإن هذه الأداة توفر استخراج نص خاص بنسبة 100٪ بسرعة البرق مباشرة في متصفحك."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-to-srt-converter",
+        "title": "يوتيوب لتحويل الترجمة SRT",
+        "metaDescription": "قم بتحويل التسميات التوضيحية المغلقة والترجمات المصاحبة على YouTube إلى ملفات .SRT القياسية على الفور. مجاني وآمن.",
+        "articleIntro": {
+          "heading": "تحويل يوتيوب إلى تنسيق SRT",
+          "paragraphs": [
+            "إذا كنت تقوم بتحرير مقاطع الفيديو وتحتاج إلى ملفات SubRip Subtitle (.SRT) القياسية، فإن أداتنا ستلبي احتياجاتك. يقوم تلقائيًا بتنسيق توقيتات التسميات التوضيحية الأولية على YouTube في ملفات SRT مثالية يمكنك استيرادها مباشرة إلى Premiere Pro أو Final Cut أو DaVinci Resolve.",
+            "ما عليك سوى لصق عنوان URL للفيديو وتحديد لغتك والنقر فوق تنزيل. إنه مجاني تمامًا ويتم معالجته بالكامل على جهازك المحلي."
+          ]
+        }
+      },
+      {
+        "slug": "download-youtube-subtitles",
+        "title": "قم بتنزيل ترجمات YouTube كنص",
+        "metaDescription": "قم بتنزيل ترجمات أي فيديو على YouTube كنص نظيف. تنزيل نص سريع ومجاني وخاص.",
+        "articleIntro": {
+          "heading": "تحميل ترجمات الفيديو بسهولة",
+          "paragraphs": [
+            "هل تحتاج إلى التقاط النص بسرعة من الفيديو؟ تتيح لك أداتنا تنزيل ترجمات YouTube كنص عادي بدون طوابع زمنية أو فوضى في التنسيق.",
+            "مثالي لإنشاء ملخصات أو دراسة أو إنشاء محتوى مدونة من مواد الفيديو."
+          ]
+        }
+      },
+      {
+        "slug": "youtube-video-text-extractor",
+        "title": "يوتيوب فيديو نص النازع",
+        "metaDescription": "استخرج كل النص المنطوق من مقطع فيديو على YouTube على الفور. لا يلزم الاشتراك.",
+        "articleIntro": {
+          "heading": "استخراج النص من أي فيديو يوتيوب",
+          "paragraphs": [
+            "توقف عن نسخ مقاطع الفيديو يدويًا. يتم ربط مستخرج النصوص الخاص بنا مباشرة بمسارات التسميات التوضيحية المخفية على YouTube لسحب كل كلمة منطوقة بشكل مثالي.",
+            "ومع دعم العشرات من اللغات والتسميات التوضيحية التي يتم إنشاؤها تلقائيًا، يمكنك استخراج النص الدقيق الذي تحتاجه في ثوانٍ."
+          ]
+        }
+      },
+      {
+        "slug": "private-youtube-transcription",
+        "title": "أداة النسخ الخاصة على YouTube",
+        "metaDescription": "نسخ مقاطع فيديو YouTube بشكل خاص. تعمل أداتنا محليًا في متصفحك لذا لا يتم تسجيل سجل الاستخراج الخاص بك أبدًا.",
+        "articleIntro": {
+          "heading": "نسخ فيديو خاص بنسبة 100%",
+          "paragraphs": [
+            "على عكس روبوتات النسخ المستندة إلى السحابة والتي تحفظ سجلك، تعمل أداتنا بالكامل في متصفحك باستخدام وكيل واجهة برمجة التطبيقات (API) على مستوى الامتداد.",
+            "بياناتك ملكك وحدك. قم بالنسخ بثقة مع العلم أنه لا يوجد خادم يراقب مقاطع الفيديو التي تقوم بتحليلها."
+          ]
+        }
+      }
+    ],
+    "resume-builder": [
+      {
+        "slug": "professional-resume-builder-online",
+        "title": "منشئ السيرة الذاتية الاحترافي عبر الإنترنت",
+        "metaDescription": "قم بإنشاء سيرة ذاتية احترافية وصديقة لـ ATS عبر الإنترنت مجانًا. لا يوجد اشتراك، ولا علامات مائية، خاص تمامًا.",
+        "articleIntro": {
+          "heading": "بناء السيرة الذاتية المهنية",
+          "paragraphs": [
+            "إن صياغة السيرة الذاتية المثالية هي الخطوة الأولى للحصول على وظيفة أحلامك. يوفر منشئ السيرة الذاتية الاحترافي لدينا قوالب نظيفة وحديثة مصممة لاجتياز أنظمة تتبع مقدم الطلب (ATS).",
+            "يتم تشغيل كل شيء في متصفحك، مما يعني أنه لا يتم أبدًا تحميل تفاصيل الاتصال الشخصية وسجل العمل إلى خادم الشركة."
+          ]
+        }
+      },
+      {
+        "slug": "ats-friendly-resume-maker",
+        "title": "صانع السيرة الذاتية الصديق لـ ATS",
+        "metaDescription": "صمم سيرة ذاتية متوافقة مع ATS وتجتاز الفحص الآلي. صانع السيرة الذاتية مجاناً على الإنترنت.",
+        "articleIntro": {
+          "heading": "اجتياز ATS بكل سهولة",
+          "paragraphs": [
+            "يتم رفض العديد من المرشحين المؤهلين لمجرد أن سيرتهم الذاتية تستخدم رسومات معقدة تربك أنظمة تتبع مقدم الطلب. تم تحسين قوالبنا هيكليًا لتكون قابلة للقراءة بشكل مثالي بواسطة روبوتات ATS.",
+            "ركز على المحتوى الخاص بك بينما يتعامل محركنا مع عرض وتخطيط PDF الدقيق."
+          ]
+        }
+      },
+      {
+        "slug": "private-resume-generator",
+        "title": "مُنشئ سيرة ذاتية خاصة بنسبة 100%",
+        "metaDescription": "أنشئ سيرتك الذاتية بشكل خاص. لا يقوم صانع السيرة الذاتية من جانب العميل لدينا أبدًا بتحميل بياناتك إلى أي خادم.",
+        "articleIntro": {
+          "heading": "بياناتك تبقى ملكك",
+          "paragraphs": [
+            "يُجبرك معظم منشئي السيرة الذاتية عبر الإنترنت على إنشاء حساب وجمع بياناتك الشخصية. نحن نتبع نهجًا مختلفًا تمامًا: يعمل المولد الخاص بنا دون اتصال بالإنترنت تمامًا داخل متصفحك.",
+            "رقم هاتفك وعنوانك وسجلك المهني لا يغادر جهازك أبدًا. الطباعة إلى PDF بشكل آمن."
+          ]
+        }
+      },
+      {
+        "slug": "free-pdf-resume-creator",
+        "title": "برنامج إنشاء السيرة الذاتية PDF مجاني",
+        "metaDescription": "إنشاء وتنزيل السيرة الذاتية بصيغة PDF مجاناً. لا توجد جدران مدفوعة أو علامات مائية مخفية.",
+        "articleIntro": {
+          "heading": "قم بتنزيل ملف PDF الخاص بك على الفور",
+          "paragraphs": [
+            "لا تنخدع بالأدوات التي تتيح لك إنشاء سيرة ذاتية فقط لتحصيل 15 دولارًا منك في خطوة التنزيل النهائية. إن برنامج إنشاء السيرة الذاتية PDF المجاني الخاص بنا مجاني تمامًا من البداية إلى النهاية.",
+            "قم بإنشاء ملفات PDF غير محدودة وقم بتعديل تصميمك عدة مرات كما تريد دون الوصول إلى نظام حظر الاشتراك غير المدفوع."
+          ]
+        }
+      },
+      {
+        "slug": "no-signup-resume-builder",
+        "title": "لا يوجد اشتراك في منشئ السيرة الذاتية",
+        "metaDescription": "ابدأ في إنشاء سيرتك الذاتية فورًا دون إنشاء حساب. سريع، مجاني، وبديهي.",
+        "articleIntro": {
+          "heading": "ابدأ البناء على الفور",
+          "paragraphs": [
+            "تخطي عملية التسجيل المملة وابدأ في صياغة سيرتك الذاتية على الفور. إن أداة إنشاء السيرة الذاتية بدون اشتراك تقدر وقتك وخصوصيتك.",
+            "يتم حفظ تقدمك محليًا في متصفحك، حتى تتمكن من إغلاق علامة التبويب والعودة لاحقًا دون الحاجة إلى كلمة مرور على الإطلاق."
           ]
         }
       }

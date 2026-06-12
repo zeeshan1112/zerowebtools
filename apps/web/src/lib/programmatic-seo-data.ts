@@ -3199,6 +3199,30 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
           "Additionally, if a website is completely blocked, our tool automatically queries the public Web Archive (Wayback Machine) to fetch an unblocked cached snapshot. This guarantees you can access the information you need, regardless of network restrictions."
         ]
       }
+    },
+    {
+      "slug": "clean-article-reader",
+      "title": "Clean Article Reader - Distraction Free",
+      "metaDescription": "Read articles cleanly without distractions. Strip out ads and popups instantly using our free tool.",
+      "articleIntro": {
+        "heading": "Read Articles Distraction Free",
+        "paragraphs": [
+          "Tired of popups, autoplaying videos, and massive ad banners ruining your reading experience? Our Clean Article Reader parses the core content of any webpage and presents it in a beautiful, typography-optimized view.",
+          "Enjoy reading online the way it was meant to be. Pure text, clear headings, and zero distractions."
+        ]
+      }
+    },
+    {
+      "slug": "ad-free-web-reader",
+      "title": "Ad-Free Web Reader Online",
+      "metaDescription": "Transform any URL into an ad-free reading experience. Our smart scraper fetches the content securely and formats it for reading.",
+      "articleIntro": {
+        "heading": "Transform URLs into Ad-Free Content",
+        "paragraphs": [
+          "Bypass aggressive ad networks and heavy trackers with our Ad-Free Web Reader. Just paste a link and we instantly render the text content.",
+          "Because the extraction happens locally on your machine, your reading habits remain completely untracked."
+        ]
+      }
     }
   ],
   "youtube-transcript": [
@@ -3223,6 +3247,104 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         "paragraphs": [
           "If you are editing videos and need standard SubRip Subtitle (.SRT) files, our tool has you covered. It automatically formats the raw YouTube caption timings into perfect SRT files that you can import directly into Premiere Pro, Final Cut, or DaVinci Resolve.",
           "Simply paste the video URL, select your language, and click download. It's completely free and processes entirely on your local machine."
+        ]
+      }
+    },
+    {
+      "slug": "download-youtube-subtitles",
+      "title": "Download YouTube Subtitles as Text",
+      "metaDescription": "Download any YouTube video's subtitles as clean text. Fast, free, and private transcript downloader.",
+      "articleIntro": {
+        "heading": "Download Video Subtitles Easily",
+        "paragraphs": [
+          "Need to quickly grab the text from a video? Our tool allows you to download YouTube subtitles as plain text without timestamps or formatting clutter.",
+          "Perfect for creating summaries, studying, or generating blog content from video material."
+        ]
+      }
+    },
+    {
+      "slug": "youtube-video-text-extractor",
+      "title": "YouTube Video Text Extractor",
+      "metaDescription": "Extract all spoken text from a YouTube video instantly. No signup required.",
+      "articleIntro": {
+        "heading": "Extract Text from Any YouTube Video",
+        "paragraphs": [
+          "Stop transcribing videos manually. Our text extractor hooks directly into YouTube's hidden caption tracks to pull out every spoken word perfectly.",
+          "With support for dozens of languages and auto-generated captions, you can extract the exact transcript you need in seconds."
+        ]
+      }
+    },
+    {
+      "slug": "private-youtube-transcription",
+      "title": "Private YouTube Transcription Tool",
+      "metaDescription": "Transcribe YouTube videos privately. Our tool runs locally in your browser so your extraction history is never logged.",
+      "articleIntro": {
+        "heading": "100% Private Video Transcription",
+        "paragraphs": [
+          "Unlike cloud-based transcription bots that save your history, our tool operates entirely in your browser using extension-level API proxying.",
+          "Your data is yours alone. Transcribe confidently knowing that no server is monitoring what videos you are analyzing."
+        ]
+      }
+    }
+  ],
+  "resume-builder": [
+    {
+      "slug": "professional-resume-builder-online",
+      "title": "Professional Resume Builder Online",
+      "metaDescription": "Create a professional, ATS-friendly resume online for free. No signup, no watermarks, completely private.",
+      "articleIntro": {
+        "heading": "Build a Professional Resume",
+        "paragraphs": [
+          "Crafting the perfect resume is the first step to landing your dream job. Our Professional Resume Builder provides clean, modern templates that are designed to pass Applicant Tracking Systems (ATS).",
+          "Everything runs in your browser, meaning your personal contact details and work history are never uploaded to a corporate server."
+        ]
+      }
+    },
+    {
+      "slug": "ats-friendly-resume-maker",
+      "title": "ATS-Friendly Resume Maker",
+      "metaDescription": "Design an ATS-friendly resume that passes automated screening. Free online resume maker.",
+      "articleIntro": {
+        "heading": "Pass the ATS with Ease",
+        "paragraphs": [
+          "Many qualified candidates are rejected simply because their resume uses complex graphics that confuse Applicant Tracking Systems. Our templates are structurally optimized to be perfectly readable by ATS bots.",
+          "Focus on your content while our engine handles the precise PDF rendering and layout."
+        ]
+      }
+    },
+    {
+      "slug": "private-resume-generator",
+      "title": "100% Private Resume Generator",
+      "metaDescription": "Generate your resume privately. Our client-side resume maker never uploads your data to any server.",
+      "articleIntro": {
+        "heading": "Your Data Stays Yours",
+        "paragraphs": [
+          "Most online resume builders force you to create an account and harvest your personal data. We take a radically different approach: our generator runs entirely offline inside your browser.",
+          "Your phone number, address, and career history never leave your device. Print to PDF securely."
+        ]
+      }
+    },
+    {
+      "slug": "free-pdf-resume-creator",
+      "title": "Free PDF Resume Creator",
+      "metaDescription": "Create and download a PDF resume for free. No hidden paywalls or watermarks.",
+      "articleIntro": {
+        "heading": "Download Your PDF Instantly",
+        "paragraphs": [
+          "Don't get tricked by tools that let you build a resume only to charge you $15 at the final download step. Our Free PDF Resume Creator is completely free from start to finish.",
+          "Generate unlimited PDFs and tweak your design as many times as you want without hitting a paywall."
+        ]
+      }
+    },
+    {
+      "slug": "no-signup-resume-builder",
+      "title": "No Signup Resume Builder",
+      "metaDescription": "Start building your resume immediately without creating an account. Fast, free, and intuitive.",
+      "articleIntro": {
+        "heading": "Start Building Instantly",
+        "paragraphs": [
+          "Skip the tedious registration process and start drafting your resume immediately. Our No Signup Resume Builder values your time and privacy.",
+          "Your progress is saved locally in your browser, so you can close the tab and return later without ever needing a password."
         ]
       }
     }

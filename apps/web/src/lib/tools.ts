@@ -245,7 +245,7 @@ export const CATEGORIES: ToolCategory[] = [
       },
       {
         id: "resume-builder",
-        title: "Client-Side Resume Builder",
+        title: "Professional Resume Builder",
         description: "Build, preview, and print a pristine, multi-page professional resume natively in your browser.",
         status: "live",
         metaDescription: "100% private client-side resume builder. Design professional, ATS-friendly, pristine multi-page resumes and print to PDF natively without cloud uploads.",
