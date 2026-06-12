@@ -103,10 +103,10 @@ export default function YoutubeTranscriptWorkspace() {
       }
 
       // Fetch the standard YouTube watch page HTML
-      // By passing true as the second parameter, the extension will spoof Googlebot
-      // which completely bypasses YouTube's Captchas and bot protection
+      // We pass false for spoof because we need the authentic user-facing HTML (which contains the JSON captions object)
+      // The extension's background.js now sends `credentials: 'include'` to pass logged-in cookies and avoid captchas!
       const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-      const htmlRes: any = await proxyFetchViaExtension(watchUrl, true, 'GET', {
+      const htmlRes: any = await proxyFetchViaExtension(watchUrl, false, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
       });
       
@@ -168,7 +168,7 @@ export default function YoutubeTranscriptWorkspace() {
   const fetchTranscript = async (trackUrl: string) => {
     setIsExtracting(true);
     try {
-      const res: any = await proxyFetchViaExtension(trackUrl, true, 'GET', {
+      const res: any = await proxyFetchViaExtension(trackUrl, false, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
       });
       const xmlText = res.body;
