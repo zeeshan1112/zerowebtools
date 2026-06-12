@@ -1,8 +1,0 @@
-{
-  "operationName": "FullPostQuery",
-  "variables": {
-    "postId": "d597fb028e7b",
-    "postMeteringOptions": {}
-  },
-  "query": "query FullPostQuery($postId: ID!, $postMeteringOptions: PostMeteringOptions) { post(id: $postId) { content(postMeteringOptions: $postMeteringOptions) { bodyModel { paragraphs { text } } } } }"
-}
