@@ -2714,6 +2714,147 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "تحويل قوالب وخصائص HTML القياسية إلى عناصر JSX متوافقة مع React محلياً في المتصفح.",
       "metaDescription": "حول HTML إلى React JSX فوراً - مجاني وخاص. ترجمة تلقائية للفئات (class)، الخصائص، الأنماط المضمنة (inline styles)، والوسوم ذاتية الإغلاق. بدون رفع للملفات."
     }
+  },
+  "web-scraper": {
+    "es": {
+      "title": "Lector de artículos inteligente",
+      "description": "Lea, extraiga y convierta cualquier artículo web en un descuento limpio y sin distracciones.",
+      "metaDescription": "Extraiga texto de cualquier sitio web de forma privada. Sin servidores, sin seguimiento. Un raspador web local 100% seguro y un lector de artículos inteligente."
+    },
+    "de": {
+      "title": "Intelligenter Artikelleser",
+      "description": "Lesen, extrahieren und konvertieren Sie jeden Webartikel in einen sauberen, ablenkungsfreien Markdown.",
+      "metaDescription": "Extrahieren Sie privat Text von jeder Website. Keine Server, kein Tracking. Ein 100 % sicherer lokaler Web-Scraper und intelligenter Artikelleser."
+    },
+    "fr": {
+      "title": "Lecteur d'articles intelligent",
+      "description": "Lisez, extrayez et convertissez n'importe quel article Web en une démarque propre et sans distraction.",
+      "metaDescription": "Extrayez le texte de n’importe quel site Web en privé. Pas de serveurs, pas de suivi. Un grattoir Web local 100 % sécurisé et un lecteur d'articles intelligent."
+    },
+    "pt": {
+      "title": "Leitor de artigos inteligente",
+      "description": "Leia, extraia e converta qualquer artigo da web em descontos limpos e sem distrações.",
+      "metaDescription": "Extraia texto de qualquer site de forma privada. Sem servidores, sem rastreamento. Um web scraper local 100% seguro e um leitor inteligente de artigos."
+    },
+    "ja": {
+      "title": "スマート記事リーダー",
+      "description": "あらゆる Web 記事を読み、抽出し、クリーンで気を散らすことのないマークダウンに変換します。",
+      "metaDescription": "あらゆる Web サイトから非公開でテキストを抽出します。サーバーも追跡もありません。 100% 安全なローカル Web スクレーパーおよびスマートな記事リーダー。"
+    },
+    "zh": {
+      "title": "智能文章阅读器",
+      "description": "阅读、提取任何网络文章并将其转换为干净、无干扰的 Markdown。",
+      "metaDescription": "从任何网站私下提取文本。没有服务器，没有跟踪。 100% 安全的本地网络抓取工具和智能文章阅读器。"
+    },
+    "hi": {
+      "title": "स्मार्ट आर्टिकल रीडर",
+      "description": "किसी भी वेब आलेख को पढ़ें, निकालें और उसे स्वच्छ, विकर्षण-मुक्त मार्कडाउन में परिवर्तित करें।",
+      "metaDescription": "किसी भी वेबसाइट से निजी तौर पर टेक्स्ट निकालें। कोई सर्वर नहीं, कोई ट्रैकिंग नहीं. 100% सुरक्षित स्थानीय वेब स्क्रैपर और स्मार्ट आर्टिकल रीडर।"
+    },
+    "it": {
+      "title": "Lettore di articoli intelligente",
+      "description": "Leggi, estrai e converti qualsiasi articolo web in un markdown pulito e privo di distrazioni.",
+      "metaDescription": "Estrai testo da qualsiasi sito web in privato. Nessun server, nessun tracciamento. Uno scraper web locale sicuro al 100% e un lettore di articoli intelligente."
+    },
+    "ar": {
+      "title": "قارئ المادة الذكية",
+      "description": "قراءة واستخراج وتحويل أي مقالة على شبكة الإنترنت إلى تخفيض السعر نظيف وخالي من التشتيت.",
+      "metaDescription": "استخراج النص من أي موقع على شبكة الإنترنت. لا خوادم، لا تتبع. أداة استخراج صفحات ويب محلية آمنة بنسبة 100% وقارئ مقالات ذكي."
+    }
+  },
+  "youtube-transcript": {
+    "es": {
+      "title": "Extractor de transcripciones de YouTube",
+      "description": "Extraiga subtítulos y transcripciones de cualquier vídeo de YouTube al instante y guárdelos como SRT o texto.",
+      "metaDescription": "Descargador gratuito de subtítulos y transcripciones de YouTube en línea. Evite los bloques de forma segura utilizando nuestra extensión complementaria para extraer texto localmente."
+    },
+    "de": {
+      "title": "YouTube-Transkript-Extraktor",
+      "description": "Extrahieren Sie Untertitel und Transkripte sofort aus jedem YouTube-Video und speichern Sie sie als SRT oder Text.",
+      "metaDescription": "Kostenloser Online-Downloader für YouTube-Untertitel und Transkripte. Umgehen Sie Blöcke sicher mit unserer Begleiterweiterung, um Text lokal zu extrahieren."
+    },
+    "fr": {
+      "title": "Extracteur de transcription YouTube",
+      "description": "Extrayez instantanément les légendes et les transcriptions de n'importe quelle vidéo YouTube et enregistrez-les au format SRT ou texte.",
+      "metaDescription": "Téléchargeur gratuit de sous-titres et de transcriptions YouTube en ligne. Contournez les blocages en toute sécurité à l’aide de notre extension compagnon pour extraire du texte localement."
+    },
+    "pt": {
+      "title": "Extrator de transcrição do YouTube",
+      "description": "Extraia legendas e transcrições de qualquer vídeo do YouTube instantaneamente e salve como SRT ou texto.",
+      "metaDescription": "Downloader online gratuito de legendas e transcrições do YouTube. Ignore bloqueios com segurança usando nossa extensão complementar para extrair texto localmente."
+    },
+    "ja": {
+      "title": "YouTube トランスクリプト抽出ツール",
+      "description": "YouTube 動画からキャプションとトランスクリプトを即座に抽出し、SRT またはテキストとして保存します。",
+      "metaDescription": "無料のオンライン YouTube 字幕およびトランスクリプト ダウンローダー。コンパニオン拡張機能を使用してブロックを安全にバイパスし、テキストをローカルに抽出します。"
+    },
+    "zh": {
+      "title": "YouTube 转录提取器",
+      "description": "立即从任何 YouTube 视频中提取字幕和文字记录并保存为 SRT 或文本。",
+      "metaDescription": "免费在线 YouTube 字幕和文字记录下载器。使用我们的配套扩展安全地绕过阻止，在本地提取文本。"
+    },
+    "hi": {
+      "title": "यूट्यूब ट्रांस्क्रिप्ट एक्सट्रैक्टर",
+      "description": "किसी भी यूट्यूब वीडियो से तुरंत कैप्शन और ट्रांसक्रिप्ट निकालें और एसआरटी या टेक्स्ट के रूप में सहेजें।",
+      "metaDescription": "मुफ़्त ऑनलाइन YouTube उपशीर्षक और प्रतिलेख डाउनलोडर। स्थानीय रूप से पाठ निकालने के लिए हमारे सहयोगी एक्सटेंशन का उपयोग करके सुरक्षित रूप से बायपास ब्लॉक करें।"
+    },
+    "it": {
+      "title": "Estrattore di trascrizioni di YouTube",
+      "description": "Estrai istantaneamente didascalie e trascrizioni da qualsiasi video di YouTube e salva come SRT o testo.",
+      "metaDescription": "Downloader online gratuito di sottotitoli e trascrizioni per YouTube. Bypassa i blocchi in modo sicuro utilizzando la nostra estensione complementare per estrarre il testo localmente."
+    },
+    "ar": {
+      "title": "يوتيوب نسخة النازع",
+      "description": "استخرج التسميات التوضيحية والنصوص من أي فيديو على YouTube على الفور واحفظها بتنسيق SRT أو نص.",
+      "metaDescription": "برنامج تنزيل الترجمة والنصوص مجانًا عبر الإنترنت من YouTube. تجاوز الكتل بشكل آمن باستخدام ملحقنا المصاحب لاستخراج النص محليًا."
+    }
+  },
+  "resume-builder": {
+    "es": {
+      "title": "Creador de currículum profesional",
+      "description": "Cree, obtenga una vista previa e imprima un currículum profesional impecable de varias páginas de forma nativa en su navegador.",
+      "metaDescription": "Creador de currículums del lado del cliente 100% privado. Diseñe currículums de varias páginas impecables, profesionales y compatibles con ATS e imprima en PDF de forma nativa sin cargarlos en la nube."
+    },
+    "de": {
+      "title": "Professioneller Lebenslaufersteller",
+      "description": "Erstellen Sie einen makellosen, mehrseitigen professionellen Lebenslauf, zeigen Sie ihn in der Vorschau an und drucken Sie ihn nativ in Ihrem Browser aus.",
+      "metaDescription": "100 % privater, kundenseitiger Lebenslaufersteller. Entwerfen Sie professionelle, ATS-freundliche, makellose mehrseitige Lebensläufe und drucken Sie sie nativ als PDF, ohne Cloud-Uploads."
+    },
+    "fr": {
+      "title": "Générateur de CV professionnel",
+      "description": "Créez, prévisualisez et imprimez un CV professionnel impeccable de plusieurs pages de manière native dans votre navigateur.",
+      "metaDescription": "Générateur de CV 100 % privé côté client. Concevez des CV multipages professionnels, compatibles ATS et imprimez-les au format PDF de manière native sans téléchargement dans le cloud."
+    },
+    "pt": {
+      "title": "Construtor de currículo profissional",
+      "description": "Crie, visualize e imprima um currículo profissional impecável de várias páginas nativamente em seu navegador.",
+      "metaDescription": "Construtor de currículos 100% privado do lado do cliente. Crie currículos de várias páginas profissionais, compatíveis com ATS e imprima em PDF nativamente, sem uploads na nuvem."
+    },
+    "ja": {
+      "title": "プロの履歴書ビルダー",
+      "description": "ブラウザーでネイティブの複数ページの職務経歴書を作成、プレビュー、印刷します。",
+      "metaDescription": "100% プライベートのクライアント側の履歴書ビルダー。プロフェッショナルで ATS フレンドリーな、元の状態の複数ページの履歴書をデザインし、クラウドにアップロードせずにネイティブに PDF に印刷します。"
+    },
+    "zh": {
+      "title": "专业简历制作者",
+      "description": "在浏览器中本地构建、预览和打印原始的多页专业简历。",
+      "metaDescription": "100% 私人客户端简历生成器。设计专业、ATS 友好、原始的多页简历并本地打印为 PDF，无需云上传。"
+    },
+    "hi": {
+      "title": "पेशेवर बायोडाटा बिल्डर",
+      "description": "अपने ब्राउज़र में मूल रूप से एक प्राचीन, बहु-पृष्ठ पेशेवर बायोडाटा बनाएं, पूर्वावलोकन करें और प्रिंट करें।",
+      "metaDescription": "100% निजी क्लाइंट-साइड रेज़्युमे बिल्डर। पेशेवर डिज़ाइन, एटीएस-अनुकूल, प्राचीन बहु-पृष्ठ बायोडाटा और क्लाउड अपलोड के बिना मूल रूप से पीडीएफ में प्रिंट करें।"
+    },
+    "it": {
+      "title": "Costruttore di curriculum professionale",
+      "description": "Crea, visualizza in anteprima e stampa un curriculum professionale multipagina originale in modo nativo nel tuo browser.",
+      "metaDescription": "Generatore di curriculum lato client privato al 100%. Progetta curriculum multipagina professionali, compatibili con ATS e intatti e stampa in PDF in modo nativo senza caricamenti nel cloud."
+    },
+    "ar": {
+      "title": "منشئ السيرة الذاتية الاحترافي",
+      "description": "يمكنك إنشاء سيرة ذاتية احترافية متعددة الصفحات ومعاينتها وطباعتها محليًا في متصفحك.",
+      "metaDescription": "مُنشئ سيرة ذاتية خاص بنسبة 100% من جانب العميل. صمم سيرة ذاتية احترافية ومتعددة الصفحات وصديقة لـ ATS واطبعها إلى PDF محليًا بدون تحميلات على السحابة."
+    }
   }
 };
 
