@@ -1,5 +1,46 @@
 {
   "articles": {
+    "api-client": {
+      "title": "Comment tester les API REST en privé dans votre navigateur",
+      "metaDescription": "Testez et déboguez les API REST directement dans votre navigateur sans problèmes CORS. Une alternative 100 % privée et sans cloud à Postman.",
+      "sections": [
+        {
+          "heading": "Le problème avec les testeurs d'API basés sur le cloud",
+          "level": "h2",
+          "paragraphs": [
+            "Le test des API est un élément fondamental du développement Web moderne. Cependant, les outils de test d'API les plus populaires (comme Postman ou Insomnia) vous obligent de plus en plus à créer des comptes cloud, à synchroniser vos données avec leurs serveurs et à utiliser des applications de bureau surchargées.",
+            "Lorsque vous traitez avec des clés API de production sensibles, des données client ou des points de terminaison propriétaires, la synchronisation de ces données avec un serveur tiers crée un risque de sécurité inutile."
+          ]
+        },
+        {
+          "heading": "Pourquoi un client de navigateur local est meilleur",
+          "level": "h2",
+          "listItems": [
+            "Zero Cloud Sync - Vos requêtes, en-têtes et clés API restent entièrement dans la mémoire locale de votre navigateur. Lorsque vous fermez l'onglet, il disparaît.",
+            "Contourner les restrictions CORS – Normalement, les navigateurs bloquent les requêtes d’origine croisée (CORS). En utilisant notre extension compagnon open source, notre client agit comme un proxy réseau natif, vous permettant d'atteindre n'importe quel point de terminaison (y compris localhost) sans erreurs CORS.",
+            "Léger et instantané : pas d'applications de bureau lourdes à télécharger et pas de monopolisation de mémoire électronique. C'est juste une interface utilisateur propre et instantanée."
+          ]
+        },
+        {
+          "heading": "Comment utiliser le client API REST",
+          "level": "h2",
+          "paragraphs": [
+            "L'utilisation de notre client est intuitive. Tout d’abord, sélectionnez votre méthode HTTP (GET, POST, PUT, DELETE) et saisissez l’URL cible. Vous pouvez facilement ajouter des en-têtes personnalisés tels que « Autorisation » ou « Content-Type » à l'aide de l'interface clé-valeur.",
+            "Si vous effectuez une requête POST, vous pouvez saisir votre charge utile JSON dans l'éditeur de corps de la requête. Cliquez sur « Envoyer » et la réponse, ainsi que les codes d'état, la latence et les en-têtes de réponse, seront proprement formatées dans le panneau de sortie."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Comment contourne-t-il CORS ?",
+          "answer": "Notre outil fonctionne avec une extension de navigateur sécurisée et open source. L'extension intercepte la demande d'extraction et la transmet de manière native via le script d'arrière-plan du navigateur, qui est exempté des politiques CORS standard des pages Web."
+        },
+        {
+          "question": "Puis-je tester mon serveur de développement local ?",
+          "answer": "Oui! Vous pouvez tester de manière transparente des points de terminaison comme http://localhost:3000 ou http://127.0.0.1:8080 directement depuis le navigateur sans aucun outil de tunneling comme ngrok."
+        }
+      ]
+    },
     "json-formatter": {
       "title": "Comment formater et embellir les données JSON en ligne",
       "metaDescription": "Validez, déboguez et embellissez instantanément les chaînes JSON minifiées. Un outil de développement 100% privé pour formater les données JSON dans votre navigateur.",
@@ -820,6 +861,47 @@
         {
           "question": "Le jeu télécharge-t-il mon meilleur score ?",
           "answer": "Non, tous les scores sont enregistrés directement dans le stockage local de votre navigateur, garantissant que votre activité de jeu reste totalement privée."
+        }
+      ]
+    },
+    "resume-builder": {
+      "title": "Comment créer un CV en ligne professionnel et compatible ATS",
+      "metaDescription": "Concevez un CV professionnel impeccable de plusieurs pages de manière native dans votre navigateur. 100 % privé sans téléchargements cloud.",
+      "sections": [
+        {
+          "heading": "Les défauts des créateurs de CV modernes",
+          "level": "h2",
+          "paragraphs": [
+            "La plupart des créateurs de CV en ligne vous attirent avec des modèles « gratuits », pour ensuite vous frapper avec un paywall de 15 $ au moment précis où vous essayez de télécharger votre PDF.",
+            "Pire encore, ces plateformes vous obligent à créer des comptes et à récolter vos données profondément personnelles (numéros de téléphone, adresses et antécédents professionnels) pour les vendre à des recruteurs ou à des tiers."
+          ]
+        },
+        {
+          "heading": "Une solution 100% privée côté client",
+          "level": "h2",
+          "listItems": [
+            "Pas de paywalls ni d'inscription - Notre créateur de CV est entièrement gratuit du début à la fin. Vous pouvez télécharger votre PDF instantanément sans créer de compte.",
+            "Confidentialité absolue des données - L'ensemble de l'application s'exécute localement dans votre navigateur via WebAssembly. Vos coordonnées et votre historique professionnel ne quittent jamais votre appareil.",
+            "Modèles optimisés pour l'ATS : de nombreux CV visuellement époustouflants échouent aux systèmes de suivi des candidats (ATS) car les robots ne peuvent pas analyser les mises en page complexes. Nos modèles utilisent des hiérarchies structurelles claires pour garantir que votre CV est parfaitement lisible par machine tout en conservant une esthétique professionnelle."
+          ]
+        },
+        {
+          "heading": "Fonctionnalités du générateur de CV professionnel",
+          "level": "h2",
+          "paragraphs": [
+            "Vous pouvez ajouter en toute transparence une expérience professionnelle, une formation, des compétences et des certifications. Le moteur de prévisualisation en direct met à jour votre PDF instantanément au fur et à mesure que vous tapez.",
+            "Besoin d'un CV de plusieurs pages ? Notre système de pagination intelligent coupe automatiquement les pages proprement sans couper le texte en deux. Vous pouvez également réorganiser les sections par glisser-déposer, activer ou désactiver des éléments spécifiques et modifier le thème visuel en fonction de votre secteur d'activité."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Mon CV est-il enregistré si je ferme l'onglet ?",
+          "answer": "Oui. Votre progression est automatiquement enregistrée sur le stockage local de votre navigateur (IndexedDB). Lorsque vous reviendrez sur la page sur le même appareil, vos données seront toujours là, sans jamais toucher nos serveurs."
+        },
+        {
+          "question": "Puis-je importer mon profil LinkedIn ?",
+          "answer": "Actuellement, vous devez saisir vos coordonnées manuellement. Cependant, comme il s'agit d'un outil hors ligne entièrement privé, vous pouvez copier et coller en toute sécurité vos puces exactes sans vous soucier des fuites de données."
         }
       ]
     },
@@ -2207,6 +2289,111 @@
         }
       ]
     },
+    "web-scraper": {
+      "title": "Comment lire et extraire des articles en privé",
+      "metaDescription": "Extrayez le texte de n’importe quel article en toute sécurité sur votre ordinateur local à l’aide de l’extension compagnon. Pas de suivi du serveur.",
+      "sections": [
+        {
+          "heading": "L’importance de l’extraction d’articles privés",
+          "level": "h2",
+          "paragraphs": [
+            "La plupart des outils de lecture en ligne et des extracteurs de texte acheminent vos demandes via leurs propres serveurs proxy. Cela signifie qu'ils peuvent suivre chaque article que vous lisez, créer un profil sur vos intérêts et enregistrer votre adresse IP. Pour les chercheurs, les journalistes et les utilisateurs soucieux de leur vie privée, il s’agit d’une fuite de sécurité massive.",
+            "En exécutant la logique d'extraction localement sur votre propre ordinateur à l'aide d'une extension de navigateur associée, vous éliminez entièrement les intermédiaires. Votre navigateur récupère l'article directement à partir de la source, garantissant qu'aucun serveur tiers ne verra jamais ce que vous lisez."
+          ]
+        },
+        {
+          "heading": "Comment utiliser le lecteur d'articles intelligent",
+          "level": "h2",
+          "listItems": [
+            "Installez l'extension Companion – L'extension agit comme un pont local sécurisé pour récupérer des sites Web directement depuis votre navigateur.",
+            "Collez l'URL de l'article : saisissez l'adresse Web de l'article que vous souhaitez extraire.",
+            "Extraire le contenu - L'outil récupérera le code HTML brut localement, supprimera toutes les publicités et tous les scripts de suivi et vous présentera un texte clair et lisible.",
+            "Lire ou enregistrer : profitez d'une expérience de lecture sans distraction ou copiez le texte propre pour vos propres notes."
+          ]
+        },
+        {
+          "heading": "Contourner les restrictions de sécurité en toute sécurité",
+          "level": "h2",
+          "paragraphs": [
+            "De nombreux sites Web utilisent des politiques CORS (Cross-Origin Resource Sharing) strictes et des options X-Frame pour empêcher d'autres sites de charger leur contenu. Notre extension locale supprime automatiquement ces en-têtes restrictifs pour les URL que vous demandez explicitement.",
+            "Cela permet à l'application Web ZeroWebTools d'analyser de manière transparente les données localement dans votre navigateur sans être bloquée, vous offrant ainsi la puissance d'un grattoir Web backend sans jamais avoir besoin d'un serveur backend."
+          ]
+        },
+        {
+          "heading": "Contourner les pare-feu et utiliser les archives Web",
+          "level": "h2",
+          "paragraphs": [
+            "Lorsque vous utilisez un réseau restrictif, tel qu'un intranet d'école ou d'entreprise, les pare-feu bloquent souvent l'accès direct aux sites d'actualités ou aux blogs. Étant donné que notre extension Smart Article Reader agit comme un proxy indépendant au sein de votre propre session de navigateur, elle peut souvent contourner le blocage de base du réseau.",
+            "De plus, si un site Web est complètement bloqué ou supprimé, notre outil interroge automatiquement les archives Web publiques (Wayback Machine) pour récupérer un instantané mis en cache non bloqué. Cela garantit que vous pouvez accéder aux informations dont vous avez besoin, quelles que soient les restrictions du réseau."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Pourquoi dois-je installer une extension de navigateur ?",
+          "answer": "Les navigateurs Web empêchent les sites Web de récupérer des données sur d'autres sites Web (CORS). L'extension donne à votre navigateur l'autorisation dont il a besoin pour récupérer l'article localement afin que nous n'ayons pas besoin d'utiliser un serveur proxy central."
+        },
+        {
+          "question": "Suivez-vous les articles que je lis ?",
+          "answer": "Absolument pas. Étant donné que la demande de récupération s'effectue entièrement sur votre propre ordinateur, nos serveurs n'ont aucune visibilité sur les URL que vous saisissez dans l'outil."
+        }
+      ]
+    },
+    "youtube-transcript": {
+      "title": "Comment extraire les transcriptions et les sous-titres YouTube",
+      "metaDescription": "Découvrez comment extraire et télécharger instantanément des transcriptions de vidéos YouTube sous forme de texte brut ou de fichiers .SRT. Outil de navigation 100% gratuit et privé.",
+      "sections": [
+        {
+          "heading": "Pourquoi extraire les transcriptions YouTube ?",
+          "level": "h2",
+          "paragraphs": [
+            "Les vidéos YouTube regorgent d’informations précieuses, mais parcourir des heures de vidéo pour trouver des détails spécifiques prend du temps. En extrayant la transcription, vous pouvez rapidement lire, rechercher et copier le contenu.",
+            "Pour les créateurs de contenu, le téléchargement de transcriptions vous permet de réutiliser le contenu vidéo dans des articles de blog, des articles ou des mises à jour sur les réseaux sociaux. Pour les étudiants et les chercheurs, disposer d’une version texte d’un cours facilite incroyablement la prise de notes et la mise en évidence des concepts clés."
+          ]
+        },
+        {
+          "heading": "Comment télécharger les sous-titres YouTube",
+          "level": "h2",
+          "listItems": [
+            "Installez l'extension Companion – L'extension comble le fossé en toute sécurité, permettant à votre navigateur de récupérer directement les sous-titres YouTube.",
+            "Collez l'URL de la vidéo : saisissez le lien de n'importe quelle vidéo YouTube dans la zone de texte.",
+            "Sélectionnez la langue : choisissez parmi les pistes de sous-titres générées automatiquement ou téléchargées manuellement.",
+            "Choisissez votre format - Basculez entre le format standard .SRT (avec horodatages) ou une vue en paragraphe de texte brut.",
+            "Télécharger ou copier : copiez le texte dans votre presse-papiers ou téléchargez-le sous forme de fichier en un seul clic."
+          ]
+        },
+        {
+          "heading": "Contourner les limites du serveur en privé",
+          "level": "h2",
+          "paragraphs": [
+            "La plupart des extracteurs de transcription YouTube en ligne fonctionnent sur des serveurs backend qui atteignent rapidement les limites de débit de l'API ou vous obligent à payer un abonnement premium. Ils suivent également les vidéos que vous analysez.",
+            "En utilisant notre extension de navigateur locale, l'extraction s'effectue directement sur votre machine. Vous récupérez les données directement depuis les serveurs de YouTube en utilisant votre propre connexion, ce qui signifie des extractions gratuites illimitées avec une confidentialité absolue."
+          ]
+        },
+        {
+          "heading": "Conversion au format SRT standard",
+          "level": "h2",
+          "paragraphs": [
+            "Les monteurs vidéo ont souvent besoin de fichiers SubRip Subtitle (.SRT) standard à importer dans des logiciels comme Adobe Premiere Pro ou DaVinci Resolve. Les données brutes des sous-titres de YouTube sont souvent renvoyées dans un format XML propriétaire que les éditeurs ne peuvent pas lire.",
+            "Notre outil analyse ce XML sous-jacent et le formate parfaitement dans la structure SRT standard, garantissant que les horodatages s'alignent parfaitement avec votre chronologie vidéo."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Pourquoi dois-je installer une extension ?",
+          "answer": "Les politiques CORS de YouTube empêchent les sites Web tiers d'accéder directement à ses fichiers de sous-titres. L'extension permet à votre navigateur de récupérer localement les données en toute sécurité sans les acheminer via un serveur central."
+        },
+        {
+          "question": "Est-ce que cela fonctionne pour les sous-titres générés automatiquement ?",
+          "answer": "Oui! Si le créateur n'a pas téléchargé de sous-titres manuels, l'outil peut extraire les pistes ASR (Automatic Speech Recognition) générées automatiquement par YouTube."
+        },
+        {
+          "question": "Y a-t-il une limite sur la durée des vidéos ?",
+          "answer": "Non. Le traitement étant effectué localement, vous pouvez extraire des transcriptions de podcasts ou de conférences de plusieurs heures sans aucun décalage."
+        }
+      ]
+    },
     "word-counter": {
       "title": "Comment compter des mots et des phrases en ligne avec l'analyse de densité professionnelle",
       "metaDescription": "Comptez les mots, les caractères, les phrases et les paragraphes en ligne. Analysez instantanément la densité et les statistiques des mots clés dans votre navigateur en toute confidentialité.",
@@ -2585,56 +2772,6 @@
           "answer": "Oui. Une fois que l'exécution initiale a téléchargé et mis en cache les fichiers de modèle, vous pouvez désactiver votre connexion Internet et effectuer une transcription complètement hors ligne."
         }
       ]
-    },
-    "web-scraper": {
-      "title": "Comment lire et extraire des articles en privé",
-      "metaDescription": "Extrayez le texte de n’importe quel article en toute sécurité sur votre ordinateur local à l’aide de l’extension compagnon. Pas de suivi du serveur.",
-      "sections": [
-        {
-          "heading": "L’importance de l’extraction d’articles privés",
-          "level": "h2",
-          "paragraphs": [
-            "La plupart des outils de lecture en ligne et des extracteurs de texte acheminent vos demandes via leurs propres serveurs proxy. Cela signifie qu'ils peuvent suivre chaque article que vous lisez, créer un profil sur vos intérêts et enregistrer votre adresse IP. Pour les chercheurs, les journalistes et les utilisateurs soucieux de leur vie privée, il s’agit d’une fuite de sécurité massive.",
-            "En exécutant la logique d'extraction localement sur votre propre ordinateur à l'aide d'une extension de navigateur associée, vous éliminez entièrement les intermédiaires. Votre navigateur récupère l'article directement à partir de la source, garantissant qu'aucun serveur tiers ne verra jamais ce que vous lisez."
-          ]
-        },
-        {
-          "heading": "Comment utiliser le lecteur d'articles intelligent",
-          "level": "h2",
-          "listItems": [
-            "Installez l'extension Companion – L'extension agit comme un pont local sécurisé pour récupérer des sites Web directement depuis votre navigateur.",
-            "Collez l'URL de l'article : saisissez l'adresse Web de l'article que vous souhaitez extraire.",
-            "Extraire le contenu - L'outil récupérera le code HTML brut localement, supprimera toutes les publicités et tous les scripts de suivi et vous présentera un texte clair et lisible.",
-            "Lire ou enregistrer : profitez d'une expérience de lecture sans distraction ou copiez le texte propre pour vos propres notes."
-          ]
-        },
-        {
-          "heading": "Contourner les restrictions de sécurité en toute sécurité",
-          "level": "h2",
-          "paragraphs": [
-            "De nombreux sites Web utilisent des politiques CORS (Cross-Origin Resource Sharing) strictes et des options X-Frame pour empêcher d'autres sites de charger leur contenu. Notre extension locale supprime automatiquement ces en-têtes restrictifs pour les URL que vous demandez explicitement.",
-            "Cela permet à l'application Web ZeroWebTools d'analyser de manière transparente les données localement dans votre navigateur sans être bloquée, vous offrant ainsi la puissance d'un grattoir Web backend sans jamais avoir besoin d'un serveur backend."
-          ]
-        },
-        {
-          "heading": "Contourner les pare-feu et utiliser les archives Web",
-          "level": "h2",
-          "paragraphs": [
-            "Lorsque vous utilisez un réseau restrictif, tel qu'un intranet d'école ou d'entreprise, les pare-feu bloquent souvent l'accès direct aux sites d'actualités ou aux blogs. Étant donné que notre extension Smart Article Reader agit comme un proxy indépendant au sein de votre propre session de navigateur, elle peut souvent contourner le blocage de base du réseau.",
-            "De plus, si un site Web est complètement bloqué ou supprimé, notre outil interroge automatiquement les archives Web publiques (Wayback Machine) pour récupérer un instantané mis en cache non bloqué. Cela garantit que vous pouvez accéder aux informations dont vous avez besoin, quelles que soient les restrictions du réseau."
-          ]
-        }
-      ],
-      "faqs": [
-        {
-          "question": "Pourquoi dois-je installer une extension de navigateur ?",
-          "answer": "Les navigateurs Web empêchent les sites Web de récupérer des données sur d'autres sites Web (CORS). L'extension donne à votre navigateur l'autorisation dont il a besoin pour récupérer l'article localement afin que nous n'ayons pas besoin d'utiliser un serveur proxy central."
-        },
-        {
-          "question": "Suivez-vous les articles que je lis ?",
-          "answer": "Absolument pas. Étant donné que la demande de récupération s'effectue entièrement sur votre propre ordinateur, nos serveurs n'ont aucune visibilité sur les URL que vous saisissez dans l'outil."
-        }
-      ]
     }
   },
   "common": {
@@ -2843,5 +2980,24 @@
     "missing_extension_desc": "Pour contourner les paywalls et les restrictions CORS, veuillez installer l'extension ZeroWebTools Companion.",
     "download_extension": "Télécharger l'extension",
     "error_extract": "Échec de la lecture du contenu. Assurez-vous que l'URL est valide et que l'extension est installée."
+  },
+  "api_client": {
+    "url_placeholder": "https://api.example.com/v1/users",
+    "send_btn": "Envoyer la demande",
+    "sending": "Envoi...",
+    "tab_params": "Paramètres de requête",
+    "tab_headers": "En-têtes",
+    "tab_body": "Corps",
+    "tab_response": "Corps de réponse",
+    "tab_response_headers": "En-têtes",
+    "add_row": "Ajouter une ligne",
+    "key_placeholder": "Clé",
+    "value_placeholder": "Valeur",
+    "status": "Statut:",
+    "time": "Temps:",
+    "missing_extension_title": "Extension requise",
+    "missing_extension_desc": "Pour contourner les politiques CORS du navigateur et envoyer des requêtes HTTP sans restriction, veuillez installer l'extension ZeroWebTools Companion.",
+    "download_extension": "Télécharger l'extension",
+    "error_fetch": "La demande a échoué. Vérifiez l'URL ou assurez-vous que le serveur cible est en cours d'exécution et accessible."
   }
 }

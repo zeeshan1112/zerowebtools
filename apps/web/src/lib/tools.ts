@@ -128,7 +128,8 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Shuffle lists randomly or pick random items/winners from your entries. Free, 100% private, and runs entirely in your browser. No server uploads.",
       },
-      { id: "web-scraper", title: "Smart Article Reader", description: "Extract any article privately, convert websites to clean text, and read distraction-free.", status: "live", metaDescription: "Extract websites to clean text, and read ad-free. 100% serverless and private." }
+      { id: "web-scraper", title: "Smart Article Reader", description: "Extract any article privately, convert websites to clean text, and read distraction-free.", status: "live", metaDescription: "Extract websites to clean text, and read ad-free. 100% serverless and private." },
+      { id: "youtube-transcript", title: "YouTube Transcript Extractor", description: "Extract subtitles, captions, and transcripts from any YouTube video instantly.", status: "live", metaDescription: "Download YouTube transcripts and subtitles as SRT or plain text. 100% free, private, and lightning fast." }
     ],
   },
   {
@@ -136,6 +137,13 @@ export const CATEGORIES: ToolCategory[] = [
     title: "Developer Tools",
     description: "Validate, format, parse, and check your code and data structures client-side.",
     tools: [
+      {
+        id: "api-client",
+        title: "REST API Client",
+        description: "Construct and execute HTTP requests privately bypassing CORS using the companion extension.",
+        status: "live",
+        metaDescription: "Test and debug REST APIs directly in your browser. 100% private, no cloud syncing, bypasses CORS. Supports GET, POST, custom headers, and localhost requests.",
+      },
       {
         id: "json-formatter",
         title: "JSON Formatter",
@@ -234,6 +242,13 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Build cron schedule expressions visually or parse raw cron expressions into readable English sentences.",
         status: "live",
         metaDescription: "Build cron schedule expressions visually or parse raw cron expressions into readable English. View next 5 runtime dates. 100% private.",
+      },
+      {
+        id: "resume-builder",
+        title: "Professional Resume Builder",
+        description: "Build, preview, and print a pristine, multi-page professional resume natively in your browser.",
+        status: "live",
+        metaDescription: "100% private client-side resume builder. Design professional, ATS-friendly, pristine multi-page resumes and print to PDF natively without cloud uploads.",
       },
     ],
   },

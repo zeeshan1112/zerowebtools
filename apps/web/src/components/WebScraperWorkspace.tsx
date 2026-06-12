@@ -32,26 +32,7 @@ export default function WebScraperWorkspace() {
     }
   }, []);
 
-  // Set up message listener for extension proxy response
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.source !== window || !event.data || event.data.type !== 'ZWT_PROXY_FETCH_RESPONSE') {
-        return;
-      }
-      
-      // Found our response
-      const response = event.data.response;
-      if (response.error) {
-        setError(response.error);
-        setIsExtracting(false);
-      } else {
-        processHtml(response.body);
-      }
-    };
 
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
 
   const proxyFetchViaExtension = (targetUrl: string, spoof: boolean, customOptions?: { method?: string; headers?: Record<string, string>; body?: string }) => {
     const messageId = Math.random().toString(36).substring(2, 15);

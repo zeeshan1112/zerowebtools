@@ -34,6 +34,7 @@ const TOOL_WORKFLOW_TAGS: Record<string, string> = {
   "color-converter": "COLOR",
   "saas-mrr": "GROWTH",
   "startup-equity": "VESTING",
+  "resume-builder": "RESUME",
 };
 
 // Stagger variant variables
@@ -400,12 +401,28 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
               const isBookmarked = bookmarks.includes(tool.id);
               const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
               
+              const requiresExtension = ["web-scraper", "youtube-transcript", "api-client"].includes(tool.id);
+              
               return (
                 <Link
                   key={tool.id}
                   href={getLocalizedHref(`/tools/${tool.id}`)}
-                  className="group relative block p-6 rounded-2xl border border-dashed border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden shadow-sm"
+                  className={`group relative block p-6 rounded-2xl border border-dashed transition-all duration-200 active:scale-[0.99] bg-surface cursor-pointer overflow-hidden shadow-sm ${
+                    requiresExtension 
+                      ? "border-accent/40 dark:border-accent/30 hover:bg-accent/[0.03] max-sm:pointer-events-none hover:border-accent/60 hover:shadow-[0_0_20px_rgba(var(--accent-rgb, 59,130,246),0.15)]" 
+                      : "border-border/70 dark:border-border/40 hover:bg-surface-elevated/40"
+                  }`}
                 >
+                  {/* Mobile Overlay for Extension Tools */}
+                  {requiresExtension && (
+                    <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
+                      <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <span>Desktop Only</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Hydration-safe grid background */}
                   <GridOverlay isLive={true} />
 
@@ -432,17 +449,22 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     </p>
                     
                     <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                      <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
-                        {tagLabel}
-                        {tool.id === "web-scraper" && (
-                          <>
-                            <span className="mx-1.5 opacity-50">•</span>
-                            <span className="flex items-center" title="Requires Companion Extension">
-                              <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
+                      <div className="flex items-center gap-2">
+                        <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
+                          {tagLabel}
+                        </span>
+                        {requiresExtension && (
+                          <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
+                            <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
+                            </svg>
+                            <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
+                              Extension
                             </span>
-                          </>
+                          </div>
                         )}
-                      </span>
+                      </div>
                       <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                         LAUNCH
                         <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
@@ -472,12 +494,27 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {bookmarkedTools.map((tool) => {
                 const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "SAVED";
+                const requiresExtension = ["web-scraper", "youtube-transcript", "api-client"].includes(tool.id);
                 return (
                   <Link
                     key={tool.id}
                     href={getLocalizedHref(`/tools/${tool.id}`)}
-                    className="group relative block p-6 rounded-2xl border border-dashed border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer overflow-hidden shadow-sm"
+                    className={`group relative block p-6 rounded-2xl border border-dashed transition-all duration-200 active:scale-[0.99] bg-surface cursor-pointer overflow-hidden shadow-sm ${
+                      requiresExtension 
+                        ? "border-accent/40 dark:border-accent/30 hover:bg-accent/[0.03] max-sm:pointer-events-none hover:border-accent/60 hover:shadow-[0_0_20px_rgba(var(--accent-rgb, 59,130,246),0.15)]" 
+                        : "border-border/70 dark:border-border/40 hover:bg-surface-elevated/40"
+                    }`}
                   >
+                    {/* Mobile Overlay for Extension Tools */}
+                    {requiresExtension && (
+                      <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
+                        <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                          <span>Desktop Only</span>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Hydration-safe grid background */}
                     <GridOverlay isLive={true} />
 
@@ -502,17 +539,22 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       </p>
 
                       <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                        <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
-                          {tagLabel}
-                          {tool.id === "web-scraper" && (
-                            <>
-                              <span className="mx-1.5 opacity-50">•</span>
-                            <span className="flex items-center" title="Requires Companion Extension">
-                              <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
-                            </span>
-                            </>
+                        <div className="flex items-center gap-2">
+                          <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
+                            {tagLabel}
+                          </span>
+                          {requiresExtension && (
+                            <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
+                              <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
+                              </svg>
+                              <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
+                                Extension
+                              </span>
+                            </div>
                           )}
-                        </span>
+                        </div>
                         <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                           LAUNCH
                           <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
@@ -599,16 +641,30 @@ const tool = getLocalizedTool(rawTool, lang);
                       const isBookmarked = bookmarks.includes(tool.id);
                       const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
                       
+                      const requiresExtension = ["web-scraper", "youtube-transcript", "api-client"].includes(tool.id);
+                      
                       return (
                         <motion.div variants={staggerItem} key={tool.id} className="h-full">
                           <Link
                             href={isLive ? getLocalizedHref(`/tools/${tool.id}`) : "#"}
                             className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm ${
                               isLive
-                                ? "border-border/70 dark:border-border/40 transition-all duration-200 active:scale-[0.99] bg-surface hover:bg-surface-elevated/40 cursor-pointer"
+                                ? requiresExtension
+                                  ? "border-accent/40 dark:border-accent/30 hover:bg-accent/[0.03] hover:border-accent/60 hover:shadow-[0_0_20px_rgba(var(--accent-rgb, 59,130,246),0.15)] active:scale-[0.99] bg-surface cursor-pointer"
+                                  : "border-border/70 dark:border-border/40 hover:bg-surface-elevated/40 active:scale-[0.99] bg-surface cursor-pointer"
                                 : "border-border/20 bg-surface-elevated/25 pointer-events-none opacity-50"
-                            }`}
+                            } ${requiresExtension ? "max-sm:pointer-events-none" : ""}`}
                           >
+                            {/* Mobile Overlay for Extension Tools */}
+                            {isLive && requiresExtension && (
+                              <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
+                                <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
+                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                  <span>Desktop Only</span>
+                                </div>
+                              </div>
+                            )}
+
                             {/* Hydration-safe grid background */}
                             <GridOverlay isLive={isLive} />
 
@@ -640,17 +696,22 @@ const tool = getLocalizedTool(rawTool, lang);
 
                             {isLive ? (
                               <div className="mt-4 flex items-center justify-between text-[10px] select-none border-t border-border/20 pt-2 relative z-10">
-                                <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
-                                  {tagLabel}
-                                  {tool.id === "web-scraper" && (
-                                    <>
-                                      <span className="mx-1.5 opacity-50">•</span>
-                                      <span className="flex items-center" title="Requires Companion Extension">
-                                        <img src="/chrome_extension_icon.webp" alt="Extension Required" className="w-3.5 h-3.5 opacity-90 object-contain" />
+                                <div className="flex items-center gap-2">
+                                  <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
+                                    {tagLabel}
+                                  </span>
+                                  {requiresExtension && (
+                                    <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
+                                      <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
+                                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
+                                      </svg>
+                                      <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
+                                        Extension
                                       </span>
-                                    </>
+                                    </div>
                                   )}
-                                </span>
+                                </div>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                                   LAUNCH
                                   <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">

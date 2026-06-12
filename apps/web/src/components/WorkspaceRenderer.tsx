@@ -68,6 +68,9 @@ const TwoZeroFourEightWorkspace = dynamic(() => import("@/components/TwoZeroFour
 const HtmlToJsxWorkspace = dynamic(() => import("@/components/HtmlToJsxWorkspace"), { loading: WorkspaceLoader });
 const AudioTranscriberWorkspace = dynamic(() => import("@/components/AudioTranscriberWorkspace"), { loading: WorkspaceLoader });
 const WebScraperWorkspace = dynamic(() => import("@/components/WebScraperWorkspace"), { loading: WorkspaceLoader });
+const YoutubeTranscriptWorkspace = dynamic(() => import("@/components/YoutubeTranscriptWorkspace"), { loading: WorkspaceLoader });
+const ApiClientWorkspace = dynamic(() => import("@/components/ApiClientWorkspace"), { loading: WorkspaceLoader });
+const ResumeBuilderWorkspace = dynamic(() => import("@/components/ResumeBuilderWorkspace"), { loading: WorkspaceLoader });
 
 const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "json-formatter": JsonViewerWorkspace,
@@ -122,6 +125,9 @@ const WORKSPACE_MAP: Record<string, React.ComponentType> = {
   "html-to-jsx": HtmlToJsxWorkspace,
   "audio-transcriber": AudioTranscriberWorkspace,
   "web-scraper": WebScraperWorkspace,
+  "youtube-transcript": YoutubeTranscriptWorkspace,
+  "api-client": ApiClientWorkspace,
+  "resume-builder": ResumeBuilderWorkspace,
 };
 
 export default function WorkspaceRenderer({ toolId }: { toolId: string }) {

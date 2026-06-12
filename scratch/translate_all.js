@@ -77,7 +77,7 @@ function loadProgrammaticData() {
     return {};
   }
   let code = fs.readFileSync(SEO_DATA_FILE, 'utf8');
-  code = code.replace(/import\s+[\s\S]*?;/g, '');
+  code = code.replace(/^import\s+[\s\S]*?;/gm, '');
   code = code.replace('export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> =', 'global.PROGRAMMATIC_SEO_DATA =');
   
   eval(code);

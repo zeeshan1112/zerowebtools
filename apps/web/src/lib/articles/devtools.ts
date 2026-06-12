@@ -2,6 +2,47 @@ import { HowToArticle } from "../articles";
 
 export const DEVTOOLS_ARTICLES: HowToArticle[] = [
   {
+    slug: "how-to-use-rest-api-client",
+    title: "How to Test REST APIs Privately in Your Browser",
+    metaDescription: "Test and debug REST APIs directly in your browser without CORS issues. A 100% private, cloud-free alternative to Postman.",
+    toolId: "api-client",
+    sections: [
+      {
+        heading: "The Problem with Cloud-Based API Testers",
+        paragraphs: [
+          "Testing APIs is a fundamental part of modern web development. However, most popular API testing tools (like Postman or Insomnia) increasingly require you to create cloud accounts, sync your data to their servers, and work through bloated desktop applications.",
+          "When you are dealing with sensitive production API keys, customer data, or proprietary endpoints, syncing this data to a third-party server creates an unnecessary security risk."
+        ]
+      },
+      {
+        heading: "Why a Local Browser Client is Better",
+        listItems: [
+          "Zero Cloud Sync -- Your requests, headers, and API keys remain entirely in your browser's local memory. When you close the tab, it's gone.",
+          "Bypass CORS Restrictions -- Normally, browsers block cross-origin requests (CORS). By utilizing our open-source companion extension, our client acts as a native network proxy, allowing you to hit any endpoint (including localhost) without CORS errors.",
+          "Lightweight & Instant -- No heavy desktop apps to download, and no electron-based memory hogs. It's just a clean, instant UI."
+        ]
+      },
+      {
+        heading: "How to Use the REST API Client",
+        paragraphs: [
+          "Using our client is intuitive. First, select your HTTP method (GET, POST, PUT, DELETE) and enter the target URL. You can easily add custom headers like 'Authorization' or 'Content-Type' using the key-value interface.",
+          "If you are making a POST request, you can enter your JSON payload in the request body editor. Click 'Send' and the response—along with status codes, latency, and response headers—will be cleanly formatted in the output panel."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "How does it bypass CORS?",
+        answer: "Our tool works alongside a secure, open-source browser extension. The extension intercepts the fetch request and proxies it natively through the browser's background script, which is exempt from standard webpage CORS policies."
+      },
+      {
+        question: "Can I test my local development server?",
+        answer: "Yes! You can seamlessly test endpoints like http://localhost:3000 or http://127.0.0.1:8080 directly from the browser without any tunneling tools like ngrok."
+      }
+    ]
+  },
+
+  {
     slug: "format-json-online",
     title: "How to Format and Beautify JSON Data Online",
     metaDescription: "Validate, debug, and beautify minified JSON strings instantly. A 100% private developer tool to format JSON data in your browser.",

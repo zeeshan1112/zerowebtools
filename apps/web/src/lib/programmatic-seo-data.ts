@@ -1,6 +1,69 @@
 import { SubQuery } from "./tools";
 
 export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
+  "api-client": [
+    {
+      "slug": "rest-api-client-online",
+      "title": "Free Online REST API Client",
+      "metaDescription": "Test REST APIs directly from your browser. Send GET, POST, PUT, DELETE requests with custom headers instantly. No signup required.",
+      "articleIntro": {
+        "heading": "How to Use the Free Online REST API Client",
+        "paragraphs": [
+          "Testing APIs shouldn't require downloading heavy electron applications or creating forced cloud accounts. Our free online REST API client gives you the power to debug endpoints instantly in a lightweight, browser-based interface.",
+          "Whether you are testing public APIs or prototyping your backend, you can craft complex requests with custom headers, JSON payloads, and authorization tokens effortlessly."
+        ]
+      }
+    },
+    {
+      "slug": "test-localhost-api",
+      "title": "Test Localhost APIs in Browser",
+      "metaDescription": "Test your local development server (localhost:3000, 127.0.0.1) directly from the browser using our API client.",
+      "articleIntro": {
+        "heading": "Test Local Development Servers",
+        "paragraphs": [
+          "One of the biggest limitations of standard online API testers is their inability to reach your local machine. Because our REST API Client works alongside a native browser extension, it runs inside your own network perimeter.",
+          "This means you can easily test endpoints running on localhost (like port 3000, 8080, or 5000) exactly as if you were using Postman, without needing to setup complex ngrok tunnels."
+        ]
+      }
+    },
+    {
+      "slug": "bypass-cors-api-tester",
+      "title": "Bypass CORS API Tester",
+      "metaDescription": "Test any API endpoint without CORS errors. Our client proxies requests locally to bypass Cross-Origin Resource Sharing restrictions.",
+      "articleIntro": {
+        "heading": "Test APIs without CORS Restrictions",
+        "paragraphs": [
+          "Browser-based API testing is usually blocked by strict Cross-Origin Resource Sharing (CORS) policies. Our tool solves this by acting as a native extension proxy, stripping away CORS restrictions securely.",
+          "Because the request originates from the background script of the browser, you can debug third-party APIs that do not explicitly whitelist your domain."
+        ]
+      }
+    },
+    {
+      "slug": "private-api-debugging-tool",
+      "title": "100% Private API Debugging Tool",
+      "metaDescription": "Debug sensitive APIs privately. Your requests, API keys, and responses are never synced to the cloud.",
+      "articleIntro": {
+        "heading": "Secure and Private API Testing",
+        "paragraphs": [
+          "When handling production API keys, bearer tokens, or customer data, you should never sync your requests to a third-party server. Our Private API Debugging Tool ensures absolute confidentiality.",
+          "All request histories, headers, and responses remain strictly in your browser's ephemeral memory. When you close the tab, the data is permanently erased."
+        ]
+      }
+    },
+    {
+      "slug": "postman-alternative-online",
+      "title": "Browser-Based Postman Alternative",
+      "metaDescription": "Looking for a fast, free, browser-based alternative to Postman? Test APIs, manage headers, and analyze JSON responses instantly.",
+      "articleIntro": {
+        "heading": "A Lightweight Postman Alternative",
+        "paragraphs": [
+          "If you find Postman increasingly bloated or restrictive with its cloud-syncing mandates, our REST API Client offers a refreshing alternative.",
+          "It provides the essential features developers actually need—HTTP methods, header management, body payloads, and response formatting—without the enterprise overhead or account requirements."
+        ]
+      }
+    }
+  ],
+
   "pdf-merge": [
     {
       "slug": "pdf-merge-online-free",
@@ -3197,6 +3260,154 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         "paragraphs": [
           "When you are on a restrictive network, such as a school or corporate intranet, firewalls often block direct access to news sites or blogs. Because our Smart Article Reader extension acts as an independent proxy within your own browser session, it can bypass basic network blocking.",
           "Additionally, if a website is completely blocked, our tool automatically queries the public Web Archive (Wayback Machine) to fetch an unblocked cached snapshot. This guarantees you can access the information you need, regardless of network restrictions."
+        ]
+      }
+    },
+    {
+      "slug": "clean-article-reader",
+      "title": "Clean Article Reader - Distraction Free",
+      "metaDescription": "Read articles cleanly without distractions. Strip out ads and popups instantly using our free tool.",
+      "articleIntro": {
+        "heading": "Read Articles Distraction Free",
+        "paragraphs": [
+          "Tired of popups, autoplaying videos, and massive ad banners ruining your reading experience? Our Clean Article Reader parses the core content of any webpage and presents it in a beautiful, typography-optimized view.",
+          "Enjoy reading online the way it was meant to be. Pure text, clear headings, and zero distractions."
+        ]
+      }
+    },
+    {
+      "slug": "ad-free-web-reader",
+      "title": "Ad-Free Web Reader Online",
+      "metaDescription": "Transform any URL into an ad-free reading experience. Our smart scraper fetches the content securely and formats it for reading.",
+      "articleIntro": {
+        "heading": "Transform URLs into Ad-Free Content",
+        "paragraphs": [
+          "Bypass aggressive ad networks and heavy trackers with our Ad-Free Web Reader. Just paste a link and we instantly render the text content.",
+          "Because the extraction happens locally on your machine, your reading habits remain completely untracked."
+        ]
+      }
+    }
+  ],
+  "youtube-transcript": [
+    {
+      "slug": "youtube-transcript-online-free",
+      "title": "Free Online YouTube Transcript Extractor",
+      "metaDescription": "Download YouTube transcripts and subtitles instantly for free. Save as SRT or plain text without any server limits or API costs.",
+      "articleIntro": {
+        "heading": "How to Extract YouTube Transcripts",
+        "paragraphs": [
+          "Extracting subtitles and transcripts from YouTube videos used to require expensive tools or slow API services. Our Free Online YouTube Transcript Extractor changes the game by fetching the closed captions directly from the video page.",
+          "Whether you are a content creator repurposing your videos into blog posts, or a student downloading lecture transcripts to study, this tool offers lightning-fast, 100% private text extraction right in your browser."
+        ]
+      }
+    },
+    {
+      "slug": "youtube-to-srt-converter",
+      "title": "YouTube to SRT Subtitle Converter",
+      "metaDescription": "Convert YouTube closed captions and auto-generated subtitles to standard .SRT files instantly. Free and secure.",
+      "articleIntro": {
+        "heading": "Convert YouTube to SRT Format",
+        "paragraphs": [
+          "If you are editing videos and need standard SubRip Subtitle (.SRT) files, our tool has you covered. It automatically formats the raw YouTube caption timings into perfect SRT files that you can import directly into Premiere Pro, Final Cut, or DaVinci Resolve.",
+          "Simply paste the video URL, select your language, and click download. It's completely free and processes entirely on your local machine."
+        ]
+      }
+    },
+    {
+      "slug": "download-youtube-subtitles",
+      "title": "Download YouTube Subtitles as Text",
+      "metaDescription": "Download any YouTube video's subtitles as clean text. Fast, free, and private transcript downloader.",
+      "articleIntro": {
+        "heading": "Download Video Subtitles Easily",
+        "paragraphs": [
+          "Need to quickly grab the text from a video? Our tool allows you to download YouTube subtitles as plain text without timestamps or formatting clutter.",
+          "Perfect for creating summaries, studying, or generating blog content from video material."
+        ]
+      }
+    },
+    {
+      "slug": "youtube-video-text-extractor",
+      "title": "YouTube Video Text Extractor",
+      "metaDescription": "Extract all spoken text from a YouTube video instantly. No signup required.",
+      "articleIntro": {
+        "heading": "Extract Text from Any YouTube Video",
+        "paragraphs": [
+          "Stop transcribing videos manually. Our text extractor hooks directly into YouTube's hidden caption tracks to pull out every spoken word perfectly.",
+          "With support for dozens of languages and auto-generated captions, you can extract the exact transcript you need in seconds."
+        ]
+      }
+    },
+    {
+      "slug": "private-youtube-transcription",
+      "title": "Private YouTube Transcription Tool",
+      "metaDescription": "Transcribe YouTube videos privately. Our tool runs locally in your browser so your extraction history is never logged.",
+      "articleIntro": {
+        "heading": "100% Private Video Transcription",
+        "paragraphs": [
+          "Unlike cloud-based transcription bots that save your history, our tool operates entirely in your browser using extension-level API proxying.",
+          "Your data is yours alone. Transcribe confidently knowing that no server is monitoring what videos you are analyzing."
+        ]
+      }
+    }
+  ],
+  "resume-builder": [
+    {
+      "slug": "professional-resume-builder-online",
+      "title": "Professional Resume Builder Online",
+      "metaDescription": "Create a professional, ATS-friendly resume online for free. No signup, no watermarks, completely private.",
+      "articleIntro": {
+        "heading": "Build a Professional Resume",
+        "paragraphs": [
+          "Crafting the perfect resume is the first step to landing your dream job. Our Professional Resume Builder provides clean, modern templates that are designed to pass Applicant Tracking Systems (ATS).",
+          "Everything runs in your browser, meaning your personal contact details and work history are never uploaded to a corporate server."
+        ]
+      }
+    },
+    {
+      "slug": "ats-friendly-resume-maker",
+      "title": "ATS-Friendly Resume Maker",
+      "metaDescription": "Design an ATS-friendly resume that passes automated screening. Free online resume maker.",
+      "articleIntro": {
+        "heading": "Pass the ATS with Ease",
+        "paragraphs": [
+          "Many qualified candidates are rejected simply because their resume uses complex graphics that confuse Applicant Tracking Systems. Our templates are structurally optimized to be perfectly readable by ATS bots.",
+          "Focus on your content while our engine handles the precise PDF rendering and layout."
+        ]
+      }
+    },
+    {
+      "slug": "private-resume-generator",
+      "title": "100% Private Resume Generator",
+      "metaDescription": "Generate your resume privately. Our client-side resume maker never uploads your data to any server.",
+      "articleIntro": {
+        "heading": "Your Data Stays Yours",
+        "paragraphs": [
+          "Most online resume builders force you to create an account and harvest your personal data. We take a radically different approach: our generator runs entirely offline inside your browser.",
+          "Your phone number, address, and career history never leave your device. Print to PDF securely."
+        ]
+      }
+    },
+    {
+      "slug": "free-pdf-resume-creator",
+      "title": "Free PDF Resume Creator",
+      "metaDescription": "Create and download a PDF resume for free. No hidden paywalls or watermarks.",
+      "articleIntro": {
+        "heading": "Download Your PDF Instantly",
+        "paragraphs": [
+          "Don't get tricked by tools that let you build a resume only to charge you $15 at the final download step. Our Free PDF Resume Creator is completely free from start to finish.",
+          "Generate unlimited PDFs and tweak your design as many times as you want without hitting a paywall."
+        ]
+      }
+    },
+    {
+      "slug": "no-signup-resume-builder",
+      "title": "No Signup Resume Builder",
+      "metaDescription": "Start building your resume immediately without creating an account. Fast, free, and intuitive.",
+      "articleIntro": {
+        "heading": "Start Building Instantly",
+        "paragraphs": [
+          "Skip the tedious registration process and start drafting your resume immediately. Our No Signup Resume Builder values your time and privacy.",
+          "Your progress is saved locally in your browser, so you can close the tab and return later without ever needing a password."
         ]
       }
     }

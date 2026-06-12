@@ -206,5 +206,24 @@
     "download_extension": "Download Extension",
     "error_extract": "Failed to read content. Ensure the URL is valid and the extension is installed."
   },
+  "api_client": {
+    "url_placeholder": "https://api.example.com/v1/users",
+    "send_btn": "Send Request",
+    "sending": "Sending...",
+    "tab_params": "Query Params",
+    "tab_headers": "Headers",
+    "tab_body": "Body",
+    "tab_response": "Response Body",
+    "tab_response_headers": "Headers",
+    "add_row": "Add Row",
+    "key_placeholder": "Key",
+    "value_placeholder": "Value",
+    "status": "Status:",
+    "time": "Time:",
+    "missing_extension_title": "Extension Required",
+    "missing_extension_desc": "To bypass browser CORS policies and send unrestricted HTTP requests, please install the ZeroWebTools Companion extension.",
+    "download_extension": "Download Extension",
+    "error_fetch": "Request failed. Check the URL or ensure the target server is running and reachable."
+  },
   "articles": {}
 }
