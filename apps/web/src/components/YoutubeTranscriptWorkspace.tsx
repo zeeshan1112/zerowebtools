@@ -102,33 +102,41 @@ export default function YoutubeTranscriptWorkspace() {
         throw new Error("Invalid YouTube URL or Video ID.");
       }
 
-      const INNERTUBE_CLIENT_VERSION = '20.10.38';
-      const INNERTUBE_API_URL = 'https://www.youtube.com/youtubei/v1/player?prettyPrint=false';
+      // Fetch the standard YouTube watch page HTML
+      // By passing true as the second parameter, the extension will spoof Googlebot
+      // which completely bypasses YouTube's Captchas and bot protection
+      const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      const htmlRes: any = await proxyFetchViaExtension(watchUrl, true, 'GET', {
+        'Accept-Language': 'en-US,en;q=0.9',
+      });
       
-      const res: any = await proxyFetchViaExtension(INNERTUBE_API_URL, false, 'POST', {
-        'Content-Type': 'application/json',
-        'User-Agent': `com.google.android.youtube/${INNERTUBE_CLIENT_VERSION} (Linux; U; Android 14)`,
-      }, JSON.stringify({
-        context: {
-          client: {
-            clientName: 'ANDROID',
-            clientVersion: INNERTUBE_CLIENT_VERSION,
-          }
-        },
-        videoId: videoId
-      }));
-      
-      let data;
-      try {
-        if (!res.body) {
-          throw new Error("Empty body returned");
-        }
-        data = JSON.parse(res.body);
-      } catch (e: any) {
-        throw new Error(`API Parse Error: ${e.message}. Status: ${res.status}. Body: ${String(res.body).substring(0, 150)}`);
+      const html = htmlRes.body;
+      if (!html) throw new Error("Empty body returned from watch page");
+
+      if (html.includes('<title>Sorry...</title>') || html.includes('captcha')) {
+        throw new Error("YouTube blocked the request with a Captcha. Try disabling your VPN or waiting a few minutes.");
       }
-      
-      const parsedTracks = data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
+
+      let parsedTracks;
+      try {
+        const captionsSplit = html.split('"captions":');
+        if (captionsSplit.length <= 1) {
+          throw new Error("No captions object found in HTML. This video may not have subtitles.");
+        }
+        
+        // The captions object is followed by videoDetails, trackingParams, or playerConfig
+        let captionsStr = captionsSplit[1];
+        captionsStr = captionsStr.split(',"videoDetails"')[0];
+        captionsStr = captionsStr.split(',"trackingParams"')[0];
+        captionsStr = captionsStr.split(',"playerConfig"')[0];
+        
+        // Sometimes there are trailing characters if the split wasn't perfect, we can clean it up
+        // by finding the last matching closing brace
+        const captionsJson = JSON.parse(captionsStr);
+        parsedTracks = captionsJson?.playerCaptionsTracklistRenderer?.captionTracks;
+      } catch (e: any) {
+        throw new Error(`Failed to parse subtitles from page: ${e.message}`);
+      }
       
       if (!parsedTracks || !Array.isArray(parsedTracks) || parsedTracks.length === 0) {
         throw new Error("No subtitles or captions found for this video.");
@@ -160,9 +168,8 @@ export default function YoutubeTranscriptWorkspace() {
   const fetchTranscript = async (trackUrl: string) => {
     setIsExtracting(true);
     try {
-      const res: any = await proxyFetchViaExtension(trackUrl, false, 'GET', {
+      const res: any = await proxyFetchViaExtension(trackUrl, true, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
       });
       const xmlText = res.body;
       
