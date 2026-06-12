@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { Reorder } from "framer-motion";
+import { Reorder, motion, AnimatePresence } from "framer-motion";
 import { useWorkspaceTranslation } from "./WorkspaceTranslationContext";
 import { pdf } from "@react-pdf/renderer";
 import { ResumeDocument } from "./ResumePDFTemplates";
@@ -264,17 +264,22 @@ export default function ResumeBuilderWorkspace() {
   };
 
   // --- Render Editor ---
-  const renderItemEditor = (category: keyof ResumeData, item: ResumeItem, index: number, isSkill = false) => {
+    const renderItemEditor = (category: keyof ResumeData, item: ResumeItem, index: number, isSkill = false) => {
     return (
-      <div key={item.id} className="p-4 border border-border rounded-xl bg-surface mb-4 shadow-sm relative group">
+      <Reorder.Item 
+        key={item.id} 
+        value={item}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, height: 0 }}
+        className="p-4 border border-border rounded-xl bg-surface mb-4 shadow-sm relative group cursor-grab active:cursor-grabbing bg-white dark:bg-neutral-900"
+      >
         <div className="absolute right-2 top-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button onClick={() => reorderItem(category, index, -1)} disabled={index === 0} className="p-1.5 text-ink-muted hover:text-ink disabled:opacity-30 rounded hover:bg-surface-elevated">↑</button>
-          <button onClick={() => reorderItem(category, index, 1)} disabled={index === (data[category] as any[]).length - 1} className="p-1.5 text-ink-muted hover:text-ink disabled:opacity-30 rounded hover:bg-surface-elevated">↓</button>
-          <button onClick={() => deleteItem(category, index)} className="p-1.5 text-red-400 hover:text-red-500 rounded hover:bg-red-50 dark:hover:bg-red-500/10">✕</button>
+          <button onPointerDown={(e) => e.stopPropagation()} onClick={() => deleteItem(category, index)} className="p-1.5 text-red-400 hover:text-red-500 rounded hover:bg-red-50 dark:hover:bg-red-500/10 cursor-pointer">✕</button>
         </div>
         
         {isSkill ? (
-          <div className="grid gap-3 pt-2">
+          <div className="grid gap-3 pt-2" onPointerDown={(e) => e.stopPropagation()}>
             <div>
               <label className="text-xs font-bold text-ink-muted mb-1 block">Category</label>
               <input value={(item as any).category} onChange={e => updateItem(category, index, "category" as any, e.target.value)} className="w-full bg-surface dark:bg-neutral-800 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/40" />
@@ -285,7 +290,7 @@ export default function ResumeBuilderWorkspace() {
             </div>
           </div>
         ) : (
-          <div className="grid gap-3 pt-2">
+          <div className="grid gap-3 pt-2" onPointerDown={(e) => e.stopPropagation()}>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-bold text-ink-muted mb-1 block">Title</label>
@@ -320,7 +325,7 @@ export default function ResumeBuilderWorkspace() {
             </div>
           </div>
         )}
-      </div>
+      </Reorder.Item>
     );
   };
 
@@ -436,7 +441,11 @@ export default function ResumeBuilderWorkspace() {
 
       {["experience", "education", "projects"].includes(activeEditorSection) && (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
-          {(data[activeEditorSection as keyof ResumeData] as any[]).map((item: any, idx: number) => renderItemEditor(activeEditorSection as any, item, idx))}
+          <Reorder.Group axis="y" values={data[activeEditorSection as keyof ResumeData] as any[]} onReorder={(newOrder) => setData(prev => ({ ...prev, [activeEditorSection]: newOrder }))} className="space-y-4">
+            <AnimatePresence mode="popLayout">
+              {(data[activeEditorSection as keyof ResumeData] as any[]).map((item: any, idx: number) => renderItemEditor(activeEditorSection as any, item, idx))}
+            </AnimatePresence>
+          </Reorder.Group>
           <button onClick={() => addItem(activeEditorSection as any)} className="w-full py-3 border-2 border-dashed border-border rounded-xl text-ink-muted font-bold hover:border-accent hover:text-accent transition-colors flex items-center justify-center gap-2">
             <span>+ Add {activeEditorSection.charAt(0).toUpperCase() + activeEditorSection.slice(1)}</span>
           </button>
@@ -445,7 +454,11 @@ export default function ResumeBuilderWorkspace() {
 
       {activeEditorSection === "skills" && (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
-          {data.skills.map((item: any, idx: number) => renderItemEditor("skills", item, idx, true))}
+          <Reorder.Group axis="y" values={data.skills} onReorder={(newOrder) => setData(prev => ({ ...prev, skills: newOrder }))} className="space-y-4">
+            <AnimatePresence mode="popLayout">
+              {data.skills.map((item: any, idx: number) => renderItemEditor("skills", item, idx, true))}
+            </AnimatePresence>
+          </Reorder.Group>
           <button onClick={() => addItem("skills")} className="w-full py-3 border-2 border-dashed border-border rounded-xl text-ink-muted font-bold hover:border-accent hover:text-accent transition-colors flex items-center justify-center gap-2">
             <span>+ Add Skill Category</span>
           </button>
@@ -470,12 +483,14 @@ export default function ResumeBuilderWorkspace() {
                 </div>
 
                 <div className="space-y-4">
-                  {customSec.items.map((item, index) => (
-                    <div key={item.id} className="relative p-5 bg-surface-elevated/40 border border-border/60 rounded-xl shadow-sm backdrop-blur-sm group">
+                  <Reorder.Group axis="y" values={customSec.items} onReorder={(newItems) => setData(prev => ({ ...prev, customSections: (prev.customSections || []).map(c => c.id === customSec.id ? { ...c, items: newItems } : c) }))} className="space-y-4">
+                    <AnimatePresence mode="popLayout">
+                      {customSec.items.map((item, index) => (
+                    <Reorder.Item key={item.id} value={item} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, height: 0 }} className="relative p-5 bg-surface-elevated/40 border border-border/60 rounded-xl shadow-sm backdrop-blur-sm group cursor-grab active:cursor-grabbing bg-white dark:bg-neutral-900">
                       <button onClick={() => deleteCustomItem(customSec.id, index)} className="absolute top-4 right-4 p-2 text-ink-muted hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md opacity-0 group-hover:opacity-100 transition-all">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
                       </button>
-                      <div className="grid gap-4">
+                      <div className="grid gap-4" onPointerDown={(e) => e.stopPropagation()}>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
                             <label className="text-xs font-bold text-ink-muted mb-1 block">Title / Name</label>
@@ -505,8 +520,10 @@ export default function ResumeBuilderWorkspace() {
                           </label>
                         </div>
                       </div>
-                    </div>
+                    </Reorder.Item>
                   ))}
+                  </AnimatePresence>
+                  </Reorder.Group>
                   
                   <button onClick={() => addCustomItem(customSec.id)} className="w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-dashed border-border text-ink-muted hover:border-accent hover:text-accent hover:bg-accent/5 transition-all font-medium">
                     + Add Item
@@ -643,18 +660,24 @@ export default function ResumeBuilderWorkspace() {
         </div>
         
         {/* The Toggle */}
-        <div className="bg-surface-elevated/80 p-1 rounded-xl border border-border/50 shadow-inner flex">
+        <div className="bg-surface-elevated/80 p-1 rounded-xl border border-border/50 shadow-inner flex relative">
           <button 
             onClick={() => setViewMode("edit")} 
-            className={`px-6 py-2 text-xs font-bold rounded-lg transition-all ${viewMode === "edit" ? "bg-surface shadow-sm text-ink border border-border/50" : "text-ink-muted hover:text-ink"}`}
+            className={`relative px-6 py-2 text-xs font-bold rounded-lg transition-colors z-10 ${viewMode === "edit" ? "text-ink" : "text-ink-muted hover:text-ink"}`}
           >
             Edit Content
+            {viewMode === "edit" && (
+              <motion.div layoutId="viewModeToggle" className="absolute inset-0 bg-surface shadow-sm border border-border/50 rounded-lg -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+            )}
           </button>
           <button 
-            onClick={() => setViewMode("preview")} 
-            className={`px-6 py-2 text-xs font-bold rounded-lg transition-all ${viewMode === "preview" ? "bg-ink shadow-md text-surface" : "text-ink-muted hover:text-ink"}`}
+            onClick={() => { setPreviewData(data); setViewMode("preview"); }} 
+            className={`relative px-6 py-2 text-xs font-bold rounded-lg transition-colors z-10 ${viewMode === "preview" ? "text-surface" : "text-ink-muted hover:text-ink"}`}
           >
             View Resume
+            {viewMode === "preview" && (
+              <motion.div layoutId="viewModeToggle" className="absolute inset-0 bg-ink shadow-md rounded-lg -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+            )}
           </button>
         </div>
 
@@ -668,8 +691,24 @@ export default function ResumeBuilderWorkspace() {
         {/* Pane 1: Editor */}
         <div className={`absolute inset-0 bg-surface/50 backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${viewMode === "edit" ? "translate-x-0 z-40" : "-translate-x-full z-0 pointer-events-none opacity-0"}`}>
           <div className="p-3 border-b border-border/50 bg-surface/80 flex justify-center gap-2">
-            <button onClick={() => setActiveTab("content")} className={`px-6 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === "content" ? "bg-surface border border-border shadow-sm text-ink" : "text-ink-muted hover:text-ink"}`}>Content</button>
-            <button onClick={() => setActiveTab("design")} className={`px-6 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === "design" ? "bg-surface border border-border shadow-sm text-ink" : "text-ink-muted hover:text-ink"}`}>Design & Templates</button>
+            <button 
+              onClick={() => setActiveTab("content")} 
+              className={`relative px-6 py-1.5 text-xs font-bold rounded-lg transition-colors z-10 ${activeTab === "content" ? "text-ink" : "text-ink-muted hover:text-ink"}`}
+            >
+              Content
+              {activeTab === "content" && (
+                <motion.div layoutId="tabToggle" className="absolute inset-0 bg-surface border border-border shadow-sm rounded-lg -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+              )}
+            </button>
+            <button 
+              onClick={() => setActiveTab("design")} 
+              className={`relative px-6 py-1.5 text-xs font-bold rounded-lg transition-colors z-10 ${activeTab === "design" ? "text-ink" : "text-ink-muted hover:text-ink"}`}
+            >
+              Design & Templates
+              {activeTab === "design" && (
+                <motion.div layoutId="tabToggle" className="absolute inset-0 bg-surface border border-border shadow-sm rounded-lg -z-10" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+              )}
+            </button>
           </div>
           
           <div className="flex-1 overflow-auto p-4 sm:p-8 custom-scrollbar">
@@ -689,7 +728,7 @@ export default function ResumeBuilderWorkspace() {
 
         {/* Pane 2: PDF Preview */}
         <div className={`absolute inset-0 bg-neutral-100 dark:bg-neutral-950 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${viewMode === "preview" ? "translate-x-0 z-40" : "translate-x-full z-0 pointer-events-none opacity-0"}`}>
-          <ReactPDFViewer data={data} />
+          <ReactPDFViewer data={previewData} />
         </div>
       </div>
     </div>
