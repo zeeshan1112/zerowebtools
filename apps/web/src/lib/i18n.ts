@@ -2855,6 +2855,53 @@ const TOOL_TRANSLATIONS: Record<string, Record<string, { title: string; descript
       "description": "يمكنك إنشاء سيرة ذاتية احترافية متعددة الصفحات ومعاينتها وطباعتها محليًا في متصفحك.",
       "metaDescription": "مُنشئ سيرة ذاتية خاص بنسبة 100% من جانب العميل. صمم سيرة ذاتية احترافية ومتعددة الصفحات وصديقة لـ ATS واطبعها إلى PDF محليًا بدون تحميلات على السحابة."
     }
+  },
+  "api-client": {
+    "es": {
+      "title": "Cliente API REST",
+      "description": "Pruebe, depure y rastree las API REST de forma segura desde su navegador utilizando un cliente de red nativo avanzado.",
+      "metaDescription": "Pruebe y depure las API REST directamente en su navegador. 100% privado, sin sincronización en la nube, evita CORS. Admite GET, POST, encabezados personalizados y solicitudes de host local."
+    },
+    "de": {
+      "title": "REST-API-Client",
+      "description": "Testen, debuggen und verfolgen Sie REST-APIs sicher von Ihrem Browser aus mit einem erweiterten nativen Netzwerk-Client.",
+      "metaDescription": "Testen und debuggen Sie REST-APIs direkt in Ihrem Browser. 100 % privat, keine Cloud-Synchronisierung, umgeht CORS. Unterstützt GET, POST, benutzerdefinierte Header und Localhost-Anfragen."
+    },
+    "fr": {
+      "title": "Client API REST",
+      "description": "Testez, déboguez et tracez les API REST en toute sécurité depuis votre navigateur à l'aide d'un client réseau natif avancé.",
+      "metaDescription": "Testez et déboguez les API REST directement dans votre navigateur. 100 % privé, pas de synchronisation cloud, contourne CORS. Prend en charge les requêtes GET, POST, les en-têtes personnalisés et localhost."
+    },
+    "pt": {
+      "title": "Cliente API REST",
+      "description": "Teste, depure e rastreie APIs REST com segurança em seu navegador usando um cliente de rede nativo avançado.",
+      "metaDescription": "Teste e depure APIs REST diretamente no seu navegador. 100% privado, sem sincronização na nuvem, ignora CORS. Suporta GET, POST, cabeçalhos personalizados e solicitações de host local."
+    },
+    "ja": {
+      "title": "REST APIクライアント",
+      "description": "高度なネイティブ ネットワーク クライアントを使用して、ブラウザから REST API を安全にテスト、デバッグ、トレースします。",
+      "metaDescription": "ブラウザで直接 REST API をテストおよびデバッグします。 100% プライベート、クラウド同期なし、CORS をバイパスします。 GET、POST、カスタム ヘッダー、および localhost リクエストをサポートします。"
+    },
+    "zh": {
+      "title": "REST API 客户端",
+      "description": "使用高级本机网络客户端从浏览器安全地测试、调试和跟踪 REST API。",
+      "metaDescription": "直接在浏览器中测试和调试 REST API。 100% 私有，无云同步，绕过 CORS。支持 GET、POST、自定义标头和本地主机请求。"
+    },
+    "hi": {
+      "title": "रेस्ट एपीआई क्लाइंट",
+      "description": "उन्नत देशी नेटवर्क क्लाइंट का उपयोग करके अपने ब्राउज़र से REST API का सुरक्षित रूप से परीक्षण, डीबग और ट्रेस करें।",
+      "metaDescription": "सीधे अपने ब्राउज़र में REST API का परीक्षण और डीबग करें। 100% निजी, कोई क्लाउड सिंकिंग नहीं, CORS को बायपास करता है। GET, POST, कस्टम हेडर और लोकलहोस्ट अनुरोधों का समर्थन करता है।"
+    },
+    "it": {
+      "title": "Client API REST",
+      "description": "Testa, esegui il debug e traccia le API REST in modo sicuro dal tuo browser utilizzando un client di rete nativo avanzato.",
+      "metaDescription": "Testa ed esegui il debug delle API REST direttamente nel tuo browser. 100% privato, nessuna sincronizzazione cloud, ignora CORS. Supporta GET, POST, intestazioni personalizzate e richieste localhost."
+    },
+    "ar": {
+      "title": "عميل REST API",
+      "description": "اختبار وتصحيح وتتبع واجهات برمجة تطبيقات REST بشكل آمن من متصفحك باستخدام عميل شبكة أصلي متقدم.",
+      "metaDescription": "اختبار وتصحيح واجهات برمجة تطبيقات REST مباشرة في متصفحك. خاص بنسبة 100%، ولا توجد مزامنة سحابية، ويتجاوز CORS. يدعم GET وPOST والرؤوس المخصصة وطلبات المضيف المحلي."
+    }
   }
 };
 

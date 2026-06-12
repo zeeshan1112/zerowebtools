@@ -2,6 +2,47 @@ import { HowToArticle } from "../articles";
 
 export const GENERATORS_ARTICLES: HowToArticle[] = [
   {
+    slug: "how-to-build-professional-resume",
+    title: "How to Build a Professional, ATS-Friendly Resume Online",
+    metaDescription: "Design a pristine, multi-page professional resume natively in your browser. 100% private without cloud uploads.",
+    toolId: "resume-builder",
+    sections: [
+      {
+        heading: "The Flaws of Modern Resume Builders",
+        paragraphs: [
+          "Most online resume builders lure you in with 'free' templates, only to hit you with a $15 paywall at the exact moment you try to download your PDF.",
+          "Even worse, these platforms force you to create accounts and harvest your deeply personal data—phone numbers, addresses, and employment history—to sell to recruiters or third parties."
+        ]
+      },
+      {
+        heading: "A 100% Private Client-Side Solution",
+        listItems: [
+          "No Paywalls or Signups -- Our resume builder is completely free from start to finish. You can download your PDF instantly without creating an account.",
+          "Absolute Data Privacy -- The entire application runs locally in your browser via WebAssembly. Your contact details and work history never leave your device.",
+          "ATS-Optimized Templates -- Many visually stunning resumes fail Applicant Tracking Systems (ATS) because bots cannot parse complex layouts. Our templates use clean structural hierarchies to ensure your resume is perfectly machine-readable while maintaining a professional aesthetic."
+        ]
+      },
+      {
+        heading: "Features of the Professional Resume Builder",
+        paragraphs: [
+          "You can seamlessly add work experience, education, skills, and certifications. The live preview engine updates your PDF instantly as you type.",
+          "Need a multi-page resume? Our intelligent pagination system automatically breaks pages cleanly without cutting text in half. You can also reorder sections via drag-and-drop, toggle specific items on or off, and tweak the visual theme to match your industry."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "Is my resume saved if I close the tab?",
+        answer: "Yes. Your progress is automatically saved to your browser's local storage (IndexedDB). When you return to the page on the same device, your data will still be there, without ever touching our servers."
+      },
+      {
+        question: "Can I import my LinkedIn profile?",
+        answer: "Currently, you must enter your details manually. However, because it's a completely private offline tool, you can safely copy and paste your exact bullet points without worrying about data leakage."
+      }
+    ]
+  },
+
+  {
     slug: "base64-encode-decode-text",
     title: "How to Encode and Decode Base64 Text and Files Online",
     metaDescription: "Encode and decode text or files to Base64 in your browser. A 100% private, client-side tool with instant local processing and no server uploads.",

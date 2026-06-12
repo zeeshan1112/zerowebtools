@@ -1,5 +1,46 @@
 {
   "articles": {
+    "api-client": {
+      "title": "Come testare le API REST in privato nel tuo browser",
+      "metaDescription": "Testa ed esegui il debug delle API REST direttamente nel tuo browser senza problemi CORS. Un'alternativa privata al 100% e priva di cloud a Postman.",
+      "sections": [
+        {
+          "heading": "Il problema con i tester API basati su cloud",
+          "level": "h2",
+          "paragraphs": [
+            "Il test delle API è una parte fondamentale dello sviluppo web moderno. Tuttavia, gli strumenti di test API più popolari (come Postman o Insomnia) richiedono sempre più la creazione di account cloud, la sincronizzazione dei dati sui loro server e il lavoro tramite applicazioni desktop gonfie.",
+            "Quando hai a che fare con chiavi API di produzione sensibili, dati dei clienti o endpoint proprietari, la sincronizzazione di questi dati con un server di terze parti crea un rischio per la sicurezza non necessario."
+          ]
+        },
+        {
+          "heading": "Perché un client browser locale è migliore",
+          "level": "h2",
+          "listItems": [
+            "Zero Cloud Sync: le tue richieste, intestazioni e chiavi API rimangono interamente nella memoria locale del tuo browser. Quando chiudi la scheda, non c'è più.",
+            "Ignora le restrizioni CORS: normalmente i browser bloccano le richieste multiorigine (CORS). Utilizzando la nostra estensione complementare open source, il nostro client agisce come proxy di rete nativo, consentendoti di raggiungere qualsiasi endpoint (incluso localhost) senza errori CORS.",
+            "Leggero e istantaneo: nessuna app desktop pesante da scaricare e nessun consumo di memoria basato sugli elettroni. È semplicemente un'interfaccia utente pulita e istantanea."
+          ]
+        },
+        {
+          "heading": "Come utilizzare il client API REST",
+          "level": "h2",
+          "paragraphs": [
+            "Usare il nostro client è intuitivo. Innanzitutto, seleziona il tuo metodo HTTP (GET, POST, PUT, DELETE) e inserisci l'URL di destinazione. Puoi aggiungere facilmente intestazioni personalizzate come \"Autorizzazione\" o \"Tipo di contenuto\" utilizzando l'interfaccia del valore-chiave.",
+            "Se stai effettuando una richiesta POST, puoi inserire il tuo payload JSON nell'editor del corpo della richiesta. Fai clic su \"Invia\" e la risposta, insieme ai codici di stato, la latenza e le intestazioni della risposta, verrà formattata in modo pulito nel pannello di output."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Come bypassa il CORS?",
+          "answer": "Il nostro strumento funziona insieme a un'estensione del browser sicura e open source. L'estensione intercetta la richiesta di recupero e la inoltra in modo nativo tramite lo script in background del browser, che è esente dalle policy CORS standard delle pagine Web."
+        },
+        {
+          "question": "Posso testare il mio server di sviluppo locale?",
+          "answer": "SÌ! Puoi testare senza problemi endpoint come http://localhost:3000 o http://127.0.0.1:8080 direttamente dal browser senza strumenti di tunneling come ngrok."
+        }
+      ]
+    },
     "json-formatter": {
       "title": "Come formattare e abbellire i dati JSON online",
       "metaDescription": "Convalida, esegui il debug e abbellisci istantaneamente le stringhe JSON minimizzate. Uno strumento di sviluppo privato al 100% per formattare i dati JSON nel tuo browser.",
@@ -820,6 +861,47 @@
         {
           "question": "Il gioco carica il mio punteggio più alto?",
           "answer": "No, tutti i punteggi vengono salvati direttamente nella memoria locale del tuo browser, garantendo che la tua attività di gioco rimanga completamente privata."
+        }
+      ]
+    },
+    "resume-builder": {
+      "title": "Come creare un curriculum online professionale e compatibile con ATS",
+      "metaDescription": "Progetta un curriculum professionale multipagina originale in modo nativo nel tuo browser. 100% privato senza caricamenti nel cloud.",
+      "sections": [
+        {
+          "heading": "I difetti dei moderni creatori di curriculum",
+          "level": "h2",
+          "paragraphs": [
+            "La maggior parte dei creatori di curriculum online ti attirano con modelli \"gratuiti\", solo per poi colpirti con un paywall di $ 15 nel momento esatto in cui provi a scaricare il tuo PDF.",
+            "Ancora peggio, queste piattaforme ti costringono a creare account e a raccogliere i tuoi dati più personali (numeri di telefono, indirizzi e cronologia lavorativa) per venderli a reclutatori o terze parti."
+          ]
+        },
+        {
+          "heading": "Una soluzione lato cliente privata al 100%.",
+          "level": "h2",
+          "listItems": [
+            "Nessun paywall o registrazione: il nostro generatore di curriculum è completamente gratuito dall'inizio alla fine. Puoi scaricare il tuo PDF istantaneamente senza creare un account.",
+            "Privacy assoluta dei dati: l'intera applicazione viene eseguita localmente nel browser tramite WebAssembly. I tuoi dettagli di contatto e la cronologia lavorativa non lasciano mai il tuo dispositivo.",
+            "Modelli ottimizzati per ATS: molti curriculum visivamente sbalorditivi falliscono nei sistemi di tracciamento dei candidati (ATS) perché i bot non sono in grado di analizzare layout complessi. I nostri modelli utilizzano gerarchie strutturali pulite per garantire che il tuo curriculum sia perfettamente leggibile dalla macchina pur mantenendo un'estetica professionale."
+          ]
+        },
+        {
+          "heading": "Caratteristiche del generatore di curriculum professionale",
+          "level": "h2",
+          "paragraphs": [
+            "Puoi aggiungere facilmente esperienza lavorativa, istruzione, competenze e certificazioni. Il motore di anteprima dal vivo aggiorna istantaneamente il tuo PDF durante la digitazione.",
+            "Hai bisogno di un curriculum multipagina? Il nostro sistema di impaginazione intelligente suddivide automaticamente le pagine in modo netto senza tagliare il testo a metà. Puoi anche riordinare le sezioni tramite trascinamento della selezione, attivare o disattivare elementi specifici e modificare il tema visivo per adattarlo al tuo settore."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Il mio curriculum viene salvato se chiudo la scheda?",
+          "answer": "SÌ. I tuoi progressi vengono automaticamente salvati nella memoria locale del tuo browser (IndexedDB). Quando tornerai alla pagina sullo stesso dispositivo, i tuoi dati saranno ancora lì, senza mai toccare i nostri server."
+        },
+        {
+          "question": "Posso importare il mio profilo LinkedIn?",
+          "answer": "Al momento devi inserire i tuoi dati manualmente. Tuttavia, poiché si tratta di uno strumento offline completamente privato, puoi copiare e incollare in sicurezza i tuoi punti elenco esatti senza preoccuparti della perdita di dati."
         }
       ]
     },
@@ -2207,6 +2289,111 @@
         }
       ]
     },
+    "web-scraper": {
+      "title": "Come leggere ed estrarre articoli in privato",
+      "metaDescription": "Estrai il testo da qualsiasi articolo in modo sicuro sul tuo computer locale utilizzando l'estensione complementare. Nessun monitoraggio del server.",
+      "sections": [
+        {
+          "heading": "L'importanza dell'estrazione di articoli privati",
+          "level": "h2",
+          "paragraphs": [
+            "La maggior parte degli strumenti di lettura e degli estrattori di testo online instradano le tue richieste attraverso i propri server proxy. Ciò significa che possono tenere traccia di ogni singolo articolo che leggi, creare un profilo sui tuoi interessi e registrare il tuo indirizzo IP. Per ricercatori, giornalisti e utenti attenti alla privacy, si tratta di un’enorme perdita di sicurezza.",
+            "Eseguendo la logica di estrazione localmente sul tuo computer utilizzando un'estensione del browser complementare, elimini completamente l'intermediario. Il tuo browser recupera l'articolo direttamente dalla fonte, garantendo che nessun server di terze parti veda mai ciò che stai leggendo."
+          ]
+        },
+        {
+          "heading": "Come utilizzare il lettore di articoli intelligente",
+          "level": "h2",
+          "listItems": [
+            "Installa l'estensione complementare: l'estensione funge da ponte locale sicuro per recuperare i siti Web direttamente dal tuo browser.",
+            "Incolla l'URL dell'articolo: inserisci l'indirizzo web dell'articolo che desideri estrarre.",
+            "Estrai contenuto: lo strumento recupererà localmente l'HTML non elaborato, eliminerà tutti gli annunci e gli script di monitoraggio e ti presenterà un testo pulito e leggibile.",
+            "Leggi o salva: goditi l'esperienza di lettura senza distrazioni o copia il testo pulito per i tuoi appunti."
+          ]
+        },
+        {
+          "heading": "Bypassare le restrizioni di sicurezza in modo sicuro",
+          "level": "h2",
+          "paragraphs": [
+            "Molti siti Web utilizzano rigide politiche CORS (Cross-Origin Resource Sharing) e opzioni X-Frame per impedire ad altri siti di caricare i propri contenuti. La nostra estensione locale rimuove automaticamente queste intestazioni restrittive per gli URL richiesti esplicitamente.",
+            "Ciò consente all'app Web ZeroWebTools di analizzare perfettamente i dati localmente all'interno del tuo browser senza essere bloccati, offrendoti la potenza di un web scraper backend senza mai aver bisogno di un server backend."
+          ]
+        },
+        {
+          "heading": "Aggirare i firewall e utilizzare gli archivi Web",
+          "level": "h2",
+          "paragraphs": [
+            "Quando si utilizza una rete restrittiva, ad esempio una intranet scolastica o aziendale, i firewall spesso bloccano l'accesso diretto a siti di notizie o blog. Poiché la nostra estensione Smart Article Reader agisce come proxy indipendente all'interno della sessione del tuo browser, spesso può aggirare il blocco di rete di base.",
+            "Inoltre, se un sito Web viene completamente bloccato o rimosso, il nostro strumento interroga automaticamente l'archivio Web pubblico (Wayback Machine) per recuperare uno snapshot memorizzato nella cache non bloccato. Ciò garantisce che tu possa accedere alle informazioni di cui hai bisogno, indipendentemente dalle restrizioni della rete."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Perché devo installare un'estensione del browser?",
+          "answer": "I browser Web impediscono ai siti Web di recuperare dati da altri siti Web (CORS). L'estensione fornisce al tuo browser l'autorizzazione necessaria per recuperare l'articolo localmente, quindi non dobbiamo utilizzare un server proxy centrale."
+        },
+        {
+          "question": "Tieni traccia degli articoli che leggo?",
+          "answer": "Assolutamente no. Poiché la richiesta di recupero avviene interamente sul tuo computer, i nostri server non hanno visibilità su quali URL stai digitando nello strumento."
+        }
+      ]
+    },
+    "youtube-transcript": {
+      "title": "Come estrarre trascrizioni e sottotitoli di YouTube",
+      "metaDescription": "Scopri come estrarre e scaricare istantaneamente le trascrizioni dei video di YouTube come testo semplice o file .SRT. Strumento browser privato e gratuito al 100%.",
+      "sections": [
+        {
+          "heading": "Perché estrarre le trascrizioni di YouTube?",
+          "level": "h2",
+          "paragraphs": [
+            "I video di YouTube sono ricchi di informazioni preziose, ma scorrere ore di video per trovare dettagli specifici richiede molto tempo. Estraendo la trascrizione, puoi leggere, cercare e copiare rapidamente il contenuto.",
+            "Per i creatori di contenuti, il download delle trascrizioni consente di riutilizzare i contenuti video in post di blog, articoli o aggiornamenti di social media. Per studenti e ricercatori, avere una versione testuale di una lezione rende incredibilmente facile prendere appunti ed evidenziare i concetti chiave."
+          ]
+        },
+        {
+          "heading": "Come scaricare i sottotitoli di YouTube",
+          "level": "h2",
+          "listItems": [
+            "Installa l'estensione complementare: l'estensione colma in modo sicuro il divario, consentendo al tuo browser di recuperare direttamente i sottotitoli di YouTube.",
+            "Incolla l'URL del video: inserisci il collegamento di qualsiasi video di YouTube nella casella di testo.",
+            "Seleziona la lingua: scegli tra le tracce di sottotitoli disponibili generate automaticamente o caricate manualmente.",
+            "Scegli il tuo formato: alterna tra il formato .SRT standard (con timestamp) o la visualizzazione di paragrafi in testo semplice.",
+            "Scarica o copia: copia il testo negli appunti o scaricalo come file con un clic."
+          ]
+        },
+        {
+          "heading": "Bypassare i limiti del server in privato",
+          "level": "h2",
+          "paragraphs": [
+            "La maggior parte degli estrattori di trascrizioni di YouTube online vengono eseguiti su server backend che raggiungono rapidamente i limiti di velocità API o richiedono il pagamento di un abbonamento premium. Tiene traccia anche dei video che stai analizzando.",
+            "Utilizzando la nostra estensione del browser locale, l'estrazione avviene direttamente sul tuo computer. Recuperi i dati direttamente dai server di YouTube utilizzando la tua connessione, il che significa estrazioni gratuite illimitate con assoluta privacy."
+          ]
+        },
+        {
+          "heading": "Conversione nel formato SRT standard",
+          "level": "h2",
+          "paragraphs": [
+            "Gli editor video necessitano spesso di file SubRip Subtitle (.SRT) standard da importare in software come Adobe Premiere Pro o DaVinci Resolve. I dati grezzi dei sottotitoli di YouTube vengono spesso restituiti in un formato XML proprietario che gli editor non possono leggere.",
+            "Il nostro strumento analizza questo XML sottostante e lo formatta perfettamente nella struttura SRT standard, garantendo che i timestamp si allineino perfettamente con la timeline del video."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Perché devo installare un'estensione?",
+          "answer": "Le politiche CORS di YouTube impediscono ai siti Web di terze parti di accedere direttamente ai file di sottotitoli. L'estensione consente al tuo browser di recuperare in modo sicuro i dati localmente senza instradarli attraverso un server centrale."
+        },
+        {
+          "question": "Funziona con i sottotitoli generati automaticamente?",
+          "answer": "SÌ! Se il creatore non ha caricato i sottotitoli manuali, lo strumento può estrarre le tracce ASR (riconoscimento vocale automatico) generate automaticamente da YouTube."
+        },
+        {
+          "question": "C'è un limite alla durata del video?",
+          "answer": "No. Poiché l'elaborazione viene eseguita localmente, puoi estrarre trascrizioni da podcast o lezioni che durano diverse ore senza alcun ritardo."
+        }
+      ]
+    },
     "word-counter": {
       "title": "Come contare parole e frasi online con Pro Density Analysis",
       "metaDescription": "Conta parole, caratteri, frasi e paragrafi online. Analizza istantaneamente la densità delle parole chiave e le statistiche nel tuo browser in completa privacy.",
@@ -2583,111 +2770,6 @@
         {
           "question": "Posso utilizzare lo strumento completamente offline?",
           "answer": "SÌ. Dopo che l'esecuzione iniziale ha scaricato e memorizzato nella cache i file del modello, è possibile disattivare la connessione Internet ed eseguire la trascrizione completamente offline."
-        }
-      ]
-    },
-    "web-scraper": {
-      "title": "Come leggere ed estrarre articoli in privato",
-      "metaDescription": "Estrai il testo da qualsiasi articolo in modo sicuro sul tuo computer locale utilizzando l'estensione complementare. Nessun monitoraggio del server.",
-      "sections": [
-        {
-          "heading": "L'importanza dell'estrazione di articoli privati",
-          "level": "h2",
-          "paragraphs": [
-            "La maggior parte degli strumenti di lettura e degli estrattori di testo online instradano le tue richieste attraverso i propri server proxy. Ciò significa che possono tenere traccia di ogni singolo articolo che leggi, creare un profilo sui tuoi interessi e registrare il tuo indirizzo IP. Per ricercatori, giornalisti e utenti attenti alla privacy, si tratta di un’enorme perdita di sicurezza.",
-            "Eseguendo la logica di estrazione localmente sul tuo computer utilizzando un'estensione del browser complementare, elimini completamente l'intermediario. Il tuo browser recupera l'articolo direttamente dalla fonte, garantendo che nessun server di terze parti veda mai ciò che stai leggendo."
-          ]
-        },
-        {
-          "heading": "Come utilizzare il lettore di articoli intelligente",
-          "level": "h2",
-          "listItems": [
-            "Installa l'estensione complementare: l'estensione funge da ponte locale sicuro per recuperare i siti Web direttamente dal tuo browser.",
-            "Incolla l'URL dell'articolo: inserisci l'indirizzo web dell'articolo che desideri estrarre.",
-            "Estrai contenuto: lo strumento recupererà localmente l'HTML non elaborato, eliminerà tutti gli annunci e gli script di monitoraggio e ti presenterà un testo pulito e leggibile.",
-            "Leggi o salva: goditi l'esperienza di lettura senza distrazioni o copia il testo pulito per i tuoi appunti."
-          ]
-        },
-        {
-          "heading": "Bypassare le restrizioni di sicurezza in modo sicuro",
-          "level": "h2",
-          "paragraphs": [
-            "Molti siti Web utilizzano rigide politiche CORS (Cross-Origin Resource Sharing) e opzioni X-Frame per impedire ad altri siti di caricare i propri contenuti. La nostra estensione locale rimuove automaticamente queste intestazioni restrittive per gli URL richiesti esplicitamente.",
-            "Ciò consente all'app Web ZeroWebTools di analizzare perfettamente i dati localmente all'interno del tuo browser senza essere bloccati, offrendoti la potenza di un web scraper backend senza mai aver bisogno di un server backend."
-          ]
-        },
-        {
-          "heading": "Aggirare i firewall e utilizzare gli archivi Web",
-          "level": "h2",
-          "paragraphs": [
-            "Quando si utilizza una rete restrittiva, ad esempio una intranet scolastica o aziendale, i firewall spesso bloccano l'accesso diretto a siti di notizie o blog. Poiché la nostra estensione Smart Article Reader agisce come proxy indipendente all'interno della sessione del tuo browser, spesso può aggirare il blocco di rete di base.",
-            "Inoltre, se un sito Web viene completamente bloccato o rimosso, il nostro strumento interroga automaticamente l'archivio Web pubblico (Wayback Machine) per recuperare uno snapshot memorizzato nella cache non bloccato. Ciò garantisce che tu possa accedere alle informazioni di cui hai bisogno, indipendentemente dalle restrizioni della rete."
-          ]
-        }
-      ],
-      "faqs": [
-        {
-          "question": "Perché devo installare un'estensione del browser?",
-          "answer": "I browser Web impediscono ai siti Web di recuperare dati da altri siti Web (CORS). L'estensione fornisce al tuo browser l'autorizzazione necessaria per recuperare l'articolo localmente, quindi non dobbiamo utilizzare un server proxy centrale."
-        },
-        {
-          "question": "Tieni traccia degli articoli che leggo?",
-          "answer": "Assolutamente no. Poiché la richiesta di recupero avviene interamente sul tuo computer, i nostri server non hanno visibilità su quali URL stai digitando nello strumento."
-        }
-      ]
-    },
-    "youtube-transcript": {
-      "title": "Come estrarre trascrizioni e sottotitoli di YouTube",
-      "metaDescription": "Scopri come estrarre e scaricare istantaneamente le trascrizioni dei video di YouTube come testo semplice o file .SRT. Strumento browser privato e gratuito al 100%.",
-      "sections": [
-        {
-          "heading": "Perché estrarre le trascrizioni di YouTube?",
-          "level": "h2",
-          "paragraphs": [
-            "I video di YouTube sono ricchi di informazioni preziose, ma scorrere ore di video per trovare dettagli specifici richiede molto tempo. Estraendo la trascrizione, puoi leggere, cercare e copiare rapidamente il contenuto.",
-            "Per i creatori di contenuti, il download delle trascrizioni consente di riutilizzare i contenuti video in post di blog, articoli o aggiornamenti di social media. Per studenti e ricercatori, avere una versione testuale di una lezione rende incredibilmente facile prendere appunti ed evidenziare i concetti chiave."
-          ]
-        },
-        {
-          "heading": "Come scaricare i sottotitoli di YouTube",
-          "level": "h2",
-          "listItems": [
-            "Installa l'estensione complementare: l'estensione colma in modo sicuro il divario, consentendo al tuo browser di recuperare direttamente i sottotitoli di YouTube.",
-            "Incolla l'URL del video: inserisci il collegamento di qualsiasi video di YouTube nella casella di testo.",
-            "Seleziona la lingua: scegli tra le tracce di sottotitoli disponibili generate automaticamente o caricate manualmente.",
-            "Scegli il tuo formato: alterna tra il formato .SRT standard (con timestamp) o la visualizzazione di paragrafi in testo semplice.",
-            "Scarica o copia: copia il testo negli appunti o scaricalo come file con un clic."
-          ]
-        },
-        {
-          "heading": "Bypassare i limiti del server in privato",
-          "level": "h2",
-          "paragraphs": [
-            "La maggior parte degli estrattori di trascrizioni di YouTube online vengono eseguiti su server backend che raggiungono rapidamente i limiti di velocità API o richiedono il pagamento di un abbonamento premium. Tiene traccia anche dei video che stai analizzando.",
-            "Utilizzando la nostra estensione del browser locale, l'estrazione avviene direttamente sul tuo computer. Recuperi i dati direttamente dai server di YouTube utilizzando la tua connessione, il che significa estrazioni gratuite illimitate con assoluta privacy."
-          ]
-        },
-        {
-          "heading": "Conversione nel formato SRT standard",
-          "level": "h2",
-          "paragraphs": [
-            "Gli editor video necessitano spesso di file SubRip Subtitle (.SRT) standard da importare in software come Adobe Premiere Pro o DaVinci Resolve. I dati grezzi dei sottotitoli di YouTube vengono spesso restituiti in un formato XML proprietario che gli editor non possono leggere.",
-            "Il nostro strumento analizza questo XML sottostante e lo formatta perfettamente nella struttura SRT standard, garantendo che i timestamp si allineino perfettamente con la timeline del video."
-          ]
-        }
-      ],
-      "faqs": [
-        {
-          "question": "Perché devo installare un'estensione?",
-          "answer": "Le politiche CORS di YouTube impediscono ai siti Web di terze parti di accedere direttamente ai file di sottotitoli. L'estensione consente al tuo browser di recuperare in modo sicuro i dati localmente senza instradarli attraverso un server centrale."
-        },
-        {
-          "question": "Funziona con i sottotitoli generati automaticamente?",
-          "answer": "SÌ! Se il creatore non ha caricato i sottotitoli manuali, lo strumento può estrarre le tracce ASR (riconoscimento vocale automatico) generate automaticamente da YouTube."
-        },
-        {
-          "question": "C'è un limite alla durata del video?",
-          "answer": "No. Poiché l'elaborazione viene eseguita localmente, puoi estrarre trascrizioni da podcast o lezioni che durano diverse ore senza alcun ritardo."
         }
       ]
     }

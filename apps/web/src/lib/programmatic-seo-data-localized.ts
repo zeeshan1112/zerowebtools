@@ -2,6 +2,68 @@ import { SubQuery } from "./tools";
 
 export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQuery[]>> = {
   "es": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "Cliente API REST en línea gratuito",
+        "metaDescription": "Pruebe las API REST directamente desde su navegador. Envíe solicitudes GET, POST, PUT, DELETE con encabezados personalizados al instante. No es necesario registrarse.",
+        "articleIntro": {
+          "heading": "Cómo utilizar el cliente API REST gratuito en línea",
+          "paragraphs": [
+            "Las pruebas de API no deberían requerir la descarga de aplicaciones electrónicas pesadas ni la creación de cuentas en la nube forzadas. Nuestro cliente API REST en línea gratuito le brinda el poder de depurar puntos finales al instante en una interfaz liviana basada en navegador.",
+            "Ya sea que esté probando API públicas o creando prototipos de su backend, puede crear solicitudes complejas con encabezados personalizados, cargas útiles JSON y tokens de autorización sin esfuerzo."
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "Pruebe las API de Localhost en el navegador",
+        "metaDescription": "Pruebe su servidor de desarrollo local (localhost:3000, 127.0.0.1) directamente desde el navegador utilizando nuestro cliente API.",
+        "articleIntro": {
+          "heading": "Probar servidores de desarrollo local",
+          "paragraphs": [
+            "Una de las mayores limitaciones de los probadores de API en línea estándar es su incapacidad para llegar a su máquina local. Debido a que nuestro cliente API REST funciona junto con una extensión de navegador nativa, se ejecuta dentro de su propio perímetro de red.",
+            "Esto significa que puede probar fácilmente los puntos finales que se ejecutan en el host local (como el puerto 3000, 8080 o 5000) exactamente como si estuviera usando Postman, sin necesidad de configurar túneles ngrok complejos."
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "Omitir el probador de API CORS",
+        "metaDescription": "Pruebe cualquier punto final API sin errores CORS. Nuestros clientes representan solicitudes localmente para evitar las restricciones de intercambio de recursos entre orígenes.",
+        "articleIntro": {
+          "heading": "Pruebe API sin restricciones CORS",
+          "paragraphs": [
+            "Las pruebas de API basadas en navegador generalmente están bloqueadas por políticas estrictas de intercambio de recursos entre orígenes (CORS). Nuestra herramienta resuelve esto actuando como un proxy de extensión nativo, eliminando las restricciones de CORS de forma segura.",
+            "Debido a que la solicitud se origina en el script en segundo plano del navegador, puede depurar API de terceros que no incluyan explícitamente su dominio en la lista blanca."
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "Herramienta de depuración de API 100% privada",
+        "metaDescription": "Depure API confidenciales de forma privada. Sus solicitudes, claves API y respuestas nunca se sincronizan con la nube.",
+        "articleIntro": {
+          "heading": "Pruebas de API seguras y privadas",
+          "paragraphs": [
+            "Al manejar claves API de producción, tokens de portador o datos de clientes, nunca debe sincronizar sus solicitudes con un servidor de terceros. Nuestra herramienta de depuración de API privada garantiza absoluta confidencialidad.",
+            "Todos los historiales de solicitudes, encabezados y respuestas permanecen estrictamente en la memoria efímera de su navegador. Cuando cierras la pestaña, los datos se borran permanentemente."
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "Alternativa al cartero basada en navegador",
+        "metaDescription": "¿Busca una alternativa rápida, gratuita y basada en navegador a Postman? Pruebe API, administre encabezados y analice respuestas JSON al instante.",
+        "articleIntro": {
+          "heading": "Una alternativa ligera al cartero",
+          "paragraphs": [
+            "Si encuentra que Postman es cada vez más inflado o restrictivo con sus mandatos de sincronización en la nube, nuestro cliente API REST ofrece una alternativa refrescante.",
+            "Proporciona las características esenciales que los desarrolladores realmente necesitan (métodos HTTP, administración de encabezados, cargas útiles del cuerpo y formato de respuesta) sin los gastos generales de la empresa ni los requisitos de cuenta."
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -3352,6 +3414,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "de": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "Kostenloser Online-REST-API-Client",
+        "metaDescription": "Testen Sie REST-APIs direkt in Ihrem Browser. Senden Sie sofort GET-, POST-, PUT- und DELETE-Anfragen mit benutzerdefinierten Headern. Keine Anmeldung erforderlich.",
+        "articleIntro": {
+          "heading": "So verwenden Sie den kostenlosen Online-REST-API-Client",
+          "paragraphs": [
+            "Das Testen von APIs sollte nicht das Herunterladen schwerer Elektronenanwendungen oder das Erstellen erzwungener Cloud-Konten erfordern. Unser kostenloser Online-REST-API-Client gibt Ihnen die Möglichkeit, Endpunkte sofort über eine schlanke, browserbasierte Oberfläche zu debuggen.",
+            "Unabhängig davon, ob Sie öffentliche APIs testen oder Prototypen für Ihr Backend erstellen, können Sie mühelos komplexe Anfragen mit benutzerdefinierten Headern, JSON-Nutzlasten und Autorisierungstokens erstellen."
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "Testen Sie Localhost-APIs im Browser",
+        "metaDescription": "Testen Sie Ihren lokalen Entwicklungsserver (localhost:3000, 127.0.0.1) direkt vom Browser aus mit unserem API-Client.",
+        "articleIntro": {
+          "heading": "Testen Sie lokale Entwicklungsserver",
+          "paragraphs": [
+            "Eine der größten Einschränkungen standardmäßiger Online-API-Tester ist ihre Unfähigkeit, Ihren lokalen Computer zu erreichen. Da unser REST-API-Client mit einer nativen Browsererweiterung zusammenarbeitet, läuft er innerhalb Ihres eigenen Netzwerkperimeters.",
+            "Das bedeutet, dass Sie Endpunkte, die auf localhost laufen (wie Port 3000, 8080 oder 5000), ganz einfach testen können, genau so, als ob Sie Postman verwenden würden, ohne komplexe Ngrok-Tunnel einrichten zu müssen."
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "Umgehen Sie den CORS-API-Tester",
+        "metaDescription": "Testen Sie jeden API-Endpunkt ohne CORS-Fehler. Unsere Client-Proxy-Anfragen werden lokal weitergeleitet, um die Beschränkungen der ursprungsübergreifenden Ressourcenfreigabe zu umgehen.",
+        "articleIntro": {
+          "heading": "Testen Sie APIs ohne CORS-Einschränkungen",
+          "paragraphs": [
+            "Browserbasierte API-Tests werden normalerweise durch strenge CORS-Richtlinien (Cross-Origin Resource Sharing) blockiert. Unser Tool löst dieses Problem, indem es als nativer Erweiterungs-Proxy fungiert und CORS-Einschränkungen sicher beseitigt.",
+            "Da die Anfrage vom Hintergrundskript des Browsers stammt, können Sie APIs von Drittanbietern debuggen, die Ihre Domain nicht explizit auf die Whitelist setzen."
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "100 % privates API-Debugging-Tool",
+        "metaDescription": "Debuggen Sie vertrauliche APIs privat. Ihre Anfragen, API-Schlüssel und Antworten werden niemals mit der Cloud synchronisiert.",
+        "articleIntro": {
+          "heading": "Sichere und private API-Tests",
+          "paragraphs": [
+            "Beim Umgang mit Produktions-API-Schlüsseln, Inhabertokens oder Kundendaten sollten Sie Ihre Anfragen niemals mit einem Drittanbieterserver synchronisieren. Unser privates API-Debugging-Tool gewährleistet absolute Vertraulichkeit.",
+            "Alle Anforderungsverläufe, Header und Antworten verbleiben ausschließlich im kurzlebigen Speicher Ihres Browsers. Wenn Sie die Registerkarte schließen, werden die Daten dauerhaft gelöscht."
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "Browserbasierte Postman-Alternative",
+        "metaDescription": "Suchen Sie nach einer schnellen, kostenlosen, browserbasierten Alternative zu Postman? Testen Sie APIs, verwalten Sie Header und analysieren Sie JSON-Antworten sofort.",
+        "articleIntro": {
+          "heading": "Eine leichte Alternative für den Postboten",
+          "paragraphs": [
+            "Wenn Sie Postman mit seinen Cloud-Synchronisierungsanforderungen zunehmend überladen oder restriktiv finden, bietet unser REST-API-Client eine erfrischende Alternative.",
+            "Es bietet die wesentlichen Funktionen, die Entwickler tatsächlich benötigen – HTTP-Methoden, Header-Verwaltung, Text-Payloads und Antwortformatierung – ohne den Unternehmensaufwand oder Kontoanforderungen."
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -6702,6 +6826,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "fr": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "Client API REST en ligne gratuit",
+        "metaDescription": "Testez les API REST directement depuis votre navigateur. Envoyez instantanément des requêtes GET, POST, PUT, DELETE avec des en-têtes personnalisés. Aucune inscription requise.",
+        "articleIntro": {
+          "heading": "Comment utiliser le client API REST en ligne gratuit",
+          "paragraphs": [
+            "Les API de test ne devraient pas nécessiter le téléchargement d'applications électroniques lourdes ou la création de comptes cloud forcés. Notre client API REST en ligne gratuit vous donne le pouvoir de déboguer instantanément les points de terminaison dans une interface légère basée sur un navigateur.",
+            "Que vous testiez des API publiques ou prototypiez votre backend, vous pouvez créer sans effort des requêtes complexes avec des en-têtes personnalisés, des charges utiles JSON et des jetons d'autorisation."
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "Testez les API Localhost dans le navigateur",
+        "metaDescription": "Testez votre serveur de développement local (localhost:3000, 127.0.0.1) directement depuis le navigateur à l'aide de notre client API.",
+        "articleIntro": {
+          "heading": "Tester les serveurs de développement locaux",
+          "paragraphs": [
+            "L'une des plus grandes limitations des testeurs d'API en ligne standard est leur incapacité à atteindre votre ordinateur local. Étant donné que notre client API REST fonctionne avec une extension de navigateur native, il s'exécute à l'intérieur de votre propre périmètre réseau.",
+            "Cela signifie que vous pouvez facilement tester les points de terminaison exécutés sur localhost (comme le port 3000, 8080 ou 5000) exactement comme si vous utilisiez Postman, sans avoir besoin de configurer des tunnels ngrok complexes."
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "Contourner le testeur d'API CORS",
+        "metaDescription": "Testez n’importe quel point de terminaison d’API sans erreurs CORS. Nos clients proxy demandent localement de contourner les restrictions de partage de ressources entre origines croisées.",
+        "articleIntro": {
+          "heading": "Tester les API sans restrictions CORS",
+          "paragraphs": [
+            "Les tests d'API basés sur un navigateur sont généralement bloqués par des politiques strictes de partage de ressources cross-origine (CORS). Notre outil résout ce problème en agissant comme un proxy d'extension natif, supprimant les restrictions CORS en toute sécurité.",
+            "Étant donné que la requête provient du script d'arrière-plan du navigateur, vous pouvez déboguer les API tierces qui ne mettent pas explicitement votre domaine sur liste blanche."
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "Outil de débogage d'API 100 % privé",
+        "metaDescription": "Déboguez les API sensibles en privé. Vos demandes, clés API et réponses ne sont jamais synchronisées avec le cloud.",
+        "articleIntro": {
+          "heading": "Tests d'API sécurisés et privés",
+          "paragraphs": [
+            "Lorsque vous manipulez des clés API de production, des jetons de support ou des données client, vous ne devez jamais synchroniser vos requêtes avec un serveur tiers. Notre outil de débogage d’API privée garantit une confidentialité absolue.",
+            "Tous les historiques de requêtes, en-têtes et réponses restent strictement dans la mémoire éphémère de votre navigateur. Lorsque vous fermez l'onglet, les données sont définitivement effacées."
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "Alternative Postman basée sur un navigateur",
+        "metaDescription": "Vous recherchez une alternative rapide et gratuite basée sur un navigateur à Postman ? Testez les API, gérez les en-têtes et analysez instantanément les réponses JSON.",
+        "articleIntro": {
+          "heading": "Une alternative légère au facteur",
+          "paragraphs": [
+            "Si vous trouvez Postman de plus en plus volumineux ou restrictif avec ses mandats de synchronisation dans le cloud, notre client API REST offre une alternative rafraîchissante.",
+            "Il fournit les fonctionnalités essentielles dont les développeurs ont réellement besoin (méthodes HTTP, gestion des en-têtes, charges utiles du corps et formatage des réponses), sans les frais généraux de l'entreprise ni les exigences de compte."
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -10052,6 +10238,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "pt": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "Cliente API REST on-line gratuito",
+        "metaDescription": "Teste APIs REST diretamente do seu navegador. Envie solicitações GET, POST, PUT, DELETE com cabeçalhos personalizados instantaneamente. Não é necessária inscrição.",
+        "articleIntro": {
+          "heading": "Como usar o cliente API REST online gratuito",
+          "paragraphs": [
+            "O teste de APIs não deve exigir o download de aplicativos pesados ​​de elétrons ou a criação de contas forçadas na nuvem. Nosso cliente REST API on-line gratuito oferece a capacidade de depurar endpoints instantaneamente em uma interface leve baseada em navegador.",
+            "Esteja você testando APIs públicas ou prototipando seu back-end, você pode criar solicitações complexas com cabeçalhos personalizados, cargas JSON e tokens de autorização sem esforço."
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "Teste APIs Localhost no navegador",
+        "metaDescription": "Teste seu servidor de desenvolvimento local (localhost:3000, 127.0.0.1) diretamente do navegador usando nosso cliente API.",
+        "articleIntro": {
+          "heading": "Teste servidores de desenvolvimento local",
+          "paragraphs": [
+            "Uma das maiores limitações dos testadores de API on-line padrão é a incapacidade de acessar sua máquina local. Como nosso REST API Client funciona junto com uma extensão nativa do navegador, ele é executado dentro do seu próprio perímetro de rede.",
+            "Isso significa que você pode testar facilmente endpoints em execução no host local (como porta 3000, 8080 ou 5000) exatamente como se estivesse usando o Postman, sem precisar configurar túneis ngrok complexos."
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "Ignorar testador de API CORS",
+        "metaDescription": "Teste qualquer endpoint de API sem erros de CORS. Nossos proxies de clientes solicitam localmente para contornar as restrições de compartilhamento de recursos entre origens.",
+        "articleIntro": {
+          "heading": "Teste APIs sem restrições CORS",
+          "paragraphs": [
+            "Os testes de API baseados em navegador geralmente são bloqueados por políticas rígidas de compartilhamento de recursos entre origens (CORS). Nossa ferramenta resolve isso agindo como um proxy de extensão nativo, eliminando as restrições do CORS com segurança.",
+            "Como a solicitação se origina do script em segundo plano do navegador, você pode depurar APIs de terceiros que não colocam explicitamente seu domínio na lista de permissões."
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "Ferramenta de depuração de API 100% privada",
+        "metaDescription": "Depure APIs confidenciais de forma privada. Suas solicitações, chaves de API e respostas nunca são sincronizadas com a nuvem.",
+        "articleIntro": {
+          "heading": "Teste de API seguro e privado",
+          "paragraphs": [
+            "Ao lidar com chaves de API de produção, tokens ao portador ou dados de clientes, você nunca deve sincronizar suas solicitações com um servidor de terceiros. Nossa ferramenta privada de depuração de API garante confidencialidade absoluta.",
+            "Todos os históricos de solicitações, cabeçalhos e respostas permanecem estritamente na memória efêmera do seu navegador. Ao fechar a guia, os dados são apagados permanentemente."
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "Alternativa ao carteiro baseada em navegador",
+        "metaDescription": "Procurando uma alternativa rápida, gratuita e baseada em navegador ao Postman? Teste APIs, gerencie cabeçalhos e analise respostas JSON instantaneamente.",
+        "articleIntro": {
+          "heading": "Uma alternativa leve para carteiro",
+          "paragraphs": [
+            "Se você achar o Postman cada vez mais inchado ou restritivo com suas obrigações de sincronização em nuvem, nosso REST API Client oferece uma alternativa refrescante.",
+            "Ele fornece os recursos essenciais que os desenvolvedores realmente precisam – métodos HTTP, gerenciamento de cabeçalho, cargas úteis de corpo e formatação de resposta – sem despesas gerais corporativas ou requisitos de conta."
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -13402,6 +13650,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "ja": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "無料のオンライン REST API クライアント",
+        "metaDescription": "ブラウザから直接 REST API をテストします。カスタム ヘッダーを使用して GET、POST、PUT、DELETE リクエストを即座に送信します。サインアップは必要ありません。",
+        "articleIntro": {
+          "heading": "無料のオンライン REST API クライアントの使用方法",
+          "paragraphs": [
+            "API のテストでは、Heavy Electron アプリケーションをダウンロードしたり、強制的にクラウド アカウントを作成したりする必要はありません。無料のオンライン REST API クライアントを使用すると、軽量のブラウザベースのインターフェイスでエンドポイントを即座にデバッグできます。",
+            "パブリック API をテストしている場合でも、バックエンドのプロトタイプを作成している場合でも、カスタム ヘッダー、JSON ペイロード、認証トークンを使用して複雑なリクエストを簡単に作成できます。"
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "ブラウザで Localhost API をテストする",
+        "metaDescription": "API クライアントを使用して、ブラウザからローカル開発サーバー (localhost:3000、127.0.0.1) を直接テストします。",
+        "articleIntro": {
+          "heading": "ローカル開発サーバーをテストする",
+          "paragraphs": [
+            "標準オンライン API テスターの最大の制限の 1 つは、ローカル マシンにアクセスできないことです。 REST API クライアントはネイティブのブラウザ拡張機能と連携して動作するため、独自のネットワーク境界内で実行されます。",
+            "これは、複雑な ngrok トンネルをセットアップする必要がなく、Postman を使用しているかのように、ローカルホスト (ポート 3000、8080、または 5000 など) で実行されているエンドポイントを簡単にテストできることを意味します。"
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "CORS API テスターをバイパスする",
+        "metaDescription": "CORS エラーが発生しない API エンドポイントをテストします。クライアントはリクエストをローカルにプロキシして、クロスオリジンリソース共有の制限を回避します。",
+        "articleIntro": {
+          "heading": "CORS 制限なしで API をテストする",
+          "paragraphs": [
+            "ブラウザベースの API テストは通常​​、厳格なクロスオリジン リソース共有 (CORS) ポリシーによってブロックされます。私たちのツールは、ネイティブ拡張プロキシとして機能し、CORS 制限を安全に取り除くことでこの問題を解決します。",
+            "リクエストはブラウザのバックグラウンド スクリプトから発生するため、ドメインを明示的にホワイトリストに登録していないサードパーティ API をデバッグできます。"
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "100% プライベート API デバッグ ツール",
+        "metaDescription": "機密性の高い API を非公開でデバッグします。リクエスト、API キー、レスポンスがクラウドに同期されることはありません。",
+        "articleIntro": {
+          "heading": "安全でプライベートな API テスト",
+          "paragraphs": [
+            "実稼働 API キー、ベアラー トークン、または顧客データを処理するときは、リクエストをサードパーティのサーバーに同期しないでください。当社のプライベート API デバッグ ツールは、絶対的な機密性を保証します。",
+            "すべてのリクエスト履歴、ヘッダー、および応答は、ブラウザーの一時的なメモリ内に厳密に残ります。タブを閉じると、データは完全に消去されます。"
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "ブラウザベースの郵便配達員の代替手段",
+        "metaDescription": "Postman に代わる、高速で無料のブラウザベースの代替手段をお探しですか? API をテストし、ヘッダーを管理し、JSON 応答を即座に分析します。",
+        "articleIntro": {
+          "heading": "軽量の郵便配達員の代替品",
+          "paragraphs": [
+            "Postman がクラウド同期の義務により肥大化している、または制限が厳しくなっていると感じた場合は、当社の REST API クライアントが新しい代替手段を提供します。",
+            "これは、開発者が実際に必要とする重要な機能 (HTTP メソッド、ヘッダー管理、本文ペイロード、応答フォーマット) を、企業のオーバーヘッドやアカウント要件なしで提供します。"
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -16752,6 +17062,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "zh": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "免费在线 REST API 客户端",
+        "metaDescription": "直接从浏览器测试 REST API。立即发送带有自定义标头的 GET、POST、PUT、DELETE 请求。无需注册。",
+        "articleIntro": {
+          "heading": "如何使用免费在线 REST API 客户端",
+          "paragraphs": [
+            "测试 API 不应需要下载繁重的电子应用程序或创建强制云帐户。我们的免费在线 REST API 客户端使您能够在基于浏览器的轻量级界面中立即调试端点。",
+            "无论您是测试公共 API 还是对后端进行原型设计，您都可以轻松地使用自定义标头、JSON 有效负载和授权令牌来制作复杂的请求。"
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "在浏览器中测试本地主机 API",
+        "metaDescription": "使用我们的 API 客户端直接从浏览器测试您的本地开发服务器 (localhost:3000, 127.0.0.1)。",
+        "articleIntro": {
+          "heading": "测试本地开发服务器",
+          "paragraphs": [
+            "标准在线 API 测试器的最大限制之一是它们无法访问您的本地计算机。由于我们的 REST API 客户端与本机浏览器扩展一起工作，因此它在您自己的网络边界内运行。",
+            "这意味着您可以轻松测试在 localhost（例如端口 3000、8080 或 5000）上运行的端点，就像使用 Postman 一样，而无需设置复杂的 ngrok 隧道。"
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "绕过 CORS API 测试器",
+        "metaDescription": "测试任何 API 端点，没有 CORS 错误。我们的客户端在本地代理请求以绕过跨源资源共享限制。",
+        "articleIntro": {
+          "heading": "测试没有 CORS 限制的 API",
+          "paragraphs": [
+            "基于浏览器的 API 测试通常会受到严格的跨源资源共享 (CORS) 策略的阻止。我们的工具通过充当本机扩展代理来解决这个问题，安全地消除 CORS 限制。",
+            "由于请求源自浏览器的后台脚本，因此您可以调试未明确将您的域列入白名单的第三方 API。"
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "100%私有API调试工具",
+        "metaDescription": "私下调试敏感 API。您的请求、API 密钥和响应永远不会同步到云端。",
+        "articleIntro": {
+          "heading": "安全且私密的 API 测试",
+          "paragraphs": [
+            "在处理生产 API 密钥、不记名令牌或客户数据时，您永远不应该将请求同步到第三方服务器。我们的私有 API 调试工具可确保绝对保密。",
+            "所有请求历史记录、标头和响应都严格保留在浏览器的临时内存中。当您关闭该选项卡时，数据将被永久删除。"
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "基于浏览器的 Postman 替代方案",
+        "metaDescription": "正在寻找一种快速、免费、基于浏览器的 Postman 替代品？测试 API、管理标头并立即分析 JSON 响应。",
+        "articleIntro": {
+          "heading": "轻量级邮递员替代方案",
+          "paragraphs": [
+            "如果您发现 Postman 的云同步要求越来越臃肿或受到限制，我们的 REST API 客户端提供了一个令人耳目一新的替代方案。",
+            "它提供了开发人员实际需要的基本功能 - HTTP 方法、标头管理、正文有效负载和响应格式 - 无需企业开销或帐户要求。"
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -20102,6 +20474,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "hi": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "निःशुल्क ऑनलाइन रेस्ट एपीआई क्लाइंट",
+        "metaDescription": "सीधे अपने ब्राउज़र से REST API का परीक्षण करें। कस्टम हेडर के साथ तुरंत GET, POST, PUT, DELETE अनुरोध भेजें। कोई साइनअप आवश्यक नहीं है.",
+        "articleIntro": {
+          "heading": "मुफ़्त ऑनलाइन REST API क्लाइंट का उपयोग कैसे करें",
+          "paragraphs": [
+            "परीक्षण एपीआई के लिए भारी इलेक्ट्रॉन एप्लिकेशन डाउनलोड करने या मजबूर क्लाउड खाते बनाने की आवश्यकता नहीं होनी चाहिए। हमारा मुफ़्त ऑनलाइन REST API क्लाइंट आपको हल्के, ब्राउज़र-आधारित इंटरफ़ेस में एंडपॉइंट को तुरंत डीबग करने की शक्ति देता है।",
+            "चाहे आप सार्वजनिक एपीआई का परीक्षण कर रहे हों या अपने बैकएंड का प्रोटोटाइप बना रहे हों, आप कस्टम हेडर, JSON पेलोड और प्राधिकरण टोकन के साथ जटिल अनुरोधों को आसानी से तैयार कर सकते हैं।"
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "ब्राउज़र में लोकलहोस्ट एपीआई का परीक्षण करें",
+        "metaDescription": "हमारे एपीआई क्लाइंट का उपयोग करके सीधे ब्राउज़र से अपने स्थानीय विकास सर्वर (लोकलहोस्ट:3000, 127.0.0.1) का परीक्षण करें।",
+        "articleIntro": {
+          "heading": "स्थानीय विकास सर्वर का परीक्षण करें",
+          "paragraphs": [
+            "मानक ऑनलाइन एपीआई परीक्षकों की सबसे बड़ी सीमाओं में से एक आपकी स्थानीय मशीन तक पहुंचने में असमर्थता है। क्योंकि हमारा REST API क्लाइंट एक मूल ब्राउज़र एक्सटेंशन के साथ काम करता है, यह आपके अपने नेटवर्क परिधि के अंदर चलता है।",
+            "इसका मतलब है कि आप लोकलहोस्ट (जैसे पोर्ट 3000, 8080, या 5000) पर चल रहे एंडपॉइंट का आसानी से परीक्षण कर सकते हैं जैसे कि आप पोस्टमैन का उपयोग कर रहे थे, जटिल एनग्रोक सुरंगों को स्थापित करने की आवश्यकता के बिना।"
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "बाईपास सीओआरएस एपीआई परीक्षक",
+        "metaDescription": "CORS त्रुटियों के बिना किसी भी API समापन बिंदु का परीक्षण करें। हमारा क्लाइंट प्रॉक्सी स्थानीय रूप से क्रॉस-ओरिजिनल रिसोर्स शेयरिंग प्रतिबंधों को बायपास करने का अनुरोध करता है।",
+        "articleIntro": {
+          "heading": "सीओआरएस प्रतिबंधों के बिना एपीआई का परीक्षण करें",
+          "paragraphs": [
+            "ब्राउज़र-आधारित एपीआई परीक्षण आमतौर पर सख्त क्रॉस-ओरिजिनल रिसोर्स शेयरिंग (सीओआरएस) नीतियों द्वारा अवरुद्ध होता है। हमारा टूल देशी एक्सटेंशन प्रॉक्सी के रूप में कार्य करके, सीओआरएस प्रतिबंधों को सुरक्षित रूप से हटाकर इसे हल करता है।",
+            "क्योंकि अनुरोध ब्राउज़र की पृष्ठभूमि स्क्रिप्ट से उत्पन्न होता है, आप तृतीय-पक्ष एपीआई को डीबग कर सकते हैं जो स्पष्ट रूप से आपके डोमेन को श्वेतसूची में नहीं डालते हैं।"
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "100% निजी एपीआई डिबगिंग टूल",
+        "metaDescription": "संवेदनशील एपीआई को निजी तौर पर डीबग करें। आपके अनुरोध, एपीआई कुंजियाँ और प्रतिक्रियाएँ कभी भी क्लाउड से समन्वयित नहीं होती हैं।",
+        "articleIntro": {
+          "heading": "सुरक्षित और निजी एपीआई परीक्षण",
+          "paragraphs": [
+            "उत्पादन एपीआई कुंजी, वाहक टोकन या ग्राहक डेटा को संभालते समय, आपको अपने अनुरोधों को कभी भी तीसरे पक्ष के सर्वर से सिंक नहीं करना चाहिए। हमारा निजी एपीआई डिबगिंग टूल पूर्ण गोपनीयता सुनिश्चित करता है।",
+            "सभी अनुरोध इतिहास, हेडर और प्रतिक्रियाएँ आपके ब्राउज़र की अल्पकालिक मेमोरी में ही रहती हैं। जब आप टैब बंद करते हैं, तो डेटा स्थायी रूप से मिट जाता है।"
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "ब्राउज़र-आधारित पोस्टमैन वैकल्पिक",
+        "metaDescription": "क्या आप पोस्टमैन का तेज़, मुफ़्त, ब्राउज़र-आधारित विकल्प खोज रहे हैं? एपीआई का परीक्षण करें, हेडर प्रबंधित करें और JSON प्रतिक्रियाओं का तुरंत विश्लेषण करें।",
+        "articleIntro": {
+          "heading": "एक हल्का डाकिया विकल्प",
+          "paragraphs": [
+            "यदि आपको लगता है कि पोस्टमैन अपने क्लाउड-सिंकिंग मैंडेट के साथ तेजी से फूला हुआ या प्रतिबंधात्मक है, तो हमारा REST API क्लाइंट एक ताज़ा विकल्प प्रदान करता है।",
+            "यह आवश्यक सुविधाएँ प्रदान करता है जिनकी डेवलपर्स को वास्तव में आवश्यकता होती है - HTTP तरीके, हेडर प्रबंधन, बॉडी पेलोड और प्रतिक्रिया स्वरूपण - एंटरप्राइज़ ओवरहेड या खाता आवश्यकताओं के बिना।"
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -23452,6 +23886,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "it": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "Client API REST online gratuito",
+        "metaDescription": "Testa le API REST direttamente dal tuo browser. Invia istantaneamente richieste GET, POST, PUT, DELETE con intestazioni personalizzate. Nessuna registrazione richiesta.",
+        "articleIntro": {
+          "heading": "Come utilizzare il client API REST online gratuito",
+          "paragraphs": [
+            "Il test delle API non dovrebbe richiedere il download di applicazioni elettroniche pesanti o la creazione di account cloud forzati. Il nostro client API REST online gratuito ti offre la possibilità di eseguire il debug istantaneo degli endpoint in un'interfaccia leggera e basata su browser.",
+            "Che tu stia testando le API pubbliche o prototipando il tuo backend, puoi creare richieste complesse con intestazioni personalizzate, payload JSON e token di autorizzazione senza sforzo."
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "Testare le API Localhost nel browser",
+        "metaDescription": "Testa il tuo server di sviluppo locale (localhost:3000, 127.0.0.1) direttamente dal browser utilizzando il nostro client API.",
+        "articleIntro": {
+          "heading": "Testare i server di sviluppo locale",
+          "paragraphs": [
+            "Uno dei maggiori limiti dei tester API online standard è la loro incapacità di raggiungere il tuo computer locale. Poiché il nostro client API REST funziona insieme a un'estensione nativa del browser, viene eseguito all'interno del perimetro della tua rete.",
+            "Ciò significa che puoi testare facilmente gli endpoint in esecuzione su localhost (come la porta 3000, 8080 o 5000) esattamente come se stessi utilizzando Postman, senza dover configurare complessi tunnel ngrok."
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "Evita il tester API CORS",
+        "metaDescription": "Testa qualsiasi endpoint API senza errori CORS. I nostri proxy client richiedono localmente di aggirare le restrizioni di condivisione delle risorse tra origini.",
+        "articleIntro": {
+          "heading": "Testa le API senza restrizioni CORS",
+          "paragraphs": [
+            "I test API basati su browser sono generalmente bloccati da rigidi criteri CORS (Cross-Origin Resource Sharing). Il nostro strumento risolve questo problema agendo come proxy di estensione nativa, eliminando le restrizioni CORS in modo sicuro.",
+            "Poiché la richiesta ha origine dallo script in background del browser, puoi eseguire il debug di API di terze parti che non autorizzano esplicitamente il tuo dominio."
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "Strumento di debug API privato al 100%.",
+        "metaDescription": "Eseguire il debug delle API sensibili in privato. Le tue richieste, chiavi API e risposte non vengono mai sincronizzate sul cloud.",
+        "articleIntro": {
+          "heading": "Test API sicuri e privati",
+          "paragraphs": [
+            "Quando gestisci chiavi API di produzione, token di connessione o dati dei clienti, non dovresti mai sincronizzare le tue richieste con un server di terze parti. Il nostro strumento di debug API privato garantisce assoluta riservatezza.",
+            "Tutte le cronologie delle richieste, le intestazioni e le risposte rimangono rigorosamente nella memoria effimera del tuo browser. Quando chiudi la scheda, i dati vengono cancellati in modo permanente."
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "Alternativa al postino basata su browser",
+        "metaDescription": "Cerchi un'alternativa veloce, gratuita e basata su browser a Postman? Testa le API, gestisci le intestazioni e analizza istantaneamente le risposte JSON.",
+        "articleIntro": {
+          "heading": "Un'alternativa leggera al postino",
+          "paragraphs": [
+            "Se ritieni che Postman sia sempre più eccessivo o restrittivo con i suoi mandati di sincronizzazione nel cloud, il nostro client API REST offre un'alternativa rinfrescante.",
+            "Fornisce le funzionalità essenziali effettivamente necessarie agli sviluppatori (metodi HTTP, gestione delle intestazioni, payload del corpo e formattazione delle risposte) senza costi generali aziendali o requisiti di account."
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",
@@ -26802,6 +27298,68 @@ export const LOCALIZED_PROGRAMMATIC_SEO_DATA: Record<string, Record<string, SubQ
     ]
   },
   "ar": {
+    "api-client": [
+      {
+        "slug": "rest-api-client-online",
+        "title": "عميل REST API مجاني عبر الإنترنت",
+        "metaDescription": "اختبر واجهات برمجة تطبيقات REST مباشرة من متصفحك. أرسل طلبات GET، POST، PUT، DELETE برؤوس مخصصة على الفور. لا يلزم الاشتراك.",
+        "articleIntro": {
+          "heading": "كيفية استخدام عميل REST API المجاني عبر الإنترنت",
+          "paragraphs": [
+            "لا ينبغي أن يتطلب اختبار واجهات برمجة التطبيقات تنزيل تطبيقات إلكترونية ثقيلة أو إنشاء حسابات سحابية قسرية. يمنحك عميل REST API المجاني عبر الإنترنت القدرة على تصحيح أخطاء نقاط النهاية على الفور في واجهة خفيفة الوزن تعتمد على المتصفح.",
+            "سواء كنت تختبر واجهات برمجة التطبيقات العامة أو تضع نماذج أولية للواجهة الخلفية لديك، يمكنك صياغة طلبات معقدة باستخدام رؤوس مخصصة وحمولات JSON ورموز التفويض المميزة دون عناء."
+          ]
+        }
+      },
+      {
+        "slug": "test-localhost-api",
+        "title": "اختبار واجهات برمجة التطبيقات Localhost في المتصفح",
+        "metaDescription": "اختبر خادم التطوير المحلي الخاص بك (المضيف المحلي: 3000، 127.0.0.1) مباشرة من المتصفح باستخدام عميل API الخاص بنا.",
+        "articleIntro": {
+          "heading": "اختبار خوادم التنمية المحلية",
+          "paragraphs": [
+            "أحد أكبر القيود المفروضة على مختبري واجهة برمجة التطبيقات القياسية عبر الإنترنت هو عدم قدرتهم على الوصول إلى جهازك المحلي. نظرًا لأن عميل REST API الخاص بنا يعمل جنبًا إلى جنب مع امتداد المتصفح الأصلي، فإنه يعمل داخل محيط الشبكة الخاصة بك.",
+            "وهذا يعني أنه يمكنك بسهولة اختبار نقاط النهاية التي تعمل على المضيف المحلي (مثل المنفذ 3000 أو 8080 أو 5000) تمامًا كما لو كنت تستخدم Postman، دون الحاجة إلى إعداد أنفاق ngrok المعقدة."
+          ]
+        }
+      },
+      {
+        "slug": "bypass-cors-api-tester",
+        "title": "تجاوز اختبار CORS API",
+        "metaDescription": "اختبر أي نقطة نهاية لواجهة برمجة التطبيقات (API) دون أخطاء CORS. يطلب وكلاء عملائنا محليًا تجاوز قيود مشاركة الموارد عبر الأصل.",
+        "articleIntro": {
+          "heading": "اختبار واجهات برمجة التطبيقات بدون قيود CORS",
+          "paragraphs": [
+            "عادةً ما يتم حظر اختبار واجهة برمجة التطبيقات (API) المستندة إلى المتصفح من خلال سياسات مشاركة الموارد المشتركة (CORS) الصارمة. تعمل أداتنا على حل هذه المشكلة من خلال العمل كوكيل امتداد أصلي، وإزالة قيود CORS بشكل آمن.",
+            "نظرًا لأن الطلب ينشأ من البرنامج النصي الموجود في الخلفية للمتصفح، يمكنك تصحيح أخطاء واجهات برمجة التطبيقات التابعة لجهات خارجية والتي لا تدرج المجال الخاص بك في القائمة البيضاء بشكل صريح."
+          ]
+        }
+      },
+      {
+        "slug": "private-api-debugging-tool",
+        "title": "أداة تصحيح أخطاء واجهة برمجة التطبيقات الخاصة بنسبة 100%",
+        "metaDescription": "تصحيح أخطاء واجهات برمجة التطبيقات الحساسة بشكل خاص. لا تتم مزامنة طلباتك ومفاتيح واجهة برمجة التطبيقات واستجاباتك مطلقًا مع السحابة.",
+        "articleIntro": {
+          "heading": "اختبار واجهة برمجة التطبيقات الآمنة والخاصة",
+          "paragraphs": [
+            "عند التعامل مع مفاتيح واجهة برمجة تطبيقات الإنتاج أو الرموز المميزة لحاملها أو بيانات العميل، يجب عليك عدم مزامنة طلباتك مطلقًا مع خادم جهة خارجية. تضمن أداة تصحيح أخطاء API الخاصة لدينا السرية المطلقة.",
+            "تظل كافة سجلات الطلبات والعناوين والاستجابات محفوظة بشكل صارم في الذاكرة المؤقتة لمتصفحك. عند إغلاق علامة التبويب، يتم مسح البيانات نهائيًا."
+          ]
+        }
+      },
+      {
+        "slug": "postman-alternative-online",
+        "title": "بديل ساعي البريد القائم على المتصفح",
+        "metaDescription": "هل تبحث عن بديل سريع ومجاني يعتمد على المتصفح لـ Postman؟ اختبار واجهات برمجة التطبيقات وإدارة الرؤوس وتحليل استجابات JSON على الفور.",
+        "articleIntro": {
+          "heading": "بديل ساعي البريد خفيف الوزن",
+          "paragraphs": [
+            "إذا وجدت Postman متضخمًا أو مقيدًا بشكل متزايد فيما يتعلق بتفويضات المزامنة السحابية، فإن عميل REST API الخاص بنا يقدم بديلاً منعشًا.",
+            "فهو يوفر الميزات الأساسية التي يحتاجها المطورون فعليًا — أساليب HTTP، وإدارة الرأس، وحمولات النص، وتنسيق الاستجابة — دون تحمل تكاليف المؤسسة أو متطلبات الحساب."
+          ]
+        }
+      }
+    ],
     "pdf-merge": [
       {
         "slug": "pdf-merge-online-free",

@@ -1,6 +1,69 @@
 import { SubQuery } from "./tools";
 
 export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
+  "api-client": [
+    {
+      "slug": "rest-api-client-online",
+      "title": "Free Online REST API Client",
+      "metaDescription": "Test REST APIs directly from your browser. Send GET, POST, PUT, DELETE requests with custom headers instantly. No signup required.",
+      "articleIntro": {
+        "heading": "How to Use the Free Online REST API Client",
+        "paragraphs": [
+          "Testing APIs shouldn't require downloading heavy electron applications or creating forced cloud accounts. Our free online REST API client gives you the power to debug endpoints instantly in a lightweight, browser-based interface.",
+          "Whether you are testing public APIs or prototyping your backend, you can craft complex requests with custom headers, JSON payloads, and authorization tokens effortlessly."
+        ]
+      }
+    },
+    {
+      "slug": "test-localhost-api",
+      "title": "Test Localhost APIs in Browser",
+      "metaDescription": "Test your local development server (localhost:3000, 127.0.0.1) directly from the browser using our API client.",
+      "articleIntro": {
+        "heading": "Test Local Development Servers",
+        "paragraphs": [
+          "One of the biggest limitations of standard online API testers is their inability to reach your local machine. Because our REST API Client works alongside a native browser extension, it runs inside your own network perimeter.",
+          "This means you can easily test endpoints running on localhost (like port 3000, 8080, or 5000) exactly as if you were using Postman, without needing to setup complex ngrok tunnels."
+        ]
+      }
+    },
+    {
+      "slug": "bypass-cors-api-tester",
+      "title": "Bypass CORS API Tester",
+      "metaDescription": "Test any API endpoint without CORS errors. Our client proxies requests locally to bypass Cross-Origin Resource Sharing restrictions.",
+      "articleIntro": {
+        "heading": "Test APIs without CORS Restrictions",
+        "paragraphs": [
+          "Browser-based API testing is usually blocked by strict Cross-Origin Resource Sharing (CORS) policies. Our tool solves this by acting as a native extension proxy, stripping away CORS restrictions securely.",
+          "Because the request originates from the background script of the browser, you can debug third-party APIs that do not explicitly whitelist your domain."
+        ]
+      }
+    },
+    {
+      "slug": "private-api-debugging-tool",
+      "title": "100% Private API Debugging Tool",
+      "metaDescription": "Debug sensitive APIs privately. Your requests, API keys, and responses are never synced to the cloud.",
+      "articleIntro": {
+        "heading": "Secure and Private API Testing",
+        "paragraphs": [
+          "When handling production API keys, bearer tokens, or customer data, you should never sync your requests to a third-party server. Our Private API Debugging Tool ensures absolute confidentiality.",
+          "All request histories, headers, and responses remain strictly in your browser's ephemeral memory. When you close the tab, the data is permanently erased."
+        ]
+      }
+    },
+    {
+      "slug": "postman-alternative-online",
+      "title": "Browser-Based Postman Alternative",
+      "metaDescription": "Looking for a fast, free, browser-based alternative to Postman? Test APIs, manage headers, and analyze JSON responses instantly.",
+      "articleIntro": {
+        "heading": "A Lightweight Postman Alternative",
+        "paragraphs": [
+          "If you find Postman increasingly bloated or restrictive with its cloud-syncing mandates, our REST API Client offers a refreshing alternative.",
+          "It provides the essential features developers actually need—HTTP methods, header management, body payloads, and response formatting—without the enterprise overhead or account requirements."
+        ]
+      }
+    }
+  ],
+
   "pdf-merge": [
     {
       "slug": "pdf-merge-online-free",
