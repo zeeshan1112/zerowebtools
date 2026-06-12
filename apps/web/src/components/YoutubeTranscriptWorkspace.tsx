@@ -48,7 +48,7 @@ export default function YoutubeTranscriptWorkspace() {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  const proxyFetchViaExtension = (targetUrl: string, spoof: boolean, method = "GET", headers = {}, body?: string) => {
+  const proxyFetchViaExtension = (targetUrl: string, spoof: boolean, method = "GET", headers = {}, body?: string, credentials?: string) => {
     const messageId = Math.random().toString(36).substring(2, 15);
     window.postMessage({
       type: 'ZWT_PROXY_FETCH',
@@ -57,6 +57,7 @@ export default function YoutubeTranscriptWorkspace() {
       method: method,
       headers: headers,
       body: body,
+      credentials: credentials,
       spoofGooglebot: spoof
     }, '*');
     return new Promise((resolve, reject) => {
@@ -102,41 +103,39 @@ export default function YoutubeTranscriptWorkspace() {
         throw new Error("Invalid YouTube URL or Video ID.");
       }
 
-      // Fetch the standard YouTube watch page HTML
-      // We pass false for spoof because we need the authentic user-facing HTML (which contains the JSON captions object)
-      // The extension's background.js now sends `credentials: 'include'` to pass logged-in cookies and avoid captchas!
-      const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-      const htmlRes: any = await proxyFetchViaExtension(watchUrl, false, 'GET', {
-        'Accept-Language': 'en-US,en;q=0.9',
-      });
+      const INNERTUBE_API_URL = 'https://www.youtube.com/youtubei/v1/player?prettyPrint=false';
+      const INNERTUBE_CLIENT_CONTEXT = {
+        context: {
+          client: {
+            clientName: 'ANDROID',
+            clientVersion: '20.10.38',
+            osName: 'Android',
+            osVersion: '14'
+          }
+        },
+        videoId: videoId
+      };
+
+      const res: any = await proxyFetchViaExtension(INNERTUBE_API_URL, false, 'POST', {
+        'Content-Type': 'application/json'
+      }, JSON.stringify(INNERTUBE_CLIENT_CONTEXT));
       
-      const html = htmlRes.body;
-      if (!html) throw new Error("Empty body returned from watch page");
-
-      if (html.includes('<title>Sorry...</title>') || html.includes('captcha')) {
-        throw new Error("YouTube blocked the request with a Captcha. Try disabling your VPN or waiting a few minutes.");
-      }
-
-      let parsedTracks;
+      let data;
       try {
-        const captionsSplit = html.split('"captions":');
-        if (captionsSplit.length <= 1) {
-          throw new Error("No captions object found in HTML. This video may not have subtitles.");
-        }
-        
-        // The captions object is followed by videoDetails, trackingParams, or playerConfig
-        let captionsStr = captionsSplit[1];
-        captionsStr = captionsStr.split(',"videoDetails"')[0];
-        captionsStr = captionsStr.split(',"trackingParams"')[0];
-        captionsStr = captionsStr.split(',"playerConfig"')[0];
-        
-        // Sometimes there are trailing characters if the split wasn't perfect, we can clean it up
-        // by finding the last matching closing brace
-        const captionsJson = JSON.parse(captionsStr);
-        parsedTracks = captionsJson?.playerCaptionsTracklistRenderer?.captionTracks;
-      } catch (e: any) {
-        throw new Error(`Failed to parse subtitles from page: ${e.message}`);
+        data = JSON.parse(res.body);
+      } catch (e) {
+        throw new Error(`API Parse Error: ${e instanceof Error ? e.message : 'Unknown error'}. Body: ${res.body.substring(0, 100)}`);
       }
+
+      if (data.playabilityStatus?.status === 'ERROR' || data.error) {
+        throw new Error(`YouTube API Error: ${data.playabilityStatus?.reason || data.error?.message || 'Unknown API error'}`);
+      }
+
+      if (!data.captions) {
+        throw new Error("No captions object found in API response. This video may not have subtitles.");
+      }
+
+      const parsedTracks = data.captions.playerCaptionsTracklistRenderer.captionTracks;
       
       if (!parsedTracks || !Array.isArray(parsedTracks) || parsedTracks.length === 0) {
         throw new Error("No subtitles or captions found for this video.");
@@ -170,7 +169,7 @@ export default function YoutubeTranscriptWorkspace() {
     try {
       const res: any = await proxyFetchViaExtension(trackUrl, false, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
-      });
+      }, undefined, 'include');
       const xmlText = res.body;
       
       let lines: any[] = [];
