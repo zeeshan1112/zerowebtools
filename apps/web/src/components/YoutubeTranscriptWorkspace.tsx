@@ -48,7 +48,7 @@ export default function YoutubeTranscriptWorkspace() {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  const proxyFetchViaExtension = (targetUrl: string, spoof: boolean, method = "GET", headers = {}, body?: string, credentials?: string) => {
+  const proxyFetchViaExtension = (targetUrl: string, spoof: boolean, method = "GET", headers = {}, body?: string) => {
     const messageId = Math.random().toString(36).substring(2, 15);
     window.postMessage({
       type: 'ZWT_PROXY_FETCH',
@@ -57,7 +57,6 @@ export default function YoutubeTranscriptWorkspace() {
       method: method,
       headers: headers,
       body: body,
-      credentials: credentials,
       spoofGooglebot: spoof
     }, '*');
     return new Promise((resolve, reject) => {
@@ -103,39 +102,33 @@ export default function YoutubeTranscriptWorkspace() {
         throw new Error("Invalid YouTube URL or Video ID.");
       }
 
+      const INNERTUBE_CLIENT_VERSION = '20.10.38';
       const INNERTUBE_API_URL = 'https://www.youtube.com/youtubei/v1/player?prettyPrint=false';
-      const INNERTUBE_CLIENT_CONTEXT = {
+      
+      const res: any = await proxyFetchViaExtension(INNERTUBE_API_URL, false, 'POST', {
+        'Content-Type': 'application/json',
+        'User-Agent': `com.google.android.youtube/${INNERTUBE_CLIENT_VERSION} (Linux; U; Android 14)`,
+      }, JSON.stringify({
         context: {
           client: {
             clientName: 'ANDROID',
-            clientVersion: '20.10.38',
-            osName: 'Android',
-            osVersion: '14'
+            clientVersion: INNERTUBE_CLIENT_VERSION,
           }
         },
         videoId: videoId
-      };
-
-      const res: any = await proxyFetchViaExtension(INNERTUBE_API_URL, false, 'POST', {
-        'Content-Type': 'application/json'
-      }, JSON.stringify(INNERTUBE_CLIENT_CONTEXT));
+      }));
       
       let data;
       try {
+        if (!res.body) {
+          throw new Error("Empty body returned");
+        }
         data = JSON.parse(res.body);
-      } catch (e) {
-        throw new Error(`API Parse Error: ${e instanceof Error ? e.message : 'Unknown error'}. Body: ${res.body.substring(0, 100)}`);
+      } catch (e: any) {
+        throw new Error(`API Parse Error: ${e.message}. Status: ${res.status}. Body: ${String(res.body).substring(0, 150)}`);
       }
-
-      if (data.playabilityStatus?.status === 'ERROR' || data.error) {
-        throw new Error(`YouTube API Error: ${data.playabilityStatus?.reason || data.error?.message || 'Unknown API error'}`);
-      }
-
-      if (!data.captions) {
-        throw new Error("No captions object found in API response. This video may not have subtitles.");
-      }
-
-      const parsedTracks = data.captions.playerCaptionsTracklistRenderer.captionTracks;
+      
+      const parsedTracks = data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
       
       if (!parsedTracks || !Array.isArray(parsedTracks) || parsedTracks.length === 0) {
         throw new Error("No subtitles or captions found for this video.");
@@ -169,7 +162,8 @@ export default function YoutubeTranscriptWorkspace() {
     try {
       const res: any = await proxyFetchViaExtension(trackUrl, false, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
-      }, undefined, 'include');
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
+      });
       const xmlText = res.body;
       
       let lines: any[] = [];
