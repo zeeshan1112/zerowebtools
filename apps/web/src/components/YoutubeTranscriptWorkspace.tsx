@@ -103,11 +103,11 @@ export default function YoutubeTranscriptWorkspace() {
       }
 
       // Fetch the standard YouTube watch page HTML
-      // This is completely immune to the youtubei 403 API blocks because it's a standard page load
+      // By passing true as the second parameter, the extension will spoof Googlebot
+      // which completely bypasses YouTube's Captchas and bot protection
       const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-      const htmlRes: any = await proxyFetchViaExtension(watchUrl, false, 'GET', {
+      const htmlRes: any = await proxyFetchViaExtension(watchUrl, true, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
       });
       
       const html = htmlRes.body;
@@ -168,9 +168,8 @@ export default function YoutubeTranscriptWorkspace() {
   const fetchTranscript = async (trackUrl: string) => {
     setIsExtracting(true);
     try {
-      const res: any = await proxyFetchViaExtension(trackUrl, false, 'GET', {
+      const res: any = await proxyFetchViaExtension(trackUrl, true, 'GET', {
         'Accept-Language': 'en-US,en;q=0.9',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
       });
       const xmlText = res.body;
       
