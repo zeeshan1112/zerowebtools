@@ -17,6 +17,7 @@ export default function WebScraperWorkspace() {
 
   const [url, setUrl] = useState(urlParam || "");
   const [extensionInstalled, setExtensionInstalled] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("/extensions");
   const [isExtracting, setIsExtracting] = useState(false);
   const [contentHtml, setContentHtml] = useState("");
   const [contentMarkdown, setContentMarkdown] = useState("");
@@ -29,6 +30,12 @@ export default function WebScraperWorkspace() {
     if (typeof document !== "undefined") {
       const isInstalled = document.documentElement.hasAttribute("data-zerowebtools-companion");
       setExtensionInstalled(isInstalled);
+      
+      const ua = navigator.userAgent;
+      const isChromium = /Chrome|Chromium|CriOS/i.test(ua);
+      if (isChromium) {
+        setDownloadUrl("https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb");
+      }
     }
   }, []);
 
@@ -283,7 +290,9 @@ export default function WebScraperWorkspace() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> 100% Private & Secure. We do not track or record your browsing data.
               </div>
               <a
-                href="/extensions"
+                href={downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-6 py-3 bg-ink dark:bg-white text-surface dark:text-ink hover:opacity-80 font-medium rounded-lg transition-all"
               >
                 {t("web_scraper.download_extension", "Download Extension")}

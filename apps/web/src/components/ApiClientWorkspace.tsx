@@ -164,6 +164,7 @@ export default function ApiClientWorkspace() {
   const [basicPass, setBasicPass] = useState("");
 
   const [extensionInstalled, setExtensionInstalled] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("/extensions");
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -184,6 +185,12 @@ export default function ApiClientWorkspace() {
     if (typeof document !== "undefined") {
       const isInstalled = document.documentElement.hasAttribute("data-zerowebtools-companion");
       setExtensionInstalled(isInstalled);
+      
+      const ua = navigator.userAgent;
+      const isChromium = /Chrome|Chromium|CriOS/i.test(ua);
+      if (isChromium) {
+        setDownloadUrl("https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb");
+      }
       
       const savedHistory = localStorage.getItem('zwt_apiclient_history');
       if (savedHistory) {
@@ -546,7 +553,7 @@ export default function ApiClientWorkspace() {
               <p className="text-sm text-ink-secondary mb-8 leading-relaxed">
                 {t("api_client.missing_extension_desc", "This tool requires the ZeroWebTools companion extension to securely bypass browser CORS restrictions and execute raw HTTP requests locally.")}
               </p>
-              <a href="/extensions" className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-ink dark:bg-white text-surface dark:text-ink font-bold rounded-xl hover:opacity-90 transition-all shadow-md active:scale-95 text-xs uppercase tracking-wider">
+              <a href={downloadUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center w-full px-6 py-3.5 bg-ink dark:bg-white text-surface dark:text-ink font-bold rounded-xl hover:opacity-90 transition-all shadow-md active:scale-95 text-xs uppercase tracking-wider">
                 {t("api_client.download_extension", "Install Companion Extension")}
               </a>
             </div>
