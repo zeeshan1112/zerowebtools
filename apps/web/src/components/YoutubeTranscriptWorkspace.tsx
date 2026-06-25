@@ -18,6 +18,7 @@ export default function YoutubeTranscriptWorkspace() {
 
   const [url, setUrl] = useState(urlParam || "");
   const [extensionInstalled, setExtensionInstalled] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("/extensions");
   const [isExtracting, setIsExtracting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -34,6 +35,12 @@ export default function YoutubeTranscriptWorkspace() {
     if (typeof document !== "undefined") {
       const isInstalled = document.documentElement.hasAttribute("data-zerowebtools-companion");
       setExtensionInstalled(isInstalled);
+      
+      const ua = navigator.userAgent;
+      const isChromium = /Chrome|Chromium|CriOS/i.test(ua);
+      if (isChromium) {
+        setDownloadUrl("https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb");
+      }
     }
   }, []);
 
@@ -301,7 +308,9 @@ export default function YoutubeTranscriptWorkspace() {
                 Please install the ZeroWebTools extension to securely fetch YouTube captions without server limits.
               </p>
               <a
-                href="/extensions"
+                href={downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-6 py-3 bg-ink dark:bg-white text-surface dark:text-ink hover:opacity-80 font-medium rounded-lg transition-all"
               >
                 Download Extension

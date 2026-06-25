@@ -17,6 +17,7 @@ export default function WebScraperWorkspace() {
 
   const [url, setUrl] = useState(urlParam || "");
   const [extensionInstalled, setExtensionInstalled] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("/extensions");
   const [isExtracting, setIsExtracting] = useState(false);
   const [contentHtml, setContentHtml] = useState("");
   const [contentMarkdown, setContentMarkdown] = useState("");
@@ -29,6 +30,12 @@ export default function WebScraperWorkspace() {
     if (typeof document !== "undefined") {
       const isInstalled = document.documentElement.hasAttribute("data-zerowebtools-companion");
       setExtensionInstalled(isInstalled);
+      
+      const ua = navigator.userAgent;
+      const isChromium = /Chrome|Chromium|CriOS/i.test(ua);
+      if (isChromium) {
+        setDownloadUrl("https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb");
+      }
     }
   }, []);
 
@@ -68,7 +75,7 @@ export default function WebScraperWorkspace() {
       if (data && data.archived_snapshots && data.archived_snapshots.closest && data.archived_snapshots.closest.url) {
         let waybackUrl = data.archived_snapshots.closest.url;
         const res: any = await proxyFetchViaExtension(waybackUrl, false);
-        processHtml(res.body, false);
+        processHtml(res.body, null);
       } else {
         throw new Error("Not available in Web Archive");
       }
@@ -87,13 +94,14 @@ export default function WebScraperWorkspace() {
     if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
       targetUrl = 'https://' + targetUrl;
     }
+    const originalUrl = targetUrl;
 
     try {
-      const parsedUrl = new URL(targetUrl);
+      const parsedUrl = new URL(originalUrl);
       const hostname = parsedUrl.hostname.toLowerCase();
       
       // Auto-detect Medium or Medium subdomains or custom domains (based on URL structure)
-      let isMedium = hostname === 'medium.com' || hostname.endsWith('.medium.com') || targetUrl.includes('medium.com');
+      let isMedium = hostname === 'medium.com' || hostname.endsWith('.medium.com') || originalUrl.includes('medium.com');
       
       const pathSegments = parsedUrl.pathname.split('/');
       const lastSegment = pathSegments[pathSegments.length - 1];
@@ -108,13 +116,6 @@ export default function WebScraperWorkspace() {
          isMedium = true;
       }
       
-      // Use Freedium mirror to bypass paywalls for Medium articles since we don't have premium cookies
-      let fetchedFromFreedium = false;
-      if (isMedium) {
-          targetUrl = `https://freedium-mirror.cfd/${targetUrl}`;
-          fetchedFromFreedium = true;
-      }
-      
       // Standard Fetch (Readability) via Extension Proxy
       if (!extensionInstalled) {
         setError(t("web_scraper.missing_extension_desc", "Extension required."));
@@ -122,12 +123,42 @@ export default function WebScraperWorkspace() {
         return;
       }
       
-      proxyFetchViaExtension(targetUrl, true)
-        .then((res: any) => processHtml(res.body, fetchedFromFreedium))
-        .catch(e => {
-          // If direct fetch fails (firewall or strong block), fallback to Web Archive
-          fetchFromWayback(targetUrl);
-        });
+      if (isMedium) {
+        // Multi-tier Medium bypass:
+        // Tier 1: freedium.cfd
+        // Tier 2: freedium-mirror.cfd
+        // Tier 3: Wayback Machine
+        proxyFetchViaExtension(`https://freedium.cfd/${originalUrl}`, true)
+          .then((res: any) => {
+            const html = res.body || '';
+            if (html.includes('RENDER ERROR') || html.includes('problem preparing this article') || html.includes('Freedium 500')) {
+              throw new Error("freedium.cfd failed");
+            }
+            processHtml(html, 'freedium.cfd');
+          })
+          .catch(() => {
+            // Tier 2 fallback
+            return proxyFetchViaExtension(`https://freedium-mirror.cfd/${originalUrl}`, true)
+              .then((res: any) => {
+                const html = res.body || '';
+                if (html.includes('RENDER ERROR') || html.includes('problem preparing this article') || html.includes('Freedium 500')) {
+                  throw new Error("freedium-mirror.cfd failed");
+                }
+                processHtml(html, 'freedium-mirror.cfd');
+              })
+              .catch(() => {
+                // Tier 3 fallback
+                fetchFromWayback(originalUrl);
+              });
+          });
+      } else {
+        proxyFetchViaExtension(originalUrl, true)
+          .then((res: any) => processHtml(res.body, null))
+          .catch(e => {
+            // If direct fetch fails (firewall or strong block), fallback to Web Archive
+            fetchFromWayback(originalUrl);
+          });
+      }
     } catch (e: any) {
       setError("Invalid URL");
       setIsExtracting(false);
@@ -141,19 +172,20 @@ export default function WebScraperWorkspace() {
     }
   }, [urlParam, extensionInstalled]);
 
-  const processHtml = (html: string, isFreedium: boolean = false) => {
+  const processHtml = (html: string, freediumDomain: string | null = null) => {
     try {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
       
       let coverImageHtml = '';
-      if (isFreedium) {
+      if (freediumDomain) {
+        const baseUrl = `https://${freediumDomain}`;
         // Extract cover image manually because Readability often strips images placed before the <h1>
         const coverImg = doc.querySelector('img[alt="Post cover image"]');
         if (coverImg) {
            const realSrc = coverImg.getAttribute('data-zoom-src') || coverImg.getAttribute('src');
            if (realSrc) {
-             const absoluteSrc = realSrc.startsWith('/') ? `https://freedium-mirror.cfd${realSrc}` : realSrc;
+             const absoluteSrc = realSrc.startsWith('/') ? `${baseUrl}${realSrc}` : realSrc;
              const captionNode = coverImg.closest('figure')?.querySelector('figcaption');
              const captionHtml = captionNode ? `<figcaption class="text-center text-sm text-neutral-500 mt-2">${captionNode.innerHTML}</figcaption>` : '';
              coverImageHtml = `<figure class="my-6"><img src="${absoluteSrc}" alt="Cover Image" class="w-full rounded-xl" />${captionHtml}</figure>\n`;
@@ -166,7 +198,7 @@ export default function WebScraperWorkspace() {
           // Check for actual src or lazy-loaded data-src
           const realSrc = img.getAttribute('data-zoom-src') || src;
           if (realSrc && realSrc.startsWith('/img/')) {
-            img.setAttribute('src', `https://freedium-mirror.cfd${realSrc}`);
+            img.setAttribute('src', `${baseUrl}${realSrc}`);
             // Remove width/height to let our CSS handle the responsive sizing
             img.removeAttribute('width');
             img.removeAttribute('height');
@@ -283,7 +315,9 @@ export default function WebScraperWorkspace() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> 100% Private & Secure. We do not track or record your browsing data.
               </div>
               <a
-                href="/extensions"
+                href={downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-6 py-3 bg-ink dark:bg-white text-surface dark:text-ink hover:opacity-80 font-medium rounded-lg transition-all"
               >
                 {t("web_scraper.download_extension", "Download Extension")}

@@ -170,7 +170,7 @@ export function UnlockPDFWorkspace() {
     isGeneratingRef.current = true;
 
     try {
-      const { decryptPDF } = await import("@pdfsmaller/pdf-decrypt");
+      const { decryptPDF } = await import("@hub/tools-core");
       const arrayBuffer = await file.arrayBuffer();
       const decryptedBytes = await decryptPDF(new Uint8Array(arrayBuffer), password);
       const doc = await PDFDocument.load(decryptedBytes);
