@@ -57,3 +57,4 @@ export { generatePassword, calculatePasswordStrength } from "./passwordGenerator
 export type { PasswordOptions, PasswordStats } from "./passwordGenerator";
 export { markdownToHtml, htmlToMarkdown } from "./markdown";
 export { shuffleList, pickWinners } from "./randomPicker";
+export { decryptPDF, isEncrypted } from "./pdfDecrypt";
