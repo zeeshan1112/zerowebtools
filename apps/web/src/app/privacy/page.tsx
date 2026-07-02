@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     siteName: "ZeroWebTools",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.jpg",
         width: 1200,
-        height: 630,
+        height: 675,
         alt: "ZeroWebTools — Free Browser-Based Professional Tools",
       },
     ],
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy - ZeroWebTools",
     description:
       "100% client-side processing. Your files and data never leave your device.",
-    images: ["/logo.png"],
+    images: ["/og-image.jpg"],
   },
 };
 

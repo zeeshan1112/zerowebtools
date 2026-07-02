@@ -43,9 +43,9 @@ export const metadata: Metadata = {
     description: "Merge PDFs, convert HEIC, format JSON, model MRR growth, and more — all 100% private and instant. No signup, no servers, no tracking.",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.jpg",
         width: 1200,
-        height: 630,
+        height: 675,
         alt: "ZeroWebTools — Free Browser-Based Professional Tools",
       },
     ],
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ZeroWebTools — Free Web Tools That Never Upload Your Data",
     description: "Merge PDFs, convert HEIC, format JSON, model MRR growth, and more — all 100% private and instant. No signup, no servers.",
-    images: ["/logo.png"],
+    images: ["/og-image.jpg"],
   },
   verification: {
     other: {

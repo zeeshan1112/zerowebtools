@@ -22,13 +22,20 @@
 ## 🛠️ The Tool Suite
 
 Quick Navigation:
+* [AI Tools (2 tools)](#ai-tools-2-tools)
 * [PDF Suite Pro (14 tools)](#pdf-suite-pro-14-tools)
-* [Text Tools (7 tools)](#text-tools-7-tools)
+* [Text Tools (8 tools)](#text-tools-8-tools)
 * [Developer Tools (7 tools)](#developer-tools-7-tools)
-* [Generators (7 tools)](#generators-7-tools)
+* [Generators (8 tools)](#generators-8-tools)
 * [Creative & Image Tools (5 tools)](#creative--image-tools-5-tools)
 * [Financial & Growth Calculators (6 tools)](#financial--growth-calculators-6-tools)
 * [Fun & Interactive Games (5 tools)](#fun--interactive-games-5-tools)
+
+### AI Tools (2 tools)
+| Tool | Live Link | Description |
+|------|-----------|-------------|
+| **Audio Transcriber Pro** | [Try Live](https://zerowebtools.com/tools/audio-transcriber) | Transcribe audio files locally in your browser with precise timestamps using WebAssembly |
+| **Token Counter & Cost Estimator** | [Try Live](https://zerowebtools.com/tools/token-counter) | Count tokens and estimate API costs client-side with 100% privacy |
 
 ### PDF Suite Pro (14 tools)
 | Tool | Live Link | Description |
@@ -48,7 +55,7 @@ Quick Navigation:
 | **Crop PDF & Page Resize** | [Try Live](https://zerowebtools.com/tools/pdf-crop) | Crop PDF margins and resize pages to standard layouts (A4, Letter, Legal) |
 | **PDF to Text Extractor** | [Try Live](https://zerowebtools.com/tools/pdf-to-text) | Extract raw text streams and rebuild structured page layouts locally |
 
-### Text Tools (7 tools)
+### Text Tools (8 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
 | **Word Counter Pro** | [Try Live](https://zerowebtools.com/tools/word-counter) | Count words, characters, sentences, paragraphs, and analyze density & reading time |
@@ -57,20 +64,21 @@ Quick Navigation:
 | **Voice Dictator & Reader** | [Try Live](https://zerowebtools.com/tools/voice-dictator) | Dictate speech to text and narrate text to speech offline using native Speech APIs |
 | **Markdown ↔ HTML Converter** | [Try Live](https://zerowebtools.com/tools/markdown-converter) | Convert Markdown markup to HTML and vice versa in real time with preview |
 | **List Shuffler & Random Picker** | [Try Live](https://zerowebtools.com/tools/random-picker) | Shuffle lists, draw random items, pick names, or choose raffle winners |
-| **Audio Transcriber Pro** | [Try Live](https://zerowebtools.com/tools/audio-transcriber) | Transcribe audio files locally in your browser with precise timestamps using WebAssembly |
+| **Smart Article Reader** | [Try Live](https://zerowebtools.com/tools/web-scraper) | Extract any article privately, convert websites to clean text, and read distraction-free |
+| **YouTube Transcript Extractor** | [Try Live](https://zerowebtools.com/tools/youtube-transcript) | Extract subtitles, captions, and transcripts from any YouTube video instantly |
 
 ### Developer Tools (7 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
+| **REST API Client** | [Try Live](https://zerowebtools.com/tools/api-client) | Construct and execute HTTP requests privately bypassing CORS using the companion extension |
 | **JSON Formatter** | [Try Live](https://zerowebtools.com/tools/json-formatter) | Validate, format, beautify, and explore JSON with a live tree view |
 | **Side-by-Side Diff Checker** | [Try Live](https://zerowebtools.com/tools/diff-checker) | Compare two text blocks or code files to highlight modifications side-by-side |
 | **JWT Debugger & Decoder** | [Try Live](https://zerowebtools.com/tools/jwt-debugger) | Decode, parse, and validate JSON Web Tokens (JWT) header, payload, and signatures |
 | **Interactive Regex Tester** | [Try Live](https://zerowebtools.com/tools/regex-tester) | Test regular expressions, highlight matches, and check capturing groups |
 | **SQL Formatter & Beautifier** | [Try Live](https://zerowebtools.com/tools/sql-formatter) | Format, beautify, clean indentation, and capitalize SQL dialect statements |
-| **Token Counter & Cost Estimator** | [Try Live](https://zerowebtools.com/tools/token-counter) | Count tokens and estimate API costs client-side with 100% privacy |
 | **HTML to JSX Converter** | [Try Live](https://zerowebtools.com/tools/html-to-jsx) | Convert standard HTML templates and properties into React-compatible JSX elements |
 
-### Generators (7 tools)
+### Generators (8 tools)
 | Tool | Live Link | Description |
 |------|-----------|-------------|
 | **Base64 Cipher Modeler** | [Try Live](https://zerowebtools.com/tools/base64-encoder) | Encode text or files to Base64 and decode them back to readable format |
@@ -80,6 +88,7 @@ Quick Navigation:
 | **CSS Box Shadow Generator** | [Try Live](https://zerowebtools.com/tools/css-box-shadow) | Generate CSS box shadows visually with real-time preview and inset options |
 | **Unix Timestamp Converter** | [Try Live](https://zerowebtools.com/tools/unix-timestamp-converter) | Convert Unix epoch timestamps to human-readable dates (UTC/local) and vice versa |
 | **Cron Expression Generator** | [Try Live](https://zerowebtools.com/tools/cron-generator) | Build cron schedule expressions visually or parse raw cron expressions |
+| **Professional Resume Builder** | [Try Live](https://zerowebtools.com/tools/resume-builder) | Build, preview, and print a pristine, multi-page professional resume natively in your browser |
 
 ### Creative & Image Tools (5 tools)
 | Tool | Live Link | Description |
@@ -265,7 +274,7 @@ This command automatically:
 1. Open Google Chrome and type `chrome://extensions/` in the address bar.
 2. Toggle on **Developer mode** in the upper-right corner.
 3. Click the **Load unpacked** button in the upper-left corner.
-4. Select the build directory: `/Users/zee/zeeshanahmad-io/zeelancebox/apps/extensions/developertools/dist/`.
+4. Select the build directory: `/Users/zee/zeeshanahmad-io/zerowebtools/apps/extensions/developertools/dist/`.
 
 The ZeroWebTools extension icon will now appear in your browser toolbar, letting you run panel actions locally.
 
@@ -291,7 +300,7 @@ ZeroWebTools utilizes an automated translation orchestrator script `scratch/tran
 - **Smart Concurrency & Throttling**: Implements a concurrent task queue (8 workers) with jitter, retry mechanisms, and rate-limit detection (throttling for HTTP 429/503) to prevent API blocks.
 - **Persistent Local Caching**: Saves translations locally to bypass network overhead and reuse existing keys for future updates.
 
-For a comprehensive guide on the translation architecture, custom configurations, and workflow guides for new tools, view the [Translation Workflow Documentation](file:///Users/zee/zeeshanahmad-io/zeelancebox/docs/translation_workflow.md).
+For a comprehensive guide on the translation architecture, custom configurations, and workflow guides for new tools, view the [Translation Workflow Documentation](file:///Users/zee/zeeshanahmad-io/zerowebtools/docs/translation_workflow.md).
 
 ---
 

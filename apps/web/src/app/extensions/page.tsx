@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     siteName: "ZeroWebTools",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.jpg",
         width: 1200,
-        height: 630,
+        height: 675,
         alt: "ZeroWebTools — Free Browser-Based Professional Tools",
       },
     ],
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Browser Extensions - ZeroWebTools",
     description:
       "Run essential utilities offline directly in your toolbar. Chrome & Firefox support.",
-    images: ["/logo.png"],
+    images: ["/og-image.jpg"],
   },
 };
 
