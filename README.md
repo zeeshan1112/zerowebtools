@@ -265,7 +265,7 @@ This command automatically:
 1. Open Google Chrome and type `chrome://extensions/` in the address bar.
 2. Toggle on **Developer mode** in the upper-right corner.
 3. Click the **Load unpacked** button in the upper-left corner.
-4. Select the build directory: `/Users/zee/zeeshanahmad-io/zeelancebox/apps/extensions/developertools/dist/`.
+4. Select the build directory: `/Users/zee/zeeshanahmad-io/zerowebtools/apps/extensions/developertools/dist/`.
 
 The ZeroWebTools extension icon will now appear in your browser toolbar, letting you run panel actions locally.
 
@@ -291,7 +291,7 @@ ZeroWebTools utilizes an automated translation orchestrator script `scratch/tran
 - **Smart Concurrency & Throttling**: Implements a concurrent task queue (8 workers) with jitter, retry mechanisms, and rate-limit detection (throttling for HTTP 429/503) to prevent API blocks.
 - **Persistent Local Caching**: Saves translations locally to bypass network overhead and reuse existing keys for future updates.
 
-For a comprehensive guide on the translation architecture, custom configurations, and workflow guides for new tools, view the [Translation Workflow Documentation](file:///Users/zee/zeeshanahmad-io/zeelancebox/docs/translation_workflow.md).
+For a comprehensive guide on the translation architecture, custom configurations, and workflow guides for new tools, view the [Translation Workflow Documentation](file:///Users/zee/zeeshanahmad-io/zerowebtools/docs/translation_workflow.md).
 
 ---
 
