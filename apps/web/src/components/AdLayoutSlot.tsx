@@ -12,23 +12,20 @@ interface AdLayoutSlotProps {
 
 const AD_DIMENSIONS: Record<
   AdSlotType,
-  { width: string; height: string; label: string; format: string }
+  { containerClass: string; label: string; format: string }
 > = {
   leaderboard: {
-    width: "728px",
-    height: "90px",
+    containerClass: "w-full max-w-[728px] h-[50px] sm:h-[90px]",
     label: "Sponsored Extension",
     format: "horizontal",
   },
   rectangle: {
-    width: "300px",
-    height: "250px",
+    containerClass: "w-[300px] h-[250px]",
     label: "Developer Spotlight",
     format: "rectangle",
   },
   anchor: {
-    width: "100%",
-    height: "90px",
+    containerClass: "w-full h-[50px] sm:h-[90px]",
     label: "Sponsored Extension",
     format: "horizontal",
   },
@@ -40,7 +37,7 @@ const AD_DIMENSIONS: Record<
  * In development or when publisher ID is missing, displays a beautiful mock skeleton.
  */
 export default function AdLayoutSlot({ type, className = "", slotId }: AdLayoutSlotProps) {
-  const dims = AD_DIMENSIONS[type];
+  const config = AD_DIMENSIONS[type];
   const isLoaded = useRef(false);
 
   const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-4462229908260280";
@@ -62,12 +59,11 @@ export default function AdLayoutSlot({ type, className = "", slotId }: AdLayoutS
   if (isDemo) {
     return (
       <div
-        className={`flex items-center justify-center my-6 transition-all duration-300 ${className}`}
-        style={{ width: dims.width, height: dims.height, maxWidth: "100%" }}
+        className={`flex items-center justify-center my-6 transition-all duration-300 ${config.containerClass} ${className}`}
       >
         <div
           className="w-full h-full rounded-2xl border border-dashed border-border/80 bg-surface/50 dark:bg-surface-elevated/20 flex flex-col items-center justify-center overflow-hidden hover:border-accent/40 hover:bg-accent-surface/5 relative group"
-          aria-label={dims.label}
+          aria-label={config.label}
           role="complementary"
         >
           {/* Shimmer animation layer */}
@@ -127,7 +123,7 @@ export default function AdLayoutSlot({ type, className = "", slotId }: AdLayoutS
                   strokeLinecap="round"
                 />
               </svg>
-              <span>{dims.label}</span>
+              <span>{config.label}</span>
             </div>
           </div>
 
@@ -149,15 +145,14 @@ export default function AdLayoutSlot({ type, className = "", slotId }: AdLayoutS
 
   return (
     <div
-      className={`flex items-center justify-center my-6 overflow-hidden ${className}`}
-      style={{ width: dims.width, height: dims.height, maxWidth: "100%" }}
+      className={`flex items-center justify-center my-6 overflow-hidden ${config.containerClass} ${className}`}
     >
       <ins
         className="adsbygoogle"
         style={{ display: "block", width: "100%", height: "100%" }}
         data-ad-client={adsenseClientId}
         data-ad-slot={slotId || "YOUR_DEFAULT_SLOT_ID"}
-        data-ad-format={dims.format}
+        data-ad-format={config.format}
         data-full-width-responsive="true"
       />
     </div>
