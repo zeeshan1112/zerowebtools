@@ -1,23 +1,29 @@
 import fs from "fs";
 import path from "path";
+import { PROGRAMMATIC_SEO_DATA } from "/Users/zee/zeeshanahmad-io/zerowebtools/apps/web/src/lib/programmatic-seo-data.ts";
 
-const KEYWORDS = [
-  "json to typescript",
-  "json to go",
-  "json to python",
-  "convert heic to png",
-  "convert heic to webp",
-  "compress pdf 100kb",
-  "compress pdf 200kb",
-  "merge pdf online",
-  "bypass cors api",
-  "test localhost api"
-];
+// Compile dynamic keywords list from all programmatic search slugs
+const KEYWORDS = [];
+for (const [_, queries] of Object.entries(PROGRAMMATIC_SEO_DATA)) {
+  for (const q of queries) {
+    const cleanQuery = q.slug
+      .replace(/-online$/, "")
+      .replace(/-free$/, "")
+      .replace(/-/g, " ");
+    KEYWORDS.push(cleanQuery);
+  }
+}
+
+// Deduplicate
+const UNIQUE_KEYWORDS = Array.from(new Set(KEYWORDS));
 
 const REDDIT_CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const REDDIT_CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 const REDDIT_USERNAME = process.env.REDDIT_USERNAME;
 const REDDIT_PASSWORD = process.env.REDDIT_PASSWORD;
+
+// Rate-limiting helper to avoid hitting Algolia or Reddit rate limits
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function searchHackerNews(query) {
   const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(query)}&tags=comment&numericFilters=created_at_i>${Math.floor(Date.now() / 1000) - 86400 * 7}`; // past 7 days
@@ -94,7 +100,7 @@ async function searchReddit(token, query) {
 
 function generateDraftReply(q) {
   const qLower = q.toLowerCase();
-  if (qLower.includes("json")) {
+  if (qLower.includes("json") || qLower.includes("typescript") || qLower.includes("go struct")) {
     return `Hey! If you are looking to format JSON or convert it to TypeScript/Go/Python locally, I built a 100% private web utility: https://zerowebtools.com/tools/json-formatter. Everything runs locally on your browser CPU, so your API structures and secrets never leave your device.`;
   }
   if (qLower.includes("heic")) {
@@ -110,7 +116,7 @@ async function startSocialListening() {
   console.log("=========================================");
   console.log("   ZeroWebTools Social Listening Monitor ");
   console.log("=========================================");
-  console.log(`Monitoring keywords: ${KEYWORDS.join(", ")}\n`);
+  console.log(`Dynamically compiled ${UNIQUE_KEYWORDS.length} active keywords from database.\n`);
 
   const redditToken = await getRedditAccessToken();
   if (redditToken) {
@@ -121,28 +127,30 @@ async function startSocialListening() {
 
   let totalHits = 0;
 
-  for (const query of KEYWORDS) {
-    console.log(`\nScanning for: "${query}"...`);
+  for (let i = 0; i < UNIQUE_KEYWORDS.length; i++) {
+    const query = UNIQUE_KEYWORDS[i];
+    console.log(`[${i + 1}/${UNIQUE_KEYWORDS.length}] Scanning for: "${query}"...`);
+    
     const hnResults = await searchHackerNews(query);
     const redditResults = redditToken ? await searchReddit(redditToken, query) : [];
     
     const combined = [...hnResults, ...redditResults];
     totalHits += combined.length;
 
-    if (combined.length === 0) {
-      console.log("  No matches found in the last week.");
-      continue;
+    if (combined.length > 0) {
+      combined.forEach(hit => {
+        console.log(`\n  📌 [${hit.platform}] - ${hit.title}`);
+        console.log(`     Link: ${hit.url}`);
+        console.log(`     Date: ${hit.created.toLocaleString()}`);
+        console.log(`     Snippet: "${hit.text}"`);
+        console.log(`     Suggested Organic Reply:`);
+        console.log(`       "${generateDraftReply(query)}"`);
+        console.log("     ---------------------------------------");
+      });
     }
 
-    combined.forEach(hit => {
-      console.log(`\n📌 [${hit.platform}] - ${hit.title}`);
-      console.log(`   Link: ${hit.url}`);
-      console.log(`   Date: ${hit.created.toLocaleString()}`);
-      console.log(`   Snippet: "${hit.text}"`);
-      console.log(`   Suggested Organic Reply:`);
-      console.log(`     "${generateDraftReply(query)}"`);
-      console.log("   ---------------------------------------");
-    });
+    // Defensive rate-limiting delay between keywords
+    await sleep(350);
   }
 
   console.log("\n=========================================");
