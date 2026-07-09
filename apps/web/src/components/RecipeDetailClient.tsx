@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChainingRecipe } from "@/lib/recipes";
 import { getToolById } from "@/lib/tools";
+import AdLayoutSlot from "@/components/AdLayoutSlot";
 
 interface RecipeDetailClientProps {
   recipe: ChainingRecipe;
@@ -63,6 +64,11 @@ export default function RecipeDetailClient({ recipe, lang }: RecipeDetailClientP
             );
           })}
         </div>
+      </div>
+
+      {/* Above Steps Leaderboard Ad */}
+      <div className="py-2 flex justify-center">
+        <AdLayoutSlot type="leaderboard" slotId="recipe-top-leaderboard" />
       </div>
 
       {/* Steps List */}

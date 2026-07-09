@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ComparisonMatchup } from "@/lib/comparisons";
 import { getToolById } from "@/lib/tools";
+import AdLayoutSlot from "@/components/AdLayoutSlot";
 
 interface CompareMatchupClientProps {
   matchup: ComparisonMatchup;
@@ -79,6 +80,11 @@ export default function CompareMatchupClient({ matchup, lang }: CompareMatchupCl
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Matrix Bottom Leaderboard Ad */}
+      <div className="py-2 flex justify-center">
+        <AdLayoutSlot type="leaderboard" slotId="compare-matrix-leaderboard" />
       </div>
 
       {/* Detailed Content Sections */}

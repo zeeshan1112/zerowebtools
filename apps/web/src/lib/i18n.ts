@@ -2914,13 +2914,15 @@ export function getLocalizedTool(tool: any, lang: string | undefined): any {
   return tool;
 }
 
-export function getAlternateLanguages(path: string): Record<string, string> {
+export function getAlternateLanguages(path: string, allowedLocales?: string[]): Record<string, string> {
   const languages: Record<string, string> = {};
   const baseUrl = "https://zerowebtools.com";
   languages["en"] = `${baseUrl}${path}`;
   languages["x-default"] = `${baseUrl}${path}`;
   
-  LOCALES.filter(l => l !== "en").forEach(lang => {
+  const targetLocales = allowedLocales || LOCALES.filter(l => l !== "en");
+  
+  targetLocales.filter(l => l !== "en").forEach(lang => {
     languages[lang] = `${baseUrl}/${lang}${path}`;
   });
   

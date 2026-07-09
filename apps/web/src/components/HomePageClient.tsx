@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
-import AdLayoutSlot from "@/components/AdLayoutSlot";
 import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-cards";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
