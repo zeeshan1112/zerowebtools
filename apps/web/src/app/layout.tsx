@@ -6,6 +6,7 @@ import Analytics from "@/components/Analytics";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RtlSync from "@/components/RtlSync";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -133,6 +134,7 @@ export default function RootLayout({
           />
         )}
         <Analytics />
+        <PWAInstallPrompt />
       </body>
     </html>
   );

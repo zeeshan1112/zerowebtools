@@ -1424,6 +1424,66 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
           "Say goodbye to long loading screens and complicated interfaces. With just a few clicks, you can get the job done instantly. Enhance your productivity and focus on what truly matters by using our fast and reliable tool today."
         ]
       }
+    },
+    {
+      "slug": "json-to-typescript-interface-online",
+      "title": "Convert JSON to TypeScript Interface Online Free & Private",
+      "metaDescription": "Instantly convert JSON objects to clean, strongly-typed TypeScript interfaces. Processed entirely local-first inside your browser for total safety.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to TypeScript Interfaces Locally",
+        "paragraphs": [
+          "Writing TypeScript type definitions manually for complex API JSON payloads is repetitive and time-consuming. Our JSON-to-TypeScript converter automates this process client-side.",
+          "Simply paste your JSON string, and our editor parses it to output nested interfaces and types instantly. Since no data is transmitted to a backend, your API response structures remain completely secure."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-go-struct-online",
+      "title": "Convert JSON to Go Struct Online Free & Private",
+      "metaDescription": "Generate Go (Golang) struct definitions from JSON objects. 100% free browser-based converter with automatic json tag generation.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to Go Structs Locally",
+        "paragraphs": [
+          "Integrating APIs in Go requires mapping JSON payloads to typed structs. Our tool reads any valid JSON structure and outputs a clean, well-formatted Go struct complete with standard JSON tag names (`json:\"field_name\"`).",
+          "Everything runs in your browser using local parsing logic. No source code or confidential payloads ever touch external servers, keeping your proprietary data and schemas private."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-python-class-online",
+      "title": "Convert JSON to Python Class Online Free & Private",
+      "metaDescription": "Generate typed Python classes or Dataclasses from JSON strings instantly. Safe, browser-based developer utility.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to Python Classes Locally",
+        "paragraphs": [
+          "Mapping JSON to Python dicts is standard, but using typed classes or `dataclasses` provides autocomplete, validation, and clean design. Our local tool converts JSON variables into Python dataclass objects in a click.",
+          "All conversions are computed locally. Paste raw payload dumps without worrying about leaking proprietary system records or user data to third-party endpoints."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-xml-converter-online",
+      "title": "Convert JSON to XML Online Free & Private",
+      "metaDescription": "Convert JSON data structures to XML documents instantly. Free offline-friendly browser utility with no limits.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to XML Locally",
+        "paragraphs": [
+          "Need to interface with legacy XML endpoints but working with modern JSON datasets? Our JSON to XML converter maps keys to XML nodes dynamically.",
+          "Process large objects, configure custom root wrappers, and output formatted XML strings. Since processing is done on your own device, it is fast, unlimited, and private."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-yaml-converter-online",
+      "title": "Convert JSON to YAML Online Free & Private",
+      "metaDescription": "Convert JSON payloads to clean YAML configuration formats. 100% local browser-based converter for developers.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to YAML Locally",
+        "paragraphs": [
+          "Convert complex JSON payloads into human-readable YAML configurations for Kubernetes, CI/CD pipelines, or settings files instantly.",
+          "Our tool parses your JSON tree and reformats it with clean spacing and block indicators. Your data remains strictly in your browser memory throughout the entire process."
+        ]
+      }
     }
   ],
   "diff-checker": [
@@ -2290,6 +2350,54 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         "paragraphs": [
           "Time is money, and our Fast HEIC to JPG Tool - Fast is built for speed. When you're in a rush and need a quick solution for converting Apple HEIC photos into standard JPG format, this utility delivers lightning-fast results directly in your web browser.",
           "Say goodbye to long loading screens and complicated interfaces. With just a few clicks, you can get the job done instantly. Enhance your productivity and focus on what truly matters by using our fast and reliable tool today."
+        ]
+      }
+    },
+    {
+      "slug": "convert-heic-to-png-online",
+      "title": "Convert HEIC to PNG Online Free & Private",
+      "metaDescription": "Convert Apple HEIC images to lossless transparent PNG format. 100% local browser-based decoder using WebAssembly.",
+      "articleIntro": {
+        "heading": "How to Convert HEIC to PNG Locally",
+        "paragraphs": [
+          "HEIC is highly compressed but lacks universal support on web and editing software. If you need transparency or lossless compression for design work, converting your HEIC images to PNG is the ideal solution.",
+          "Our browser-based utility decodes HEIC bytes using local WebAssembly libraries, outputting a high-fidelity PNG image. No files ever leave your machine, ensuring complete data security."
+        ]
+      }
+    },
+    {
+      "slug": "convert-heic-to-webp-online",
+      "title": "Convert HEIC to WEBP Online Free & Private",
+      "metaDescription": "Convert iPhone HEIC photos to modern web-optimized WEBP images. Instant client-side conversions with no server uploads.",
+      "articleIntro": {
+        "heading": "How to Convert HEIC to WEBP Locally",
+        "paragraphs": [
+          "WEBP is the modern standard for fast-loading web images. Converting your iPhone's HEIC photos to WEBP shrinks sizes further while maintaining visual quality, perfect for publishing on websites or mobile apps.",
+          "ZeroWebTools converts files directly in your browser using local canvas and decoders. No network traffic or registration required."
+        ]
+      }
+    },
+    {
+      "slug": "convert-heic-to-pdf-online",
+      "title": "Convert HEIC to PDF Online Free & Private",
+      "metaDescription": "Convert HEIC photos to a clean PDF document in your browser. 100% private local image-to-PDF compiler.",
+      "articleIntro": {
+        "heading": "How to Convert HEIC to PDF Locally",
+        "paragraphs": [
+          "Need to compile your iPhone photo scans, receipts, or documents into a single PDF document? Our converter compiles HEIC files directly into PDF pages offline.",
+          "Set margins, select sizes, and compile a standardized PDF catalog in milliseconds on your own device. Your private documents are kept strictly confidential."
+        ]
+      }
+    },
+    {
+      "slug": "bulk-convert-heic-to-jpg-free",
+      "title": "Bulk Convert HEIC to JPG Free & Private",
+      "metaDescription": "Convert multiple HEIC files to JPG in one go. Free client-side bulk converter that compresses your files into a downloadable ZIP archive.",
+      "articleIntro": {
+        "heading": "How to Bulk Convert HEIC to JPG Locally",
+        "paragraphs": [
+          "Converting HEIC photos one by one is exhausting. Our bulk converter accepts multiple HEIC files at once, decodes them sequentially in your browser, and zips them up into a single archive.",
+          "Adjust output quality and download the entire batch instantly. Since all processing runs locally on your CPU, there are no queue wait times or file size limits."
         ]
       }
     }
