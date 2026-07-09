@@ -127,7 +127,201 @@ function TreeNodeRow({ node, childrenMap, expanded, toggle, highlightText }: Row
   );
 }
 
+/* ─── format converters ─── */
+
+function jsonToTypeScript(val: any, name = "RootObject"): string {
+  if (val === null) return `type ${name} = null;`;
+  if (typeof val !== "object") return `type ${name} = ${typeof val};`;
+  
+  if (Array.isArray(val)) {
+    if (val.length === 0) return `type ${name} = any[];`;
+    const item = val[0];
+    if (typeof item !== "object" || item === null) {
+      return `type ${name} = ${typeof item}[];`;
+    }
+    return `${jsonToTypeScript(item, name + "Item")}\n\ntype ${name} = ${name}Item[];`;
+  }
+
+  let result = `export interface ${name} {\n`;
+  const subTypes: string[] = [];
+
+  for (const [key, value] of Object.entries(val)) {
+    const safeKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key) ? key : `"${key}"`;
+    if (value === null) {
+      result += `  ${safeKey}: null;\n`;
+    } else if (Array.isArray(value)) {
+      if (value.length === 0) {
+        result += `  ${safeKey}: any[];\n`;
+      } else {
+        const item = value[0];
+        if (typeof item !== "object" || item === null) {
+          result += `  ${safeKey}: ${typeof item}[];\n`;
+        } else {
+          const subTypeName = name + key.charAt(0).toUpperCase() + key.slice(1) + "Item";
+          subTypes.push(jsonToTypeScript(item, subTypeName));
+          result += `  ${safeKey}: ${subTypeName}[];\n`;
+        }
+      }
+    } else if (typeof value === "object") {
+      const subTypeName = name + key.charAt(0).toUpperCase() + key.slice(1);
+      subTypes.push(jsonToTypeScript(value, subTypeName));
+      result += `  ${safeKey}: ${subTypeName};\n`;
+    } else {
+      result += `  ${safeKey}: ${typeof value};\n`;
+    }
+  }
+
+  result += `}`;
+  return subTypes.length > 0 ? `${subTypes.join("\n\n")}\n\n${result}` : result;
+}
+
+function jsonToGo(val: any, name = "Root"): string {
+  if (val === null || typeof val !== "object") return `type ${name} any`;
+  if (Array.isArray(val)) {
+    if (val.length === 0) return `type ${name} []any`;
+    const item = val[0];
+    if (typeof item !== "object" || item === null) {
+      return `type ${name} []${typeof item === "number" ? "float64" : typeof item}`;
+    }
+    return `${jsonToGo(item, name + "Item")}\ntype ${name} []${name}Item`;
+  }
+
+  let result = `type ${name} struct {\n`;
+  const subTypes: string[] = [];
+
+  for (const [key, value] of Object.entries(val)) {
+    const pascalKey = key.split(/[-_]/).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join("");
+    const structTag = `\t\`json:"${key}"\``;
+    
+    if (value === null) {
+      result += `\t${pascalKey} any${structTag}\n`;
+    } else if (Array.isArray(value)) {
+      if (value.length === 0) {
+        result += `\t${pascalKey} []any${structTag}\n`;
+      } else {
+        const item = value[0];
+        if (typeof item !== "object" || item === null) {
+          const typeName = typeof item === "number" ? "float64" : typeof item;
+          result += `\t${pascalKey} []${typeName}${structTag}\n`;
+        } else {
+          const subTypeName = name + pascalKey + "Item";
+          subTypes.push(jsonToGo(item, subTypeName));
+          result += `\t${pascalKey} []${subTypeName}${structTag}\n`;
+        }
+      }
+    } else if (typeof value === "object") {
+      const subTypeName = name + pascalKey;
+      subTypes.push(jsonToGo(value, subTypeName));
+      result += `\t${pascalKey} ${subTypeName}${structTag}\n`;
+    } else {
+      const typeName = typeof value === "number" ? "float64" : typeof value === "boolean" ? "bool" : "string";
+      result += `\t${pascalKey} ${typeName}${structTag}\n`;
+    }
+  }
+
+  result += `}`;
+  return subTypes.length > 0 ? `${subTypes.join("\n\n")}\n\n${result}` : result;
+}
+
+function jsonToPython(val: any, name = "Root"): string {
+  if (val === null || typeof val !== "object") return `${name} = Any`;
+  if (Array.isArray(val)) {
+    if (val.length === 0) return `${name} = List[Any]`;
+    const item = val[0];
+    if (typeof item !== "object" || item === null) {
+      const typeName = typeof item === "number" ? "float" : typeof item === "boolean" ? "bool" : "str";
+      return `${name} = List[${typeName}]`;
+    }
+    return `${jsonToPython(item, name + "Item")}\n${name} = List[${name}Item]`;
+  }
+
+  let result = `@dataclass\nclass ${name}:\n`;
+  const subTypes: string[] = [];
+
+  for (const [key, value] of Object.entries(val)) {
+    const pythonKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+    
+    if (value === null) {
+      result += `    ${pythonKey}: Any\n`;
+    } else if (Array.isArray(value)) {
+      if (value.length === 0) {
+        result += `    ${pythonKey}: List[Any]\n`;
+      } else {
+        const item = value[0];
+        if (typeof item !== "object" || item === null) {
+          const typeName = typeof item === "number" ? "float" : typeof item === "boolean" ? "bool" : "str";
+          result += `    ${pythonKey}: List[${typeName}]\n`;
+        } else {
+          const subTypeName = name + key.charAt(0).toUpperCase() + key.slice(1) + "Item";
+          subTypes.push(jsonToPython(item, subTypeName));
+          result += `    ${pythonKey}: List[${subTypeName}]\n`;
+        }
+      }
+    } else if (typeof value === "object") {
+      const subTypeName = name + key.charAt(0).toUpperCase() + key.slice(1);
+      subTypes.push(jsonToPython(value, subTypeName));
+      result += `    ${pythonKey}: ${subTypeName}\n`;
+    } else {
+      const typeName = typeof value === "number" ? "float" : typeof value === "boolean" ? "bool" : "str";
+      result += `    ${pythonKey}: ${typeName}\n`;
+    }
+  }
+
+  return subTypes.length > 0 ? `${subTypes.join("\n\n")}\n\n${result}` : result;
+}
+
+function jsonToXml(val: any, rootName = "root"): string {
+  function toXmlHelper(obj: any): string {
+    if (obj === null) return "";
+    if (typeof obj !== "object") return String(obj);
+    let xml = "";
+    if (Array.isArray(obj)) {
+      for (const item of obj) {
+        xml += `<item>${toXmlHelper(item)}</item>`;
+      }
+    } else {
+      for (const [key, value] of Object.entries(obj)) {
+        const safeKey = key.replace(/[^a-zA-Z0-9_-]/g, "");
+        xml += `<${safeKey}>${toXmlHelper(value)}</${safeKey}>`;
+      }
+    }
+    return xml;
+  }
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<${rootName}>\n${toXmlHelper(val).split("><").join(">\n<")}\n</${rootName}>`;
+}
+
+function jsonToYaml(val: any, indent = 0): string {
+  if (val === null) return "null";
+  if (typeof val !== "object") return String(val);
+  const spacing = " ".repeat(indent);
+  
+  if (Array.isArray(val)) {
+    if (val.length === 0) return "[]";
+    let yaml = "";
+    for (const item of val) {
+      if (typeof item === "object" && item !== null) {
+        yaml += `\n${spacing}- ${jsonToYaml(item, indent + 2).trim()}`;
+      } else {
+        yaml += `\n${spacing}- ${jsonToYaml(item, indent)}`;
+      }
+    }
+    return yaml;
+  }
+
+  let yaml = "";
+  for (const [key, value] of Object.entries(val)) {
+    if (typeof value === "object" && value !== null) {
+      yaml += `\n${spacing}${key}:${jsonToYaml(value, indent + 2)}`;
+    } else {
+      yaml += `\n${spacing}${key}: ${jsonToYaml(value, indent)}`;
+    }
+  }
+  return yaml;
+}
+
 /* ─── main component ─── */
+
+type TabType = "tree" | "typescript" | "go" | "python" | "xml" | "yaml";
 
 const DEFAULT_JSON = JSON.stringify(
   {
@@ -155,15 +349,23 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
   const [raw, setRaw] = useState(defaultInput ?? DEFAULT_JSON);
   const [searchQuery, setSearchQuery] = useState("");
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["root"]));
+  const [activeTab, setActiveTab] = useState<TabType>("tree");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const result: JsonParseResult = useMemo(() => parseJsonToTree(raw), [raw]);
 
-  // Initial client-side sync from localStorage to avoid SSR mismatches
+  // Initial client-side sync from localStorage & dynamic tab detection to avoid SSR mismatches
   useEffect(() => {
     try {
       const saved = localStorage.getItem("zeelancebox_json_raw");
       if (saved) setRaw(saved);
+
+      const path = window.location.pathname;
+      if (path.includes("json-to-typescript")) setActiveTab("typescript");
+      else if (path.includes("json-to-go")) setActiveTab("go");
+      else if (path.includes("json-to-python")) setActiveTab("python");
+      else if (path.includes("json-to-xml")) setActiveTab("xml");
+      else if (path.includes("json-to-yaml")) setActiveTab("yaml");
     } catch (_) {}
   }, []);
 
@@ -252,6 +454,29 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
     navigator.clipboard.readText().then((text) => setRaw(text));
   }, []);
 
+  const convertedCode = useMemo(() => {
+    if (!result.success) return "";
+    try {
+      const parsed = JSON.parse(raw);
+      switch (activeTab) {
+        case "typescript":
+          return jsonToTypeScript(parsed);
+        case "go":
+          return jsonToGo(parsed);
+        case "python":
+          return "from dataclasses import dataclass\nfrom typing import Any, List\n\n" + jsonToPython(parsed);
+        case "xml":
+          return jsonToXml(parsed);
+        case "yaml":
+          return jsonToYaml(parsed).trim();
+        default:
+          return "";
+      }
+    } catch (_) {
+      return "";
+    }
+  }, [raw, result.success, activeTab]);
+
   return (
     <div className="space-y-4">
       {/* Search + Actions row */}
@@ -273,10 +498,10 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
         </div>
 
         <div className="flex gap-1.5">
-          <button onClick={expandAll} className="rounded-lg border border-border px-3 py-2 text-xs font-medium text-ink-secondary hover:bg-zinc-50 active:scale-[0.97] transition-all">
+          <button onClick={expandAll} className="rounded-lg border border-border px-3 py-2 text-xs font-medium text-ink-secondary hover:bg-zinc-50 active:scale-[0.97] transition-all cursor-pointer">
             {t("expand_all", "Expand all")}
           </button>
-          <button onClick={collapseAll} className="rounded-lg border border-border px-3 py-2 text-xs font-medium text-ink-secondary hover:bg-zinc-50 active:scale-[0.97] transition-all">
+          <button onClick={collapseAll} className="rounded-lg border border-border px-3 py-2 text-xs font-medium text-ink-secondary hover:bg-zinc-50 active:scale-[0.97] transition-all cursor-pointer">
             {t("collapse_all", "Collapse all")}
           </button>
         </div>
@@ -291,7 +516,7 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
             <div className="flex gap-2">
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors cursor-pointer"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
@@ -300,7 +525,7 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
               </button>
               <button
                 onClick={handleClipboardPaste}
-                className="flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors cursor-pointer"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
@@ -309,7 +534,7 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
               </button>
               <button
                 onClick={handleCopy}
-                className="flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors"
+                className="flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-ink transition-colors cursor-pointer"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
@@ -327,40 +552,110 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
           />
         </div>
 
-        {/* Tree viewer panel */}
-        <div className="rounded-xl border border-border overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-50/60 border-b border-border">
-            <span className="text-xs font-medium text-ink-muted uppercase tracking-wider">{t("tree_view_label", "Tree View")}</span>
-            {result.success && (
-              <div className="flex items-center gap-3 text-xs text-ink-muted">
+        {/* Tree viewer / Converter panel */}
+        <div className="rounded-xl border border-border overflow-hidden flex flex-col">
+          <div className="flex flex-wrap items-center justify-between px-4 py-1.5 bg-zinc-50/60 border-b border-border gap-2">
+            <div className="flex flex-wrap gap-1">
+              <button
+                onClick={() => setActiveTab("tree")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                  activeTab === "tree" ? "bg-accent text-white dark:text-black" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                Tree View
+              </button>
+              <button
+                onClick={() => setActiveTab("typescript")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                  activeTab === "typescript" ? "bg-accent text-white dark:text-black" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                TS Interface
+              </button>
+              <button
+                onClick={() => setActiveTab("go")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                  activeTab === "go" ? "bg-accent text-white dark:text-black" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                Go Struct
+              </button>
+              <button
+                onClick={() => setActiveTab("python")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                  activeTab === "python" ? "bg-accent text-white dark:text-black" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                Python Class
+              </button>
+              <button
+                onClick={() => setActiveTab("xml")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                  activeTab === "xml" ? "bg-accent text-white dark:text-black" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                XML
+              </button>
+              <button
+                onClick={() => setActiveTab("yaml")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                  activeTab === "yaml" ? "bg-accent text-white dark:text-black" : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                YAML
+              </button>
+            </div>
+            {result.success && activeTab === "tree" && (
+              <div className="hidden sm:flex items-center gap-3 text-xs text-ink-muted">
                 <span>{t("stats_nodes", "{count} nodes").replace("{count}", String(result.stats.nodeCount))}</span>
                 <span>{t("stats_depth", "depth {depth}").replace("{depth}", String(result.stats.depth))}</span>
-                <span>{t("stats_chars", "{count} chars").replace("{count}", String(result.stats.charCount))}</span>
               </div>
             )}
           </div>
 
-          <div className="h-[400px] lg:h-[520px] overflow-auto p-2 bg-surface-elevated font-mono text-sm">
+          <div className="h-[400px] lg:h-[520px] overflow-auto p-2 bg-surface-elevated font-mono text-sm relative">
             {!result.success ? (
               <div className="flex items-center justify-center h-full">
                 <p className="text-sm text-red-500">{result.error ? t("invalid_status", "Invalid JSON: {error}").replace("{error}", result.error) : t("invalid_json", "Invalid JSON")}</p>
               </div>
-            ) : result.tree.length === 0 ? (
-              <div className="flex items-center justify-center h-full">
-                <p className="text-sm text-zinc-400">{t("empty_prompt", "Paste JSON to view the tree")}</p>
-              </div>
+            ) : activeTab === "tree" ? (
+              result.tree.length === 0 ? (
+                <div className="flex items-center justify-center h-full">
+                  <p className="text-sm text-zinc-400">{t("empty_prompt", "Paste JSON to view the tree")}</p>
+                </div>
+              ) : (
+                <div className="space-y-0 p-2">
+                  {childrenMap.get("root")?.map((child) => (
+                    <TreeNodeRow
+                      key={child.id}
+                      node={child}
+                      childrenMap={childrenMap}
+                      expanded={expanded}
+                      toggle={toggleExpand}
+                      highlightText={searchQuery}
+                    />
+                  ))}
+                </div>
+              )
             ) : (
-              <div className="space-y-0">
-                {childrenMap.get("root")?.map((child) => (
-                  <TreeNodeRow
-                    key={child.id}
-                    node={child}
-                    childrenMap={childrenMap}
-                    expanded={expanded}
-                    toggle={toggleExpand}
-                    highlightText={searchQuery}
-                  />
-                ))}
+              <div className="h-full flex flex-col">
+                <div className="absolute top-4 right-4 z-10">
+                  <button
+                    onClick={() => navigator.clipboard.writeText(convertedCode)}
+                    className="px-2.5 py-1.5 rounded-lg bg-surface hover:bg-zinc-100 border border-border text-xs font-semibold text-ink-secondary hover:text-ink flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                    </svg>
+                    Copy Output
+                  </button>
+                </div>
+                <textarea
+                  readOnly
+                  value={convertedCode}
+                  placeholder="Output code will appear here..."
+                  className="w-full h-full p-4 pr-16 bg-transparent resize-none font-mono text-sm text-ink-secondary focus:outline-none leading-relaxed"
+                />
               </div>
             )}
           </div>
