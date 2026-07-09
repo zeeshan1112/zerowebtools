@@ -319,6 +319,172 @@ function jsonToYaml(val: any, indent = 0): string {
   return yaml;
 }
 
+/* ─── parser helpers for XML, YAML, CSV ─── */
+
+function xmlToJson(xml: string): any {
+  if (typeof window === "undefined") return {};
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xml, "text/xml");
+  
+  if (doc.getElementsByTagName("parsererror").length > 0) {
+    throw new Error("Invalid XML structure");
+  }
+
+  function elementToObject(el: Element): any {
+    const obj: any = {};
+    if (el.attributes.length > 0) {
+      for (let i = 0; i < el.attributes.length; i++) {
+        const attr = el.attributes[i];
+        obj["@" + attr.name] = attr.value;
+      }
+    }
+    if (el.children.length > 0) {
+      for (let i = 0; i < el.children.length; i++) {
+        const child = el.children[i];
+        const name = child.nodeName;
+        const value = elementToObject(child);
+        if (obj[name] !== undefined) {
+          if (!Array.isArray(obj[name])) {
+            obj[name] = [obj[name]];
+          }
+          obj[name].push(value);
+        } else {
+          obj[name] = value;
+        }
+      }
+    } else {
+      const text = el.textContent?.trim() || "";
+      if (el.attributes.length === 0) {
+        if (!isNaN(Number(text)) && text !== "") return Number(text);
+        if (text === "true") return true;
+        if (text === "false") return false;
+        return text;
+      }
+      obj["#text"] = text;
+    }
+    return obj;
+  }
+  return elementToObject(doc.documentElement);
+}
+
+function yamlToJson(yaml: string): any {
+  const lines = yaml.split("\n");
+  const result: any = {};
+  const stack: any[] = [result];
+  const indents: number[] = [-1];
+
+  for (let line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    const indent = line.length - line.trimStart().length;
+
+    if (trimmed.startsWith("-")) {
+      const content = trimmed.slice(1).trim();
+      while (indents[indents.length - 1] >= indent) {
+        stack.pop();
+        indents.pop();
+      }
+      const parent = stack[stack.length - 1];
+      const key = indents[indents.length - 1] === indent ? Object.keys(parent).pop() : null;
+      let array: any[] = [];
+      if (key && parent[key]) {
+        if (!Array.isArray(parent[key])) parent[key] = [];
+        array = parent[key];
+      } else {
+        if (!Array.isArray(parent)) {
+          const arrKey = "items";
+          if (!parent[arrKey]) parent[arrKey] = [];
+          array = parent[arrKey];
+        } else {
+          array = parent;
+        }
+      }
+
+      const match = content.match(/^([^:]+):\s*(.*)$/);
+      if (match) {
+        const itemKey = match[1].trim();
+        let val: any = match[2].trim();
+        if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+        else if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+        else if (val === "true") val = true;
+        else if (val === "false") val = false;
+        else if (!isNaN(Number(val)) && val !== "") val = Number(val);
+        const newObj: any = { [itemKey]: val };
+        array.push(newObj);
+        stack.push(newObj);
+        indents.push(indent + 2);
+      } else {
+        let val: any = content;
+        if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+        else if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+        else if (val === "true") val = true;
+        else if (val === "false") val = false;
+        else if (!isNaN(Number(val)) && val !== "") val = Number(val);
+        array.push(val);
+      }
+      continue;
+    }
+
+    const match = trimmed.match(/^([^:]+):\s*(.*)$/);
+    if (!match) continue;
+
+    const key = match[1].trim();
+    let value: any = match[2].trim();
+
+    if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+    else if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
+    else if (value === "true") value = true;
+    else if (value === "false") value = false;
+    else if (value === "null") value = null;
+    else if (!isNaN(Number(value)) && value !== "") value = Number(value);
+
+    while (indents[indents.length - 1] >= indent) {
+      stack.pop();
+      indents.pop();
+    }
+    const parent = stack[stack.length - 1];
+    if (value === "") {
+      const newObj = {};
+      if (Array.isArray(parent)) {
+        parent.push({ [key]: newObj });
+      } else {
+        parent[key] = newObj;
+      }
+      stack.push(newObj);
+      indents.push(indent);
+    } else {
+      if (Array.isArray(parent)) {
+        parent.push({ [key]: value });
+      } else {
+        parent[key] = value;
+      }
+    }
+  }
+  return result;
+}
+
+function csvToJson(csv: string): any[] {
+  const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
+  if (lines.length === 0) return [];
+  const headers = lines[0].split(",").map(h => h.trim().replace(/^["']|["']$/g, ""));
+  const result = [];
+  for (let i = 1; i < lines.length; i++) {
+    const row = lines[i].split(",").map(cell => cell.trim().replace(/^["']|["']$/g, ""));
+    const obj: any = {};
+    headers.forEach((header, index) => {
+      let val: any = row[index];
+      if (val === undefined || val === "") val = null;
+      else if (!isNaN(Number(val))) val = Number(val);
+      else if (val === "true") val = true;
+      else if (val === "false") val = false;
+      obj[header] = val;
+    });
+    result.push(obj);
+  }
+  return result;
+}
+
 /* ─── main component ─── */
 
 type TabType = "tree" | "typescript" | "go" | "python" | "xml" | "yaml";
@@ -352,7 +518,25 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
   const [activeTab, setActiveTab] = useState<TabType>("tree");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const result: JsonParseResult = useMemo(() => parseJsonToTree(raw), [raw]);
+  const normalizedJson = useMemo(() => {
+    try {
+      const trimmed = raw.trim();
+      if (trimmed.startsWith("<")) {
+        return JSON.stringify(xmlToJson(trimmed), null, 2);
+      } else if (trimmed.startsWith("[") || trimmed.startsWith("{")) {
+        return trimmed;
+      } else if (trimmed.includes(":") && !trimmed.includes("\n,") && !trimmed.includes('",')) {
+        return JSON.stringify(yamlToJson(trimmed), null, 2);
+      } else if (trimmed.includes(",") && trimmed.includes("\n")) {
+        return JSON.stringify(csvToJson(trimmed), null, 2);
+      }
+      return trimmed;
+    } catch (_) {
+      return raw;
+    }
+  }, [raw]);
+
+  const result: JsonParseResult = useMemo(() => parseJsonToTree(normalizedJson), [normalizedJson]);
 
   // Initial client-side sync from localStorage & dynamic tab detection to avoid SSR mismatches
   useEffect(() => {
@@ -446,9 +630,9 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
 
   const handleCopy = useCallback(() => {
     if (result.success) {
-      navigator.clipboard.writeText(JSON.stringify(JSON.parse(raw), null, 2));
+      navigator.clipboard.writeText(JSON.stringify(JSON.parse(normalizedJson), null, 2));
     }
-  }, [result, raw]);
+  }, [result, normalizedJson]);
 
   const handleClipboardPaste = useCallback(() => {
     navigator.clipboard.readText().then((text) => setRaw(text));
@@ -457,7 +641,7 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
   const convertedCode = useMemo(() => {
     if (!result.success) return "";
     try {
-      const parsed = JSON.parse(raw);
+      const parsed = JSON.parse(normalizedJson);
       switch (activeTab) {
         case "typescript":
           return jsonToTypeScript(parsed);
@@ -475,7 +659,7 @@ export default function JsonViewerWorkspace({ defaultInput }: JsonViewerWorkspac
     } catch (_) {
       return "";
     }
-  }, [raw, result.success, activeTab]);
+  }, [normalizedJson, result.success, activeTab]);
 
   return (
     <div className="space-y-4">
