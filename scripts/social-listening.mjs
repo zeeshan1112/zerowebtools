@@ -21,8 +21,9 @@ const REDDIT_CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const REDDIT_CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 const REDDIT_USERNAME = process.env.REDDIT_USERNAME;
 const REDDIT_PASSWORD = process.env.REDDIT_PASSWORD;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // Optional, to increase rate limits
 
-// Rate-limiting helper to avoid hitting Algolia or Reddit rate limits
+// Rate-limiting helper to avoid hitting API thresholds
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function searchHackerNews(query) {
@@ -37,6 +38,33 @@ async function searchHackerNews(query) {
       url: `https://news.ycombinator.com/item?id=${hit.story_id || hit.parent_id}`,
       text: hit.comment_text ? hit.comment_text.replace(/<[^>]*>/g, "").slice(0, 200) + "..." : "No snippet",
       created: new Date(hit.created_at_i * 1000)
+    }));
+  } catch (_) {
+    return [];
+  }
+}
+
+async function searchGitHub(query) {
+  // Search open issues and discussions on GitHub mentioning the query
+  const url = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}+type:issue+state:open&sort=created&order=desc&per_page=5`;
+  const headers = {
+    "User-Agent": "ZeroWebToolsSocialListener/1.0",
+    "Accept": "application/vnd.github.v3+json"
+  };
+  if (GITHUB_TOKEN) {
+    headers["Authorization"] = `token ${GITHUB_TOKEN}`;
+  }
+
+  try {
+    const res = await fetch(url, { headers });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.items || []).map(item => ({
+      platform: "GitHub Issues",
+      title: `Issue: "${item.title}" in ${item.repository_url.replace("https://api.github.com/repos/", "")}`,
+      url: item.html_url,
+      text: item.body ? item.body.slice(0, 200) + "..." : "No body text",
+      created: new Date(item.created_at)
     }));
   } catch (_) {
     return [];
@@ -132,9 +160,10 @@ async function startSocialListening() {
     console.log(`[${i + 1}/${UNIQUE_KEYWORDS.length}] Scanning for: "${query}"...`);
     
     const hnResults = await searchHackerNews(query);
+    const gitHubResults = await searchGitHub(query);
     const redditResults = redditToken ? await searchReddit(redditToken, query) : [];
     
-    const combined = [...hnResults, ...redditResults];
+    const combined = [...hnResults, ...gitHubResults, ...redditResults];
     totalHits += combined.length;
 
     if (combined.length > 0) {
@@ -142,7 +171,7 @@ async function startSocialListening() {
         console.log(`\n  📌 [${hit.platform}] - ${hit.title}`);
         console.log(`     Link: ${hit.url}`);
         console.log(`     Date: ${hit.created.toLocaleString()}`);
-        console.log(`     Snippet: "${hit.text}"`);
+        console.log(`     Snippet: "${hit.text.trim()}"`);
         console.log(`     Suggested Organic Reply:`);
         console.log(`       "${generateDraftReply(query)}"`);
         console.log("     ---------------------------------------");
@@ -150,7 +179,7 @@ async function startSocialListening() {
     }
 
     // Defensive rate-limiting delay between keywords
-    await sleep(350);
+    await sleep(400);
   }
 
   console.log("\n=========================================");
