@@ -248,6 +248,66 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
           "Say goodbye to long loading screens and complicated interfaces. With just a few clicks, you can get the job done instantly. Enhance your productivity and focus on what truly matters by using our fast and reliable tool today."
         ]
       }
+    },
+    {
+      "slug": "compress-pdf-to-100kb",
+      "title": "Compress PDF to 100KB Online Free & Private",
+      "metaDescription": "Need to compress PDF files to under 100KB? Our secure browser-based tool uses local extreme downscaling to shrink your files without remote server uploads.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 100KB Locally",
+        "paragraphs": [
+          "Many online submission portals limit file sizes to a strict 100KB limit. Compressing your document to meet this requirement usually means uploading files to third-party servers, posing data leakage risks.",
+          "Our tool solves this by downscaling images and cleaning document catalogs directly inside your browser. No files are ever sent to our servers, keeping your personal and financial papers 100% private."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-150kb",
+      "title": "Compress PDF to 150KB Online Free & Private",
+      "metaDescription": "Reduce PDF file sizes to under 150KB instantly. Browser-based compression processes files 100% client-side with zero server uploads.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 150KB Locally",
+        "paragraphs": [
+          "Applying for jobs, universities, or government programs often requires uploading documents that are smaller than 150KB. Standard compression tools can degrade text clarity or add unwanted watermarks.",
+          "ZeroWebTools compresses your PDF files using advanced local algorithms that preserve text sharpness while shrinking embedded images to fit the 150KB restriction."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-200kb",
+      "title": "Compress PDF to 200KB Online Free & Private",
+      "metaDescription": "Quickly shrink PDF documents to under 200KB. 100% private client-side converter that works instantly in your browser.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 200KB Locally",
+        "paragraphs": [
+          "A 200KB limit is one of the most common file constraints found on digital portal uploads. Our client-side PDF compressor optimizes your document structure, adjusts resolution to 100 DPI, and compiles a lightweight PDF.",
+          "Because everything executes in your browser's memory, you can safely process sensitive documents like passports, tax returns, or transcripts without any third-party access."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-500kb",
+      "title": "Compress PDF to 500KB Online Free & Private",
+      "metaDescription": "Reduce PDF file sizes to under 500KB offline. Free browser-based utility that processes files on your local CPU for total confidentiality.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 500KB Locally",
+        "paragraphs": [
+          "Need to email a heavy document but got blocked by file attachments size limits? Compressing your PDF under 500KB is the best way to ensure successful delivery.",
+          "Our browser tool strips metadata, collapses streams, and optimizes page objects locally on your device. You get a highly compact document with clean text and crisp images."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-under-1mb",
+      "title": "Compress PDF Under 1MB Online Free & Private",
+      "metaDescription": "Shrink large PDF documents to less than 1MB instantly in your browser. 100% free and private local file compressor.",
+      "articleIntro": {
+        "heading": "How to Compress PDF Under 1MB Locally",
+        "paragraphs": [
+          "Large PDF files containing high-resolution scans or multiple images easily exceed 10MB, making them difficult to share. Shrinking them under 1MB makes them portable and universally compatible.",
+          "Drag and drop your file into our offline-first workspace, choose Balanced or Extreme compression, and compile an optimized PDF under 1MB in milliseconds."
+        ]
+      }
     }
   ],
   "pdf-rotate": [
