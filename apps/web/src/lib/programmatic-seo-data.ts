@@ -1,6 +1,7 @@
 import { SubQuery } from "./tools";
+import { LOCALIZED_PROGRAMMATIC_SEO_DATA } from "./programmatic-seo-data-localized";
 
-export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
+const STATIC_PROGRAMMATIC_DATA: Record<string, SubQuery[]> = {
   "api-client": [
     {
       "slug": "rest-api-client-online",
@@ -246,6 +247,66 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         "paragraphs": [
           "Time is money, and our Fast Compress PDF Tool - Fast is built for speed. When you're in a rush and need a quick solution for reducing the file size of PDF documents without losing quality, this utility delivers lightning-fast results directly in your web browser.",
           "Say goodbye to long loading screens and complicated interfaces. With just a few clicks, you can get the job done instantly. Enhance your productivity and focus on what truly matters by using our fast and reliable tool today."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-100kb",
+      "title": "Compress PDF to 100KB Online Free & Private",
+      "metaDescription": "Need to compress PDF files to under 100KB? Our secure browser-based tool uses local extreme downscaling to shrink your files without remote server uploads.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 100KB Locally",
+        "paragraphs": [
+          "Many online submission portals limit file sizes to a strict 100KB limit. Compressing your document to meet this requirement usually means uploading files to third-party servers, posing data leakage risks.",
+          "Our tool solves this by downscaling images and cleaning document catalogs directly inside your browser. No files are ever sent to our servers, keeping your personal and financial papers 100% private."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-150kb",
+      "title": "Compress PDF to 150KB Online Free & Private",
+      "metaDescription": "Reduce PDF file sizes to under 150KB instantly. Browser-based compression processes files 100% client-side with zero server uploads.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 150KB Locally",
+        "paragraphs": [
+          "Applying for jobs, universities, or government programs often requires uploading documents that are smaller than 150KB. Standard compression tools can degrade text clarity or add unwanted watermarks.",
+          "ZeroWebTools compresses your PDF files using advanced local algorithms that preserve text sharpness while shrinking embedded images to fit the 150KB restriction."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-200kb",
+      "title": "Compress PDF to 200KB Online Free & Private",
+      "metaDescription": "Quickly shrink PDF documents to under 200KB. 100% private client-side converter that works instantly in your browser.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 200KB Locally",
+        "paragraphs": [
+          "A 200KB limit is one of the most common file constraints found on digital portal uploads. Our client-side PDF compressor optimizes your document structure, adjusts resolution to 100 DPI, and compiles a lightweight PDF.",
+          "Because everything executes in your browser's memory, you can safely process sensitive documents like passports, tax returns, or transcripts without any third-party access."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-to-500kb",
+      "title": "Compress PDF to 500KB Online Free & Private",
+      "metaDescription": "Reduce PDF file sizes to under 500KB offline. Free browser-based utility that processes files on your local CPU for total confidentiality.",
+      "articleIntro": {
+        "heading": "How to Compress PDF to 500KB Locally",
+        "paragraphs": [
+          "Need to email a heavy document but got blocked by file attachments size limits? Compressing your PDF under 500KB is the best way to ensure successful delivery.",
+          "Our browser tool strips metadata, collapses streams, and optimizes page objects locally on your device. You get a highly compact document with clean text and crisp images."
+        ]
+      }
+    },
+    {
+      "slug": "compress-pdf-under-1mb",
+      "title": "Compress PDF Under 1MB Online Free & Private",
+      "metaDescription": "Shrink large PDF documents to less than 1MB instantly in your browser. 100% free and private local file compressor.",
+      "articleIntro": {
+        "heading": "How to Compress PDF Under 1MB Locally",
+        "paragraphs": [
+          "Large PDF files containing high-resolution scans or multiple images easily exceed 10MB, making them difficult to share. Shrinking them under 1MB makes them portable and universally compatible.",
+          "Drag and drop your file into our offline-first workspace, choose Balanced or Extreme compression, and compile an optimized PDF under 1MB in milliseconds."
         ]
       }
     }
@@ -1364,6 +1425,66 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
           "Say goodbye to long loading screens and complicated interfaces. With just a few clicks, you can get the job done instantly. Enhance your productivity and focus on what truly matters by using our fast and reliable tool today."
         ]
       }
+    },
+    {
+      "slug": "json-to-typescript-interface-online",
+      "title": "Convert JSON to TypeScript Interface Online Free & Private",
+      "metaDescription": "Instantly convert JSON objects to clean, strongly-typed TypeScript interfaces. Processed entirely local-first inside your browser for total safety.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to TypeScript Interfaces Locally",
+        "paragraphs": [
+          "Writing TypeScript type definitions manually for complex API JSON payloads is repetitive and time-consuming. Our JSON-to-TypeScript converter automates this process client-side.",
+          "Simply paste your JSON string, and our editor parses it to output nested interfaces and types instantly. Since no data is transmitted to a backend, your API response structures remain completely secure."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-go-struct-online",
+      "title": "Convert JSON to Go Struct Online Free & Private",
+      "metaDescription": "Generate Go (Golang) struct definitions from JSON objects. 100% free browser-based converter with automatic json tag generation.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to Go Structs Locally",
+        "paragraphs": [
+          "Integrating APIs in Go requires mapping JSON payloads to typed structs. Our tool reads any valid JSON structure and outputs a clean, well-formatted Go struct complete with standard JSON tag names (`json:\"field_name\"`).",
+          "Everything runs in your browser using local parsing logic. No source code or confidential payloads ever touch external servers, keeping your proprietary data and schemas private."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-python-class-online",
+      "title": "Convert JSON to Python Class Online Free & Private",
+      "metaDescription": "Generate typed Python classes or Dataclasses from JSON strings instantly. Safe, browser-based developer utility.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to Python Classes Locally",
+        "paragraphs": [
+          "Mapping JSON to Python dicts is standard, but using typed classes or `dataclasses` provides autocomplete, validation, and clean design. Our local tool converts JSON variables into Python dataclass objects in a click.",
+          "All conversions are computed locally. Paste raw payload dumps without worrying about leaking proprietary system records or user data to third-party endpoints."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-xml-converter-online",
+      "title": "Convert JSON to XML Online Free & Private",
+      "metaDescription": "Convert JSON data structures to XML documents instantly. Free offline-friendly browser utility with no limits.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to XML Locally",
+        "paragraphs": [
+          "Need to interface with legacy XML endpoints but working with modern JSON datasets? Our JSON to XML converter maps keys to XML nodes dynamically.",
+          "Process large objects, configure custom root wrappers, and output formatted XML strings. Since processing is done on your own device, it is fast, unlimited, and private."
+        ]
+      }
+    },
+    {
+      "slug": "json-to-yaml-converter-online",
+      "title": "Convert JSON to YAML Online Free & Private",
+      "metaDescription": "Convert JSON payloads to clean YAML configuration formats. 100% local browser-based converter for developers.",
+      "articleIntro": {
+        "heading": "How to Convert JSON to YAML Locally",
+        "paragraphs": [
+          "Convert complex JSON payloads into human-readable YAML configurations for Kubernetes, CI/CD pipelines, or settings files instantly.",
+          "Our tool parses your JSON tree and reformats it with clean spacing and block indicators. Your data remains strictly in your browser memory throughout the entire process."
+        ]
+      }
     }
   ],
   "diff-checker": [
@@ -2230,6 +2351,54 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
         "paragraphs": [
           "Time is money, and our Fast HEIC to JPG Tool - Fast is built for speed. When you're in a rush and need a quick solution for converting Apple HEIC photos into standard JPG format, this utility delivers lightning-fast results directly in your web browser.",
           "Say goodbye to long loading screens and complicated interfaces. With just a few clicks, you can get the job done instantly. Enhance your productivity and focus on what truly matters by using our fast and reliable tool today."
+        ]
+      }
+    },
+    {
+      "slug": "convert-heic-to-png-online",
+      "title": "Convert HEIC to PNG Online Free & Private",
+      "metaDescription": "Convert Apple HEIC images to lossless transparent PNG format. 100% local browser-based decoder using WebAssembly.",
+      "articleIntro": {
+        "heading": "How to Convert HEIC to PNG Locally",
+        "paragraphs": [
+          "HEIC is highly compressed but lacks universal support on web and editing software. If you need transparency or lossless compression for design work, converting your HEIC images to PNG is the ideal solution.",
+          "Our browser-based utility decodes HEIC bytes using local WebAssembly libraries, outputting a high-fidelity PNG image. No files ever leave your machine, ensuring complete data security."
+        ]
+      }
+    },
+    {
+      "slug": "convert-heic-to-webp-online",
+      "title": "Convert HEIC to WEBP Online Free & Private",
+      "metaDescription": "Convert iPhone HEIC photos to modern web-optimized WEBP images. Instant client-side conversions with no server uploads.",
+      "articleIntro": {
+        "heading": "How to Convert HEIC to WEBP Locally",
+        "paragraphs": [
+          "WEBP is the modern standard for fast-loading web images. Converting your iPhone's HEIC photos to WEBP shrinks sizes further while maintaining visual quality, perfect for publishing on websites or mobile apps.",
+          "ZeroWebTools converts files directly in your browser using local canvas and decoders. No network traffic or registration required."
+        ]
+      }
+    },
+    {
+      "slug": "convert-heic-to-pdf-online",
+      "title": "Convert HEIC to PDF Online Free & Private",
+      "metaDescription": "Convert HEIC photos to a clean PDF document in your browser. 100% private local image-to-PDF compiler.",
+      "articleIntro": {
+        "heading": "How to Convert HEIC to PDF Locally",
+        "paragraphs": [
+          "Need to compile your iPhone photo scans, receipts, or documents into a single PDF document? Our converter compiles HEIC files directly into PDF pages offline.",
+          "Set margins, select sizes, and compile a standardized PDF catalog in milliseconds on your own device. Your private documents are kept strictly confidential."
+        ]
+      }
+    },
+    {
+      "slug": "bulk-convert-heic-to-jpg-free",
+      "title": "Bulk Convert HEIC to JPG Free & Private",
+      "metaDescription": "Convert multiple HEIC files to JPG in one go. Free client-side bulk converter that compresses your files into a downloadable ZIP archive.",
+      "articleIntro": {
+        "heading": "How to Bulk Convert HEIC to JPG Locally",
+        "paragraphs": [
+          "Converting HEIC photos one by one is exhausting. Our bulk converter accepts multiple HEIC files at once, decodes them sequentially in your browser, and zips them up into a single archive.",
+          "Adjust output quality and download the entire batch instantly. Since all processing runs locally on your CPU, there are no queue wait times or file size limits."
         ]
       }
     }
@@ -3413,3 +3582,325 @@ export const PROGRAMMATIC_SEO_DATA: Record<string, SubQuery[]> = {
     }
   ]
 };
+
+/* ─── localization templates map ─── */
+
+const LOCALIZED_TEMPLATES: Record<string, Record<string, string>> = {
+  es: {
+    convert_title: "Convertir [FROM] a [TO] online gratis y privado",
+    convert_desc: "Convierta imágenes [FROM] a formato [TO] de alta calidad de forma instantánea. Decodificación local segura en su navegador, 100% privada.",
+    convert_heading: "Cómo convertir [FROM] a [TO] localmente",
+    convert_p1: "La conversión de archivos [FROM] a formato [TO] no debería requerir la carga de fotos privadas a servidores remotos en la nube. Nuestra utilidad se ejecuta completamente en la memoria de su navegador utilizando módulos locales de WebAssembly.",
+    convert_p2: "Ya sea que esté convirtiendo una sola imagen o un lote de archivos, obtendrá resultados instantáneos y de alta fidelidad sin límites de archivo ni registros.",
+    compress_title: "Comprimir PDF a [SIZE] online gratis y privado",
+    compress_desc: "Reduzca el tamaño de su archivo PDF a menos de [SIZE] sin perder calidad. Compresión sin conexión directa en su navegador web.",
+    compress_heading: "Cómo comprimir un PDF a menos de [SIZE] localmente",
+    compress_p1: "¿Necesita cumplir con pautas de tamaño de archivo al enviar documentos a portales? Nuestra herramienta comprime sus archivos PDF a menos de [SIZE] de forma instantánea.",
+    compress_p2: "Nuestro algoritmo se ejecuta en el lado del cliente, ajustando los perfiles de compresión para lograr su tamaño de archivo objetivo y mantener la legibilidad.",
+    dev_title: "Convertir [FROM] a [TO] online gratis y privado",
+    dev_desc: "Convierta estructuras [FROM] a [TO] limpio de forma instantánea. Procesado 100% localmente en su navegador para mayor seguridad.",
+    dev_heading: "Cómo convertir [FROM] a [TO] localmente",
+    dev_p1: "La conversión de archivos de datos no debería poner en riesgo sus configuraciones confidenciales o registros de clientes. Nuestra herramienta procesa sus archivos [FROM] localmente, compilándolos en [TO] en milisegundos.",
+    dev_p2: "Disfrute de validación instantánea, resaltado de sintaxis y controles de formato con 0 bytes transmitidos a través de la red."
+  },
+  de: {
+    convert_title: "[FROM] in [TO] online kostenlos & privat konvertieren",
+    convert_desc: "Konvertieren Sie [FROM]-Bilder sofort in das hochwertige [TO]-Format. Sichere lokale Browser-Dekodierung, 100% privat.",
+    convert_heading: "So konvertieren Sie [FROM] lokal in [TO]",
+    convert_p1: "Das Konvertieren von [FROM]-Dateien in das [TO]-Format sollte nicht das Hochladen privater Fotos auf Remote-Cloud-Server erfordern. Unser Dienst läuft vollständig im Speicher Ihres Browsers mit lokalen WebAssembly-Modulen.",
+    convert_p2: "Egal, ob Sie ein einzelnes Bild oder einen Stapel von Dateien konvertieren, Sie erhalten sofortige Ergebnisse ohne Dateigrenzen oder Registrierungen.",
+    compress_title: "PDF auf [SIZE] online kostenlos & privat komprimieren",
+    compress_desc: "Reduzieren Sie Ihre PDF-Dateigröße auf unter [SIZE] ohne Qualitätsverlust. Direkte Offline-Komprimierung in Ihrem Webbrowser.",
+    compress_heading: "So komprimieren Sie ein PDF lokal auf unter [SIZE]",
+    compress_p1: "Müssen Sie Dateigrößenrichtlinien für Portale einhalten? Unser Tool komprimiert Ihre PDF-Dateien sofort auf unter [SIZE].",
+    compress_p2: "Unser Client-seitiger Algorithmus passt die Komprimierungsprofile an, um Ihre Zielgröße bei maximaler Lesbarkeit zu erreichen.",
+    dev_title: "[FROM] in [TO] online kostenlos & privat konvertieren",
+    dev_desc: "Konvertieren Sie [FROM]-Strukturen sofort in sauberes [TO]. Zu 100% lokal in Ihrem Browser verarbeitet für maximale Sicherheit.",
+    dev_heading: "So konvertieren Sie [FROM] lokal in [TO]",
+    dev_p1: "Die Konvertierung von Datendateien sollte Ihre sensiblen Konfigurationen oder Kundendaten nicht gefährden. Unser Tool verarbeitet Ihre [FROM]-Dateien lokal und kompiliert sie in Millisekunden in [TO].",
+    dev_p2: "Nutzen Sie sofortige Validierung, Syntax-Highlighting und Formatierungssteuerelemente, ohne dass Daten über das Netzwerk übertragen werden."
+  },
+  fr: {
+    convert_title: "Convertir [FROM] en [TO] en ligne gratuit & privé",
+    convert_desc: "Convertissez instantanément des images [FROM] au format [TO] de haute qualité. Décodage local sécurisé dans votre navigateur, 100% privé.",
+    convert_heading: "Comment convertir [FROM] en [TO] localement",
+    convert_p1: "La conversion de fichiers [FROM] au format [TO] ne devrait pas nécessiter le chargement de photos privées sur des serveurs cloud distants. Notre utilitaire s'exécute entièrement dans la mémoire de votre navigateur à l'aide de modules WebAssembly locaux.",
+    convert_p2: "Que vous convertissiez une seule image ou un lot de fichiers, vous obtenez des résultats instantanés et fidèles, sans limites de fichiers ni inscriptions.",
+    compress_title: "Compresser un PDF à [SIZE] en ligne gratuit & privé",
+    compress_desc: "Réduisez la taille de votre fichier PDF à moins de [SIZE] sans perte de qualité. Compression hors ligne directe dans votre navigateur.",
+    compress_heading: "Comment compresser un PDF à moins de [SIZE] localement",
+    compress_p1: "Besoin de respecter des limites de taille de fichier pour des portails ? Notre outil compresse instantanément vos fichiers PDF à moins de [SIZE].",
+    compress_p2: "Notre algorithme s'exécute côté client, ajustant les profils de compression pour atteindre votre taille cible tout en préservant la lisibilité.",
+    dev_title: "Convertir [FROM] en [TO] en ligne gratuit & privé",
+    dev_desc: "Convertissez instantanément des structures [FROM] en [TO] propre. Traitement 100% local dans votre navigateur pour plus de sécurité.",
+    dev_heading: "Comment convertir [FROM] en [TO] localement",
+    dev_p1: "La conversion de fichiers de données ne devrait pas mettre en péril vos configurations confidentielles ou vos dossiers clients. Notre outil traite vos fichiers [FROM] localement, les compilant en [TO] en quelques millisecondes.",
+    dev_p2: "Profitez d'une validation instantanée, d'une coloration syntaxique et de contrôles de format sans aucun octet transmis sur le réseau."
+  },
+  pt: {
+    convert_title: "Converter [FROM] para [TO] online grátis e privado",
+    convert_desc: "Converta imagens [FROM] para o formato [TO] de alta qualidade instantaneamente. Decodificação local segura no navegador, 100% privada.",
+    convert_heading: "Como converter [FROM] para [TO] localmente",
+    convert_p1: "A conversão de arquivos [FROM] para o formato [TO] não deve exigir o envio de fotos privadas para servidores em nuvem remotos. Nosso utilitário roda inteiramente na memória do seu navegador usando módulos WebAssembly locais.",
+    convert_p2: "Esteja você convertendo uma única imagem ou um lote de arquivos, obterá resultados instantâneos e de alta fidelidade sem limites de arquivos ou registros.",
+    compress_title: "Comprimir PDF para [SIZE] online grátis e privado",
+    compress_desc: "Reduzera o tamanho do seu arquivo PDF para menos de [SIZE] sem perder qualidade. Compressão offline direta no seu navegador web.",
+    compress_heading: "Como comprimir um PDF para menos de [SIZE] localmente",
+    compress_p1: "Precisa cumprir diretrizes de tamanho de arquivo ao enviar documentos para portais? Nossa ferramenta comprime seus arquivos PDF para menos de [SIZE] instantaneamente.",
+    compress_p2: "Nosso algoritmo roda no cliente, ajustando perfis de compressão para atingir seu tamanho alvo enquanto mantém a legibilidade.",
+    dev_title: "Converter [FROM] para [TO] online grátis e privado",
+    dev_desc: "Converta estruturas [FROM] para [TO] limpo instantaneamente. Processamento 100% local no seu navegador para total segurança.",
+    dev_heading: "Como converter [FROM] para [TO] localmente",
+    dev_p1: "A conversão de arquivos de dados não deve colocar em risco suas configurações confidenciais ou registros de clientes. Nossa ferramenta processa seus arquivos [FROM] localmente, compilando-os para [TO] em milissegundos.",
+    dev_p2: "Aproveite validação instantânea, destaque de sintaxe e controles de formatação sem enviar dados pela rede."
+  },
+  ja: {
+    convert_title: "[FROM]から[TO]へのオンライン変換（無料・安全）",
+    convert_desc: "[FROM]画像を高品質な[TO]形式に瞬時に変換します。ブラウザ内での安全なローカルデコードにより、完全なプライバシーを保護します。",
+    convert_heading: "[FROM]から[TO]へローカルで変換する方法",
+    convert_p1: "[FROM]ファイルを[TO]形式に変換するために、プライベートな写真をリモートのクラウドサーバーにアップロードする必要はありません。当ツールは、ローカルのWebAssemblyモジュールを使用してブラウザメモリ内だけで処理を行います。",
+    convert_p2: "1枚の画像変換でも一括変換でも、ファイル制限や登録なしで、高画質な結果が瞬時に得られます。",
+    compress_title: "PDFを[SIZE]にオンライン圧縮（無料・安全）",
+    compress_desc: "品質を落とさずにPDFファイルサイズを[SIZE]以下に縮小します。ウェブブラウザ内での完全オフライン圧縮。",
+    compress_heading: "ローカルでPDFを[SIZE]以下に圧縮する方法",
+    compress_p1: "ポータルへの書類提出時に厳しいファイルサイズ制限を満たす必要がありますか？当ツールはPDFファイルを即座に[SIZE]以下に圧縮します。",
+    compress_p2: "アルゴリズムはクライアントサイドで動作し、読みやすさを維持しながらターゲットサイズに調整します。",
+    dev_title: "[FROM]から[TO]へのオンライン変換（無料・安全）",
+    dev_desc: "[FROM]構造をクリーンな[TO]へ瞬時に変換します。安全性のためにブラウザ内で100%ローカルに処理されます。",
+    dev_heading: "[FROM]から[TO]へローカルで変換する方法",
+    dev_p1: "データファイルの変換によって、機密性の高い設定や顧客データが危険にさらされるべきではありません。当ツールは[FROM]ファイルをローカルで処理し、ミリ秒単位で[TO]にコンパイルします。",
+    dev_p2: "ネットワーク経由でのデータ送信なしで、即時の検証、構文ハイライト、フォーマット調整を利用できます。"
+  },
+  zh: {
+    convert_title: "在线免费且隐私安全的[FROM]转[TO]转换器",
+    convert_desc: "立即将[FROM]图像转换为高质量的[TO]格式。浏览器内安全本地解码，100%隐私安全保护。",
+    convert_heading: "如何在本地将[FROM]转换为[TO]",
+    convert_p1: "将[FROM]文件转换为[TO]格式无需将您的私人照片上传到远程云端服务器。我们的工具完全在您的浏览器内存中使用本地WebAssembly模块运行。",
+    convert_p2: "无论是转换单张图片还是批量文件，您都可以在无文件限制、无需注册的情况下立即获得高保真转换结果。",
+    compress_title: "在线免费且隐私安全的PDF压缩至[SIZE]工具",
+    compress_desc: "在不损失画质的情况下将您的PDF文件压缩至[SIZE]以下。网页浏览器内直接进行完全离线压缩。",
+    compress_heading: "如何在本地将PDF压缩至[SIZE]以下",
+    compress_p1: "在向门户提交文档时需要满足严格的文件大小限制？我们的工具可以立即将您的PDF压缩至[SIZE]以下。",
+    compress_p2: "我们的算法在客户端运行，调整压缩配置文件以达到您的目标大小，同时保持出色的可读性。",
+    dev_title: "在线免费且隐私安全的[FROM]转[TO]转换器",
+    dev_desc: "立即将[FROM]数据结构转换为整洁的[TO]。100%在您的浏览器本地处理，确保代码和配置安全。",
+    dev_heading: "如何在本地将[FROM]转换为[TO]",
+    dev_p1: "数据文件转换不应让您的敏感配置或客户记录面临泄露风险。我们的工具在本地处理您的[FROM]文件，并在毫秒内将其编译为[TO]。",
+    dev_p2: "享受即时验证、语法高亮和格式化控制，0字节网络传输，安全无忧。"
+  },
+  hi: {
+    convert_title: "[FROM] को [TO] में ऑनलाइन बदलें - मुफ़्त और सुरक्षित",
+    convert_desc: "[FROM] छवियों को तुरंत उच्च गुणवत्ता वाले [TO] प्रारूप में बदलें। आपके ब्राउज़र में 100% निजी और सुरक्षित स्थानीय डिकोडिंग।",
+    convert_heading: "[FROM] को [TO] में स्थानीय रूप से कैसे बदलें",
+    convert_p1: "[FROM] फ़ाइलों को [TO] प्रारूप में बदलने के लिए निजी फ़ोटो को रिमोट सर्वर पर अपलोड करने की आवश्यकता नहीं है। हमारा टूल स्थानीय WebAssembly मॉड्यूल का उपयोग करके पूरी तरह से आपके ब्राउज़र मेमोरी में चलता है।",
+    convert_p2: "चाहे आप एक छवि बदल रहे हों या एक साथ कई फ़ाइलें, आपको बिना किसी सीमा या पंजीकरण के तुरंत परिणाम मिलते हैं।",
+    compress_title: "PDF को [SIZE] तक ऑनलाइन कंप्रेस करें - मुफ़्त और सुरक्षित",
+    compress_desc: "बिना गुणवत्ता खोए अपनी PDF फ़ाइल का आकार [SIZE] से कम करें। आपके वेब ब्राउज़र में सीधी ऑफ़लाइन कंप्रेशन।",
+    compress_heading: "PDF को स्थानीय रूप से [SIZE] से कम कैसे कंप्रेस करें",
+    compress_p1: "दस्तावेज़ जमा करते समय सख्त फ़ाइल आकार दिशानिर्देशों को पूरा करने की आवश्यकता है? हमारा टूल आपकी PDF फ़ाइलों को तुरंत [SIZE] से कम कर देता है।",
+    compress_p2: "हमारा एल्गोरिथ्म क्लाइंट-साइड पर चलता है, जो अधिकतम स्पष्टता बनाए रखते हुए लक्ष्य आकार तक कंप्रेस करता है।",
+    dev_title: "[FROM] को [TO] में ऑनलाइन बदलें - मुफ़्त और सुरक्षित",
+    dev_desc: "[FROM] डेटा को तुरंत साफ़-सुथरे [TO] में बदलें। सुरक्षा के लिए आपके ब्राउज़र में 100% स्थानीय रूप से संसाधित।",
+    dev_heading: "[FROM] को [TO] में स्थानीय रूप से कैसे बदलें",
+    dev_p1: "डेटा फ़ाइलों को बदलने से आपकी संवेदनशील जानकारी या ग्राहक रिकॉर्ड जोखिम में नहीं पड़ने चाहिए। हमारा टूल आपकी [FROM] फ़ाइलों को स्थानीय रूप से संसाधित करता है, और उन्हें मिलीसेकंड में [TO] में संकलित करता है।",
+    dev_p2: "बिना किसी डेटा को नेटवर्क पर भेजे तुरंत सत्यापन, सिंटैक्स हाइलाइटिंग और स्वरूपण नियंत्रण का आनंद लें।"
+  },
+  it: {
+    convert_title: "Converti [FROM] in [TO] online gratis e privato",
+    convert_desc: "Converti istantaneamente immagini [FROM] in formato [TO] di alta qualità. Decodifica locale sicura nel tuo browser, 100% privata.",
+    convert_heading: "Come convertire [FROM] in [TO] localmente",
+    convert_p1: "La conversione di file [FROM] in formato [TO] non dovrebbe richiedere il caricamento di foto private su server cloud remoti. La nostra utilità viene eseguita interamente nella memoria del browser utilizzando moduli WebAssembly locali.",
+    convert_p2: "Sia che tu stia convertendo una singola immagine o un lotto di file, otterrai risultati istantanei e ad alta fedeltà senza limiti di file o registrazioni.",
+    compress_title: "Comprimi PDF a [SIZE] online gratis e privato",
+    compress_desc: "Riduci le dimensioni del tuo file PDF a meno di [SIZE] senza perdere qualità. Compressione offline diretta nel tuo browser web.",
+    compress_heading: "Come comprimere un PDF a meno di [SIZE] localmente",
+    compress_p1: "Hai bisogno di soddisfare rigide linee guida sulle dimensioni dei file per l'invio di documenti? Il nostro strumento comprime istantaneamente i tuoi file PDF a meno di [SIZE].",
+    compress_p2: "Il nostro algoritmo viene eseguito lato client, regolando i profili di compressione per raggiungere le dimensioni di destinazione mantenendo la leggibilità.",
+    dev_title: "Converti [FROM] in [TO] online gratis e privato",
+    dev_desc: "Converti istantaneamente strutture [FROM] in [TO] pulito. Elaborato al 100% localmente nel tuo browser per la massima sicurezza.",
+    dev_heading: "Come convertire [FROM] in [TO] localmente",
+    dev_p1: "La conversione dei file di dati non dovrebbe mettere a rischio le tue configurazioni sensibili o i record dei clienti. Il nostro strumento elabora i tuoi file [FROM] localmente, compilandoli in [TO] in pochi millisecondi.",
+    dev_p2: "Goditi la convalida istantanea, l'evidenziazione della sintassi e i controlli di formattazione con 0 byte trasmessi sulla rete."
+  },
+  ar: {
+    convert_title: "تحويل [FROM] إلى [TO] مجاناً وبخصوصية تامة",
+    convert_desc: "قم بتحويل صور [FROM] إلى صيغة [TO] عالية الجودة فوراً. فك تشفير محلي آمن في متصفحك، بخصوصية 100%.",
+    convert_heading: "كيفية تحويل [FROM] إلى [TO] محلياً",
+    convert_p1: "لا ينبغي أن يتطلب تحويل ملفات [FROM] إلى صيغة [TO] رفع صورك الخاصة إلى خوادم سحابية خارجية. تعمل أداتنا بالكامل في ذاكرة متصفحك باستخدام وحدات WebAssembly المحلية.",
+    convert_p2: "سواء كنت تقوم بتحويل صورة واحدة أو مجموعة ملفات، فستحصل على نتائج فورية ودقة عالية دون قيود على حجم الملفات ودون تسجيل.",
+    compress_title: "ضغط ملف PDF إلى [SIZE] مجاناً وبخصوصية تامة",
+    compress_desc: "قم بتقليل حجم ملف PDF إلى أقل من [SIZE] دون خسارة الجودة. ضغط مباشر غير متصل بالإنترنت في متصفحك.",
+    compress_heading: "كيفية ضغط ملف PDF إلى أقل من [SIZE] محلياً",
+    compress_p1: "هل تحتاج إلى تلبية قيود حجم الملفات عند تقديم المستندات للبوابات الرسمية؟ تقوم أداتنا بضغط ملفات PDF الخاصة بك إلى أقل من [SIZE] على الفور.",
+    compress_p2: "تعمل الخوارزمية الخاصة بنا في جانب العميل، حيث تقوم بضغط مستويات الضغط للوصول إلى الحجم المطلوب مع الحفاظ على وضوح النص.",
+    dev_title: "تحويل [FROM] إلى [TO] مجاناً وبخصوصية تامة",
+    dev_desc: "تحويل هياكل [FROM] إلى [TO] نظيفة فوراً. معالجة محلية 100% في متصفحك لأمان تام.",
+    dev_heading: "كيفية تحويل [FROM] إلى [TO] محلياً",
+    dev_p1: "لا ينبغي أن يعرض تحويل ملفات البيانات تكويناتك الحساسة أو سجلات عملائك للخطر. تقوم أداتنا بمعالجة ملفات [FROM] محلياً وتجميعها إلى [TO] في أجزاء من الثانية.",
+    dev_p2: "استمتع بالتحقق الفوري، وتلوين التعليمات البرمجية، والتحكم في التنسيق دون إرسال أي بايت عبر الشبكة."
+  }
+};
+
+/* ─── permutation compiler engine ─── */
+
+function buildPermutations(): Record<string, SubQuery[]> {
+  const data = { ...STATIC_PROGRAMMATIC_DATA };
+
+  // 1. Dynamic format conversions matrix (under "heic-to-jpg" tool key)
+  const imageFormats = ["png", "jpg", "webp", "heic", "pdf"];
+  const imageToolsList = data["heic-to-jpg"] || [];
+
+  for (const from of imageFormats) {
+    for (const to of imageFormats) {
+      if (from === to) continue;
+      const slug = `convert-${from}-to-${to}-online`;
+      if (imageToolsList.some(item => item.slug === slug)) continue;
+
+      const subQuery: SubQuery = {
+        slug,
+        title: `Convert ${from.toUpperCase()} to ${to.toUpperCase()} Online Free & Private`,
+        metaDescription: `Convert Apple or standard ${from.toUpperCase()} images into high-quality ${to.toUpperCase()} format. 100% private local browser decoding.`,
+        articleIntro: {
+          heading: `How to Convert ${from.toUpperCase()} to ${to.toUpperCase()} Locally`,
+          paragraphs: [
+            `Converting ${from.toUpperCase()} files into ${to.toUpperCase()} format shouldn't involve uploading private photos to remote cloud servers. Our utility runs entirely inside your browser memory using local WebAssembly modules.`,
+            `Whether you are converting a single image or a batch of files, you get instant, high-fidelity results. Enjoy unlimited conversions with no file limits, no registration, and no watermarks.`
+          ]
+        }
+      };
+
+      imageToolsList.push(subQuery);
+
+      // Populate dynamic translation values in LOCALIZED_PROGRAMMATIC_SEO_DATA
+      for (const lang of Object.keys(LOCALIZED_TEMPLATES)) {
+        if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]) {
+          LOCALIZED_PROGRAMMATIC_SEO_DATA[lang] = {};
+        }
+        if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["heic-to-jpg"]) {
+          LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["heic-to-jpg"] = [];
+        }
+        const tmpl = LOCALIZED_TEMPLATES[lang];
+        LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["heic-to-jpg"].push({
+          slug,
+          title: tmpl.convert_title.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+          metaDescription: tmpl.convert_desc.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+          articleIntro: {
+            heading: tmpl.convert_heading.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+            paragraphs: [
+              tmpl.convert_p1.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+              tmpl.convert_p2.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase())
+            ]
+          }
+        });
+      }
+    }
+  }
+  data["heic-to-jpg"] = imageToolsList;
+
+  // 2. Dynamic PDF compression size targets (under "pdf-compress" tool key)
+  const pdfCompressList = data["pdf-compress"] || [];
+  const sizes = ["50kb", "100kb", "150kb", "200kb", "300kb", "400kb", "500kb", "1mb", "2mb", "5mb"];
+
+  for (const size of sizes) {
+    const slug = `compress-pdf-to-${size}`;
+    if (pdfCompressList.some(item => item.slug === slug)) continue;
+
+    const subQuery: SubQuery = {
+      slug,
+      title: `Compress PDF to ${size.toUpperCase()} Online Free & Private`,
+      metaDescription: `Reduce your PDF file size to under ${size} without losing quality. Complete offline compression directly in your web browser.`,
+      articleIntro: {
+        heading: `How to Compress a PDF to under ${size} Locally`,
+        paragraphs: [
+          `Need to meet strict file size guidelines when submitting documents to job, government, or educational portals? Our tool compresses your PDF files to under ${size} instantly.`,
+          `Our algorithm runs client-side, adjusting compression profiles to hit your target file size target while maintaining maximum text and image readability.`
+        ]
+      }
+    };
+
+    pdfCompressList.push(subQuery);
+
+    // Populate dynamic translation values in LOCALIZED_PROGRAMMATIC_SEO_DATA
+    for (const lang of Object.keys(LOCALIZED_TEMPLATES)) {
+      if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]) {
+        LOCALIZED_PROGRAMMATIC_SEO_DATA[lang] = {};
+      }
+      if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["pdf-compress"]) {
+        LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["pdf-compress"] = [];
+      }
+      const tmpl = LOCALIZED_TEMPLATES[lang];
+      LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["pdf-compress"].push({
+        slug,
+        title: tmpl.compress_title.replace("[SIZE]", size.toUpperCase()),
+        metaDescription: tmpl.compress_desc.replace("[SIZE]", size.toUpperCase()),
+        articleIntro: {
+          heading: tmpl.compress_heading.replace("[SIZE]", size.toUpperCase()),
+          paragraphs: [
+            tmpl.compress_p1.replace("[SIZE]", size.toUpperCase()),
+            tmpl.compress_p2.replace("[SIZE]", size.toUpperCase())
+          ]
+        }
+      });
+    }
+  }
+  data["pdf-compress"] = pdfCompressList;
+
+  // 3. Dynamic developer syntax converters (under "json-formatter" tool key)
+  const devSourceFormats = ["json", "yaml", "xml", "csv"];
+  const devTargetFormats = ["json", "yaml", "xml", "csv", "typescript", "go", "python"];
+  const jsonFormatterList = data["json-formatter"] || [];
+
+  for (const from of devSourceFormats) {
+    for (const to of devTargetFormats) {
+      if (from === to) continue;
+      if (from === "csv" && (to === "typescript" || to === "go" || to === "python")) continue;
+
+      const toSlugSuffix = to === "typescript" ? "typescript-interface" : to === "go" ? "go-struct" : to === "python" ? "python-class" : `${to}-converter`;
+      const slug = `${from}-to-${toSlugSuffix}-online`;
+      if (jsonFormatterList.some(item => item.slug === slug)) continue;
+
+      const subQuery: SubQuery = {
+        slug,
+        title: `Convert ${from.toUpperCase()} to ${to.toUpperCase()} Online Free & Private`,
+        metaDescription: `Instantly convert ${from.toUpperCase()} structures to clean ${to.toUpperCase()}. Processed 100% locally in your browser memory for security.`,
+        articleIntro: {
+          heading: `How to Convert ${from.toUpperCase()} to ${to.toUpperCase()} Locally`,
+          paragraphs: [
+            `Converting raw data files shouldn't put your sensitive configurations or client records at risk. Our tool processes your ${from.toUpperCase()} files locally, compiling them into ${to.toUpperCase()} in milliseconds.`,
+            `Enjoy instant validation, syntax highlighting, and formatting controls with 0 bytes transmitted over the network.`
+          ]
+        }
+      };
+
+      jsonFormatterList.push(subQuery);
+
+      // Populate dynamic translation values in LOCALIZED_PROGRAMMATIC_SEO_DATA
+      for (const lang of Object.keys(LOCALIZED_TEMPLATES)) {
+        if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]) {
+          LOCALIZED_PROGRAMMATIC_SEO_DATA[lang] = {};
+        }
+        if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["json-formatter"]) {
+          LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["json-formatter"] = [];
+        }
+        const tmpl = LOCALIZED_TEMPLATES[lang];
+        LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]["json-formatter"].push({
+          slug,
+          title: tmpl.dev_title.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+          metaDescription: tmpl.dev_desc.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+          articleIntro: {
+            heading: tmpl.dev_heading.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+            paragraphs: [
+              tmpl.dev_p1.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase()),
+              tmpl.dev_p2.replace("[FROM]", from.toUpperCase()).replace("[TO]", to.toUpperCase())
+            ]
+          }
+        });
+      }
+    }
+  }
+  data["json-formatter"] = jsonFormatterList;
+
+  return data;
+}
+
+export const PROGRAMMATIC_SEO_DATA = buildPermutations();

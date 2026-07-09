@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { type Tool, type ToolCategory } from "@/lib/tools";
+import { type Tool, type ToolCategory, getToolById } from "@/lib/tools";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
 
 interface ToolSidebarProps {
@@ -15,6 +15,7 @@ interface ToolSidebarProps {
 export default function ToolSidebar({ tool, category, relatedTools }: ToolSidebarProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [recentTools, setRecentTools] = useState<Tool[]>([]);
 
   useEffect(() => {
     try {
@@ -23,6 +24,22 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
         const bookmarks = JSON.parse(saved);
         setIsBookmarked(bookmarks.includes(tool.id));
       }
+    } catch (_) {}
+  }, [tool.id]);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("zerowebtools_recent");
+      let list: string[] = saved ? JSON.parse(saved) : [];
+      list = [tool.id, ...list.filter(id => id !== tool.id)].slice(0, 4);
+      localStorage.setItem("zerowebtools_recent", JSON.stringify(list));
+
+      const resolved = list
+        .filter(id => id !== tool.id)
+        .map(id => getToolById(id))
+        .filter((t): t is Tool => !!t);
+
+      setRecentTools(resolved);
     } catch (_) {}
   }, [tool.id]);
 
@@ -104,6 +121,62 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
                     </div>
                     <div className="text-[10px] text-ink-muted mt-0.5 truncate">
                       {t.description}
+                    </div>
+                  </div>
+                  <svg className="w-3.5 h-3.5 text-ink-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all self-center shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Chrome Extension Spotlight Promo */}
+      {(category?.slug === "developer-tools" || tool.id === "api-client" || tool.id === "web-scraper" || tool.id === "youtube-transcript") && (
+        <div className="bg-surface-elevated rounded-2xl border border-accent/20 p-5 shadow-sm space-y-3 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-[3px] h-full bg-accent" />
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+              </svg>
+            </div>
+            <span className="text-[10px] font-bold text-accent uppercase tracking-wider">Companion Extension</span>
+          </div>
+          <h4 className="text-xs font-bold text-ink">Bypass CORS & Test Localhost</h4>
+          <p className="text-[10px] text-ink-secondary leading-relaxed">
+            Install the free ZeroWebTools companion extension to enable localhost API testing, YouTube transcripts, and CORS bypass.
+          </p>
+          <a
+            href="https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-1.5 w-full px-3 py-2 bg-accent hover:opacity-90 text-white dark:text-black text-xs font-semibold rounded-xl shadow-sm transition-all cursor-pointer"
+          >
+            <span>Add to Chrome</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+        </div>
+      )}
+
+      {/* Recently Visited Tools */}
+      {recentTools.length > 0 && (
+        <div className="bg-surface-elevated rounded-2xl border border-border/50 p-5 shadow-sm space-y-4">
+          <h3 className="text-xs font-bold text-ink uppercase tracking-wider pb-2 border-b border-border/40">Recently Used</h3>
+          <ul className="space-y-2">
+            {recentTools.map((t) => (
+              <li key={t.id}>
+                <Link
+                  href={`/tools/${t.id}`}
+                  className="flex items-start justify-between p-2.5 rounded-xl hover:bg-surface transition-all duration-200 group border border-transparent hover:border-border/30"
+                >
+                  <div className="truncate pr-2">
+                    <div className="text-xs font-semibold text-ink group-hover:text-accent transition-colors truncate">
+                      {t.title}
                     </div>
                   </div>
                   <svg className="w-3.5 h-3.5 text-ink-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all self-center shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">

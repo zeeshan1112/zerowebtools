@@ -41,6 +41,30 @@ export default function CompressPDFWorkspace() {
     };
   }, [thumbnailUrl]);
 
+  const [targetSizeText, setTargetSizeText] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const path = window.location.pathname;
+      if (path.includes("compress-pdf-to-100kb")) {
+        setLevel("extreme");
+        setTargetSizeText("Under 100 KB");
+      } else if (path.includes("compress-pdf-to-150kb")) {
+        setLevel("extreme");
+        setTargetSizeText("Under 150 KB");
+      } else if (path.includes("compress-pdf-to-200kb")) {
+        setLevel("extreme");
+        setTargetSizeText("Under 200 KB");
+      } else if (path.includes("compress-pdf-to-500kb")) {
+        setLevel("recommended");
+        setTargetSizeText("Under 500 KB");
+      } else if (path.includes("compress-pdf-under-1mb")) {
+        setLevel("recommended");
+        setTargetSizeText("Under 1 MB");
+      }
+    }
+  }, []);
+
   const handleFile = useCallback(async (f: File) => {
     setFile(f);
     setBefore(f.size);
@@ -143,6 +167,17 @@ export default function CompressPDFWorkspace() {
 
   return (
     <div className="relative space-y-6">
+      {targetSizeText && (
+        <div className="p-3.5 rounded-xl bg-accent/10 border border-accent/20 flex items-center gap-2.5 text-xs text-accent">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4M12 8h.01" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>
+            <strong>Target Size: {targetSizeText}</strong> — Optimized settings pre-selected.
+          </span>
+        </div>
+      )}
       <DropZone ref={ref} onFile={handleFile} label={t("drop_zone_prompt", "Drop a PDF to compress")} accept=".pdf" />
       {file && (
         <div className="space-y-6">

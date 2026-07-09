@@ -17,7 +17,11 @@ export async function generateStaticParams() {
   const params = [];
   for (const lang of LOCALES.filter(l => l !== "en")) {
     for (const article of HOW_TO_ARTICLES) {
-      params.push({ lang, slug: article.slug });
+      const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
+      const translated = localeData?.articles?.[article.toolId];
+      if (translated) {
+        params.push({ lang, slug: article.slug });
+      }
     }
   }
   return params;
@@ -32,23 +36,29 @@ export async function generateMetadata({ params }: HowToPageProps): Promise<Meta
 
   const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
   const translated = localeData?.articles?.[englishArticle.toolId];
+  if (!translated) return { title: "Not Found" };
 
-  const article = translated
-    ? {
-        ...englishArticle,
-        title: translated.title || englishArticle.title,
-        metaDescription: translated.metaDescription || englishArticle.metaDescription,
-      }
-    : englishArticle;
+  const article = {
+    ...englishArticle,
+    title: translated.title || englishArticle.title,
+    metaDescription: translated.metaDescription || englishArticle.metaDescription,
+  };
 
   const canonicalUrl = `${BASE_URL}/${lang}/how-to/${slug}`;
+
+  // Find all languages where this specific article is translated
+  const allowedLocales = LOCALES.filter(l => {
+    if (l === "en") return true;
+    const lData = LOCALES_DATA[l as Exclude<SupportedLocale, "en">];
+    return !!lData?.articles?.[englishArticle.toolId];
+  });
 
   return {
     title: `${article.title} — Free Online Guide | ZeroWebTools`,
     description: article.metaDescription,
     alternates: {
       canonical: canonicalUrl,
-      languages: getAlternateLanguages(`/how-to/${slug}`),
+      languages: getAlternateLanguages(`/how-to/${slug}`, allowedLocales),
     },
     openGraph: {
       title: article.title,
@@ -78,24 +88,26 @@ export default async function HowToPage({ params }: HowToPageProps) {
   const localeData = LOCALES_DATA[lang as Exclude<SupportedLocale, "en">];
   const translated = localeData?.articles?.[englishArticle.toolId];
 
-  const article = translated
-    ? {
-        ...englishArticle,
-        title: translated.title || englishArticle.title,
-        metaDescription: translated.metaDescription || englishArticle.metaDescription,
-        sections: (translated.sections || englishArticle.sections).map((sec: any, idx: number) => ({
-          ...englishArticle.sections[idx],
-          heading: sec.heading || englishArticle.sections[idx]?.heading,
-          paragraphs: sec.paragraphs || englishArticle.sections[idx]?.paragraphs,
-          listItems: sec.listItems || englishArticle.sections[idx]?.listItems,
-        })),
-        faqs: (translated.faqs || englishArticle.faqs || []).map((faq: any, idx: number) => ({
-          ...englishArticle.faqs?.[idx],
-          question: faq.question || englishArticle.faqs?.[idx]?.question,
-          answer: faq.answer || englishArticle.faqs?.[idx]?.answer,
-        })),
-      }
-    : englishArticle;
+  if (!translated) {
+    notFound();
+  }
+
+  const article = {
+    ...englishArticle,
+    title: translated.title || englishArticle.title,
+    metaDescription: translated.metaDescription || englishArticle.metaDescription,
+    sections: (translated.sections || englishArticle.sections).map((sec: any, idx: number) => ({
+      ...englishArticle.sections[idx],
+      heading: sec.heading || englishArticle.sections[idx]?.heading,
+      paragraphs: sec.paragraphs || englishArticle.sections[idx]?.paragraphs,
+      listItems: sec.listItems || englishArticle.sections[idx]?.listItems,
+    })),
+    faqs: (translated.faqs || englishArticle.faqs || []).map((faq: any, idx: number) => ({
+      ...englishArticle.faqs?.[idx],
+      question: faq.question || englishArticle.faqs?.[idx]?.question,
+      answer: faq.answer || englishArticle.faqs?.[idx]?.answer,
+    })),
+  };
 
   const targetTool = getToolById(article.toolId);
   const localizedTool = targetTool ? getLocalizedTool(targetTool, lang) : null;
