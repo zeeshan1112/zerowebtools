@@ -10,7 +10,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "zwt-reader-mode") {
     const targetUrl = info.linkUrl || info.pageUrl || tab?.url;
     if (targetUrl) {
-      const scraperUrl = `http://localhost:3000/tools/web-scraper?url=${encodeURIComponent(targetUrl)}`;
+      const isDev = !('update_url' in chrome.runtime.getManifest());
+      const baseUrl = isDev ? 'http://localhost:3000' : 'https://www.zerowebtools.com';
+      const scraperUrl = `${baseUrl}/tools/web-scraper?url=${encodeURIComponent(targetUrl)}`;
       chrome.tabs.create({ url: scraperUrl });
     }
   }
