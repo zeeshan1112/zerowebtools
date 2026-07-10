@@ -1058,4 +1058,51 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     // Verify dropzone instructions
     await expect(page.locator("text=Drop an audio").first()).toBeVisible();
   });
+
+  test("51. Private Encrypted Notepad - Encryption, Sharing & Decryption Flow", async ({ page }) => {
+    await navigateTo(page, "/tools/private-notepad");
+    await expect(page.locator("h1")).toContainText("Private Encrypted Notepad");
+
+    // Locate writing editor
+    const textarea = page.locator("textarea");
+    await expect(textarea).toBeVisible();
+
+    // Write a confidential note
+    const secretMessage = "Confidential API Key: sk_live_5123456789abcde";
+    await textarea.fill(secretMessage);
+
+    // Generate link
+    await page.click('button:has-text("Generate Secure Link")');
+
+    // Wait for the share link box
+    const urlInput = page.locator('input[readOnly]');
+    await expect(urlInput).toBeVisible();
+    const generatedUrl = await urlInput.inputValue();
+    expect(generatedUrl).toContain("#key=");
+    expect(generatedUrl).toContain("&data=");
+
+    // Navigate to the shared key-hash URL
+    await navigateTo(page, generatedUrl);
+
+    // Verify it enters decryption view and renders the decrypted note
+    await expect(page.locator("text=Decrypted Private Note")).toBeVisible();
+    await expect(page.locator("pre")).toContainText(secretMessage);
+
+    // Click write new note to reset
+    await page.click('button:has-text("Write a New Private Note")');
+    await expect(textarea).toBeVisible();
+    await expect(textarea).toHaveValue("");
+  });
+
+  test("52. Local Video Compressor - Settings & UI Mounting", async ({ page }) => {
+    await navigateTo(page, "/tools/video-compressor");
+    await expect(page.locator("h1")).toContainText("Local Video Compressor");
+
+    // Verify file input
+    const fileInput = page.locator('input[type="file"]');
+    await expect(fileInput).toBeAttached();
+
+    // Verify drag & drop text
+    await expect(page.locator("text=Select Video File")).toBeVisible();
+  });
 });

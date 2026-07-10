@@ -186,6 +186,13 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Convert HTML to React JSX instantly — free and private. Automatically translate classes, properties, inline styles, and self-closing tags. No server uploads.",
       },
+      {
+        id: "private-notepad",
+        title: "Private Encrypted Notepad",
+        description: "Write and share secure encrypted notes. Zero knowledge links share data entirely inside the URL hash.",
+        status: "live",
+        metaDescription: "Create AES-GCM encrypted shareable notes client-side — free and 100% private. Keys stay in the URL hash, never sent to the server.",
+      },
     ],
   },
   {
@@ -254,9 +261,16 @@ export const CATEGORIES: ToolCategory[] = [
   },
   {
     slug: "image-tools",
-    title: "Image Tools",
-    description: "Convert, resize, crop, and optimize images directly in your browser.",
+    title: "Image & Video Tools",
+    description: "Convert, resize, crop, and compress images and videos directly in your browser.",
     tools: [
+      {
+        id: "video-compressor",
+        title: "Local Video Compressor",
+        description: "Compress video and audio files locally in your browser using hardware-accelerated MediaRecorder.",
+        status: "live",
+        metaDescription: "Shrink MP4, WebM, and MOV video files client-side — free, fast, and 100% private. Adjustable resolution and bitrate. No server uploads.",
+      },
       {
         id: "heic-to-jpg",
         title: "HEIC Photo Converter",
