@@ -304,6 +304,21 @@ For a comprehensive guide on the translation architecture, custom configurations
 
 ---
 
+## 📣 Social Listening Monitor (Organic Growth)
+
+ZeroWebTools includes an automated keyword scanner script that searches Hacker News, GitHub Issues, and Reddit (via OAuth API) to discover active threads and comments matching any of your 55+ developer tools.
+
+### How to Run:
+
+Execute the script using `tsx` (TypeScript executor) to automatically resolve dynamic module extensions:
+```bash
+npx tsx --env-file=.env scripts/social-listening.mjs
+```
+
+For configuration guides, setting up your Reddit API client, or details on organic posting best practices, refer to the [Social Listening Playbook](file:///Users/zee/zeeshanahmad-io/zerowebtools/docs/SOCIAL_LISTENING_PLAYBOOK.md).
+
+---
+
 ## 🔒 Security Architecture
 
 ```
