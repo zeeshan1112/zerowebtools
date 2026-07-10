@@ -9,6 +9,7 @@ import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
 import { getTranslations, getLocalizedTool } from "@/lib/i18n";
 import { useRouter, usePathname } from "next/navigation";
+import Hero from "@/components/ui/animated-shader-hero";
 
 // Pristine technical workflow tags
 const TOOL_WORKFLOW_TAGS: Record<string, string> = {
@@ -279,107 +280,33 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }}
       />
 
-       {/* Immersive Full-Screen Premium Hero with Covered Background Image Glow */}
-      <section className="relative min-h-[60vh] md:min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-12 md:pt-16 pb-14 md:pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
-        
-        {/* Clean, High-End Pure-CSS Monochromatic Dot Grid */}
-        <div 
-          className="absolute inset-0 z-0 opacity-[0.04] dark:opacity-[0.08] pointer-events-none" 
-          style={{ 
-            backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", 
-            backgroundSize: "24px 24px" 
-          }} 
-        />
-
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
-          <div className="text-center space-y-8 max-w-4xl mx-auto">
-            
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/25 bg-accent/5 text-[10px] font-bold text-accent uppercase tracking-wider select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              {t.privateBadge.replace("{count}", String(totalLive))}
-            </div>
-
-            {/* Screen reader only H1 for SEO compliance */}
-            <h1 className="sr-only">{t.homeTitle}</h1>
-            <div className="flex justify-center select-none">
-              <TypewriterEffectSmooth
-                words={t.homeTitle.split(" ").map((w, i, arr) => ({ text: w, className: i === arr.length - 1 ? "text-accent" : "" }))}
-                className="my-0 pt-2"
-                cursorClassName="h-6 sm:h-10 lg:h-14 bg-accent"
-              />
-            </div>
-
-            <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance font-medium">
-              {t.homeDesc}
-            </p>
-
-            {/* Quick-Launcher Command Center Centerpiece */}
-            <div className="pt-2 flex flex-col items-center justify-center gap-6">
-              <button
-                onClick={() => {
-                  const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
-                  window.dispatchEvent(event);
-                }}
-                className="w-full max-w-md px-4 py-3.5 bg-surface-elevated/85 backdrop-blur border border-border/80 hover:border-accent/40 rounded-xl flex items-center justify-between text-xs cursor-pointer shadow-md transition-all duration-300 active:scale-[0.99] group select-none text-left"
-              >
-                <div className="flex items-center gap-2.5">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-accent shrink-0">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                  </svg>
-                  <span className="text-ink-muted font-bold group-hover:text-ink transition-colors duration-150">{t.searchPlaceholder}</span>
-                </div>
-                <div className="hidden sm:flex items-center gap-1 opacity-70">
-                  <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">⌘</kbd>
-                  <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">K</kbd>
-                </div>
-              </button>
-              
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                <button
-                  onClick={() => {
-                    document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="px-6 py-3.5 rounded-xl border border-border/80 bg-surface-elevated/40 backdrop-blur-md hover:bg-surface-elevated/80 text-ink hover:text-accent font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:border-accent/30 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group"
-                >
-                  {t.exploreAllTools}
-                  <svg 
-                    width="12" 
-                    height="12" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="3" 
-                    className="text-ink-muted group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Micro tool tags shortcut below search */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-2 text-[10px] sm:text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
-                <span>SUITES:</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("ai")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">AI Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("image")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Image Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("developer")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Developer Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("generators")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Generators</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("text")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Text Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("calculators")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Calculators</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("fun")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Fun</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+       {/* Immersive Full-Screen Premium Hero with WebGL Shader Background */}
+      <Hero
+        trustBadge={{
+          text: t.privateBadge.replace("{count}", String(totalLive)),
+          icons: ["✨"]
+        }}
+        headline={{
+          line1: t.homeTitle.split(" ").slice(0, 2).join(" "),
+          line2: t.homeTitle.split(" ").slice(2).join(" ")
+        }}
+        subtitle={t.homeDesc}
+        buttons={{
+          primary: {
+            text: t.exploreAllTools,
+            onClick: () => {
+              document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+            }
+          },
+          secondary: {
+            text: "Search Tools (⌘K)",
+            onClick: () => {
+              const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
+              window.dispatchEvent(event);
+            }
+          }
+        }}
+      />
 
       {/* Main Grid Directory */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mt-16 space-y-16">
