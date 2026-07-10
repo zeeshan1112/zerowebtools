@@ -3975,9 +3975,15 @@ function buildPermutations(): Record<string, SubQuery[]> {
         if (toolId === "video-compressor") {
           title = tmpl.compress_title.replace("PDF", "Video").replace("[SIZE]", "Video");
           desc = tmpl.compress_desc.replace("PDF", "Video").replace("[SIZE]", "Video");
+          heading = tmpl.compress_heading.replace("PDF", "Video").replace("[SIZE]", "Video");
+          p1 = tmpl.compress_p1.replace("PDF", "Video").replace("[SIZE]", "Video");
+          p2 = tmpl.compress_p2.replace("PDF", "Video").replace("[SIZE]", "Video");
         } else if (toolId === "private-notepad") {
           title = tmpl.dev_title.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
           desc = tmpl.dev_desc.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          heading = tmpl.dev_heading.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          p1 = tmpl.dev_p1.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          p2 = tmpl.dev_p2.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
         }
 
         LOCALIZED_PROGRAMMATIC_SEO_DATA[lang][toolId].push({
