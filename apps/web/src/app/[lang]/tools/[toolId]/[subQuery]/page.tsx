@@ -1402,6 +1402,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
           </p>
         </section>
 
+        {/* Top Leaderboard Ad Slot */}
+        <div className="py-2 flex justify-center w-full">
+          <AdLayoutSlot type="leaderboard" />
+        </div>
+
         {/* Full-Width Workspace (100% horizontal space) */}
         <div className="space-y-6">
           <MobileToolActions toolId={toolId} />
@@ -1416,12 +1421,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
         {/* Lower Grid: SEO Article & Sticky Sidebar Utilities */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-10">
           
-          {/* LEFT: Educational SEO content & ad banner */}
+          {/* LEFT: Educational SEO content */}
           <div className="lg:col-span-8 space-y-8">
-            <div className="py-2 flex justify-center">
-              <AdLayoutSlot type="leaderboard" />
-            </div>
-
             {article && (
               <ArticleBlock title={article.title} sections={article.sections} />
             )}
