@@ -331,7 +331,7 @@ const Hero: React.FC<HeroProps> = ({
   buttons,
   className = ""
 }) => {
-  const [activeTheme, setActiveTheme] = useState<'platinum' | 'amber' | 'cosmic'>('cosmic');
+  const [activeTheme, setActiveTheme] = useState<'platinum' | 'amber' | 'cosmic'>('amber');
   
   const activeSource = 
     activeTheme === 'platinum' ? PLATINUM_SHADER_SOURCE : 
@@ -376,40 +376,6 @@ const Hero: React.FC<HeroProps> = ({
           backgroundSize: "24px 24px" 
         }} 
       />
-
-      {/* Interactive Theme Control Pill (Floating in bottom-right) */}
-      <div className="absolute bottom-4 right-4 z-30 flex items-center gap-1.5 p-1 bg-zinc-950/80 border border-zinc-800/80 rounded-full text-[9px] font-extrabold uppercase tracking-widest backdrop-blur-md">
-        <button
-          onClick={() => setActiveTheme('platinum')}
-          className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-            activeTheme === 'platinum'
-              ? 'bg-zinc-800 text-white font-black'
-              : 'text-zinc-500 hover:text-zinc-300'
-          }`}
-        >
-          Platinum
-        </button>
-        <button
-          onClick={() => setActiveTheme('amber')}
-          className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-            activeTheme === 'amber'
-              ? 'bg-amber-950 border border-amber-500/20 text-amber-300 font-black shadow-lg shadow-amber-500/10'
-              : 'text-zinc-500 hover:text-zinc-300'
-          }`}
-        >
-          Amber
-        </button>
-        <button
-          onClick={() => setActiveTheme('cosmic')}
-          className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-            activeTheme === 'cosmic'
-              ? 'bg-indigo-950 border border-indigo-500/20 text-indigo-300 font-black shadow-lg shadow-indigo-500/10'
-              : 'text-zinc-500 hover:text-zinc-300'
-          }`}
-        >
-          Cosmic
-        </button>
-      </div>
 
       {/* Hero Content Overlay */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
@@ -499,6 +465,43 @@ const Hero: React.FC<HeroProps> = ({
               )}
             </div>
           )}
+
+          {/* Interactive Theme Control Pill (Centered directly under CTAs) */}
+          <div className="pt-4 flex justify-center animate-fade-in-up">
+            <div className="flex items-center gap-1.5 p-1 bg-zinc-950/70 border border-zinc-800/80 rounded-full text-[9px] font-extrabold uppercase tracking-widest backdrop-blur-md shadow-2xl">
+              <button
+                onClick={() => setActiveTheme('platinum')}
+                className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  activeTheme === 'platinum'
+                    ? 'bg-zinc-800 text-white font-black shadow-sm'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                Platinum
+              </button>
+              <button
+                onClick={() => setActiveTheme('amber')}
+                className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  activeTheme === 'amber'
+                    ? 'bg-amber-950 border border-amber-500/20 text-amber-300 font-black shadow-lg shadow-amber-500/10'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                Amber
+              </button>
+              <button
+                onClick={() => setActiveTheme('cosmic')}
+                className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                  activeTheme === 'cosmic'
+                    ? 'bg-indigo-950 border border-indigo-500/20 text-fuchsia-300 font-black shadow-lg shadow-indigo-500/10'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                Cosmic
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
