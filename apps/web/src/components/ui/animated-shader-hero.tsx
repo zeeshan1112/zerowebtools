@@ -331,9 +331,13 @@ const Hero: React.FC<HeroProps> = ({
   buttons,
   className = ""
 }) => {
-  const [activeTheme, setActiveTheme] = useState<'platinum' | 'cosmic'>('cosmic');
+  const [activeTheme, setActiveTheme] = useState<'platinum' | 'amber' | 'cosmic'>('cosmic');
   
-  const activeSource = activeTheme === 'platinum' ? PLATINUM_SHADER_SOURCE : COSMIC_SHADER_SOURCE;
+  const activeSource = 
+    activeTheme === 'platinum' ? PLATINUM_SHADER_SOURCE : 
+    activeTheme === 'amber' ? AMBER_SHADER_SOURCE : 
+    COSMIC_SHADER_SOURCE;
+
   const canvasRef = useShaderBackground(activeSource);
 
   // Helper to split the trust badge text into glowing segments dynamically
@@ -386,6 +390,16 @@ const Hero: React.FC<HeroProps> = ({
           Platinum
         </button>
         <button
+          onClick={() => setActiveTheme('amber')}
+          className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+            activeTheme === 'amber'
+              ? 'bg-amber-950 border border-amber-500/20 text-amber-300 font-black shadow-lg shadow-amber-500/10'
+              : 'text-zinc-500 hover:text-zinc-300'
+          }`}
+        >
+          Amber
+        </button>
+        <button
           onClick={() => setActiveTheme('cosmic')}
           className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
             activeTheme === 'cosmic'
@@ -434,7 +448,9 @@ const Hero: React.FC<HeroProps> = ({
                 className={`bg-clip-text text-transparent bg-gradient-to-r transition-all duration-500 ${
                   activeTheme === 'platinum'
                     ? 'from-zinc-400 via-zinc-200 to-white'
-                    : 'from-indigo-300 via-violet-400 to-cyan-300'
+                    : activeTheme === 'amber'
+                    ? 'from-orange-300 via-yellow-400 to-amber-300'
+                    : 'from-fuchsia-400 via-purple-400 to-indigo-300'
                 }`}
               >
                 {headline.line2}
@@ -456,7 +472,7 @@ const Hero: React.FC<HeroProps> = ({
                 <button 
                   onClick={buttons.primary.onClick}
                   className={`px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-md text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group ${
-                    activeTheme === 'cosmic' ? 'hover:text-indigo-300 hover:border-indigo-500/30' : 'hover:bg-zinc-800'
+                    activeTheme === 'cosmic' ? 'hover:text-indigo-300 hover:border-indigo-500/30' : activeTheme === 'amber' ? 'hover:text-yellow-300 hover:border-amber-500/30' : 'hover:bg-zinc-800'
                   }`}
                 >
                   {buttons.primary.text}
@@ -546,6 +562,63 @@ void main(void) {
 	O=vec4(col,1);
 }`;
 
+const AMBER_SHADER_SOURCE = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+float rnd(vec2 p) {
+  p=fract(p*vec2(12.9898,78.233));
+  p+=dot(p,p+34.56);
+  return fract(p.x*p.y);
+}
+float noise(in vec2 p) {
+  vec2 i=floor(p), f=fract(p), u=f*f*(3.-2.*f);
+  float a=rnd(i), b=rnd(i+vec2(1,0)), c=rnd(i+vec2(0,1)), d=rnd(i+1.);
+  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+}
+float fbm(vec2 p) {
+  float t=.0, a=1.; mat2 m=mat2(1.,-.5,.2,1.2);
+  for (int i=0; i<5; i++) {
+    t+=a*noise(p);
+    p*=2.*m;
+    a*=.5;
+  }
+  return t;
+}
+float clouds(vec2 p) {
+	float d=1., t=.0;
+	for (float i=.0; i<3.; i++) {
+		float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);
+		t=mix(t,d,a);
+		d=a;
+		p*=2./(i+1.);
+	}
+	return t;
+}
+void main(void) {
+	vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
+	vec3 col=vec3(0);
+	float bg=clouds(vec2(st.x+T*.3,-st.y));
+	uv*=1.-.2*(sin(T*.1)*.5+.5);
+	for (float i=1.; i<12.; i++) {
+		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.3+.1*uv.x);
+		vec2 p=uv;
+		float d=length(p);
+		// Warm gold / orange shooting star rays
+		vec3 starColor = cos(sin(i) * vec3(1.0, 2.0, 3.0)) * 0.5 + 0.5;
+		col += 0.0016 / d * (starColor + vec3(0.20, 0.10, 0.0));
+		float b=noise(i+p+bg*1.731);
+		col += 0.0022 * b / length(max(p, vec2(b * p.x * 0.02, p.y)));
+		col = mix(col, vec3(bg * 0.25, bg * 0.137, bg * 0.05), d); // Amber space cloud dust
+	}
+	O=vec4(col,1);
+}`;
+
 const COSMIC_SHADER_SOURCE = `#version 300 es
 precision highp float;
 out vec4 O;
@@ -593,11 +666,12 @@ void main(void) {
 		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.3+.1*uv.x);
 		vec2 p=uv;
 		float d=length(p);
+		// Vibrant Cosmic Purple / Fuchsia / Magenta galaxy glow
 		vec3 starColor = cos(sin(i) * vec3(1.4, 0.9, 2.6)) * 0.5 + 0.5;
-		col += 0.0016 / d * (starColor + vec3(0.08, 0.16, 0.35));
+		col += 0.0016 / d * (starColor + vec3(0.24, 0.08, 0.32));
 		float b=noise(i+p+bg*1.731);
 		col += 0.0022 * b / length(max(p, vec2(b * p.x * 0.02, p.y)));
-		col = mix(col, vec3(bg * 0.05, bg * 0.04, bg * 0.22), d);
+		col = mix(col, vec3(bg * 0.14, bg * 0.02, bg * 0.18), d); // Deep electric purple nebula space dust
 	}
 	O=vec4(col,1);
 }`;
