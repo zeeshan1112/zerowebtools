@@ -1382,8 +1382,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
           </p>
         </section>
 
-        {/* Top Leaderboard Ad Slot */}
-        <div className="py-2 flex justify-center w-full">
+        {/* Top Leaderboard Ad Slot (Desktop/Tablet Only) */}
+        <div className="py-2 hidden sm:flex justify-center w-full">
           <AdLayoutSlot type="leaderboard" />
         </div>
 
@@ -1396,6 +1396,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
               <WorkspaceRenderer toolId={toolId} />
             </WorkspaceTranslationProvider>
           </section>
+        </div>
+
+        {/* Mobile Leaderboard Ad Slot (Below Tool on Mobile) */}
+        <div className="py-2 flex sm:hidden justify-center w-full">
+          <AdLayoutSlot type="leaderboard" />
         </div>
 
         {/* Lower Grid: SEO Article & Sticky Sidebar Utilities */}
