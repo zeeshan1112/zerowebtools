@@ -388,7 +388,7 @@ const Hero: React.FC<HeroProps> = ({
   const buttonStyles = getButtonStyles();
 
   return (
-    <div className={`relative w-full min-h-[55vh] md:min-h-[calc(100vh-12rem)] flex flex-col justify-center pt-12 md:pt-16 pb-14 md:pb-20 border-b border-zinc-800 select-none overflow-hidden bg-black text-white transition-all duration-300 ${className}`}>
+    <div className={`relative w-full min-h-[40vh] md:min-h-[380px] flex flex-col justify-center pt-12 md:pt-14 pb-12 md:pb-14 border-b border-zinc-800 select-none overflow-hidden bg-black text-white transition-all duration-300 ${className}`}>
       
       {/* High-Contrast Monochromatic WebGL Canvas Backdrop */}
       <canvas
