@@ -25,7 +25,7 @@ interface HeroProps {
 }
 
 // Reusable Shader Background Hook
-const useShaderBackground = () => {
+const useShaderBackground = (activeSource: string) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number | undefined>(undefined);
   const rendererRef = useRef<WebGLRenderer | null>(null);
@@ -58,7 +58,7 @@ void main(){gl_Position=position;}`;
       this.scale = scale;
       this.gl = canvas.getContext('webgl2')!;
       this.gl.viewport(0, 0, canvas.width * scale, canvas.height * scale);
-      this.shaderSource = defaultShaderSource;
+      this.shaderSource = activeSource;
     }
 
     updateShader(source: string) {
@@ -295,9 +295,8 @@ void main(){gl_Position=position;}`;
     
     resize();
     
-    if (rendererRef.current.test(defaultShaderSource) === null) {
-      rendererRef.current.updateShader(defaultShaderSource);
-    }
+    // Compile the initial activeSource value dynamically on mount
+    rendererRef.current.updateShader(activeSource);
     
     loop(0);
     
@@ -314,6 +313,13 @@ void main(){gl_Position=position;}`;
     };
   }, []);
 
+  // Hot-swap shader source when activeSource updates
+  useEffect(() => {
+    if (rendererRef.current) {
+      rendererRef.current.updateShader(activeSource);
+    }
+  }, [activeSource]);
+
   return canvasRef;
 };
 
@@ -325,7 +331,10 @@ const Hero: React.FC<HeroProps> = ({
   buttons,
   className = ""
 }) => {
-  const canvasRef = useShaderBackground();
+  const [activeTheme, setActiveTheme] = useState<'platinum' | 'cosmic'>('cosmic');
+  
+  const activeSource = activeTheme === 'platinum' ? PLATINUM_SHADER_SOURCE : COSMIC_SHADER_SOURCE;
+  const canvasRef = useShaderBackground(activeSource);
 
   // Helper to split the trust badge text into glowing segments dynamically
   let privacyText = "";
@@ -364,6 +373,30 @@ const Hero: React.FC<HeroProps> = ({
         }} 
       />
 
+      {/* Interactive Theme Control Pill (Floating in bottom-right) */}
+      <div className="absolute bottom-4 right-4 z-30 flex items-center gap-1.5 p-1 bg-zinc-950/80 border border-zinc-800/80 rounded-full text-[9px] font-extrabold uppercase tracking-widest backdrop-blur-md">
+        <button
+          onClick={() => setActiveTheme('platinum')}
+          className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+            activeTheme === 'platinum'
+              ? 'bg-zinc-800 text-white font-black'
+              : 'text-zinc-500 hover:text-zinc-300'
+          }`}
+        >
+          Platinum
+        </button>
+        <button
+          onClick={() => setActiveTheme('cosmic')}
+          className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+            activeTheme === 'cosmic'
+              ? 'bg-indigo-950 border border-indigo-500/20 text-indigo-300 font-black shadow-lg shadow-indigo-500/10'
+              : 'text-zinc-500 hover:text-zinc-300'
+          }`}
+        >
+          Cosmic
+        </button>
+      </div>
+
       {/* Hero Content Overlay */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
         <div className="text-center space-y-8 max-w-4xl mx-auto">
@@ -396,7 +429,16 @@ const Hero: React.FC<HeroProps> = ({
           {/* Main Heading */}
           <div className="space-y-3">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
-              {headline.line1} <span className="bg-gradient-to-r from-zinc-400 via-zinc-200 to-white bg-clip-text text-transparent">{headline.line2}</span>
+              {headline.line1}{' '}
+              <span
+                className={`bg-clip-text text-transparent bg-gradient-to-r transition-all duration-500 ${
+                  activeTheme === 'platinum'
+                    ? 'from-zinc-400 via-zinc-200 to-white'
+                    : 'from-indigo-300 via-violet-400 to-cyan-300'
+                }`}
+              >
+                {headline.line2}
+              </span>
             </h1>
           </div>
           
@@ -413,7 +455,9 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.primary && (
                 <button 
                   onClick={buttons.primary.onClick}
-                  className="px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-md hover:bg-zinc-800 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group"
+                  className={`px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-md text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group ${
+                    activeTheme === 'cosmic' ? 'hover:text-indigo-300 hover:border-indigo-500/30' : 'hover:bg-zinc-800'
+                  }`}
                 >
                   {buttons.primary.text}
                   <svg 
@@ -445,14 +489,8 @@ const Hero: React.FC<HeroProps> = ({
   );
 };
 
-const defaultShaderSource = `#version 300 es
-/*********
-* made by Matthias Hurrle (@atzedent)
-*
-*	To explore strange new worlds, to seek out new life
-*	and new civilizations, to boldly go where no man has
-*	gone before.
-*/
+// Shader Strings
+const PLATINUM_SHADER_SOURCE = `#version 300 es
 precision highp float;
 out vec4 O;
 uniform vec2 resolution;
@@ -461,23 +499,16 @@ uniform float time;
 #define T time
 #define R resolution
 #define MN min(R.x,R.y)
-// Returns a pseudo random number for a given point (white noise)
 float rnd(vec2 p) {
   p=fract(p*vec2(12.9898,78.233));
   p+=dot(p,p+34.56);
   return fract(p.x*p.y);
 }
-// Returns a pseudo random number for a given point (value noise)
 float noise(in vec2 p) {
   vec2 i=floor(p), f=fract(p), u=f*f*(3.-2.*f);
-  float
-  a=rnd(i),
-  b=rnd(i+vec2(1,0)),
-  c=rnd(i+vec2(0,1)),
-  d=rnd(i+1.);
+  float a=rnd(i), b=rnd(i+vec2(1,0)), c=rnd(i+vec2(0,1)), d=rnd(i+1.);
   return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
 }
-// Returns a pseudo random number for a given point (fractal noise)
 float fbm(vec2 p) {
   float t=.0, a=1.; mat2 m=mat2(1.,-.5,.2,1.2);
   for (int i=0; i<5; i++) {
@@ -506,13 +537,67 @@ void main(void) {
 		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.3+.1*uv.x);
 		vec2 p=uv;
 		float d=length(p);
-		// High-contrast platinum / silver shooting stars
 		vec3 starColor = vec3(1.0, 1.0, 1.08); 
 		col += 0.0018 / d * starColor;
-		
 		float b=noise(i+p+bg*1.731);
 		col += 0.0022 * b / length(max(p, vec2(b * p.x * 0.02, p.y)));
-		col = mix(col, vec3(bg * 0.08, bg * 0.08, bg * 0.09), d); // Charcoal space smoke
+		col = mix(col, vec3(bg * 0.08, bg * 0.08, bg * 0.09), d);
+	}
+	O=vec4(col,1);
+}`;
+
+const COSMIC_SHADER_SOURCE = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+float rnd(vec2 p) {
+  p=fract(p*vec2(12.9898,78.233));
+  p+=dot(p,p+34.56);
+  return fract(p.x*p.y);
+}
+float noise(in vec2 p) {
+  vec2 i=floor(p), f=fract(p), u=f*f*(3.-2.*f);
+  float a=rnd(i), b=rnd(i+vec2(1,0)), c=rnd(i+vec2(0,1)), d=rnd(i+1.);
+  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+}
+float fbm(vec2 p) {
+  float t=.0, a=1.; mat2 m=mat2(1.,-.5,.2,1.2);
+  for (int i=0; i<5; i++) {
+    t+=a*noise(p);
+    p*=2.*m;
+    a*=.5;
+  }
+  return t;
+}
+float clouds(vec2 p) {
+	float d=1., t=.0;
+	for (float i=.0; i<3.; i++) {
+		float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);
+		t=mix(t,d,a);
+		d=a;
+		p*=2./(i+1.);
+	}
+	return t;
+}
+void main(void) {
+	vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
+	vec3 col=vec3(0);
+	float bg=clouds(vec2(st.x+T*.3,-st.y));
+	uv*=1.-.2*(sin(T*.1)*.5+.5);
+	for (float i=1.; i<12.; i++) {
+		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.3+.1*uv.x);
+		vec2 p=uv;
+		float d=length(p);
+		vec3 starColor = cos(sin(i) * vec3(1.4, 0.9, 2.6)) * 0.5 + 0.5;
+		col += 0.0016 / d * (starColor + vec3(0.08, 0.16, 0.35));
+		float b=noise(i+p+bg*1.731);
+		col += 0.0022 * b / length(max(p, vec2(b * p.x * 0.02, p.y)));
+		col = mix(col, vec3(bg * 0.05, bg * 0.04, bg * 0.22), d);
 	}
 	O=vec4(col,1);
 }`;
