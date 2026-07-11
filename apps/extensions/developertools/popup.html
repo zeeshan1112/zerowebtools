@@ -106,6 +106,16 @@
       .tree-val-bracket { color: #059669; font-weight: 700; } /* emerald-600 */
       .tree-children { display: none; }
       .tree-children.expanded { display: block; }
+      
+      @keyframes pulse {
+        0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 5px rgba(5, 150, 105, 0); }
+        100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+      }
+      .pulse-dot {
+        width: 6px; height: 6px; border-radius: 50%; background-color: var(--accent);
+        display: inline-block; animation: pulse 2s infinite; flex-shrink: 0; margin-top: 5px;
+      }
     </style>
   </head>
   <body>
@@ -115,6 +125,14 @@
         <p>Developer tools, running locally.</p>
       </div>
       <a href="https://zerowebtools.com" target="_blank" style="font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 500;">Visit Site</a>
+    </div>
+
+    <!-- Companion Status Banner -->
+    <div style="background: rgba(5, 150, 105, 0.06); border-bottom: 1px solid rgba(5, 150, 105, 0.12); padding: 8px 20px; display: flex; align-items: start; gap: 10px; font-size: 11px; select-none">
+      <span class="pulse-dot"></span>
+      <div style="color: var(--ink-muted); line-height: 1.45;">
+        <strong style="color: var(--accent); font-weight: 700;">Companion Mode Active:</strong> Unlocking offline CORS bypasses for the REST API Client, Smart Article Reader, and YouTube Transcript Extractor on <a href="https://zerowebtools.com" target="_blank" style="color: var(--ink); font-weight: 600; text-decoration: underline;">zerowebtools.com</a>.
+      </div>
     </div>
 
     <div class="tabs">
