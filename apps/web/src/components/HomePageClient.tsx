@@ -114,7 +114,14 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       const tabId = SLUG_TO_TAB[hash];
       if (tabId) {
         setActiveTab(tabId);
-        document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          const categoryElement = document.getElementById(hash);
+          if (categoryElement) {
+            categoryElement.scrollIntoView({ behavior: "smooth" });
+          } else {
+            document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       }
     };
 
@@ -124,7 +131,14 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       if (tabId) {
         setActiveTab(tabId);
         router.replace(`${window.location.pathname}#${TAB_TO_SLUG[tabId]}`, { scroll: false });
-        document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          const categoryElement = document.getElementById(slug);
+          if (categoryElement) {
+            categoryElement.scrollIntoView({ behavior: "smooth" });
+          } else {
+            document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       }
     };
 
@@ -530,7 +544,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 const liveCount = categoryTools.filter((t) => t.status === "live").length;
               
               return (
-                <div key={category.slug} className="space-y-6">
+                <div key={category.slug} id={category.slug} className="space-y-6 scroll-mt-24">
                   <div className="flex items-baseline justify-between border-b border-border/30 pb-2.5 select-none">
                     <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider flex items-center gap-1.5">
                       {ENABLE_CATEGORY_COLORS && category.colorClass && (
