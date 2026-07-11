@@ -399,58 +399,18 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         {/* TABBED DIRECTORY TOOLS HUB (Replaces dry infinite scroll) */}
         <section id="tools-directory" className="space-y-8 scroll-mt-24">
           
-          {/* Tab Switcher rail: Sleek, floating capsule track with layout-projected sliding highlight */}
-          <div className="flex flex-col items-center justify-center space-y-4 pb-6 select-none border-b border-border/20">
-            <div className="flex items-center text-[9px] text-ink-muted font-extrabold uppercase tracking-widest gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 animate-pulse" />
-              {t.toolFilter}
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 animate-pulse" />
-            </div>
-            
-            <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 bg-zinc-950/65 border border-zinc-800/40 rounded-2xl backdrop-blur-md shadow-2xl relative max-w-full">
+          {/* Tab Switcher rail */}
+          <div className="flex items-baseline justify-between border-b border-border/40 pb-4 select-none">
+            <div className="flex flex-wrap items-center gap-1">
               {[
-                { id: "all", label: t.allTools, icon: "✨" },
-                { id: "dev", label: "Dev Workbench", icon: "💻" },
-                { id: "doc", label: "Document Studio", icon: "📑" },
-                { id: "media", label: "Media & Creator", icon: "🎨" },
-                { id: "finance", label: "Financial Modeler", icon: "📈" },
-                { id: "fun", label: "Playground", icon: "🎮" },
+                { id: "all", label: t.allTools },
+                { id: "dev", label: "Dev Workbench" },
+                { id: "doc", label: "Document Studio" },
+                { id: "media", label: "Media & Creator" },
+                { id: "finance", label: "Financial Modeler" },
+                { id: "fun", label: "Playground" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
-                
-                // Dynamic count resolver
-                const getTabCategorySlugById = (id: string) => {
-                  switch (id) {
-                    case "all": return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
-                    case "dev": return ["ai-tools", "developer-tools", "generators"];
-                    case "doc": return ["pdf-tools", "text-tools"];
-                    case "media": return ["image-tools"];
-                    case "finance": return ["financial-growth"];
-                    case "fun": return ["fun"];
-                    default: return [];
-                  }
-                };
-                
-                const getTabToolCount = (tabId: string) => {
-                  if (tabId === "all") return ALL_TOOLS.filter(t => t.status === "live").length;
-                  const slugs = getTabCategorySlugById(tabId);
-                  const countSet = new Set();
-                  slugs.forEach(slug => {
-                    const cat = CATEGORIES.find(c => c.slug === slug);
-                    if (cat) {
-                      cat.tools.forEach(t => {
-                        if (t.status === "live") countSet.add(t.id);
-                      });
-                    }
-                    ALL_TOOLS.forEach(t => {
-                      if (t.status === "live" && t.tags?.includes(slug)) {
-                        countSet.add(t.id);
-                      }
-                    });
-                  });
-                  return countSet.size;
-                };
-
                 return (
                   <button
                     key={tab.id}
@@ -458,29 +418,20 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       setActiveTab(tab.id as any);
                       router.replace(`${pathname}#${TAB_TO_SLUG[tab.id]}`, { scroll: false });
                     }}
-                    className={`relative px-4 py-2.5 text-[10px] font-extrabold tracking-wider uppercase transition-all duration-300 select-none cursor-pointer flex items-center gap-2 rounded-xl z-10 min-h-[38px] group ${
+                    className={`px-4 py-2.5 text-[10px] font-bold tracking-wider uppercase border transition-all duration-150 cursor-pointer min-h-[44px] ${
                       isActive
-                        ? "text-amber-400 font-black"
-                        : "text-ink-secondary hover:text-ink hover:bg-zinc-900/30"
+                        ? "bg-ink border-ink text-surface shadow-sm"
+                        : "bg-surface-elevated border-border hover:border-ink text-ink-secondary hover:text-ink"
                     }`}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeDockIndicator"
-                        className="absolute inset-0 bg-zinc-900/90 border border-zinc-800/60 rounded-xl -z-10 shadow-inner"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    <span className="shrink-0 opacity-85">{tab.icon}</span>
-                    <span>{tab.label}</span>
-                    <span className={`text-[8px] font-mono font-extrabold px-1.5 py-0.5 rounded ${
-                      isActive ? "bg-amber-500/10 text-amber-400" : "bg-zinc-800 text-zinc-500 group-hover:text-zinc-300"
-                    }`}>
-                      {getTabToolCount(tab.id)}
-                    </span>
+                    {tab.label}
                   </button>
                 );
               })}
+            </div>
+            
+            <div className="text-[9px] text-ink-muted font-bold uppercase tracking-wider hidden sm:block">
+              {t.toolFilter}
             </div>
           </div>
 
