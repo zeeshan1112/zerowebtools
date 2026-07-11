@@ -1,4 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
+
+// Set the active design theme for the hero background, titles, and CTA buttons here
+// Options: 'platinum' | 'amber' | 'cosmic'
+export const ACTIVE_HERO_THEME = 'amber' as 'platinum' | 'amber' | 'cosmic';
 
 // Types for component props
 interface HeroProps {
@@ -331,7 +335,7 @@ const Hero: React.FC<HeroProps> = ({
   buttons,
   className = ""
 }) => {
-  const [activeTheme, setActiveTheme] = useState<'platinum' | 'amber' | 'cosmic'>('amber');
+  const activeTheme = ACTIVE_HERO_THEME;
   
   const activeSource = 
     activeTheme === 'platinum' ? PLATINUM_SHADER_SOURCE : 
@@ -358,6 +362,30 @@ const Hero: React.FC<HeroProps> = ({
       privacyText = text;
     }
   }
+
+  // Dynamic button styles matching the active theme code settings
+  const getButtonStyles = () => {
+    switch (activeTheme) {
+      case 'amber':
+        return {
+          primary: "px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25 cursor-pointer flex items-center gap-2 justify-center",
+          secondary: "px-8 py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm cursor-pointer"
+        };
+      case 'cosmic':
+        return {
+          primary: "px-8 py-4 bg-gradient-to-r from-fuchsia-500 to-purple-500 hover:from-fuchsia-600 hover:to-purple-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-fuchsia-500/25 cursor-pointer flex items-center gap-2 justify-center",
+          secondary: "px-8 py-4 bg-fuchsia-500/10 hover:bg-fuchsia-500/20 border border-fuchsia-300/30 hover:border-fuchsia-300/50 text-fuchsia-100 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm cursor-pointer"
+        };
+      case 'platinum':
+      default:
+        return {
+          primary: "px-8 py-4 bg-gradient-to-r from-zinc-200 to-white hover:from-zinc-300 hover:to-zinc-100 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-white/25 cursor-pointer flex items-center gap-2 justify-center",
+          secondary: "px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm cursor-pointer"
+        };
+    }
+  };
+
+  const buttonStyles = getButtonStyles();
 
   return (
     <div className={`relative w-full min-h-[55vh] md:min-h-[calc(100vh-12rem)] flex flex-col justify-center pt-12 md:pt-16 pb-14 md:pb-20 border-b border-zinc-800 select-none overflow-hidden bg-black text-white transition-all duration-300 ${className}`}>
@@ -437,9 +465,7 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.primary && (
                 <button 
                   onClick={buttons.primary.onClick}
-                  className={`px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-md text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group ${
-                    activeTheme === 'cosmic' ? 'hover:text-indigo-300 hover:border-indigo-500/30' : activeTheme === 'amber' ? 'hover:text-yellow-300 hover:border-amber-500/30' : 'hover:bg-zinc-800'
-                  }`}
+                  className={buttonStyles.primary}
                 >
                   {buttons.primary.text}
                   <svg 
@@ -449,7 +475,7 @@ const Hero: React.FC<HeroProps> = ({
                     fill="none" 
                     stroke="currentColor" 
                     strokeWidth="3" 
-                    className="text-zinc-500 group-hover:text-white group-hover:translate-y-0.5 transition-all duration-300"
+                    className="text-zinc-700 hover:text-black group-hover:translate-y-0.5 transition-all duration-300"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                   </svg>
@@ -458,49 +484,13 @@ const Hero: React.FC<HeroProps> = ({
               {buttons.secondary && (
                 <button 
                   onClick={buttons.secondary.onClick}
-                  className="px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 backdrop-blur-sm text-zinc-300 font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 cursor-pointer"
+                  className={buttonStyles.secondary}
                 >
                   {buttons.secondary.text}
                 </button>
               )}
             </div>
           )}
-
-          {/* Interactive Theme Control Pill (Centered directly under CTAs) */}
-          <div className="pt-4 flex justify-center animate-fade-in-up">
-            <div className="flex items-center gap-1.5 p-1 bg-zinc-950/70 border border-zinc-800/80 rounded-full text-[9px] font-extrabold uppercase tracking-widest backdrop-blur-md shadow-2xl">
-              <button
-                onClick={() => setActiveTheme('platinum')}
-                className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                  activeTheme === 'platinum'
-                    ? 'bg-zinc-800 text-white font-black shadow-sm'
-                    : 'text-zinc-500 hover:text-zinc-300'
-                }`}
-              >
-                Platinum
-              </button>
-              <button
-                onClick={() => setActiveTheme('amber')}
-                className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                  activeTheme === 'amber'
-                    ? 'bg-amber-950 border border-amber-500/20 text-amber-300 font-black shadow-lg shadow-amber-500/10'
-                    : 'text-zinc-500 hover:text-zinc-300'
-                }`}
-              >
-                Amber
-              </button>
-              <button
-                onClick={() => setActiveTheme('cosmic')}
-                className={`px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                  activeTheme === 'cosmic'
-                    ? 'bg-indigo-950 border border-indigo-500/20 text-fuchsia-300 font-black shadow-lg shadow-indigo-500/10'
-                    : 'text-zinc-500 hover:text-zinc-300'
-                }`}
-              >
-                Cosmic
-              </button>
-            </div>
-          </div>
 
         </div>
       </div>
