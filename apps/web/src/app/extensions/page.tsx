@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 
 export default function ExtensionsPage() {
   const chromeUrl = "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb";
+  const firefoxUrl = "https://addons.mozilla.org/en-US/firefox/addon/zerowebtools-dev/";
 
   return (
     <div className="min-h-screen bg-surface-elevated/20 py-16 lg:py-24 select-none">
@@ -37,6 +38,7 @@ export default function ExtensionsPage() {
           </p>
           
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            {/* Chrome Store Link */}
             <a
               href={chromeUrl}
               target="_blank"
@@ -48,13 +50,19 @@ export default function ExtensionsPage() {
               </svg>
               Add to Chrome
             </a>
-            <button
-              disabled
-              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-border/80 bg-surface/50 text-ink-muted font-bold text-xs uppercase tracking-wider opacity-50 w-full sm:w-auto cursor-not-allowed"
-              title="Firefox version currently in store review"
+
+            {/* Firefox Add-on Link */}
+            <a
+              href={firefoxUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#FF7139]/10 hover:bg-[#FF7139]/20 border border-[#FF7139]/30 text-[#FF7139] font-bold text-xs uppercase tracking-wider transition-all duration-150 active:scale-[0.99] w-full sm:w-auto"
             >
-              Firefox Add-on (Reviewing)
-            </button>
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M23.905 11.966c-.053-.518-.117-1.025-.195-1.523-.33 1.258-.89 2.417-1.636 3.428.163-.984.182-2 .04-3.033-.18-1.3-.647-2.527-1.34-3.619a9.664 9.664 0 00-1.898-2.228 1.488 1.488 0 00-.73-.34 1.482 1.482 0 00-.806.136c.205.155.385.342.532.553a4.238 4.238 0 01.76 1.764 7.02 7.02 0 01.07 2.115c-.15 1.139-.623 2.193-1.378 3.064-.997 1.15-2.392 1.83-3.87 1.944a5.163 5.163 0 01-3.665-1.226c-.732-.619-1.246-1.464-1.455-2.4-.23-1.03-.095-2.106.386-3.065.736-1.47 1.977-2.585 3.498-3.14a7.99 7.99 0 013.11-.32 1.632 1.632 0 00-.472-.618c-.808-.66-1.815-1.085-2.883-1.218a9.423 9.423 0 00-4.636.78A9.728 9.728 0 001.69 9.176c-.955 1.826-1.48 3.878-1.516 5.96a12.023 12.023 0 001.996 6.551 12.008 12.008 0 009.646 5.86c6.417.153 11.838-4.757 12.083-11.168.036-1.413-.087-2.825-.333-4.213-.06-.328.026-.665.234-.925a1.492 1.492 0 00.105-.475z"/>
+              </svg>
+              Add to Firefox
+            </a>
           </div>
         </div>
 
