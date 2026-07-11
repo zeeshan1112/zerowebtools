@@ -21,6 +21,27 @@ import {
 } from "@hub/tools-core";
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Safe storage helper to prevent SecurityError crashes in restricted browser contexts
+  const safeStorage = {
+    getItem(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (e) {
+        console.warn("Storage read blocked:", e);
+        return this._mem[key] || null;
+      }
+    },
+    setItem(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {
+        console.warn("Storage write blocked:", e);
+        this._mem[key] = value;
+      }
+    },
+    _mem: {}
+  };
+
   // --- Tab & Input Value Persistence ---
   const tabs = document.querySelectorAll(".tab");
   const panels = document.querySelectorAll(".panel");
@@ -35,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // Restore active tab
-  const savedTabPanel = localStorage.getItem("zwt_active_tab");
+  const savedTabPanel = safeStorage.getItem("zwt_active_tab");
   if (savedTabPanel) {
     const tabToActivate = Array.from(tabs).find(t => t.getAttribute("data-panel") === savedTabPanel);
     if (tabToActivate) {
@@ -51,12 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
   inputsToPersist.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-      const savedVal = localStorage.getItem("zwt_val_" + id);
+      const savedVal = safeStorage.getItem("zwt_val_" + id);
       if (savedVal !== null) {
         el.value = savedVal;
       }
       el.addEventListener("input", () => {
-        localStorage.setItem("zwt_val_" + id, el.value);
+        safeStorage.setItem("zwt_val_" + id, el.value);
       });
     }
   });
@@ -72,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetPanel = document.getElementById(panelId);
       if (targetPanel) targetPanel.classList.add("active");
 
-      localStorage.setItem("zwt_active_tab", panelId);
+      safeStorage.setItem("zwt_active_tab", panelId);
     });
   });
 

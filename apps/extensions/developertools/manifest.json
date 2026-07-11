@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ZeroWebTools Companion",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Companion extension for ZeroWebTools. Extract clean articles, test APIs, and run local utilities. 100% private, no tracking.",
   "permissions": [
     "unlimitedStorage",
