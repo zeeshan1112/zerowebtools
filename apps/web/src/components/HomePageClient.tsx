@@ -88,6 +88,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun" | "ext">("all");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -404,8 +405,9 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         <section id="tools-directory" className="space-y-8 scroll-mt-24">
           
           {/* Tab Switcher rail */}
-          <div className="flex items-baseline justify-between border-b border-border/40 pb-4 select-none">
-            <div className="flex flex-wrap items-center gap-1">
+          <div className="relative border-b border-border/40 pb-4 select-none flex items-center justify-between">
+            {/* Desktop View: Clean Rectangular Buttons */}
+            <div className="hidden sm:flex flex-wrap items-center gap-1">
               {[
                 { id: "all", label: t.allTools },
                 { id: "dev", label: "Dev Workbench" },
@@ -433,6 +435,69 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                   </button>
                 );
               })}
+            </div>
+
+            {/* Mobile View: Premium Dropdown Selector */}
+            <div className="sm:hidden relative w-full">
+              <button
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="w-full bg-surface-elevated border border-border px-4 py-3 rounded-2xl flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-ink cursor-pointer hover:border-ink select-none min-h-[44px]"
+              >
+                <div className="flex items-center gap-2">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                  <span>Filter: {[
+                    { id: "all", label: t.allTools },
+                    { id: "dev", label: "Dev Workbench" },
+                    { id: "doc", label: "Document Studio" },
+                    { id: "media", label: "Media & Creator" },
+                    { id: "finance", label: "Financial Modeler" },
+                    { id: "fun", label: "Playground" },
+                    { id: "ext", label: "Extension Dependent" },
+                  ].find(t => t.id === activeTab)?.label}</span>
+                </div>
+                <svg className={`w-3 h-3 transition-transform duration-200 ${isFilterOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+
+              {isFilterOpen && (
+                <>
+                  {/* Backdrop overlay to close when clicking outside */}
+                  <div className="fixed inset-0 z-40 bg-transparent" onClick={() => setIsFilterOpen(false)} />
+                  
+                  <div className="absolute left-0 right-0 mt-2 z-50 bg-surface-elevated border border-border/85 rounded-2xl shadow-xl overflow-hidden py-1">
+                    {[
+                      { id: "all", label: t.allTools },
+                      { id: "dev", label: "Dev Workbench" },
+                      { id: "doc", label: "Document Studio" },
+                      { id: "media", label: "Media & Creator" },
+                      { id: "finance", label: "Financial Modeler" },
+                      { id: "fun", label: "Playground" },
+                      { id: "ext", label: "Extension Dependent" },
+                    ].map((tab) => {
+                      const isActive = activeTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => {
+                            setActiveTab(tab.id as any);
+                            setIsFilterOpen(false);
+                            router.replace(`${pathname}#${TAB_TO_SLUG[tab.id]}`, { scroll: false });
+                          }}
+                          className={`w-full text-left px-5 py-3.5 text-[9px] font-bold uppercase tracking-wider border-b border-border/20 last:border-0 cursor-pointer transition-colors duration-150 flex items-center justify-between ${
+                            isActive
+                              ? "bg-accent/[0.05] text-accent font-extrabold"
+                              : "text-ink-secondary hover:text-ink hover:bg-surface/50"
+                          }`}
+                        >
+                          <span>{tab.label}</span>
+                          {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </div>
             
             <div className="text-[9px] text-ink-muted font-bold uppercase tracking-wider hidden sm:block">
