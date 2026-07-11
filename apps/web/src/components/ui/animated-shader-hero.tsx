@@ -368,19 +368,19 @@ const Hero: React.FC<HeroProps> = ({
     switch (activeTheme) {
       case 'amber':
         return {
-          primary: "px-6 py-3.5 rounded-xl border border-orange-500/20 bg-orange-500/10 hover:bg-orange-500/20 backdrop-blur-md text-orange-300 font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 justify-center group",
-          secondary: "px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 backdrop-blur-sm text-zinc-300 font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 cursor-pointer"
+          primary: "px-6 py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 justify-center group",
+          secondary: "px-6 py-3.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 backdrop-blur-sm cursor-pointer"
         };
       case 'cosmic':
         return {
-          primary: "px-6 py-3.5 rounded-xl border border-fuchsia-500/20 bg-fuchsia-500/10 hover:bg-fuchsia-500/20 backdrop-blur-md text-fuchsia-300 font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 justify-center group",
-          secondary: "px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 backdrop-blur-sm text-zinc-300 font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 cursor-pointer"
+          primary: "px-6 py-3.5 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 hover:from-fuchsia-600 hover:to-purple-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:shadow-fuchsia-500/25 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 justify-center group",
+          secondary: "px-6 py-3.5 rounded-xl bg-fuchsia-500/10 hover:bg-fuchsia-500/20 border border-fuchsia-300/30 hover:border-fuchsia-300/50 text-fuchsia-100 font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 backdrop-blur-sm cursor-pointer"
         };
       case 'platinum':
       default:
         return {
-          primary: "px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-md text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 justify-center group",
-          secondary: "px-6 py-3.5 rounded-xl border border-zinc-800 bg-zinc-900/30 hover:bg-zinc-900/60 backdrop-blur-sm text-zinc-300 font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 cursor-pointer"
+          primary: "px-6 py-3.5 rounded-xl bg-gradient-to-r from-zinc-200 to-white hover:from-zinc-300 hover:to-zinc-100 text-black font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:shadow-white/25 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 justify-center group",
+          secondary: "px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 text-white font-bold text-xs uppercase tracking-wider transition-all duration-300 hover:scale-105 backdrop-blur-sm cursor-pointer"
         };
     }
   };
