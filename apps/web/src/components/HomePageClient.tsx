@@ -511,9 +511,9 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                           >
                             {/* Mobile Overlay for Extension Tools */}
                             {isLive && requiresExtension && (
-                              <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
-                                <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
-                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                              <div className="absolute inset-0 z-30 flex items-center justify-center sm:hidden pointer-events-none">
+                                <div className="px-3 py-1.5 bg-ink text-surface dark:bg-white dark:text-ink text-[9px] font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-lg border border-border/10 scale-90 opacity-95">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                                   <span>Desktop Only</span>
                                 </div>
                               </div>
@@ -539,7 +539,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                               </button>
                             )}
 
-                            <div className="relative z-10 select-none space-y-4">
+                            <div className={`relative z-10 select-none space-y-4 ${requiresExtension ? "max-sm:opacity-30" : ""}`}>
                               <div className="flex items-start gap-2.5">
                                 {/* Title vector glyph wrapped in category color badge */}
                                 <div className={`p-1.5 rounded-lg shrink-0 transition-colors duration-300 ${ENABLE_CATEGORY_COLORS && category.bgClass && category.colorClass ? `${category.bgClass} ${category.colorClass}` : "bg-zinc-900/60 text-ink"}`}>
