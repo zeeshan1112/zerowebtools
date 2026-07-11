@@ -62,7 +62,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "companion@zerowebtools.com",
+      "id": "developertools@zerowebtools.com",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
         "required": [
