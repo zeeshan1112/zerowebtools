@@ -651,7 +651,7 @@ export default function ResumeBuilderWorkspace() {
   );
 
   return (
-    <div className="flex flex-col h-full bg-surface-elevated/40 dark:bg-neutral-900/40 rounded-3xl border border-border overflow-hidden shadow-2xl font-sans relative min-h-[850px] print:h-auto print:min-h-0 print:overflow-visible print:border-none print:shadow-none print:bg-white">
+    <div className="flex flex-col h-[82vh] min-h-[880px] bg-surface-elevated/40 dark:bg-neutral-900/40 rounded-3xl border border-border overflow-hidden shadow-2xl font-sans relative print:h-auto print:min-h-0 print:overflow-visible print:border-none print:shadow-none print:bg-white">
       
       {/* Global Toggle Header */}
       <div className="flex-none p-4 sm:p-5 border-b border-border/50 bg-gradient-to-b from-surface to-surface/80 flex items-center justify-between sticky top-0 z-50">
