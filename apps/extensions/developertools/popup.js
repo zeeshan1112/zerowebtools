@@ -21,18 +21,58 @@ import {
 } from "@hub/tools-core";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Tab Switching Logic ---
+  // --- Tab & Input Value Persistence ---
   const tabs = document.querySelectorAll(".tab");
   const panels = document.querySelectorAll(".panel");
+  const inputsToPersist = [
+    "json-input",
+    "case-input",
+    "diff-original",
+    "diff-modified",
+    "jwt-input",
+    "base64-input",
+    "url-input"
+  ];
 
+  // Restore active tab
+  const savedTabPanel = localStorage.getItem("zwt_active_tab");
+  if (savedTabPanel) {
+    const tabToActivate = Array.from(tabs).find(t => t.getAttribute("data-panel") === savedTabPanel);
+    if (tabToActivate) {
+      tabs.forEach(t => t.classList.remove("active"));
+      panels.forEach(p => p.classList.remove("active"));
+      tabToActivate.classList.add("active");
+      const targetPanel = document.getElementById(savedTabPanel);
+      if (targetPanel) targetPanel.classList.add("active");
+    }
+  }
+
+  // Restore input values and bind listener
+  inputsToPersist.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const savedVal = localStorage.getItem("zwt_val_" + id);
+      if (savedVal !== null) {
+        el.value = savedVal;
+      }
+      el.addEventListener("input", () => {
+        localStorage.setItem("zwt_val_" + id, el.value);
+      });
+    }
+  });
+
+  // Save active tab on switch
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       tabs.forEach(t => t.classList.remove("active"));
       panels.forEach(p => p.classList.remove("active"));
       
       tab.classList.add("active");
-      const targetPanel = document.getElementById(tab.getAttribute("data-panel"));
+      const panelId = tab.getAttribute("data-panel");
+      const targetPanel = document.getElementById(panelId);
       if (targetPanel) targetPanel.classList.add("active");
+
+      localStorage.setItem("zwt_active_tab", panelId);
     });
   });
 
@@ -439,4 +479,16 @@ document.addEventListener("DOMContentLoaded", () => {
       urlOutput.style.color = "var(--error)";
     }
   });
+
+  // --- Trigger post-load calculations if values were restored ---
+  if (diffOrig.value || diffMod.value) {
+    try {
+      document.getElementById("diff-analyze").click();
+    } catch (_) {}
+  }
+  if (jwtInput.value) {
+    try {
+      jwtInput.dispatchEvent(new Event("input", { bubbles: true }));
+    } catch (_) {}
+  }
 });
