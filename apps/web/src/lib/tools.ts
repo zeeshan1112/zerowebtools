@@ -17,6 +17,7 @@ export interface Tool {
   status: ToolStatus;
   metaDescription: string;
   subQueries?: SubQuery[];
+  tags?: string[]; // Multiple category slugs representing cross-listings
 }
 
 export interface ToolCategory {
@@ -24,6 +25,10 @@ export interface ToolCategory {
   title: string;
   description: string;
   tools: Tool[];
+  colorClass?: string;   // Accent text class (e.g. text-emerald-400)
+  bgClass?: string;      // Accent bg class (e.g. bg-emerald-500/10)
+  borderClass?: string;  // Accent hover border class (e.g. hover:border-emerald-500/30)
+  glowClass?: string;    // Accent hover drop-shadow glow class
 }
 
 export const CATEGORIES: ToolCategory[] = [
@@ -31,14 +36,19 @@ export const CATEGORIES: ToolCategory[] = [
     slug: "ai-tools",
     title: "AI Tools",
     description: "Leverage local machine learning and extension privileges for transcription, content extraction, and semantic analysis.",
+    colorClass: "text-emerald-400",
+    bgClass: "bg-emerald-500/10",
+    borderClass: "hover:border-emerald-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(16,185,129,0.06)]",
     tools: [
-      { id: "audio-transcriber", title: "Audio Transcriber Pro", description: "Transcribe audio files locally in your browser with precise timestamps using WebAssembly.", status: "live", metaDescription: "Transcribe MP3, WAV, and M4A audio files locally. 100% private." },
+      { id: "audio-transcriber", title: "Audio Transcriber Pro", description: "Transcribe audio files locally in your browser with precise timestamps using WebAssembly.", status: "live", metaDescription: "Transcribe MP3, WAV, and M4A audio files locally. 100% private.", tags: ["ai-tools", "text-tools", "image-tools"] },
       {
         id: "token-counter",
         title: "Token Counter & Cost Estimator",
         description: "Count tokens using SOTA model tokenizers and estimate API costs client-side with 100% privacy.",
         status: "live",
         metaDescription: "Count tokens and estimate API costs locally for SOTA models (GPT-5.5, o1, Claude 4.7, Gemini 2.5, LLaMA 4). Alternating visual token boundaries, 100% private.",
+        tags: ["ai-tools", "developer-tools", "financial-growth"]
       }
     ]
   },
@@ -46,6 +56,10 @@ export const CATEGORIES: ToolCategory[] = [
     slug: "pdf-tools",
     title: "PDF Tools",
     description: "Merge, split, compress, rotate, convert, sign, and secure PDFs — all securely in your browser.",
+    colorClass: "text-rose-400",
+    bgClass: "bg-rose-500/10",
+    borderClass: "hover:border-rose-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(244,63,94,0.06)]",
     tools: [
       { id: "pdf-merge", title: "Merge PDF", description: "Combine multiple PDFs into a single document in any order.", status: "live", metaDescription: "Merge PDF files into one — free, instant, and 100% private. No signup, no upload to servers. Rearrange pages and download in seconds." },
       { id: "pdf-split", title: "Split PDF", description: "Extract or remove individual pages from PDF documents.", status: "live", metaDescription: "Split or extract PDF pages instantly — free, private, no server uploads. Select exact pages or ranges and download in one click." },
@@ -78,6 +92,7 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Extract raw text streams and rebuild structured page layout lists locally.",
         status: "live",
         metaDescription: "Extract text from PDF files in your browser — free and private. Layout-reconstruction algorithm matches tabular streams. Download as plain text. No server uploads.",
+        tags: ["pdf-tools", "text-tools"]
       },
     ],
   },
@@ -85,6 +100,10 @@ export const CATEGORIES: ToolCategory[] = [
     slug: "text-tools",
     title: "Text Tools",
     description: "Clean, format, count, and convert text contents instantly in your browser.",
+    colorClass: "text-sky-400",
+    bgClass: "bg-sky-500/10",
+    borderClass: "hover:border-sky-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(14,165,233,0.06)]",
     tools: [
       {
         id: "word-counter",
@@ -113,6 +132,7 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Dictate speech to text and narrate text to speech offline using native Web Speech APIs.",
         status: "live",
         metaDescription: "Convert speech to text with live dictation, and read text aloud with local text-to-speech. 100% private client-side utility. No server uploads.",
+        tags: ["text-tools", "image-tools"]
       },
       {
         id: "markdown-converter",
@@ -128,14 +148,18 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Shuffle lists randomly or pick random items/winners from your entries. Free, 100% private, and runs entirely in your browser. No server uploads.",
       },
-      { id: "web-scraper", title: "Smart Article Reader", description: "Extract any article privately, convert websites to clean text, and read distraction-free.", status: "live", metaDescription: "Extract websites to clean text, and read ad-free. 100% serverless and private." },
-      { id: "youtube-transcript", title: "YouTube Transcript Extractor", description: "Extract subtitles, captions, and transcripts from any YouTube video instantly.", status: "live", metaDescription: "Download YouTube transcripts and subtitles as SRT or plain text. 100% free, private, and lightning fast." }
+      { id: "web-scraper", title: "Smart Article Reader", description: "Extract any article privately, convert websites to clean text, and read distraction-free.", status: "live", metaDescription: "Extract websites to clean text, and read ad-free. 100% serverless and private.", tags: ["ai-tools", "text-tools"] },
+      { id: "youtube-transcript", title: "YouTube Transcript Extractor", description: "Extract subtitles, captions, and transcripts from any YouTube video instantly.", status: "live", metaDescription: "Download YouTube transcripts and subtitles as SRT or plain text. 100% free, private, and lightning fast.", tags: ["ai-tools", "text-tools", "image-tools"] }
     ],
   },
   {
     slug: "developer-tools",
     title: "Developer Tools",
     description: "Validate, format, parse, and check your code and data structures client-side.",
+    colorClass: "text-violet-400",
+    bgClass: "bg-violet-500/10",
+    borderClass: "hover:border-violet-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(139,92,246,0.06)]",
     tools: [
       {
         id: "api-client",
@@ -143,6 +167,7 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Construct and execute HTTP requests privately bypassing CORS using the companion extension.",
         status: "live",
         metaDescription: "Test and debug REST APIs directly in your browser. 100% private, no cloud syncing, bypasses CORS. Supports GET, POST, custom headers, and localhost requests.",
+        tags: ["developer-tools", "ai-tools"]
       },
       {
         id: "json-formatter",
@@ -186,14 +211,24 @@ export const CATEGORIES: ToolCategory[] = [
         status: "live",
         metaDescription: "Convert HTML to React JSX instantly — free and private. Automatically translate classes, properties, inline styles, and self-closing tags. No server uploads.",
       },
+      {
+        id: "private-notepad",
+        title: "Private Encrypted Notepad",
+        description: "Write and share secure encrypted notes. Zero knowledge links share data entirely inside the URL hash.",
+        status: "live",
+        metaDescription: "Create AES-GCM encrypted shareable notes client-side — free and 100% private. Keys stay in the URL hash, never sent to the server.",
+      },
     ],
   },
   {
     slug: "generators",
     title: "Generators",
     description: "Generate passwords, cron expressions, CSS shadows, hashes, dice rolls, and encodings instantly.",
+    colorClass: "text-amber-400",
+    bgClass: "bg-amber-500/10",
+    borderClass: "hover:border-amber-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(245,158,11,0.06)]",
     tools: [
-
       {
         id: "base64-encoder",
         title: "Base64 Cipher Modeler",
@@ -214,6 +249,7 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Calculate MD5, SHA-1, SHA-256, and SHA-512 cryptographic checksum digests.",
         status: "live",
         metaDescription: "Generate cryptographic file checksum hashes locally — free and private. Supports MD5, SHA-1, SHA-256, and SHA-512. No server uploads.",
+        tags: ["developer-tools", "pdf-tools", "generators"]
       },
       {
         id: "password-generator",
@@ -254,9 +290,20 @@ export const CATEGORIES: ToolCategory[] = [
   },
   {
     slug: "image-tools",
-    title: "Image Tools",
-    description: "Convert, resize, crop, and optimize images directly in your browser.",
+    title: "Media & Video Tools",
+    description: "Optimize, compress, convert, and transcribe images, videos, audio, and creator content client-side.",
+    colorClass: "text-teal-400",
+    bgClass: "bg-teal-500/10",
+    borderClass: "hover:border-teal-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(20,184,166,0.06)]",
     tools: [
+      {
+        id: "video-compressor",
+        title: "Local Video Compressor",
+        description: "Compress video and audio files locally in your browser using hardware-accelerated MediaRecorder.",
+        status: "live",
+        metaDescription: "Shrink MP4, WebM, and MOV video files client-side — free, fast, and 100% private. Adjustable resolution and bitrate. No server uploads.",
+      },
       {
         id: "heic-to-jpg",
         title: "HEIC Photo Converter",
@@ -291,6 +338,7 @@ export const CATEGORIES: ToolCategory[] = [
         description: "Generate customizable QR codes with custom colors, size, margins, and center logo overlays.",
         status: "live",
         metaDescription: "Generate customizable QR codes with custom colors, size, margins, and center logo overlays. Download as vector SVG or PNG. 100% private.",
+        tags: ["generators", "image-tools"]
       },
     ],
   },
@@ -298,6 +346,10 @@ export const CATEGORIES: ToolCategory[] = [
     slug: "financial-growth",
     title: "Calculators",
     description: "Model growth, option vesting schedules, and company valuation dilution with interactive tools.",
+    colorClass: "text-indigo-400",
+    bgClass: "bg-indigo-500/10",
+    borderClass: "hover:border-indigo-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(99,102,241,0.06)]",
     tools: [
       {
         id: "saas-mrr",
@@ -347,6 +399,10 @@ export const CATEGORIES: ToolCategory[] = [
     slug: "fun",
     title: "Fun",
     description: "Interactive tools and games for entertainment and utility.",
+    colorClass: "text-fuchsia-400",
+    bgClass: "bg-fuchsia-500/10",
+    borderClass: "hover:border-fuchsia-500/30",
+    glowClass: "hover:shadow-[0_0_20px_rgba(217,70,239,0.06)]",
     tools: [
       {
         id: "dice-roller",
@@ -387,7 +443,9 @@ export const CATEGORIES: ToolCategory[] = [
   },
 ];
 
-export const ALL_TOOLS: Tool[] = CATEGORIES.flatMap((c) => c.tools);
+export const ALL_TOOLS: Tool[] = Array.from(
+  new Map(CATEGORIES.flatMap((c) => c.tools).map((t) => [t.id, t])).values()
+);
 
 export const CATEGORY_TAG_STYLES: Record<string, string> = {
   "ai-tools": "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100",
@@ -407,4 +465,17 @@ export function getToolById(id: string): Tool | undefined {
 
 export function getCategoryForTool(toolId: string): ToolCategory | undefined {
   return CATEGORIES.find((c) => c.tools.some((t) => t.id === toolId));
+}
+
+// Dynamically resolves tools for a category including tagged cross-listings
+export function getToolsForCategory(categorySlug: string): Tool[] {
+  const primaryCategory = CATEGORIES.find((c) => c.slug === categorySlug);
+  const primaryTools = primaryCategory ? primaryCategory.tools : [];
+  
+  const taggedTools = ALL_TOOLS.filter((t) => {
+    const isPrimary = primaryTools.some((pt) => pt.id === t.id);
+    return !isPrimary && t.tags?.includes(categorySlug);
+  });
+  
+  return [...primaryTools, ...taggedTools];
 }

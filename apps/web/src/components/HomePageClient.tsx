@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
+import { CATEGORIES, ALL_TOOLS, getToolsForCategory } from "@/lib/tools";
 import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-cards";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
 import { getTranslations, getLocalizedTool } from "@/lib/i18n";
 import { useRouter, usePathname } from "next/navigation";
+import Hero from "@/components/ui/animated-shader-hero";
 
 // Pristine technical workflow tags
 const TOOL_WORKFLOW_TAGS: Record<string, string> = {
@@ -56,35 +57,35 @@ const staggerItem = {
 
 
 
-const SLUG_TO_TAB: Record<string, "all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun"> = {
+const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | "fun"> = {
   "all-tools": "all",
-  "pdf-tools": "pdf",
-  "text-tools": "text",
-  "developer-tools": "developer",
-  "generators": "generators",
-  "image-tools": "image",
-  "financial-growth": "calculators",
+  "ai-tools": "dev",
+  "pdf-tools": "doc",
+  "text-tools": "doc",
+  "developer-tools": "dev",
+  "generators": "dev",
+  "image-tools": "media",
+  "financial-growth": "finance",
   "fun": "fun",
 };
 
 const TAB_TO_SLUG: Record<string, string> = {
   all: "all-tools",
-  ai: "ai-tools",
-  pdf: "pdf-tools",
-  text: "text-tools",
-  developer: "developer-tools",
-  generators: "generators",
-  image: "image-tools",
-  calculators: "financial-growth",
+  dev: "developer-tools",
+  doc: "pdf-tools",
+  media: "image-tools",
+  finance: "financial-growth",
   fun: "fun",
 };
+
+const ENABLE_CATEGORY_COLORS = true;
 
 export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const t = getTranslations(lang);
   const router = useRouter();
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"all" | "ai" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun">("all");
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -186,19 +187,13 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
     switch (activeTab) {
       case "all":
         return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
-      case "ai":
-        return ["ai-tools"];
-      case "pdf":
-        return ["pdf-tools"];
-      case "text":
-        return ["text-tools", "generators"];
-      case "developer":
-        return ["developer-tools", "generators"];
-      case "generators":
-        return ["generators"];
-      case "image":
+      case "dev":
+        return ["ai-tools", "developer-tools", "generators"];
+      case "doc":
+        return ["pdf-tools", "text-tools"];
+      case "media":
         return ["image-tools"];
-      case "calculators":
+      case "finance":
         return ["financial-growth"];
       case "fun":
         return ["fun"];
@@ -210,10 +205,6 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const activeSlugs = getTabCategorySlug();
   const filteredCategories = CATEGORIES.filter((c) => activeSlugs.includes(c.slug));
 
-  // Top 4 Spotlight Live Tools (Merge PDF, HEIC to JPG, JSON Formatter, Case Converter)
-  const spotlightTools = ALL_TOOLS.filter((t) =>
-    ["pdf-merge", "heic-to-jpg", "json-formatter", "case-converter"].includes(t.id) && t.status === "live"
-  ).map(t => getLocalizedTool(t, lang));
 
   const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id)).map(t => getLocalizedTool(t, lang));
   const totalLive = ALL_TOOLS.filter((t) => t.status === "live").length;
@@ -279,204 +270,37 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }}
       />
 
-       {/* Immersive Full-Screen Premium Hero with Covered Background Image Glow */}
-      <section className="relative min-h-[60vh] md:min-h-[calc(100vh-4rem)] flex flex-col justify-center pt-12 md:pt-16 pb-14 md:pb-20 border-b border-border/40 select-none overflow-hidden bg-surface transition-all duration-300">
-        
-        {/* Clean, High-End Pure-CSS Monochromatic Dot Grid */}
-        <div 
-          className="absolute inset-0 z-0 opacity-[0.04] dark:opacity-[0.08] pointer-events-none" 
-          style={{ 
-            backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", 
-            backgroundSize: "24px 24px" 
-          }} 
-        />
-
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
-          <div className="text-center space-y-8 max-w-4xl mx-auto">
-            
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/25 bg-accent/5 text-[10px] font-bold text-accent uppercase tracking-wider select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              {t.privateBadge.replace("{count}", String(totalLive))}
-            </div>
-
-            {/* Screen reader only H1 for SEO compliance */}
-            <h1 className="sr-only">{t.homeTitle}</h1>
-            <div className="flex justify-center select-none">
-              <TypewriterEffectSmooth
-                words={t.homeTitle.split(" ").map((w, i, arr) => ({ text: w, className: i === arr.length - 1 ? "text-accent" : "" }))}
-                className="my-0 pt-2"
-                cursorClassName="h-6 sm:h-10 lg:h-14 bg-accent"
-              />
-            </div>
-
-            <p className="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-[62ch] mx-auto text-balance font-medium">
-              {t.homeDesc}
-            </p>
-
-            {/* Quick-Launcher Command Center Centerpiece */}
-            <div className="pt-2 flex flex-col items-center justify-center gap-6">
-              <button
-                onClick={() => {
-                  const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
-                  window.dispatchEvent(event);
-                }}
-                className="w-full max-w-md px-4 py-3.5 bg-surface-elevated/85 backdrop-blur border border-border/80 hover:border-accent/40 rounded-xl flex items-center justify-between text-xs cursor-pointer shadow-md transition-all duration-300 active:scale-[0.99] group select-none text-left"
-              >
-                <div className="flex items-center gap-2.5">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-accent shrink-0">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                  </svg>
-                  <span className="text-ink-muted font-bold group-hover:text-ink transition-colors duration-150">{t.searchPlaceholder}</span>
-                </div>
-                <div className="hidden sm:flex items-center gap-1 opacity-70">
-                  <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">⌘</kbd>
-                  <kbd className="px-1.5 py-0.5 text-[10px] font-sans font-bold text-ink-muted bg-surface rounded border border-border">K</kbd>
-                </div>
-              </button>
-              
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                <button
-                  onClick={() => {
-                    document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="px-6 py-3.5 rounded-xl border border-border/80 bg-surface-elevated/40 backdrop-blur-md hover:bg-surface-elevated/80 text-ink hover:text-accent font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl hover:border-accent/30 transition-all duration-300 active:scale-95 cursor-pointer flex items-center gap-2 group"
-                >
-                  {t.exploreAllTools}
-                  <svg 
-                    width="12" 
-                    height="12" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="3" 
-                    className="text-ink-muted group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Micro tool tags shortcut below search */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-2 text-[10px] sm:text-[9px] font-bold text-ink-muted tracking-wider uppercase select-none">
-                <span>SUITES:</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("ai")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">AI Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("pdf")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">PDF Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("image")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Image Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("developer")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Developer Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("generators")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Generators</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("text")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Text Tools</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("calculators")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Calculators</a>
-                <span>•</span>
-                <a href="#tools-directory" onClick={() => setActiveTab("fun")} className="hover:text-accent transition-colors py-1 px-0.5 min-h-[44px] flex items-center">Fun</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+       {/* Immersive Full-Screen Premium Hero with WebGL Shader Background */}
+      <Hero
+        trustBadge={{
+          text: t.privateBadge.replace("{count}", String(totalLive)),
+          icons: ["✨"]
+        }}
+        headline={{
+          line1: t.homeTitle.split(" ").slice(0, 2).join(" "),
+          line2: t.homeTitle.split(" ").slice(2).join(" ")
+        }}
+        subtitle={t.homeDesc}
+        buttons={{
+          primary: {
+            text: t.exploreAllTools,
+            onClick: () => {
+              document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+            }
+          },
+          secondary: {
+            text: "Search Tools (⌘K)",
+            onClick: () => {
+              const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
+              window.dispatchEvent(event);
+            }
+          }
+        }}
+      />
 
       {/* Main Grid Directory */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 mt-16 space-y-16">
         
-        {/* SPOTLIGHT SECTION: Top 4 Highest-Traffic Live Tools */}
-        <section className="space-y-6">
-          <div className="border-b border-border/40 pb-4 select-none">
-            <h2 className="text-xs font-extrabold tracking-wider uppercase text-ink">
-              {t.spotlightUtilities}
-            </h2>
-            <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-              Highly integrated, daily active local tools featuring vector rendering and WebAssembly compilation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {spotlightTools.map((tool) => {
-              const isBookmarked = bookmarks.includes(tool.id);
-              const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
-              
-              const requiresExtension = ["web-scraper", "youtube-transcript", "api-client"].includes(tool.id);
-              
-              return (
-                <Link
-                  key={tool.id}
-                  href={getLocalizedHref(`/tools/${tool.id}`)}
-                  className={`group relative block p-6 rounded-2xl border border-dashed transition-all duration-200 active:scale-[0.99] bg-surface cursor-pointer overflow-hidden shadow-sm ${
-                    requiresExtension 
-                      ? "border-accent/40 dark:border-accent/30 hover:bg-accent/[0.03] max-sm:pointer-events-none hover:border-accent/60 hover:shadow-[0_0_20px_rgba(var(--accent-rgb, 59,130,246),0.15)]" 
-                      : "border-border/70 dark:border-border/40 hover:bg-surface-elevated/40"
-                  }`}
-                >
-                  {/* Mobile Overlay for Extension Tools */}
-                  {requiresExtension && (
-                    <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
-                      <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                        <span>Desktop Only</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Hydration-safe grid background */}
-                  <GridOverlay isLive={true} />
-
-                  <button
-                    onClick={(e) => toggleBookmark(tool.id, e)}
-                    className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg select-none transition-all duration-150 cursor-pointer z-20 ${
-                      isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
-                    }`}
-                    aria-label="Toggle Bookmark"
-                  >
-                    {isBookmarked ? "★" : "☆"}
-                  </button>
-
-                  <div className="space-y-4 relative z-10">
-                    <div className="flex items-start gap-2.5">
-                      {/* Monochromatic SVG Title Icons */}
-                      {getToolIcon(tool.id)}
-                      <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
-                        {tool.title}
-                      </h3>
-                    </div>
-                    <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
-                      {tool.description}
-                    </p>
-                    
-                    <div className="pt-2 flex items-center justify-between text-[9px] select-none border-t border-border/20">
-                      <div className="flex items-center gap-2">
-                        <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
-                          {tagLabel}
-                        </span>
-                        {requiresExtension && (
-                          <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
-                            <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
-                            </svg>
-                            <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
-                              Extension
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
-                        LAUNCH
-                        <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
 
 
 
@@ -519,19 +343,32 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
 
                     <button
                       onClick={(e) => toggleBookmark(tool.id, e)}
-                      className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg select-none transition-all duration-150 cursor-pointer z-20 text-amber-500 scale-105"
+                      className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm transition-all duration-300 z-20 text-amber-500 select-none cursor-pointer"
                       aria-label="Remove Bookmark"
                     >
-                      ★
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
                     </button>
 
                     <div className="space-y-4 relative z-10">
                       <div className="flex items-start gap-2.5">
                         {/* Monochromatic SVG Title Icons */}
-                        {getToolIcon(tool.id)}
-                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
-                          {tool.title}
-                        </h3>
+                        <div className="p-1.5 rounded-lg bg-zinc-900/60 text-ink shrink-0">
+                          {getToolIcon(tool.id)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink mt-1">
+                              {tool.title}
+                            </h3>
+                            {requiresExtension && (
+                              <span className="shrink-0 mt-1.5 px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase tracking-wider bg-violet-500/10 text-violet-400 border border-violet-500/20" title="Requires Chrome Extension">
+                                Ext
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                       <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
                         {tool.description}
@@ -542,17 +379,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                           <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
                             {tagLabel}
                           </span>
-                          {requiresExtension && (
-                            <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
-                              <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
-                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
-                              </svg>
-                              <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
-                                Extension
-                              </span>
-                            </div>
-                          )}
+                          
                         </div>
                         <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                           LAUNCH
@@ -577,14 +404,11 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             <div className="flex flex-wrap items-center gap-1">
               {[
                 { id: "all", label: t.allTools },
-                { id: "ai", label: (t as any).aiTools || "AI Tools" },
-                { id: "pdf", label: t.pdfTools },
-                { id: "image", label: t.imageTools },
-                { id: "developer", label: t.developerTools },
-                { id: "generators", label: t.generators },
-                { id: "text", label: t.textTools },
-                { id: "calculators", label: t.calculators },
-                { id: "fun", label: (t as any).fun || "Fun" },
+                { id: "dev", label: "Dev Workbench" },
+                { id: "doc", label: "Document Studio" },
+                { id: "media", label: "Media & Creator" },
+                { id: "finance", label: "Financial Modeler" },
+                { id: "fun", label: "Playground" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -614,16 +438,20 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
           {/* Cross-fade Category Grid */}
           <div className="space-y-12">
             {filteredCategories.map((category) => {
-              const liveCount = category.tools.filter((t) => t.status === "live").length;
+              const categoryTools = getToolsForCategory(category.slug);
+              const liveCount = categoryTools.filter((t) => t.status === "live").length;
               
               return (
                 <div key={category.slug} className="space-y-6">
                   <div className="flex items-baseline justify-between border-b border-border/30 pb-2.5 select-none">
-                    <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider">
+                    <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider flex items-center gap-1.5">
+                      {ENABLE_CATEGORY_COLORS && category.colorClass && (
+                        <span className={`w-1.5 h-1.5 rounded-full ${category.colorClass.replace('text-', 'bg-')}`} />
+                      )}
                       {getCategoryTitle(category.slug, category.title)}
                     </h3>
                     <span className="text-[9px] text-ink-muted font-bold">
-                      {liveCount} OF {category.tools.length} LIVE
+                      {liveCount} OF {categoryTools.length} LIVE
                     </span>
                   </div>
 
@@ -634,23 +462,27 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     viewport={{ once: true, margin: "-10px" }}
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                   >
-                    {category.tools.map((rawTool) => {
-const tool = getLocalizedTool(rawTool, lang);
+                    {categoryTools.map((rawTool) => {
+                      const tool = getLocalizedTool(rawTool, lang);
                       const isLive = tool.status === "live";
                       const isBookmarked = bookmarks.includes(tool.id);
                       const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
                       
                       const requiresExtension = ["web-scraper", "youtube-transcript", "api-client"].includes(tool.id);
                       
+                      const borderHoverClass = ENABLE_CATEGORY_COLORS && isLive && category.borderClass ? category.borderClass : "hover:border-zinc-700";
+                      const glowHoverClass = ENABLE_CATEGORY_COLORS && isLive && category.glowClass ? category.glowClass : "";
+                      const bgHoverClass = "hover:bg-surface-elevated/40";
+                      
                       return (
                         <motion.div variants={staggerItem} key={tool.id} className="h-full">
                           <Link
                             href={isLive ? getLocalizedHref(`/tools/${tool.id}`) : "#"}
-                            className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm ${
+                            className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm transition-all duration-300 ${
                               isLive
                                 ? requiresExtension
                                   ? "border-accent/40 dark:border-accent/30 hover:bg-accent/[0.03] hover:border-accent/60 hover:shadow-[0_0_20px_rgba(var(--accent-rgb, 59,130,246),0.15)] active:scale-[0.99] bg-surface cursor-pointer"
-                                  : "border-border/70 dark:border-border/40 hover:bg-surface-elevated/40 active:scale-[0.99] bg-surface cursor-pointer"
+                                  : `border-border/70 dark:border-border/40 ${borderHoverClass} ${glowHoverClass} ${bgHoverClass} active:scale-[0.99] bg-surface cursor-pointer`
                                 : "border-border/20 bg-surface-elevated/25 pointer-events-none opacity-50"
                             } ${requiresExtension ? "max-sm:pointer-events-none" : ""}`}
                           >
@@ -671,22 +503,37 @@ const tool = getLocalizedTool(rawTool, lang);
                             {isLive && (
                               <button
                                 onClick={(e) => toggleBookmark(tool.id, e)}
-                                className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg select-none transition-all duration-150 cursor-pointer z-20 ${
-                                  isBookmarked ? "text-amber-500 scale-105" : "text-ink-muted/20 hover:text-amber-500 hover:scale-105"
+                                className={`absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg border transition-all duration-300 z-20 select-none cursor-pointer ${
+                                  isBookmarked
+                                    ? "opacity-100 border-zinc-800 bg-zinc-900/60 backdrop-blur-sm text-amber-500"
+                                    : "opacity-0 group-hover:opacity-100 border-transparent hover:border-zinc-800 bg-transparent hover:bg-zinc-900/60 hover:backdrop-blur-sm text-zinc-500 hover:text-amber-500"
                                 }`}
                                 aria-label="Toggle Bookmark"
                               >
-                                {isBookmarked ? "★" : "☆"}
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill={isBookmarked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5">
+                                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
                               </button>
                             )}
 
                             <div className="relative z-10 select-none space-y-4">
                               <div className="flex items-start gap-2.5">
-                                {/* Title vector glyph */}
-                                {getToolIcon(tool.id)}
-                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 ${isLive ? "text-ink" : "text-ink-muted"}`}>
-                                  {tool.title}
-                                </h4>
+                                {/* Title vector glyph wrapped in category color badge */}
+                                <div className={`p-1.5 rounded-lg shrink-0 transition-colors duration-300 ${ENABLE_CATEGORY_COLORS && category.bgClass && category.colorClass ? `${category.bgClass} ${category.colorClass}` : "bg-zinc-900/60 text-ink"}`}>
+                                  {getToolIcon(tool.id)}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 mt-1 ${isLive ? "text-ink" : "text-ink-muted"}`}>
+                                      {tool.title}
+                                    </h4>
+                                    {requiresExtension && (
+                                      <span className="shrink-0 mt-1 px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase tracking-wider bg-violet-500/10 text-violet-400 border border-violet-500/20" title="Requires Chrome Extension">
+                                        Ext
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                               <p className={`text-[11px] leading-relaxed ${isLive ? "text-ink-secondary" : "text-ink-muted"}`}>
                                 {tool.description}
@@ -699,17 +546,7 @@ const tool = getLocalizedTool(rawTool, lang);
                                   <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
                                     {tagLabel}
                                   </span>
-                                  {requiresExtension && (
-                                    <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
-                                      <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
-                                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
-                                      </svg>
-                                      <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
-                                        Extension
-                                      </span>
-                                    </div>
-                                  )}
+                                  
                                 </div>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                                   LAUNCH

@@ -1390,30 +1390,31 @@ export default async function ToolPage({ params }: ToolPageProps) {
           </p>
         </section>
 
-        {/* Dynamic Split Grid: Workspace vs Side Rail */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Top Leaderboard Ad Slot */}
+        <div className="py-2 flex justify-center w-full">
+          <AdLayoutSlot type="leaderboard" />
+        </div>
+
+        {/* Full-Width Workspace (100% horizontal space) */}
+        <div className="space-y-6">
+          <MobileToolActions toolId={toolId} />
+          <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden w-full">
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
+            <WorkspaceRenderer toolId={toolId} />
+          </section>
+        </div>
+
+        {/* Lower Grid: SEO Article & Sticky Sidebar Utilities */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-10">
           
-          {/* LEFT: Interactive Workspace & SEO text */}
-          <div className="lg:col-span-8 space-y-10">
-            {/* Mobile-only quick actions (Save/Share) — above the workspace */}
-            <MobileToolActions toolId={toolId} />
-            <section className="p-4 sm:p-6 bg-surface-elevated rounded-2xl border border-border/50 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-[3px] bg-accent" />
-              <WorkspaceRenderer toolId={toolId} />
-            </section>
-
-            {/* Below Workspace Leaderboard Ad */}
-            <div className="py-2 flex justify-center">
-              <AdLayoutSlot type="leaderboard" />
-            </div>
-
-            {/* Educational SEO Article Content */}
+          {/* LEFT: Educational SEO content */}
+          <div className="lg:col-span-8 space-y-8">
             {article && (
               <ArticleBlock title={article.title} sections={article.sections} />
             )}
           </div>
 
-          {/* RIGHT: Sticky Utility and Ad Rail */}
+          {/* RIGHT: Sticky Utilities and related links */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
             <ToolSidebar
               tool={tool}

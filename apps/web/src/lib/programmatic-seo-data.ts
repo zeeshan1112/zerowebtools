@@ -3580,6 +3580,58 @@ const STATIC_PROGRAMMATIC_DATA: Record<string, SubQuery[]> = {
         ]
       }
     }
+  ],
+  "video-compressor": [
+    {
+      "slug": "compress-video-offline",
+      "title": "100% Offline Video Compressor",
+      "metaDescription": "Compress MP4, WebM, and MOV videos locally in your browser memory. No size limits, no server uploads, and complete privacy.",
+      "articleIntro": {
+        "heading": "How to Compress Videos Locally",
+        "paragraphs": [
+          "Uploading large video files to remote cloud compressors takes time and exposes your videos to privacy risks. Our Offline Video Compressor runs entirely on your local machine using standard browser APIs.",
+          "Simply choose your resolution preset, adjust the target encoding bitrate, and download your compressed video instantly."
+        ]
+      }
+    },
+    {
+      "slug": "mp4-compressor-online",
+      "title": "Free Online MP4 Video Compressor",
+      "metaDescription": "Reduce MP4 file sizes instantly in your browser. Fully private, secure, and offline-compatible video compressor.",
+      "articleIntro": {
+        "heading": "Fast MP4 Compressor without Server Uploads",
+        "paragraphs": [
+          "Need to shrink your MP4 files for email, chat apps, or social media uploads? Our tool lets you re-encode MP4 videos to WebM or compressed MP4 profiles in seconds.",
+          "All processing runs inside your browser sandbox, ensuring your files never leave your device."
+        ]
+      }
+    }
+  ],
+  "private-notepad": [
+    {
+      "slug": "private-pastebin-online",
+      "title": "Free Private Encrypted Pastebin",
+      "metaDescription": "Create AES-GCM encrypted notes and share them securely. Zero-knowledge sharing preserves data entirely in the URL hash.",
+      "articleIntro": {
+        "heading": "Secure and Anonymous Pastebin Sharing",
+        "paragraphs": [
+          "Standard paste sharing sites log your IP and store your text in cleartext in their databases. Our tool secures your notes using browser-native cryptography.",
+          "Because the key is loaded in the URL fragment (#), our server has zero knowledge of the notes you share."
+        ]
+      }
+    },
+    {
+      "slug": "anonymous-notepad-private",
+      "title": "Anonymous and Encrypted Online Notepad",
+      "metaDescription": "Write and store encrypted notes in your browser memory. Self-decompressing share links with zero server tracking.",
+      "articleIntro": {
+        "heading": "Create Client-Side Encrypted Notes",
+        "paragraphs": [
+          "Need to write down credentials, passwords, or personal logs safely? Use our Anonymous Online Notepad to compress and encrypt your text before sharing.",
+          "A perfect utility for secure communications between teams without setting up database accounts."
+        ]
+      }
+    }
   ]
 };
 
@@ -3899,6 +3951,53 @@ function buildPermutations(): Record<string, SubQuery[]> {
     }
   }
   data["json-formatter"] = jsonFormatterList;
+
+  // 4. Dynamic translation for new static tools (video-compressor & private-notepad)
+  const newTools = ["video-compressor", "private-notepad"];
+  for (const toolId of newTools) {
+    const list = data[toolId] || [];
+    for (const q of list) {
+      for (const lang of Object.keys(LOCALIZED_TEMPLATES)) {
+        if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang]) {
+          LOCALIZED_PROGRAMMATIC_SEO_DATA[lang] = {};
+        }
+        if (!LOCALIZED_PROGRAMMATIC_SEO_DATA[lang][toolId]) {
+          LOCALIZED_PROGRAMMATIC_SEO_DATA[lang][toolId] = [];
+        }
+        
+        const tmpl = LOCALIZED_TEMPLATES[lang];
+        let title = q.title;
+        let desc = q.metaDescription;
+        let heading = q.articleIntro?.heading || q.title;
+        let p1 = q.articleIntro?.paragraphs[0] || "";
+        let p2 = q.articleIntro?.paragraphs[1] || "";
+
+        if (toolId === "video-compressor") {
+          title = tmpl.compress_title.replace("PDF", "Video").replace("[SIZE]", "Video");
+          desc = tmpl.compress_desc.replace("PDF", "Video").replace("[SIZE]", "Video");
+          heading = tmpl.compress_heading.replace("PDF", "Video").replace("[SIZE]", "Video");
+          p1 = tmpl.compress_p1.replace("PDF", "Video").replace("[SIZE]", "Video");
+          p2 = tmpl.compress_p2.replace("PDF", "Video").replace("[SIZE]", "Video");
+        } else if (toolId === "private-notepad") {
+          title = tmpl.dev_title.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          desc = tmpl.dev_desc.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          heading = tmpl.dev_heading.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          p1 = tmpl.dev_p1.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+          p2 = tmpl.dev_p2.replace("[FROM]", "Note").replace("[TO]", "Secure Link");
+        }
+
+        LOCALIZED_PROGRAMMATIC_SEO_DATA[lang][toolId].push({
+          slug: q.slug,
+          title,
+          metaDescription: desc,
+          articleIntro: {
+            heading,
+            paragraphs: [p1, p2]
+          }
+        });
+      }
+    }
+  }
 
   return data;
 }
