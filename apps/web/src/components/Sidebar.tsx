@@ -284,7 +284,20 @@ export default function Sidebar() {
                     }`}
                     title={getCategoryTitle(cat.slug, cat.title)}
                   >
-                    <span className={`shrink-0 ${isActive ? "text-accent" : "text-ink-muted group-hover:text-accent transition-colors"}`}>
+                    <span className={`shrink-0 transition-colors duration-150 ${
+                      isActive
+                        ? "text-accent"
+                        : `text-ink-muted group-hover:${
+                            cat.slug === "ai-tools" ? "text-emerald-400" :
+                            cat.slug === "pdf-tools" ? "text-rose-400" :
+                            cat.slug === "text-tools" ? "text-sky-400" :
+                            cat.slug === "developer-tools" ? "text-violet-400" :
+                            cat.slug === "generators" ? "text-amber-400" :
+                            cat.slug === "image-tools" ? "text-teal-400" :
+                            cat.slug === "financial-growth" ? "text-indigo-400" :
+                            cat.slug === "fun" ? "text-fuchsia-400" : "text-accent"
+                          }`
+                    }`}>
                       {CATEGORY_ICONS[cat.slug] || (
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                           <circle cx="12" cy="12" r="10" />

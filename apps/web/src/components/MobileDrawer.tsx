@@ -268,9 +268,18 @@ export default function MobileDrawer() {
                         <a
                           href={getLocalizedHref(`/#${cat.slug}`)}
                           onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface min-h-[44px]"
+                          className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all text-ink-secondary hover:bg-surface hover:text-ink active:bg-surface min-h-[44px] group"
                         >
-                          <span className="shrink-0 text-ink-muted">
+                          <span className={`shrink-0 transition-colors duration-150 ${
+                            cat.slug === "ai-tools" ? "text-emerald-400" :
+                            cat.slug === "pdf-tools" ? "text-rose-400" :
+                            cat.slug === "text-tools" ? "text-sky-400" :
+                            cat.slug === "developer-tools" ? "text-violet-400" :
+                            cat.slug === "generators" ? "text-amber-400" :
+                            cat.slug === "image-tools" ? "text-teal-400" :
+                            cat.slug === "financial-growth" ? "text-indigo-400" :
+                            cat.slug === "fun" ? "text-fuchsia-400" : "text-ink-muted"
+                          }`}>
                             {CATEGORY_ICONS[cat.slug] || (
                               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                                 <circle cx="12" cy="12" r="10" />
