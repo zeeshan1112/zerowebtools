@@ -354,10 +354,21 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     <div className="space-y-4 relative z-10">
                       <div className="flex items-start gap-2.5">
                         {/* Monochromatic SVG Title Icons */}
-                        {getToolIcon(tool.id)}
-                        <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink">
-                          {tool.title}
-                        </h3>
+                        <div className="p-1.5 rounded-lg bg-zinc-900/60 text-ink shrink-0">
+                          {getToolIcon(tool.id)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <h3 className="text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 text-ink mt-1">
+                              {tool.title}
+                            </h3>
+                            {requiresExtension && (
+                              <span className="shrink-0 mt-1.5 px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase tracking-wider bg-violet-500/10 text-violet-400 border border-violet-500/20" title="Requires Chrome Extension">
+                                Ext
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                       <p className="text-[11px] leading-relaxed text-ink-secondary line-clamp-2">
                         {tool.description}
@@ -368,17 +379,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                           <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider">
                             {tagLabel}
                           </span>
-                          {requiresExtension && (
-                            <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
-                              <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
-                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
-                              </svg>
-                              <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
-                                Extension
-                              </span>
-                            </div>
-                          )}
+                          
                         </div>
                         <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                           LAUNCH
@@ -521,9 +522,18 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                                 <div className={`p-1.5 rounded-lg shrink-0 transition-colors duration-300 ${ENABLE_CATEGORY_COLORS && category.bgClass && category.colorClass ? `${category.bgClass} ${category.colorClass}` : "bg-zinc-900/60 text-ink"}`}>
                                   {getToolIcon(tool.id)}
                                 </div>
-                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 mt-1 ${isLive ? "text-ink" : "text-ink-muted"}`}>
-                                  {tool.title}
-                                </h4>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 mt-1 ${isLive ? "text-ink" : "text-ink-muted"}`}>
+                                      {tool.title}
+                                    </h4>
+                                    {requiresExtension && (
+                                      <span className="shrink-0 mt-1 px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase tracking-wider bg-violet-500/10 text-violet-400 border border-violet-500/20" title="Requires Chrome Extension">
+                                        Ext
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
                               <p className={`text-[11px] leading-relaxed ${isLive ? "text-ink-secondary" : "text-ink-muted"}`}>
                                 {tool.description}
@@ -536,17 +546,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                                   <span className="flex items-center text-ink-muted font-mono font-bold tracking-wider text-[9px] uppercase">
                                     {tagLabel}
                                   </span>
-                                  {requiresExtension && (
-                                    <div className="hidden sm:flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-md border border-accent/20 bg-accent/5 overflow-hidden relative group/ext" title="Requires Browser Extension">
-                                      <div className="absolute inset-0 bg-accent/10 translate-y-full group-hover/ext:translate-y-0 transition-transform duration-300" />
-                                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent relative z-10">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a1.5 1.5 0 01-1.5 1.5h-.537c-.438 0-.853-.177-1.15-.492a2.016 2.016 0 00-2.85 0 2.016 2.016 0 000 2.85c.298.297.474.712.474 1.15v.537a1.5 1.5 0 01-1.5 1.5H3.75c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25h0c.355 0 .676-.186.959-.401.29-.221.634-.349 1.003-.349 1.036 0 1.875 1.007 1.875 2.25s-.84 2.25-1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401h0a1.5 1.5 0 011.5 1.5v.537c0 .438.177.853.492 1.15a2.016 2.016 0 002.85 0 2.016 2.016 0 000-2.85c-.297-.298-.712-.474-1.15-.474h-.537a1.5 1.5 0 01-1.5-1.5V14.25c0-1.036 1.007-1.875 2.25-1.875s2.25.84 2.25 1.875c0 .355-.186.676-.401.959-.221.29-.349.634-.349 1.003 0 1.036 1.007 1.875 2.25 1.875 1.243 0 2.25-.84 2.25-1.875 0-.369-.128-.713-.349-1.003-.215-.283-.401-.604-.401-.959v0a1.5 1.5 0 011.5-1.5h.537c.438 0 .853.177 1.15.492.395.394.92.62 1.478.62.559 0 1.084-.226 1.478-.62a2.016 2.016 0 000-2.85c-.298-.297-.474-.712-.474-1.15v-.537a1.5 1.5 0 011.5-1.5h1.5c1.036 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25" />
-                                      </svg>
-                                      <span className="text-[8px] font-extrabold text-accent tracking-widest uppercase relative z-10">
-                                        Extension
-                                      </span>
-                                    </div>
-                                  )}
+                                  
                                 </div>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
                                   LAUNCH
