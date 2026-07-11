@@ -442,18 +442,27 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
  
           {/* Cross-fade Category Grid */}
           <div className="space-y-12">
-            {filteredCategories.map((category) => {
-              let categoryTools = getToolsForCategory(category.slug);
-              
-              if (activeTab === "ext") {
-                categoryTools = categoryTools.filter(t => 
-                  ["web-scraper", "youtube-transcript", "api-client"].includes(t.id)
-                );
-              }
-              
-              if (categoryTools.length === 0) return null;
-              
-              const liveCount = categoryTools.filter((t) => t.status === "live").length;
+            {(() => {
+              const renderedToolIds = new Set<string>();
+              return filteredCategories.map((category) => {
+                let categoryTools = getToolsForCategory(category.slug);
+                
+                if (activeTab === "ext") {
+                  categoryTools = categoryTools.filter(t => 
+                    ["web-scraper", "youtube-transcript", "api-client"].includes(t.id)
+                  );
+                }
+
+                // Filter out duplicate tools already rendered on the page
+                categoryTools = categoryTools.filter(t => {
+                  if (renderedToolIds.has(t.id)) return false;
+                  renderedToolIds.add(t.id);
+                  return true;
+                });
+                
+                if (categoryTools.length === 0) return null;
+                
+                const liveCount = categoryTools.filter((t) => t.status === "live").length;
               
               return (
                 <div key={category.slug} className="space-y-6">
@@ -582,7 +591,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                   </motion.div>
                 </div>
               );
-            })}
+            });
+          })()}
           </div>
         </section>
 
