@@ -290,8 +290,8 @@ export const CATEGORIES: ToolCategory[] = [
   },
   {
     slug: "image-tools",
-    title: "Image & Video Tools",
-    description: "Convert, resize, crop, and compress images and videos directly in your browser.",
+    title: "Media & Video Tools",
+    description: "Optimize, compress, convert, and transcribe images, videos, audio, and creator content client-side.",
     colorClass: "text-teal-400",
     bgClass: "bg-teal-500/10",
     borderClass: "hover:border-teal-500/30",
