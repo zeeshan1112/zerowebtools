@@ -57,7 +57,7 @@ const staggerItem = {
 
 
 
-const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | "fun"> = {
+const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | "fun" | "ext"> = {
   "all-tools": "all",
   "ai-tools": "dev",
   "pdf-tools": "doc",
@@ -67,6 +67,7 @@ const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | 
   "image-tools": "media",
   "financial-growth": "finance",
   "fun": "fun",
+  "extension-tools": "ext",
 };
 
 const TAB_TO_SLUG: Record<string, string> = {
@@ -76,6 +77,7 @@ const TAB_TO_SLUG: Record<string, string> = {
   media: "image-tools",
   finance: "financial-growth",
   fun: "fun",
+  ext: "extension-tools",
 };
 
 const ENABLE_CATEGORY_COLORS = true;
@@ -85,7 +87,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun" | "ext">("all");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -111,7 +114,14 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       const tabId = SLUG_TO_TAB[hash];
       if (tabId) {
         setActiveTab(tabId);
-        document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          const categoryElement = document.getElementById(hash);
+          if (categoryElement) {
+            categoryElement.scrollIntoView({ behavior: "smooth" });
+          } else {
+            document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       }
     };
 
@@ -121,7 +131,14 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
       if (tabId) {
         setActiveTab(tabId);
         router.replace(`${window.location.pathname}#${TAB_TO_SLUG[tabId]}`, { scroll: false });
-        document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+        setTimeout(() => {
+          const categoryElement = document.getElementById(slug);
+          if (categoryElement) {
+            categoryElement.scrollIntoView({ behavior: "smooth" });
+          } else {
+            document.getElementById("tools-directory")?.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       }
     };
 
@@ -197,6 +214,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         return ["financial-growth"];
       case "fun":
         return ["fun"];
+      case "ext":
+        return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
       default:
         return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
     }
@@ -400,8 +419,9 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         <section id="tools-directory" className="space-y-8 scroll-mt-24">
           
           {/* Tab Switcher rail */}
-          <div className="flex items-baseline justify-between border-b border-border/40 pb-4 select-none">
-            <div className="flex flex-wrap items-center gap-1">
+          <div className="relative border-b border-border/40 pb-4 select-none flex items-center justify-between">
+            {/* Desktop View: Clean Rectangular Buttons */}
+            <div className="hidden sm:flex flex-wrap items-center gap-1">
               {[
                 { id: "all", label: t.allTools },
                 { id: "dev", label: "Dev Workbench" },
@@ -409,6 +429,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 { id: "media", label: "Media & Creator" },
                 { id: "finance", label: "Financial Modeler" },
                 { id: "fun", label: "Playground" },
+                { id: "ext", label: "Extension Dependent" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -429,20 +450,101 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 );
               })}
             </div>
+
+            {/* Mobile View: Premium Dropdown Selector */}
+            <div className="sm:hidden relative w-full">
+              <button
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="w-full bg-surface-elevated border border-border px-4 py-3 rounded-2xl flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-ink cursor-pointer hover:border-ink select-none min-h-[44px]"
+              >
+                <div className="flex items-center gap-2">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                  <span>Filter: {[
+                    { id: "all", label: t.allTools },
+                    { id: "dev", label: "Dev Workbench" },
+                    { id: "doc", label: "Document Studio" },
+                    { id: "media", label: "Media & Creator" },
+                    { id: "finance", label: "Financial Modeler" },
+                    { id: "fun", label: "Playground" },
+                    { id: "ext", label: "Extension Dependent" },
+                  ].find(t => t.id === activeTab)?.label}</span>
+                </div>
+                <svg className={`w-3 h-3 transition-transform duration-200 ${isFilterOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+
+              {isFilterOpen && (
+                <>
+                  {/* Backdrop overlay to close when clicking outside */}
+                  <div className="fixed inset-0 z-40 bg-transparent" onClick={() => setIsFilterOpen(false)} />
+                  
+                  <div className="absolute left-0 right-0 mt-2 z-50 bg-surface-elevated border border-border/85 rounded-2xl shadow-xl overflow-hidden py-1">
+                    {[
+                      { id: "all", label: t.allTools },
+                      { id: "dev", label: "Dev Workbench" },
+                      { id: "doc", label: "Document Studio" },
+                      { id: "media", label: "Media & Creator" },
+                      { id: "finance", label: "Financial Modeler" },
+                      { id: "fun", label: "Playground" },
+                      { id: "ext", label: "Extension Dependent" },
+                    ].map((tab) => {
+                      const isActive = activeTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => {
+                            setActiveTab(tab.id as any);
+                            setIsFilterOpen(false);
+                            router.replace(`${pathname}#${TAB_TO_SLUG[tab.id]}`, { scroll: false });
+                          }}
+                          className={`w-full text-left px-5 py-3.5 text-[9px] font-bold uppercase tracking-wider border-b border-border/20 last:border-0 cursor-pointer transition-colors duration-150 flex items-center justify-between ${
+                            isActive
+                              ? "bg-accent/[0.05] text-accent font-extrabold"
+                              : "text-ink-secondary hover:text-ink hover:bg-surface/50"
+                          }`}
+                        >
+                          <span>{tab.label}</span>
+                          {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
             
             <div className="text-[9px] text-ink-muted font-bold uppercase tracking-wider hidden sm:block">
               {t.toolFilter}
             </div>
           </div>
-
+ 
           {/* Cross-fade Category Grid */}
           <div className="space-y-12">
-            {filteredCategories.map((category) => {
-              const categoryTools = getToolsForCategory(category.slug);
-              const liveCount = categoryTools.filter((t) => t.status === "live").length;
+            {(() => {
+              const renderedToolIds = new Set<string>();
+              return filteredCategories.map((category) => {
+                let categoryTools = getToolsForCategory(category.slug);
+                
+                if (activeTab === "ext") {
+                  categoryTools = categoryTools.filter(t => 
+                    ["web-scraper", "youtube-transcript", "api-client"].includes(t.id)
+                  );
+                }
+
+                // Filter out duplicate tools already rendered on the page
+                categoryTools = categoryTools.filter(t => {
+                  if (renderedToolIds.has(t.id)) return false;
+                  renderedToolIds.add(t.id);
+                  return true;
+                });
+                
+                if (categoryTools.length === 0) return null;
+                
+                const liveCount = categoryTools.filter((t) => t.status === "live").length;
               
               return (
-                <div key={category.slug} className="space-y-6">
+                <div key={category.slug} id={category.slug} className="space-y-6 scroll-mt-24">
                   <div className="flex items-baseline justify-between border-b border-border/30 pb-2.5 select-none">
                     <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider flex items-center gap-1.5">
                       {ENABLE_CATEGORY_COLORS && category.colorClass && (
@@ -488,9 +590,9 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                           >
                             {/* Mobile Overlay for Extension Tools */}
                             {isLive && requiresExtension && (
-                              <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
-                                <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
-                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                              <div className="absolute inset-0 z-30 flex items-center justify-center sm:hidden pointer-events-none">
+                                <div className="px-3 py-1.5 bg-ink text-surface dark:bg-white dark:text-ink text-[9px] font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-lg border border-border/10 scale-90 opacity-95">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                                   <span>Desktop Only</span>
                                 </div>
                               </div>
@@ -516,7 +618,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                               </button>
                             )}
 
-                            <div className="relative z-10 select-none space-y-4">
+                            <div className={`relative z-10 select-none space-y-4 ${requiresExtension ? "max-sm:opacity-30" : ""}`}>
                               <div className="flex items-start gap-2.5">
                                 {/* Title vector glyph wrapped in category color badge */}
                                 <div className={`p-1.5 rounded-lg shrink-0 transition-colors duration-300 ${ENABLE_CATEGORY_COLORS && category.bgClass && category.colorClass ? `${category.bgClass} ${category.colorClass}` : "bg-zinc-900/60 text-ink"}`}>
@@ -568,7 +670,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                   </motion.div>
                 </div>
               );
-            })}
+            });
+          })()}
           </div>
         </section>
 

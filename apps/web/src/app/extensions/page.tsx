@@ -1,215 +1,195 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Browser Extensions - ZeroWebTools",
+  title: "Browser Extension - ZeroWebTools",
   description:
-    "Supercharge your browser workflow with our offline-first developer, PDF, and image extensions. 100% local, private, and secure.",
+    "Supercharge your browser workflow with the ZeroWebTools Companion. Unlocks offline developer tools, secure CORS bypass, and webpage content scraping.",
   alternates: {
     canonical: "https://zerowebtools.com/extensions",
   },
   openGraph: {
-    title: "Browser Extensions - ZeroWebTools",
+    title: "Browser Extension - ZeroWebTools",
     description:
-      "Run essential utilities offline directly in your Chrome or Firefox toolbar. No data uploads, no tracking.",
+      "Install the ZeroWebTools Companion. Run developer utilities offline in your toolbar, bypass CORS locks, and scrape content locally.",
     type: "website",
     url: "https://zerowebtools.com/extensions",
     siteName: "ZeroWebTools",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 675,
-        alt: "ZeroWebTools — Free Browser-Based Professional Tools",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Browser Extensions - ZeroWebTools",
-    description:
-      "Run essential utilities offline directly in your toolbar. Chrome & Firefox support.",
-    images: ["/og-image.jpg"],
   },
 };
 
-interface ExtensionCard {
-  title: string;
-  subtitle: string;
-  description: string;
-  status: "live" | "coming-soon";
-  features: string[];
-  chromeUrl?: string;
-  firefoxUrl?: string;
-}
-
-const EXTENSIONS: ExtensionCard[] = [
-  {
-    title: "Developer Utilities Companion",
-    subtitle: "6 Essential Developer Tools Offline",
-    description:
-      "The flagship ZeroWebTools companion. Packs a JSON formatter & tree explorer, side-by-side diff checker, JWT debugger, case converter, Base64 encoder, and URL percent encoder right in your browser pop-up. Runs 100% offline, securely sandboxed, with zero server transmissions.",
-    status: "live",
-    features: [
-      "JSON Formatter & visual tree node walker",
-      "Side-by-side inline text diff checker",
-      "JWT decoder with payload header/claims inspector",
-      "Format conversion (camelCase, snake_case, PascalCase, etc.)",
-      "Instant offline Base64 and URL encoding/decoding"
-    ],
-    chromeUrl: "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb",
-    firefoxUrl: "#", // Add Firefox Add-ons URL once uploaded
-  },
-  {
-    title: "PDF Workspace Pro",
-    subtitle: "Visual PDF Editor & Compiler",
-    description:
-      "A complete local PDF workspace. Crop and resize pages, visually stamp watermarks or page numbers, draw/upload signatures to sign forms, and merge or split documents client-side. Built on local WASM and pdf-lib processing.",
-    status: "coming-soon",
-    features: [
-      "Visual PDF signer (draw/type/upload signatures)",
-      "Resize pages to standard A4, Letter, and Legal formats",
-      "Compress PDF files client-side up to 90%",
-      "Add page numbers or watermark text with custom opacity"
-    ],
-  },
-  {
-    title: "Image Optimizer Companion",
-    subtitle: "HEIC Converter & Vector Minifier",
-    description:
-      "Batch convert Apple HEIC photos, resize bulk image formats to PNG/WebP, visually crop graphics, and minify vector SVGs. Keep all personal photo data and file metadata local in your browser sandbox.",
-    status: "coming-soon",
-    features: [
-      "Batch convert HEIC photos to high-quality JPG/PNG",
-      "Bulk image resizing and quality compression with ZIP download",
-      "Clean metadata and minify SVGs",
-      "Visual image cropper with custom aspect ratios"
-    ],
-  }
-];
-
 export default function ExtensionsPage() {
+  const chromeUrl = "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb";
+  const firefoxUrl = "https://addons.mozilla.org/en-US/firefox/addon/zerowebtools-dev/";
+
   return (
-    <div className="min-h-screen bg-surface-elevated/20 py-16 lg:py-24">
-      <main className="max-w-5xl mx-auto px-4 sm:px-6">
-        {/* Page Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-4xl md:text-5xl tracking-tighter leading-none font-semibold text-ink">
-            Browser Extensions
+    <div className="min-h-screen bg-surface-elevated/20 py-16 lg:py-24 select-none">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 space-y-16">
+        
+        {/* Immersive Hero Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <span className="px-3 py-1 bg-accent/10 text-accent text-[10px] font-extrabold uppercase tracking-widest rounded-full border border-accent/20">
+            OFFICIAL COMPANION EXTENSION
+          </span>
+          <h1 className="text-4xl md:text-5xl tracking-tight font-extrabold text-ink leading-tight">
+            ZeroWebTools Companion
           </h1>
-          <p className="mt-4 text-ink-muted text-base sm:text-lg">
-            Bring ZeroWebTools utility suites directly into your browser toolbar. 
-            All extensions run 100% locally in sandboxed browser memory with zero server uploads.
+          <p className="text-ink-muted text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            A secure browser extension designed to extend the web platform's capabilities. Unlocks offline developer utilities and bridges browser permissions for advanced online tools.
+          </p>
+          
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            {/* Chrome Store Link */}
+            <a
+              href={chromeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-ink text-surface font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 transition-all duration-150 shadow-md active:scale-[0.99] w-full sm:w-auto"
+            >
+              <img className="w-5 h-5 shrink-0" src="/images/chrome-brand.svg" alt="Chrome Logo" />
+              Add to Chrome
+            </a>
+
+            {/* Firefox Add-on Link */}
+            <a
+              href={firefoxUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#FF7139]/10 hover:bg-[#FF7139]/20 border border-[#FF7139]/30 text-[#FF7139] font-bold text-xs uppercase tracking-wider transition-all duration-150 active:scale-[0.99] w-full sm:w-auto"
+            >
+              <img className="w-5 h-5 shrink-0" src="/images/firefox-brand.svg" alt="Firefox Logo" />
+              Add to Firefox
+            </a>
+          </div>
+        </div>
+
+        {/* Feature Split Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          {/* Card 1: Offline Toolkit */}
+          <div className="p-8 rounded-3xl border border-border/80 bg-surface shadow-sm space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center font-bold text-lg">
+                📦
+              </div>
+              <h2 className="text-xl font-bold text-ink tracking-tight">
+                Offline Utility Toolbar
+              </h2>
+              <p className="text-ink-muted text-xs leading-relaxed">
+                Access critical utility editors directly in your browser's menu bar at any time—no internet connection required. Runs in a fully private local sandbox.
+              </p>
+              
+              <ul className="space-y-3 pt-2">
+                {[
+                  { name: "JSON Formatter", desc: "Tree node walker and minifier" },
+                  { name: "Text Diff Checker", desc: "Line-by-line comparative visual diff" },
+                  { name: "JWT Debugger", desc: "Claims inspector and header decoder" },
+                  { name: "Case Converter", desc: "Instantly switch camel, snake, and PascalCase" },
+                  { name: "Base64 Cipher & URL Encoder", desc: "Percent-encoding and hashing ciphers" }
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 mt-1.5" />
+                    <div className="text-[11px]">
+                      <span className="font-bold text-ink">{item.name}</span>
+                      <span className="text-ink-muted"> — {item.desc}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="pt-4 text-[10px] text-orange-500/80 font-bold uppercase tracking-wider">
+              ⚡ 100% Client-Side Processing
+            </div>
+          </div>
+
+          {/* Card 2: Platform Integration Bridge */}
+          <div className="p-8 rounded-3xl border border-border/80 bg-surface shadow-sm space-y-6 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-bold text-lg">
+                🔗
+              </div>
+              <h2 className="text-xl font-bold text-ink tracking-tight">
+                Platform API Bridge
+              </h2>
+              <p className="text-ink-muted text-xs leading-relaxed">
+                Unlock advanced tools on zerowebtools.com that require elevated browser scopes or CORS permissions. The extension safely executes them on your behalf.
+              </p>
+              
+              <ul className="space-y-3 pt-2">
+                {[
+                  { name: "Secure CORS Bypasses", desc: "API Client queries work directly from your local browser" },
+                  { name: "Local HTML Web Scraping", desc: "Extract webpage nodes client-side inside the Smart Reader" },
+                  { name: "Direct DOM Access", desc: "No proxy servers or intermediate logging databases needed" },
+                  { name: "Zero Trust Pipeline", desc: "Zero keys, tokens, or scraped data ever leaves your device" }
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-1.5" />
+                    <div className="text-[11px]">
+                      <span className="font-bold text-ink">{item.name}</span>
+                      <span className="text-ink-muted"> — {item.desc}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="pt-4 text-[10px] text-accent font-bold uppercase tracking-wider">
+              🛡️ End-to-End Privacy Guarded
+            </div>
+          </div>
+
+        </div>
+
+        {/* How It Works Flow */}
+        <section className="p-8 rounded-3xl border border-dashed border-border/80 bg-surface-elevated/40 space-y-8">
+          <h2 className="text-xs font-extrabold uppercase tracking-wider text-ink text-center">
+            How The Companion Integrates
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            {[
+              {
+                step: "01",
+                title: "Install the Extension",
+                desc: "Download from the Chrome Web Store. It sits silently in your extension toolbar waiting for command triggers."
+              },
+              {
+                step: "02",
+                title: "Bridge Detection",
+                desc: "When you visit toolpages like the REST API Client, the page detects the companion secure bridge automatically."
+              },
+              {
+                step: "03",
+                title: "Execute Locally",
+                desc: "Queries and scrapes run directly from your browser engine, bypassing CORS limits without third-party servers."
+              }
+            ].map((step, idx) => (
+              <div key={idx} className="space-y-3 relative">
+                <span className="text-3xl font-extrabold text-border/60 font-mono block">
+                  {step.step}
+                </span>
+                <h3 className="text-xs font-bold text-ink uppercase tracking-wider">
+                  {step.title}
+                </h3>
+                <p className="text-ink-muted text-xs leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Security & Privacy Commitment Banner */}
+        <div className="p-6 rounded-2xl border border-emerald-500/10 bg-emerald-500/[0.02] text-center space-y-2">
+          <h3 className="text-xs font-bold text-emerald-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            100% Open & Auditable
+          </h3>
+          <p className="text-[11px] text-ink-muted max-w-2xl mx-auto leading-relaxed">
+            The ZeroWebTools Companion contains **zero tracking pixels, diagnostic pings, or analytics databases**. It acts solely as an offline processing container and a local proxy bridge on your hardware.
           </p>
         </div>
 
-        {/* Extensions Grid */}
-        <div className="space-y-12">
-          {EXTENSIONS.map((ext, idx) => (
-            <div
-              key={idx}
-              className={`p-6 sm:p-8 rounded-2xl border bg-surface-elevated transition-all duration-300 ${
-                ext.status === "live"
-                  ? "border-border shadow-sm hover:shadow-md hover:border-border/80"
-                  : "border-border/40 opacity-80"
-              }`}
-            >
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                
-                {/* Info Section */}
-                <div className="flex-1 space-y-4">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-2xl font-bold text-ink tracking-tight">
-                      {ext.title}
-                    </h2>
-                    {ext.status === "live" ? (
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
-                        Live
-                      </span>
-                    ) : (
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-neutral-500/10 text-neutral-500">
-                        Coming Soon
-                      </span>
-                    )}
-                  </div>
-                  
-                  <p className="text-sm font-semibold text-accent uppercase tracking-wider">
-                    {ext.subtitle}
-                  </p>
-                  
-                  <p className="text-ink-muted text-sm leading-relaxed max-w-3xl">
-                    {ext.description}
-                  </p>
-
-                  {/* Feature Bullets */}
-                  <div className="pt-2">
-                    <h3 className="text-xs font-bold text-ink uppercase tracking-wider mb-2">Key Features</h3>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-ink-muted">
-                      {ext.features.map((feature, fIdx) => (
-                        <li key={fIdx} className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-border shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Buttons/Links Section */}
-                <div className="shrink-0 w-full lg:w-64 flex flex-col gap-3 justify-center lg:pt-4">
-                  {ext.status === "live" ? (
-                    <>
-                      {/* Chrome Store Link */}
-                      <a
-                        href={ext.chromeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent text-white font-medium text-sm hover:bg-accent/90 active:scale-[0.98] transition-all shadow-sm w-full"
-                      >
-                        {/* Chrome Icon SVG */}
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 0C8.21 0 4.89 2.05 3.07 5.16l4.63 8.01C8.29 10.23 9.99 8.24 12 8.24h9.87C21.05 3.51 16.94 0 12 0zm0 15.76a3.76 3.76 0 110-7.52 3.76 3.76 0 010 7.52zm7.74-4.88c-.61 2.37-2.31 4.36-4.63 5.37l-4.62-8.01h9.25zm-8.8 6.07c-2.33 0-4.33-1.42-5.18-3.48L1.13 5.46C.4 7.42 0 9.56 0 12c0 5.48 3.96 10.04 9.17 11.75l2.77-5.68z" />
-                        </svg>
-                        Install on Chrome
-                      </a>
-
-                      {/* Firefox Link */}
-                      {ext.firefoxUrl === "#" ? (
-                        <button
-                          disabled
-                          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border bg-surface text-ink-muted font-medium text-sm opacity-60 w-full cursor-not-allowed"
-                          title="Firefox support coming soon"
-                        >
-                          {/* Firefox Icon SVG */}
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.422 7.026c-.352 1.348-.99 2.025-2.025 2.025-1.035 0-1.688.678-2.025 2.026s.99 2.025 2.025 2.025c1.036 0 1.688-.677 2.025-2.025.337-1.348-.99-2.026-2.025-2.026s-1.688-.677-2.025-2.025zm-14.844 4.974c0-3.313 2.687-6 6-6s6 2.687 6 6-2.687 6-6 6-6-2.687-6-6z"/>
-                          </svg>
-                          Firefox Version (Soon)
-                        </button>
-                      ) : (
-                        <a
-                          href={ext.firefoxUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border bg-surface text-ink hover:bg-surface-elevated active:scale-[0.98] transition-all font-medium text-sm w-full"
-                        >
-                          {/* Firefox Icon SVG */}
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.422 7.026c-.352 1.348-.99 2.025-2.025 2.025-1.035 0-1.688.678-2.025 2.026s.99 2.025 2.025 2.025c1.036 0 1.688-.677 2.025-2.025.337-1.348-.99-2.026-2.025-2.026s-1.688-.677-2.025-2.025zm-14.844 4.974c0-3.313 2.687-6 6-6s6 2.687 6 6-2.687 6-6 6-6-2.687-6-6z"/>
-                          </svg>
-                          Install on Firefox
-                        </a>
-                      )}
-                    </>
-                  ) : (
-                    <span className="text-center text-xs text-ink-muted font-medium py-3 border border-dashed border-border rounded-xl bg-surface">
-                      In Active Development
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </main>
     </div>
   );
