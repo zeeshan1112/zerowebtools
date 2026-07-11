@@ -603,18 +603,16 @@ float clouds(vec2 p) {
 void main(void) {
 	vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
 	vec3 col=vec3(0);
-	float bg=clouds(vec2(st.x+T*.3,-st.y));
-	uv*=1.-.2*(sin(T*.1)*.5+.5);
+	float bg=clouds(vec2(st.x+T*.5,-st.y));
+	uv*=1.-.3*(sin(T*.2)*.5+.5);
 	for (float i=1.; i<12.; i++) {
-		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.3+.1*uv.x);
+		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
 		vec2 p=uv;
 		float d=length(p);
-		// Warm gold / orange shooting star rays
-		vec3 starColor = cos(sin(i) * vec3(1.0, 2.0, 3.0)) * 0.5 + 0.5;
-		col += 0.0016 / d * (starColor + vec3(0.20, 0.10, 0.0));
+		col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);
 		float b=noise(i+p+bg*1.731);
-		col += 0.0022 * b / length(max(p, vec2(b * p.x * 0.02, p.y)));
-		col = mix(col, vec3(bg * 0.25, bg * 0.137, bg * 0.05), d); // Amber space cloud dust
+		col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
+		col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
 	}
 	O=vec4(col,1);
 }`;
