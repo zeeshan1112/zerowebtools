@@ -57,7 +57,7 @@ const staggerItem = {
 
 
 
-const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | "fun"> = {
+const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | "fun" | "ext"> = {
   "all-tools": "all",
   "ai-tools": "dev",
   "pdf-tools": "doc",
@@ -67,6 +67,7 @@ const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | 
   "image-tools": "media",
   "financial-growth": "finance",
   "fun": "fun",
+  "extension-tools": "ext",
 };
 
 const TAB_TO_SLUG: Record<string, string> = {
@@ -76,6 +77,7 @@ const TAB_TO_SLUG: Record<string, string> = {
   media: "image-tools",
   finance: "financial-growth",
   fun: "fun",
+  ext: "extension-tools",
 };
 
 const ENABLE_CATEGORY_COLORS = true;
@@ -85,7 +87,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun" | "ext">("all");
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -197,6 +199,8 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
         return ["financial-growth"];
       case "fun":
         return ["fun"];
+      case "ext":
+        return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
       default:
         return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
     }
@@ -409,6 +413,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                 { id: "media", label: "Media & Creator" },
                 { id: "finance", label: "Financial Modeler" },
                 { id: "fun", label: "Playground" },
+                { id: "ext", label: "Extension Dependent" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -434,11 +439,20 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
               {t.toolFilter}
             </div>
           </div>
-
+ 
           {/* Cross-fade Category Grid */}
           <div className="space-y-12">
             {filteredCategories.map((category) => {
-              const categoryTools = getToolsForCategory(category.slug);
+              let categoryTools = getToolsForCategory(category.slug);
+              
+              if (activeTab === "ext") {
+                categoryTools = categoryTools.filter(t => 
+                  ["web-scraper", "youtube-transcript", "api-client"].includes(t.id)
+                );
+              }
+              
+              if (categoryTools.length === 0) return null;
+              
               const liveCount = categoryTools.filter((t) => t.status === "live").length;
               
               return (
