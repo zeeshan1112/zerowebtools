@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES, ALL_TOOLS } from "@/lib/tools";
+import { CATEGORIES, ALL_TOOLS, getToolsForCategory } from "@/lib/tools";
 import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-cards";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
@@ -57,35 +57,35 @@ const staggerItem = {
 
 
 
-const SLUG_TO_TAB: Record<string, "all" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun"> = {
+const SLUG_TO_TAB: Record<string, "all" | "dev" | "doc" | "media" | "finance" | "fun"> = {
   "all-tools": "all",
-  "pdf-tools": "pdf",
-  "text-tools": "text",
-  "developer-tools": "developer",
-  "generators": "generators",
-  "image-tools": "image",
-  "financial-growth": "calculators",
+  "ai-tools": "dev",
+  "pdf-tools": "doc",
+  "text-tools": "doc",
+  "developer-tools": "dev",
+  "generators": "dev",
+  "image-tools": "media",
+  "financial-growth": "finance",
   "fun": "fun",
 };
 
 const TAB_TO_SLUG: Record<string, string> = {
   all: "all-tools",
-  ai: "ai-tools",
-  pdf: "pdf-tools",
-  text: "text-tools",
-  developer: "developer-tools",
-  generators: "generators",
-  image: "image-tools",
-  calculators: "financial-growth",
+  dev: "developer-tools",
+  doc: "pdf-tools",
+  media: "image-tools",
+  finance: "financial-growth",
   fun: "fun",
 };
+
+const ENABLE_CATEGORY_COLORS = true;
 
 export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   const t = getTranslations(lang);
   const router = useRouter();
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"all" | "ai" | "pdf" | "image" | "developer" | "generators" | "text" | "calculators" | "fun">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "dev" | "doc" | "media" | "finance" | "fun">("all");
 
   const getLocalizedHref = (path: string) => {
     if (!lang || lang === "en") return path;
@@ -187,19 +187,13 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
     switch (activeTab) {
       case "all":
         return ["ai-tools", "pdf-tools", "image-tools", "developer-tools", "generators", "text-tools", "financial-growth", "fun"];
-      case "ai":
-        return ["ai-tools"];
-      case "pdf":
-        return ["pdf-tools"];
-      case "text":
-        return ["text-tools", "generators"];
-      case "developer":
-        return ["developer-tools", "generators"];
-      case "generators":
-        return ["generators"];
-      case "image":
+      case "dev":
+        return ["ai-tools", "developer-tools", "generators"];
+      case "doc":
+        return ["pdf-tools", "text-tools"];
+      case "media":
         return ["image-tools"];
-      case "calculators":
+      case "finance":
         return ["financial-growth"];
       case "fun":
         return ["fun"];
@@ -504,14 +498,11 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             <div className="flex flex-wrap items-center gap-1">
               {[
                 { id: "all", label: t.allTools },
-                { id: "ai", label: (t as any).aiTools || "AI Tools" },
-                { id: "pdf", label: t.pdfTools },
-                { id: "image", label: t.imageTools },
-                { id: "developer", label: t.developerTools },
-                { id: "generators", label: t.generators },
-                { id: "text", label: t.textTools },
-                { id: "calculators", label: t.calculators },
-                { id: "fun", label: (t as any).fun || "Fun" },
+                { id: "dev", label: "Dev Workbench" },
+                { id: "doc", label: "Document Studio" },
+                { id: "media", label: "Media & Creator" },
+                { id: "finance", label: "Financial Modeler" },
+                { id: "fun", label: "Playground" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -541,16 +532,20 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
           {/* Cross-fade Category Grid */}
           <div className="space-y-12">
             {filteredCategories.map((category) => {
-              const liveCount = category.tools.filter((t) => t.status === "live").length;
+              const categoryTools = getToolsForCategory(category.slug);
+              const liveCount = categoryTools.filter((t) => t.status === "live").length;
               
               return (
                 <div key={category.slug} className="space-y-6">
                   <div className="flex items-baseline justify-between border-b border-border/30 pb-2.5 select-none">
-                    <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider">
+                    <h3 className="text-[10px] font-bold text-ink-muted uppercase tracking-wider flex items-center gap-1.5">
+                      {ENABLE_CATEGORY_COLORS && category.colorClass && (
+                        <span className={`w-1.5 h-1.5 rounded-full ${category.colorClass.replace('text-', 'bg-')}`} />
+                      )}
                       {getCategoryTitle(category.slug, category.title)}
                     </h3>
                     <span className="text-[9px] text-ink-muted font-bold">
-                      {liveCount} OF {category.tools.length} LIVE
+                      {liveCount} OF {categoryTools.length} LIVE
                     </span>
                   </div>
 
@@ -561,23 +556,27 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                     viewport={{ once: true, margin: "-10px" }}
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                   >
-                    {category.tools.map((rawTool) => {
-const tool = getLocalizedTool(rawTool, lang);
+                    {categoryTools.map((rawTool) => {
+                      const tool = getLocalizedTool(rawTool, lang);
                       const isLive = tool.status === "live";
                       const isBookmarked = bookmarks.includes(tool.id);
                       const tagLabel = TOOL_WORKFLOW_TAGS[tool.id] || "ACTIVE";
                       
                       const requiresExtension = ["web-scraper", "youtube-transcript", "api-client"].includes(tool.id);
                       
+                      const borderHoverClass = ENABLE_CATEGORY_COLORS && isLive && category.borderClass ? category.borderClass : "hover:border-zinc-700";
+                      const glowHoverClass = ENABLE_CATEGORY_COLORS && isLive && category.glowClass ? category.glowClass : "";
+                      const bgHoverClass = "hover:bg-surface-elevated/40";
+                      
                       return (
                         <motion.div variants={staggerItem} key={tool.id} className="h-full">
                           <Link
                             href={isLive ? getLocalizedHref(`/tools/${tool.id}`) : "#"}
-                            className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm ${
+                            className={`group relative block p-6 h-full rounded-2xl border border-dashed overflow-hidden shadow-sm transition-all duration-300 ${
                               isLive
                                 ? requiresExtension
                                   ? "border-accent/40 dark:border-accent/30 hover:bg-accent/[0.03] hover:border-accent/60 hover:shadow-[0_0_20px_rgba(var(--accent-rgb, 59,130,246),0.15)] active:scale-[0.99] bg-surface cursor-pointer"
-                                  : "border-border/70 dark:border-border/40 hover:bg-surface-elevated/40 active:scale-[0.99] bg-surface cursor-pointer"
+                                  : `border-border/70 dark:border-border/40 ${borderHoverClass} ${glowHoverClass} ${bgHoverClass} active:scale-[0.99] bg-surface cursor-pointer`
                                 : "border-border/20 bg-surface-elevated/25 pointer-events-none opacity-50"
                             } ${requiresExtension ? "max-sm:pointer-events-none" : ""}`}
                           >
@@ -609,9 +608,11 @@ const tool = getLocalizedTool(rawTool, lang);
 
                             <div className="relative z-10 select-none space-y-4">
                               <div className="flex items-start gap-2.5">
-                                {/* Title vector glyph */}
-                                {getToolIcon(tool.id)}
-                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 ${isLive ? "text-ink" : "text-ink-muted"}`}>
+                                {/* Title vector glyph wrapped in category color badge */}
+                                <div className={`p-1.5 rounded-lg shrink-0 transition-colors duration-300 ${ENABLE_CATEGORY_COLORS && category.bgClass && category.colorClass ? `${category.bgClass} ${category.colorClass}` : "bg-zinc-900/60 text-ink"}`}>
+                                  {getToolIcon(tool.id)}
+                                </div>
+                                <h4 className={`text-xs font-bold tracking-tight leading-snug group-hover:text-ink transition-colors duration-150 mt-1 ${isLive ? "text-ink" : "text-ink-muted"}`}>
                                   {tool.title}
                                 </h4>
                               </div>
