@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ALL_TOOLS, type Tool } from "@/lib/tools";
+import { getTranslations, LOCALES, SupportedLocale } from "@/lib/i18n";
+import { getToolTranslation } from "@/lib/tools-i18n";
 
 export default function CommandCenter() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,20 @@ export default function CommandCenter() {
   const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
+
+  const segments = pathname ? pathname.split("/") : [];
+  const firstSegment = segments[1] as SupportedLocale;
+  const currentLocale = LOCALES.includes(firstSegment) && firstSegment !== "en"
+    ? firstSegment
+    : "en";
+  const t = getTranslations(currentLocale as SupportedLocale);
+
+  const translatedTools = ALL_TOOLS.map(tool => ({
+    ...tool,
+    title: getToolTranslation(currentLocale, `tool_${tool.id}_title`, tool.title),
+    description: getToolTranslation(currentLocale, `tool_${tool.id}_desc`, tool.description),
+  }));
 
   useEffect(() => {
     setMounted(true);
@@ -38,20 +54,20 @@ export default function CommandCenter() {
 
   // Filter tools
   useEffect(() => {
-    if (!query.trim()) {
-      setResults(ALL_TOOLS.filter((t) => t.status === "live").slice(0, 5));
-      setSelectedIndex(0);
-      return;
+    if (query.trim().length === 0) {
+      setResults(translatedTools.filter(t => t.status === "live").slice(0, 5));
+    } else {
+      const lowerQuery = query.toLowerCase();
+      const filtered = translatedTools.filter(
+        (t) =>
+          t.status === "live" &&
+          (t.title.toLowerCase().includes(lowerQuery) ||
+          t.description.toLowerCase().includes(lowerQuery) ||
+          t.metaDescription.toLowerCase().includes(lowerQuery) ||
+          t.tags?.some((tag) => tag.toLowerCase().includes(lowerQuery)))
+      );
+      setResults(filtered);
     }
-    const q = query.toLowerCase().trim();
-    const filtered = ALL_TOOLS.filter(
-      (t) =>
-        t.status === "live" &&
-        (t.title.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q) ||
-          t.metaDescription.toLowerCase().includes(q))
-    );
-    setResults(filtered);
     setSelectedIndex(0);
   }, [query]);
 
@@ -117,14 +133,14 @@ export default function CommandCenter() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleListKeyDown}
-                placeholder="Type a tool name or action..."
+                placeholder={t.searchPlaceholder || "Type a tool name or action..."}
                 className="flex-1 bg-transparent text-sm text-ink placeholder:text-ink-muted/80 focus:outline-none font-medium"
               />
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-[10px] font-semibold text-ink-muted hover:text-ink bg-surface border border-border px-2 py-1 rounded-lg transition-colors cursor-pointer shrink-0"
               >
-                ESC
+                {t.searchEscape || "ESC"}
               </button>
             </div>
 
@@ -135,12 +151,12 @@ export default function CommandCenter() {
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor" className="text-ink-muted opacity-40">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                   </svg>
-                  <p className="text-xs text-ink-muted mt-2 font-medium">No tools found matching your query.</p>
+                  <p className="text-xs text-ink-muted mt-2 font-medium">{t.searchNoResults || "No tools found matching your query."}</p>
                 </div>
               ) : (
                 <div className="space-y-0.5">
                   <div className="text-[9px] font-bold text-ink-muted uppercase tracking-wider px-3.5 py-1 select-none">
-                    {query.trim() ? "Search results" : "Popular quick tools"}
+                    {query.trim() ? (t.searchResults || "Search results") : (t.searchPopular || "Popular quick tools")}
                   </div>
                   {results.map((tool, idx) => {
                     const isSelected = idx === selectedIndex;
@@ -164,7 +180,7 @@ export default function CommandCenter() {
 
                         <div className="shrink-0 flex items-center gap-1.5">
                           <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-border/40 text-ink-muted">
-                            Client-side
+                            {t.searchClientSide || "Client-side"}
                           </span>
                           {isSelected && (
                             <kbd className="hidden sm:inline px-1 py-0.5 text-[9px] font-mono text-accent bg-accent/5 rounded-md border border-accent/20">
@@ -182,8 +198,8 @@ export default function CommandCenter() {
             {/* Bottom Instructions bar */}
             <div className="px-4 py-2 border-t border-border/40 bg-surface shrink-0 flex justify-between items-center text-[10px] text-ink-muted select-none">
               <div className="flex items-center gap-3">
-                <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↑↓</kbd> Navigate</span>
-                <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↵</kbd> Select</span>
+                <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↑↓</kbd> {t.searchNavigate || "Navigate"}</span>
+                <span><kbd className="font-mono bg-surface-elevated border border-border px-1 rounded-sm">↵</kbd> {t.searchSelect || "Select"}</span>
               </div>
               <span>ZeroWebTools CommandCenter</span>
             </div>
@@ -205,7 +221,7 @@ export default function CommandCenter() {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="text-ink-muted shrink-0" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
-        <span className="hidden sm:block flex-1 text-ink-muted font-medium">Quick search...</span>
+        <span className="hidden sm:block flex-1 text-ink-muted font-medium">{t.searchQuick || "Quick search..."}</span>
         <div className="hidden sm:flex items-center gap-0.5 shrink-0 opacity-70">
           <kbd className="px-1 py-0.5 text-[9px] font-sans text-ink-muted bg-surface rounded-md border border-border">⌘</kbd>
           <kbd className="px-1 py-0.5 text-[9px] font-sans text-ink-muted bg-surface rounded-md border border-border">K</kbd>

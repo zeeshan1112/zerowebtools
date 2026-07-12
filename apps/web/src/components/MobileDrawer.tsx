@@ -342,35 +342,35 @@ export default function MobileDrawer() {
                   <ThemeToggle />
                   <div className="flex flex-wrap items-center gap-3">
                     <Link
-                      href="/how-to"
+                      href={getLocalizedHref("/how-to")}
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
-                      Guides
+                      {translations.guidesResources || "Guides"}
                     </Link>
                     <Link
-                      href="/about"
+                      href={getLocalizedHref("/about")}
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
-                      About
+                      {translations.headerAbout || "About"}
                     </Link>
                     <Link
-                      href="/contact"
+                      href={getLocalizedHref("/contact")}
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
-                      Contact
+                      {translations.headerContact || "Contact"}
                     </Link>
                     <Link
-                      href="/privacy"
+                      href={getLocalizedHref("/privacy")}
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >
                       {translations.privacy}
                     </Link>
                     <Link
-                      href="/terms"
+                      href={getLocalizedHref("/terms")}
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
                     >

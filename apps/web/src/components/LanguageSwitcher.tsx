@@ -39,9 +39,9 @@ export default function LanguageSwitcher() {
     let newPathname = "";
     const hasLocalePrefix = LOCALES.includes(firstSegment) && firstSegment !== "en";
 
-    // Check if the current page is English-only (compare, recipes, conversions, privacy, terms, extensions)
-    const englishOnlyPaths = ["/compare", "/recipes", "/conversions", "/privacy", "/terms", "/extensions"];
-    const isEnglishOnly = englishOnlyPaths.some(p => pathname.startsWith(p));
+    // Check if the current page is English-only
+    const englishOnlyPaths = ["/tools/some-english-only-tool-if-any"]; // Left empty conceptually
+    const isEnglishOnly = false; // Because everything is localized now!
 
     if (isEnglishOnly) {
       if (newLocale === "en") {
@@ -77,6 +77,10 @@ export default function LanguageSwitcher() {
     if (!newPathname.startsWith("/")) {
       newPathname = "/" + newPathname;
     }
+
+    try {
+      localStorage.setItem("preferred_locale", newLocale);
+    } catch (e) {}
 
     setIsOpen(false);
     router.push(newPathname);

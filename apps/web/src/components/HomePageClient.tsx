@@ -8,6 +8,7 @@ import { GridPattern, genRandomPattern } from "@/components/ui/grid-feature-card
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { getToolIcon } from "@/lib/icons";
 import { getTranslations, getLocalizedTool } from "@/lib/i18n";
+import { getToolTranslation } from "@/lib/tools-i18n";
 import { useRouter, usePathname } from "next/navigation";
 import Hero from "@/components/ui/animated-shader-hero";
 
@@ -83,7 +84,21 @@ const TAB_TO_SLUG: Record<string, string> = {
 const ENABLE_CATEGORY_COLORS = true;
 
 export default function HomePageClient({ lang = "en" }: { lang?: string }) {
-  const t = getTranslations(lang);
+  const currentLocale = lang;
+  const t = getTranslations(currentLocale as any);
+
+  const translatedCategories = CATEGORIES.map(cat => ({
+    ...cat,
+    title: getToolTranslation(currentLocale, `cat_${cat.slug}_title`, cat.title),
+    description: getToolTranslation(currentLocale, `cat_${cat.slug}_desc`, cat.description),
+    tools: cat.tools.map(tool => ({
+      ...tool,
+      title: getToolTranslation(currentLocale, `tool_${tool.id}_title`, tool.title),
+      description: getToolTranslation(currentLocale, `tool_${tool.id}_desc`, tool.description),
+    }))
+  }));
+
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const router = useRouter();
   const pathname = usePathname();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
@@ -222,7 +237,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
   };
 
   const activeSlugs = getTabCategorySlug();
-  const filteredCategories = CATEGORIES.filter((c) => activeSlugs.includes(c.slug));
+  const filteredCategories = translatedCategories.filter((c) => activeSlugs.includes(c.slug));
 
 
   const bookmarkedTools = ALL_TOOLS.filter((t) => bookmarks.includes(t.id)).map(t => getLocalizedTool(t, lang));
@@ -237,7 +252,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
     "@id": `${baseUrl}/#website`,
     "url": `${baseUrl}/`,
     "name": "ZeroWebTools",
-    "description": "Free, fast, and completely secure client-side web utilities to edit PDFs, convert formats, check SaaS growth, and resize images. 100% private.",
+    "description": t.homeDesc,
     "publisher": {
       "@type": "Organization",
       "name": "ZeroWebTools",
@@ -308,7 +323,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             }
           },
           secondary: {
-            text: "Search Tools (⌘K)",
+            text: `${t.searchQuick || "Quick search..."} (⌘K)`,
             onClick: () => {
               const event = new KeyboardEvent("keydown", { key: "k", metaKey: true });
               window.dispatchEvent(event);
@@ -352,7 +367,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       <div className="absolute inset-0 z-30 bg-surface/70 dark:bg-neutral-900/70 backdrop-blur-sm flex items-center justify-center sm:hidden transition-all duration-300">
                         <div className="px-4 py-2 bg-ink text-surface dark:bg-white dark:text-ink text-[10px] font-extrabold rounded-2xl uppercase tracking-widest flex flex-col items-center gap-1.5 shadow-2xl border border-border/20 scale-95">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                          <span>Desktop Only</span>
+                          <span>{t.searchDesktopOnly || "Desktop Only"}</span>
                         </div>
                       </div>
                     )}
@@ -401,7 +416,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                           
                         </div>
                         <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
-                          LAUNCH
+                          {t.launch || "LAUNCH"}
                           <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                           </svg>
@@ -424,12 +439,12 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
             <div className="hidden sm:flex flex-wrap items-center gap-1">
               {[
                 { id: "all", label: t.allTools },
-                { id: "dev", label: "Dev Workbench" },
-                { id: "doc", label: "Document Studio" },
-                { id: "media", label: "Media & Creator" },
-                { id: "finance", label: "Financial Modeler" },
-                { id: "fun", label: "Playground" },
-                { id: "ext", label: "Extension Dependent" },
+                { id: "dev", label: t.developerTools },
+                { id: "doc", label: t.pdfTools },
+                { id: "media", label: t.imageTools },
+                { id: "finance", label: t.calculators },
+                { id: "fun", label: t.fun || "Fun" },
+                { id: "ext", label: t.extensionTools || "Extension Tools" },
               ].map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -459,14 +474,14 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
               >
                 <div className="flex items-center gap-2">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                  <span>Filter: {[
+                  <span>{t.toolFilter || "Filter"}: {[
                     { id: "all", label: t.allTools },
-                    { id: "dev", label: "Dev Workbench" },
-                    { id: "doc", label: "Document Studio" },
-                    { id: "media", label: "Media & Creator" },
-                    { id: "finance", label: "Financial Modeler" },
-                    { id: "fun", label: "Playground" },
-                    { id: "ext", label: "Extension Dependent" },
+                    { id: "dev", label: t.developerTools },
+                    { id: "doc", label: t.pdfTools },
+                    { id: "media", label: t.imageTools },
+                    { id: "finance", label: t.calculators },
+                    { id: "fun", label: t.fun || "Fun" },
+                    { id: "ext", label: t.extensionTools || "Extension Tools" },
                   ].find(t => t.id === activeTab)?.label}</span>
                 </div>
                 <svg className={`w-3 h-3 transition-transform duration-200 ${isFilterOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
@@ -482,12 +497,12 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                   <div className="absolute left-0 right-0 mt-2 z-50 bg-surface-elevated border border-border/85 rounded-2xl shadow-xl overflow-hidden py-1">
                     {[
                       { id: "all", label: t.allTools },
-                      { id: "dev", label: "Dev Workbench" },
-                      { id: "doc", label: "Document Studio" },
-                      { id: "media", label: "Media & Creator" },
-                      { id: "finance", label: "Financial Modeler" },
-                      { id: "fun", label: "Playground" },
-                      { id: "ext", label: "Extension Dependent" },
+                      { id: "dev", label: t.developerTools },
+                      { id: "doc", label: t.pdfTools },
+                      { id: "media", label: t.imageTools },
+                      { id: "finance", label: t.calculators },
+                      { id: "fun", label: t.fun || "Fun" },
+                      { id: "ext", label: t.extensionTools || "Extension Tools" },
                     ].map((tab) => {
                       const isActive = activeTab === tab.id;
                       return (
@@ -553,7 +568,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                       {getCategoryTitle(category.slug, category.title)}
                     </h3>
                     <span className="text-[9px] text-ink-muted font-bold">
-                      {liveCount} OF {categoryTools.length} LIVE
+                      {liveCount} / {categoryTools.length} {t.live || "LIVE"}
                     </span>
                   </div>
 
@@ -593,7 +608,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                               <div className="absolute inset-0 z-30 flex items-center justify-center sm:hidden pointer-events-none">
                                 <div className="px-3 py-1.5 bg-ink text-surface dark:bg-white dark:text-ink text-[9px] font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-lg border border-border/10 scale-90 opacity-95">
                                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                                  <span>Desktop Only</span>
+                                  <span>{t.searchDesktopOnly || "Desktop Only"}</span>
                                 </div>
                               </div>
                             )}
@@ -651,7 +666,7 @@ export default function HomePageClient({ lang = "en" }: { lang?: string }) {
                                   
                                 </div>
                                 <div className="flex items-center text-[9px] font-bold text-ink opacity-0 group-hover:opacity-100 transition-opacity duration-150 uppercase tracking-wider">
-                                  LAUNCH
+                                  {t.launch || "LAUNCH"}
                                   <svg className="ml-1 w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                   </svg>
