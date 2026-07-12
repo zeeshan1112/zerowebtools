@@ -73,8 +73,8 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
 
   return (
     <aside className="w-full space-y-6">
-      {/* 300x250 Medium Rectangle High-CTR Ad Slot */}
-      <div className="bg-surface-elevated rounded-2xl border border-border/50 p-4 shadow-sm flex flex-col items-center">
+      {/* 300x250 Medium Rectangle High-CTR Ad Slot (Desktop Only to prevent stacking on Mobile) */}
+      <div className="hidden lg:flex bg-surface-elevated rounded-2xl border border-border/50 p-4 shadow-sm flex-col items-center">
         <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider mb-2 self-start">Sponsored Slot</span>
         <AdLayoutSlot type="rectangle" className="my-0" />
       </div>
