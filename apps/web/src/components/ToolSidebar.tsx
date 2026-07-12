@@ -155,12 +155,14 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
           <h4 className="text-xs font-bold text-ink">
             {tool.id === "youtube-transcript" ? "Unlock YouTube Transcripts" :
              tool.id === "web-scraper" ? "Read Clean Web Articles" :
-             "Bypass CORS & Test Localhost"}
+             tool.id === "api-client" ? "Bypass CORS & Test Localhost" :
+             "Offline Developer Toolbelt"}
           </h4>
           <p className="text-[10px] text-ink-secondary leading-relaxed">
             {tool.id === "youtube-transcript" ? "Install the free ZeroWebTools companion extension to securely extract video subtitles and transcripts directly in your browser." :
              tool.id === "web-scraper" ? "Install the free ZeroWebTools companion extension to bypass layout clutter and load clean article reader views." :
-             "Install the free ZeroWebTools companion extension to enable secure localhost API testing and client-side CORS request bypass."}
+             tool.id === "api-client" ? "Install the free ZeroWebTools companion extension to enable secure localhost API testing and client-side CORS request bypass." :
+             "Install the free ZeroWebTools companion extension to access JSON Formatter, Diff Checker, and JWT Debugger directly from your browser toolbar."}
           </p>
           <a
             href={isFirefox ? "https://addons.mozilla.org/en-US/firefox/addon/zerowebtools-dev/" : "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"}
