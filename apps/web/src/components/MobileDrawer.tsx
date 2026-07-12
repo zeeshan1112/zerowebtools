@@ -342,6 +342,13 @@ export default function MobileDrawer() {
                   <ThemeToggle />
                   <div className="flex flex-wrap items-center gap-3">
                     <Link
+                      href="/how-to"
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
+                    >
+                      Guides
+                    </Link>
+                    <Link
                       href="/about"
                       onClick={() => setIsOpen(false)}
                       className="text-xs text-ink-secondary hover:text-accent font-semibold transition-colors py-2 px-1 min-h-[44px] flex items-center"
