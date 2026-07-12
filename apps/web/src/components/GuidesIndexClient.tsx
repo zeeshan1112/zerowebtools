@@ -7,8 +7,6 @@ import { RECIPES } from "@/lib/recipes";
 import { COMPARISONS } from "@/lib/comparisons";
 import { LOCALES_DATA } from "@/lib/locales";
 import { getTranslations, SupportedLocale } from "@/lib/i18n";
-import AdLayoutSlot from "@/components/AdLayoutSlot";
-
 interface GuidesIndexClientProps {
   lang?: string;
 }

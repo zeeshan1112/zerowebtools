@@ -96,6 +96,21 @@ export default function TermsPage() {
               updated terms.
             </p>
           </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-ink tracking-tight">
+              Contact
+            </h2>
+            <p className="mt-3">
+              If you have any questions about these Terms, please contact us at{" "}
+              <a
+                href="mailto:support@zerowebtools.com"
+                className="text-accent hover:underline"
+              >
+                support@zerowebtools.com
+              </a>
+            </p>
+          </section>
         </div>
       </main>
     </div>

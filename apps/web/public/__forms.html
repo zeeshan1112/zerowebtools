@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Netlify Forms</title>
+  </head>
+  <body>
+    <!-- 
+      This is a hidden static HTML form specifically for the Netlify build bot.
+      Since the actual contact form is in a Next.js Client Component, Netlify's 
+      HTML parser might not always detect it during the build process.
+      By placing this static version in the public folder, Netlify will register
+      the "contact" form and its fields correctly.
+    -->
+    <form name="contact" data-netlify="true" hidden>
+      <input type="text" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
