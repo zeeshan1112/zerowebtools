@@ -145,9 +145,15 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
             </div>
             <span className="text-[10px] font-bold text-accent uppercase tracking-wider">Companion Extension</span>
           </div>
-          <h4 className="text-xs font-bold text-ink">Bypass CORS & Test Localhost</h4>
+          <h4 className="text-xs font-bold text-ink">
+            {tool.id === "youtube-transcript" ? "Unlock YouTube Transcripts" :
+             tool.id === "web-scraper" ? "Read Clean Web Articles" :
+             "Bypass CORS & Test Localhost"}
+          </h4>
           <p className="text-[10px] text-ink-secondary leading-relaxed">
-            Install the free ZeroWebTools companion extension to enable localhost API testing, YouTube transcripts, and CORS bypass.
+            {tool.id === "youtube-transcript" ? "Install the free ZeroWebTools companion extension to securely extract video subtitles and transcripts directly in your browser." :
+             tool.id === "web-scraper" ? "Install the free ZeroWebTools companion extension to bypass layout clutter and load clean article reader views." :
+             "Install the free ZeroWebTools companion extension to enable secure localhost API testing and client-side CORS request bypass."}
           </p>
           <a
             href="https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"
