@@ -27,6 +27,12 @@ export default function Footer() {
           <Link href={getLocalizedHref("/how-to")} className="hover:text-accent transition-colors duration-200">
             {translations.guidesResources}
           </Link>
+          <Link href="/about" className="hover:text-accent transition-colors duration-200">
+            About
+          </Link>
+          <Link href="/contact" className="hover:text-accent transition-colors duration-200">
+            Contact
+          </Link>
           <Link href="/privacy" className="hover:text-accent transition-colors duration-200">
             {translations.privacy}
           </Link>

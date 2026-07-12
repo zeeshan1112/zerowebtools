@@ -16,6 +16,13 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [copied, setCopied] = useState(false);
   const [recentTools, setRecentTools] = useState<Tool[]>([]);
+  const [isFirefox, setIsFirefox] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && navigator.userAgent.toLowerCase().includes("firefox")) {
+      setIsFirefox(true);
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -66,8 +73,8 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
 
   return (
     <aside className="w-full space-y-6">
-      {/* 300x250 Medium Rectangle High-CTR Ad Slot */}
-      <div className="bg-surface-elevated rounded-2xl border border-border/50 p-4 shadow-sm flex flex-col items-center">
+      {/* 300x250 Medium Rectangle High-CTR Ad Slot (Desktop Only to prevent stacking on Mobile) */}
+      <div className="hidden lg:flex bg-surface-elevated rounded-2xl border border-border/50 p-4 shadow-sm flex-col items-center">
         <span className="text-[10px] font-semibold text-ink-muted uppercase tracking-wider mb-2 self-start">Sponsored Slot</span>
         <AdLayoutSlot type="rectangle" className="my-0" />
       </div>
@@ -145,21 +152,37 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
             </div>
             <span className="text-[10px] font-bold text-accent uppercase tracking-wider">Companion Extension</span>
           </div>
-          <h4 className="text-xs font-bold text-ink">Bypass CORS & Test Localhost</h4>
+          <h4 className="text-xs font-bold text-ink">
+            {tool.id === "youtube-transcript" ? "Unlock YouTube Transcripts" :
+             tool.id === "web-scraper" ? "Read Clean Web Articles" :
+             tool.id === "api-client" ? "Bypass CORS & Test Localhost" :
+             "Offline Developer Toolbelt"}
+          </h4>
           <p className="text-[10px] text-ink-secondary leading-relaxed">
-            Install the free ZeroWebTools companion extension to enable localhost API testing, YouTube transcripts, and CORS bypass.
+            {tool.id === "youtube-transcript" ? "Install the free ZeroWebTools companion extension to securely extract video subtitles and transcripts directly in your browser." :
+             tool.id === "web-scraper" ? "Install the free ZeroWebTools companion extension to bypass layout clutter and load clean article reader views." :
+             tool.id === "api-client" ? "Install the free ZeroWebTools companion extension to enable secure localhost API testing and client-side CORS request bypass." :
+             "Install the free ZeroWebTools companion extension to access JSON Formatter, Diff Checker, and JWT Debugger directly from your browser toolbar."}
           </p>
           <a
-            href="https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"
+            href={isFirefox ? "https://addons.mozilla.org/en-US/firefox/addon/zerowebtools-dev/" : "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-1.5 w-full px-3 py-2 bg-accent hover:opacity-90 text-white dark:text-black text-xs font-semibold rounded-xl shadow-sm transition-all cursor-pointer"
           >
-            <span>Add to Chrome</span>
+            <span>{isFirefox ? "Add to Firefox" : "Add to Chrome"}</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
           </a>
+          <div className="text-center pt-1.5">
+            <Link
+              href="/extensions"
+              className="text-[9px] font-bold text-ink-muted hover:text-accent transition-colors uppercase tracking-wider"
+            >
+              View other platforms
+            </Link>
+          </div>
         </div>
       )}
 
