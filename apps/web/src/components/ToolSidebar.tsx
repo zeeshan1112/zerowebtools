@@ -16,6 +16,13 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [copied, setCopied] = useState(false);
   const [recentTools, setRecentTools] = useState<Tool[]>([]);
+  const [isFirefox, setIsFirefox] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && navigator.userAgent.toLowerCase().includes("firefox")) {
+      setIsFirefox(true);
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -156,16 +163,24 @@ export default function ToolSidebar({ tool, category, relatedTools }: ToolSideba
              "Install the free ZeroWebTools companion extension to enable secure localhost API testing and client-side CORS request bypass."}
           </p>
           <a
-            href="https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"
+            href={isFirefox ? "https://addons.mozilla.org/en-US/firefox/addon/zerowebtools-dev/" : "https://chromewebstore.google.com/detail/pffdmcdnddpbnlmfdemhkldjloccpcfj?utm_source=item-share-cb"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-1.5 w-full px-3 py-2 bg-accent hover:opacity-90 text-white dark:text-black text-xs font-semibold rounded-xl shadow-sm transition-all cursor-pointer"
           >
-            <span>Add to Chrome</span>
+            <span>{isFirefox ? "Add to Firefox" : "Add to Chrome"}</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
           </a>
+          <div className="text-center pt-1.5">
+            <Link
+              href="/extensions"
+              className="text-[9px] font-bold text-ink-muted hover:text-accent transition-colors uppercase tracking-wider"
+            >
+              View other platforms
+            </Link>
+          </div>
         </div>
       )}
 
