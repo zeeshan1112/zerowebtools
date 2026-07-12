@@ -99,10 +99,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
         </button>
       </div>
 
-      {/* Index Tabs Leaderboard Ad */}
-      <div className="py-2 flex justify-center">
-        <AdLayoutSlot type="leaderboard" slotId="guides-index-leaderboard" />
-      </div>
+
 
       {/* Tabs Content */}
       <div className="pt-2">
