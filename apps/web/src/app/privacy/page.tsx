@@ -80,8 +80,13 @@ export default function PrivacyPage() {
               Contact
             </h2>
             <p className="mt-3">
-              For privacy-related inquiries, contact us through the information
-              provided on our website.
+              For privacy-related inquiries, contact us directly at{" "}
+              <a
+                href="mailto:support@zerowebtools.com"
+                className="text-accent hover:underline"
+              >
+                support@zerowebtools.com
+              </a>
             </p>
           </section>
         </div>

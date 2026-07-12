@@ -74,10 +74,19 @@ export default function AboutPage() {
 
           <section className="space-y-3">
             <h2 className="text-xl font-semibold text-ink tracking-tight">
-              Open Companion Extensions
+              Open Source & Transparency
             </h2>
             <p>
-              For advanced features like local CORS requests and webpage content scraping, we maintain the open-source **ZeroWebTools Companion** extension. Like our web platform, the companion runs fully client-side and performs zero remote logging or analytics.
+              For advanced features like local CORS requests and webpage content scraping, we maintain the open-source{" "}
+              <a
+                href="https://github.com/zeeshan1112/zerowebtools"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline font-semibold"
+              >
+                ZeroWebTools Companion
+              </a>{" "}
+              extension and main repository. Like our web platform, the companion runs fully client-side and performs zero remote logging or analytics. By publishing our source code publicly on GitHub, we invite users and security auditors to verify our code integrity.
             </p>
           </section>
 

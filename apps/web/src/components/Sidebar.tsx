@@ -314,6 +314,20 @@ export default function Sidebar() {
 
       </div>
 
+      {/* Guides & Resources CTA */}
+      <div className={`shrink-0 px-3 transition-all duration-300 ${isExpanded ? "" : "opacity-75"}`}>
+        <Link
+          href="/how-to"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-surface border border-border hover:bg-surface-elevated transition-all w-full cursor-pointer"
+          title="Guides & Resources"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2.5" stroke="currentColor" className="shrink-0 text-ink-muted">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+          </svg>
+          {isExpanded && <span className="text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap text-ink-secondary">Guides</span>}
+        </Link>
+      </div>
+
       {/* Chrome Extension CTA */}
       <div className={`shrink-0 px-3 py-3 transition-all duration-300 ${isExpanded ? "" : "opacity-75"}`}>
         <Link

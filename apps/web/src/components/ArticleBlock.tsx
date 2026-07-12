@@ -132,12 +132,7 @@ export default function ArticleBlock({ title, sections, faqs }: ArticleBlockProp
                 )}
               </section>
 
-              {/* Native In-Feed ad slot right in the middle of sections */}
-              {index === 1 && index < sections.length - 1 && (
-                <div className="py-4 border-y border-border/20 flex justify-center">
-                  <AdLayoutSlot type="leaderboard" />
-                </div>
-              )}
+
             </React.Fragment>
           );
         })}
