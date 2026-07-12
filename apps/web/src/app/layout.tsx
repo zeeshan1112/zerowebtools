@@ -107,6 +107,26 @@ export default function RootLayout({
                     document.documentElement.removeAttribute('dir');
                     document.documentElement.setAttribute('lang', 'en');
                   }
+
+                  // Preferred Locale Redirect and Caching
+                  var p = window.location.pathname;
+                  var hasLocaleMatch = p.match(/^\/([a-z]{2})(?:\/|$)/);
+                  var supportedLocales = ['es', 'de', 'fr', 'pt', 'ja', 'zh', 'hi', 'it', 'ar']; // Excludes 'en' since it has no prefix
+                  
+                  if (hasLocaleMatch && supportedLocales.includes(hasLocaleMatch[1])) {
+                    // User is visiting a localized page. Cache this locale!
+                    localStorage.setItem('preferred_locale', hasLocaleMatch[1]);
+                  } else {
+                    // User is visiting an English page (or root).
+                    // If they have a preferred locale that is not English, redirect them.
+                    var prefLang = localStorage.getItem('preferred_locale');
+                    if (prefLang && prefLang !== 'en' && supportedLocales.includes(prefLang)) {
+                      window.location.replace('/' + prefLang + (p === '/' ? '' : p) + window.location.search);
+                    } else if (!prefLang) {
+                      // Optionally set 'en' as preferred if none exists, but not strictly necessary
+                      localStorage.setItem('preferred_locale', 'en');
+                    }
+                  }
                 } catch (_) {}
               })();
             `,

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import CommandCenter from "./CommandCenter";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileDrawer from "./MobileDrawer";
-import { LOCALES, SupportedLocale } from "@/lib/i18n";
+import { LOCALES, SupportedLocale, getTranslations } from "@/lib/i18n";
 
 export default function Header() {
   const pathname = usePathname();
@@ -20,6 +20,8 @@ export default function Header() {
     if (!currentLocale) return path;
     return `/${currentLocale}${path === "/" ? "" : path}`;
   };
+
+  const t = getTranslations(currentLocale || "en");
 
   return (
     <header className="sticky top-0 z-40 bg-surface/90 backdrop-blur-lg border-b border-border/40 shrink-0 select-none">
@@ -43,38 +45,38 @@ export default function Header() {
             <CommandCenter />
             <LanguageSwitcher />
             <Link
-              href="/how-to"
+              href={getLocalizedHref("/how-to")}
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
-              Guides
+              {t.guidesResources || "Guides"}
             </Link>
             <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
-              href="/about"
+              href={getLocalizedHref("/about")}
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
-              About
+              {t.headerAbout || "About"}
             </Link>
             <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
-              href="/contact"
+              href={getLocalizedHref("/contact")}
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
-              Contact
+              {t.headerContact || "Contact"}
             </Link>
             <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
-              href="/privacy"
+              href={getLocalizedHref("/privacy")}
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
-              Privacy
+              {t.privacy || "Privacy"}
             </Link>
             <span className="hidden sm:block w-px h-3 bg-border/80" />
             <Link
-              href="/terms"
+              href={getLocalizedHref("/terms")}
               className="hidden sm:flex items-center text-xs text-ink-secondary hover:text-accent font-semibold transition-colors duration-200 py-2 px-1 min-h-[44px]"
             >
-              Terms
+              {t.terms || "Terms"}
             </Link>
           </div>
         </div>

@@ -39,26 +39,26 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Is it completely free?",
+        "name": t.faqQ1,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, ZeroWebTools is 100% free. No subscriptions, no hidden fees, and no sign-up required."
+          "text": t.faqA1
         }
       },
       {
         "@type": "Question",
-        "name": "Are my files uploaded to a server?",
+        "name": t.faqQ2,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. All tools execute entirely client-side using WebAssembly in your browser. Your files never leave your device."
+          "text": t.faqA2
         }
       },
       {
         "@type": "Question",
-        "name": "Do I need to download anything?",
+        "name": t.faqQ3,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, you do not need to install any apps or software. Everything works securely inside your web browser."
+          "text": t.faqA3
         }
       }
     ]

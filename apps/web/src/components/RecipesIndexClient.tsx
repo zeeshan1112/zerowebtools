@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { RECIPES } from "@/lib/recipes";
+import { getTranslations } from "@/lib/i18n";
 
 interface RecipesIndexClientProps {
   lang?: string;
@@ -7,18 +8,19 @@ interface RecipesIndexClientProps {
 
 export default function RecipesIndexClient({ lang }: RecipesIndexClientProps) {
   const langPrefix = lang && lang !== "en" ? `/${lang}` : "";
+  const t = getTranslations(lang || "en");
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 py-10 select-none">
       <div className="text-center max-w-2xl mx-auto mb-12">
         <span className="text-xs uppercase tracking-widest font-bold text-accent px-2.5 py-1 bg-accent-light/10 rounded-full border border-accent/20">
-          Chaining Workflows
+          {t.recipesTag || "Chaining Workflows"}
         </span>
         <h1 className="text-3xl font-extrabold tracking-tight text-ink mt-4 sm:text-4xl">
-          Multi-Tool Workflow Recipes
+          {t.recipesTitle || "Multi-Tool Workflow Recipes"}
         </h1>
         <p className="text-base text-ink-secondary mt-3">
-          Combine actions in a single tab. Learn how to sequence and chain our 100% private web utilities without download-upload loops.
+          {t.recipesDesc || "Combine actions in a single tab. Learn how to sequence and chain our 100% private web utilities without download-upload loops."}
         </p>
       </div>
 
@@ -43,7 +45,7 @@ export default function RecipesIndexClient({ lang }: RecipesIndexClientProps) {
                 ))}
               </div>
               <span className="text-xs font-bold text-accent group-hover:translate-x-0.5 transition-transform duration-200 flex items-center gap-0.5">
-                View Guide {` `}
+                {t.recipesViewGuide || "View Guide"} {` `}
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                 </svg>
