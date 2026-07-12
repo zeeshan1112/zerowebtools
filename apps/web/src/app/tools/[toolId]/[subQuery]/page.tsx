@@ -1220,18 +1220,40 @@ export default async function ToolPage({ params }: ToolPageProps) {
     );
   }
 
-  const baseArticle = TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, category) : undefined);
-  const article = { ...baseArticle } as any;
-  if (article && seoData.articleIntro) {
-    // Inject the SEO targeted intro paragraph at the very top of the article
-    article.sections = [
-      {
-        heading: seoData.articleIntro.heading,
-        paragraphs: seoData.articleIntro.paragraphs
-      },
-      ...(article.sections || [])
-    ];
+  // For programmatic SEO pages, we do NOT render the massive boilerplate TOOL_ARTICLES.
+  // This prevents AdSense "Low value content" and "Thin Content / Doorway Page" penalties
+  // which occur when 4,000+ pages share 90% identical text.
+  // Instead, we construct a dynamic, unique article tailored to the exact subQuery keyword.
+  const article = {
+    title: seoData.title,
+    sections: [] as { heading: string; paragraphs?: string[]; listItems?: string[] }[]
+  };
+
+  if (seoData.articleIntro) {
+    article.sections.push({
+      heading: seoData.articleIntro.heading,
+      paragraphs: seoData.articleIntro.paragraphs
+    });
   }
+
+  // Inject dynamic value-add content to ensure the page isn't "Thin" (too short)
+  article.sections.push({
+    heading: `How to use ${seoData.title}`,
+    listItems: [
+      `Open the ${seoData.title} workspace above.`,
+      `Upload your file or paste your input directly into the editor.`,
+      `Configure the tool settings to match your specific requirements.`,
+      `Click the action button and download your processed result instantly.`
+    ]
+  });
+
+  article.sections.push({
+    heading: `Why use this tool for ${tool.title}?`,
+    paragraphs: [
+      `When searching for ${seoData.title}, security and speed are critical. Many online tools upload your sensitive files to remote servers.`,
+      `ZeroWebTools executes entirely in your browser using modern WebAssembly and JavaScript APIs. This means your data never leaves your device, ensuring 100% privacy and lightning-fast processing speeds.`
+    ]
+  });
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";

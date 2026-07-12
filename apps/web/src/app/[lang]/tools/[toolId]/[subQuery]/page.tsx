@@ -1234,17 +1234,40 @@ export default async function ToolPage({ params }: ToolPageProps) {
     ...(localeData?.[toolKey] || {}),
     ...(lang === "en" ? require("@/locales/en.json").common : {}) // Fallback for english since LOCALES_DATA doesn't have "en"
   };
-  const baseArticle = (localeData?.articles?.[toolId] || TOOL_ARTICLES[toolId] || (tool ? generateFallbackArticle(tool, workspaceDictionary) : undefined)) as HowToArticle | undefined;
-  const article = baseArticle ? { ...baseArticle } : undefined;
-  if (article && seoData?.articleIntro) {
-    article.sections = [
-      {
-        heading: seoData.articleIntro.heading,
-        paragraphs: seoData.articleIntro.paragraphs
-      },
-      ...(article.sections || [])
-    ];
+  // For programmatic SEO pages, we do NOT render the massive boilerplate TOOL_ARTICLES.
+  // This prevents AdSense "Low value content" and "Thin Content / Doorway Page" penalties.
+  const article = {
+    title: seoData?.title || tool.title,
+    sections: [] as { heading: string; paragraphs?: string[]; listItems?: string[] }[]
+  };
+
+  if (seoData?.articleIntro) {
+    article.sections.push({
+      heading: seoData.articleIntro.heading,
+      paragraphs: seoData.articleIntro.paragraphs
+    });
   }
+
+  // Inject dynamic value-add content using localized fallback strings
+  const displayTitle = seoData?.title || tool.title;
+  
+  article.sections.push({
+    heading: workspaceDictionary.fbQ2?.replace("{toolTitle}", displayTitle) || `How to Use ${displayTitle}`,
+    listItems: [
+      workspaceDictionary.fbL1?.replace("{toolTitle}", displayTitle) || `Open the ${displayTitle} page in any modern web browser.`,
+      workspaceDictionary.fbL2 || `Upload your files, paste your code, or input parameters into the workspace sandbox area.`,
+      workspaceDictionary.fbL3 || `Adjust the options or settings to suit your target output requirements.`,
+      workspaceDictionary.fbL4 || `Click the processing button to trigger calculations locally on your CPU.`
+    ]
+  });
+
+  article.sections.push({
+    heading: workspaceDictionary.fbQ3?.replace("{toolTitle}", displayTitle) || `100% Secure & Private Local Processing`,
+    paragraphs: [
+      workspaceDictionary.fbA3P1?.replace("{toolTitle}", displayTitle) || `Security is the core pillar of ZeroWebTools. When you use the ${displayTitle} tool, your input files, parameters, and results are never transmitted to external servers.`,
+      workspaceDictionary.fbA3P2 || `Your browser executes the entire calculation sandbox locally. Once you close the tab, all active memory is cleared, ensuring your data remains completely under your control.`
+    ]
+  });
   const tagStyle = category
     ? CATEGORY_TAG_STYLES[category.slug] ?? "bg-zinc-100 text-zinc-600"
     : "bg-zinc-100 text-zinc-600";
