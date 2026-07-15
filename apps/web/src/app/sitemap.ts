@@ -107,26 +107,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  const comparePages: MetadataRoute.Sitemap = COMPARISONS.map((matchup) => ({
-    url: `${baseUrl}/compare/${matchup.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const comparePages: MetadataRoute.Sitemap = COMPARISONS.flatMap((matchup) => {
+    const alternates = buildLanguages(`/compare/${matchup.slug}`, baseUrl);
+    return LOCALES.map((lang) => ({
+      url: lang === "en" ? `${baseUrl}/compare/${matchup.slug}` : `${baseUrl}/${lang}/compare/${matchup.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: { languages: alternates }
+    }));
+  });
 
-  const recipePages: MetadataRoute.Sitemap = RECIPES.map((recipe) => ({
-    url: `${baseUrl}/recipes/${recipe.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const recipePages: MetadataRoute.Sitemap = RECIPES.flatMap((recipe) => {
+    const alternates = buildLanguages(`/recipes/${recipe.slug}`, baseUrl);
+    return LOCALES.map((lang) => ({
+      url: lang === "en" ? `${baseUrl}/recipes/${recipe.slug}` : `${baseUrl}/${lang}/recipes/${recipe.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: { languages: alternates }
+    }));
+  });
 
-  const conversionPages: MetadataRoute.Sitemap = CONVERSIONS.map((pairing) => ({
-    url: `${baseUrl}/conversions/${pairing.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const conversionPages: MetadataRoute.Sitemap = CONVERSIONS.flatMap((pairing) => {
+    const alternates = buildLanguages(`/conversions/${pairing.slug}`, baseUrl);
+    return LOCALES.map((lang) => ({
+      url: lang === "en" ? `${baseUrl}/conversions/${pairing.slug}` : `${baseUrl}/${lang}/conversions/${pairing.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: { languages: alternates }
+    }));
+  });
 
   // Standard root / index pages
   const indexPages: MetadataRoute.Sitemap = LOCALES.flatMap((lang) => {
@@ -155,50 +167,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
+  const staticPages: MetadataRoute.Sitemap = ["/compare", "/recipes", "/privacy", "/terms", "/about", "/contact", "/extensions"].flatMap((path) => {
+    const alternates = buildLanguages(path, baseUrl);
+    return LOCALES.map((lang) => ({
+      url: lang === "en" ? `${baseUrl}${path}` : `${baseUrl}/${lang}${path}`,
+      lastModified: now,
+      changeFrequency: path === "/compare" || path === "/recipes" ? "weekly" : "monthly" as const,
+      priority: path === "/compare" || path === "/recipes" ? 0.8 : 0.5,
+      alternates: { languages: alternates }
+    }));
+  });
+
   return [
     ...indexPages,
-    {
-      url: `${baseUrl}/compare`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/recipes`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/extensions`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.5,
-    },
+    ...staticPages,
     ...toolPages,
     ...guidePages,
     ...comparePages,

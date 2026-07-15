@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { COMPARISONS } from "@/lib/comparisons";
+import { getLocalizedComparisons } from "@/lib/comparisons-i18n";
 import { getTranslations } from "@/lib/i18n";
 
 interface CompareIndexClientProps {
@@ -9,6 +9,7 @@ interface CompareIndexClientProps {
 export default function CompareIndexClient({ lang }: CompareIndexClientProps) {
   const langPrefix = lang && lang !== "en" ? `/${lang}` : "";
   const t = getTranslations(lang || "en");
+  const comparisons = getLocalizedComparisons(lang || "en");
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 py-10 select-none">
@@ -25,7 +26,7 @@ export default function CompareIndexClient({ lang }: CompareIndexClientProps) {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {COMPARISONS.map((matchup) => (
+        {comparisons.map((matchup) => (
           <Link
             key={matchup.slug}
             href={`${langPrefix}/compare/${matchup.slug}`}

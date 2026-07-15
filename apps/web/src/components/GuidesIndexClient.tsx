@@ -16,7 +16,7 @@ type TabType = "guides" | "recipes" | "compare";
 export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
   const [activeTab, setActiveTab] = useState<TabType>("guides");
   const langPrefix = lang && lang !== "en" ? `/${lang}` : "";
-  const translations = getTranslations(lang);
+  const t = getTranslations(lang);
 
   const localizedArticles = HOW_TO_ARTICLES.map((article) => {
     if (!lang || lang === "en") return article;
@@ -39,10 +39,10 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
           Knowledge Base
         </span>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mt-4 mb-3">
-          {translations.guidesResources}
+          {t.guidesResources}
         </h1>
         <p className="text-base sm:text-lg text-ink-secondary max-w-2xl leading-relaxed">
-          {translations.howToDesc}
+          {t.howToDesc}
         </p>
       </div>
 
@@ -56,7 +56,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
               : "border-transparent text-ink-secondary hover:text-ink"
           }`}
         >
-          <span>{lang === "es" ? "Guías de herramientas" : lang === "de" ? "Tool-Anleitungen" : lang === "fr" ? "Guides d'outils" : lang === "pt" ? "Guias de Ferramentas" : "Tool Guides"}</span>
+          <span>{t.guidesResources || "Tool Guides"}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
             activeTab === "guides" ? "bg-accent/10 text-accent" : "bg-surface-muted border border-border/40 text-ink-muted"
           }`}>
@@ -72,7 +72,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
               : "border-transparent text-ink-secondary hover:text-ink"
           }`}
         >
-          <span>{lang === "es" ? "Recetas de flujo" : lang === "de" ? "Workflow-Rezepte" : lang === "fr" ? "Recettes de flux" : lang === "pt" ? "Receitas de Fluxo" : "Workflow Recipes"}</span>
+          <span>{t.recipesTag || "Workflow Recipes"}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
             activeTab === "recipes" ? "bg-accent/10 text-accent" : "bg-surface-muted border border-border/40 text-ink-muted"
           }`}>
@@ -88,7 +88,7 @@ export default function GuidesIndexClient({ lang }: GuidesIndexClientProps) {
               : "border-transparent text-ink-secondary hover:text-ink"
           }`}
         >
-          <span>{lang === "es" ? "Comparaciones" : lang === "de" ? "Alternativen & Vergleiche" : lang === "fr" ? "Alternatives" : lang === "pt" ? "Alternativas" : "Alternatives & Matchups"}</span>
+          <span>{t.compareTag || "Alternatives & Matchups"}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
             activeTab === "compare" ? "bg-accent/10 text-accent" : "bg-surface-muted border border-border/40 text-ink-muted"
           }`}>

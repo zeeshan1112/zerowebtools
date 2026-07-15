@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RECIPES } from "@/lib/recipes";
+import { getLocalizedRecipe } from "@/lib/recipes-i18n";
 import RecipeDetailClient from "@/components/RecipeDetailClient";
 
 interface RecipePageProps {
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: RecipePageProps): Promise<Metadata> {
   const { slug, lang } = await params;
-  const recipe = RECIPES.find((r) => r.slug === slug);
+  const recipe = getLocalizedRecipe(slug, lang || "en") || RECIPES.find((r) => r.slug === slug);
   if (!recipe) return { title: "Recipe Not Found" };
 
   const canonicalUrl = `https://zerowebtools.com/${lang === "en" ? "" : lang + "/"}recipes/${slug}`;
@@ -57,7 +58,7 @@ export async function generateMetadata({ params }: RecipePageProps): Promise<Met
 
 export default async function RecipePage({ params }: RecipePageProps) {
   const { slug, lang } = await params;
-  const recipe = RECIPES.find((r) => r.slug === slug);
+  const recipe = getLocalizedRecipe(slug, lang || "en") || RECIPES.find((r) => r.slug === slug);
   if (!recipe) notFound();
 
   // Generate Breadcrumbs
