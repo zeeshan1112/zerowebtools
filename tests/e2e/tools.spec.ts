@@ -1011,7 +1011,7 @@ test.describe("ZeroWebTools Suite E2E Tests", () => {
     await optionInput.press("Enter");
 
     // Verify option is added to list
-    await expect(page.locator("text=ZeroWebTools Special Option").first()).toBeVisible();
+    await expect(page.locator('input[value="ZeroWebTools Special Option"]')).toBeVisible();
 
     // Shuffle options
     await page.click('button[title="Shuffle"]');
