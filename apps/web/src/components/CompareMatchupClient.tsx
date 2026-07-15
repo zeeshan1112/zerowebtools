@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ComparisonMatchup } from "@/lib/comparisons";
 import { getToolById } from "@/lib/tools";
 import AdLayoutSlot from "@/components/AdLayoutSlot";
+import { getTranslations } from "@/lib/i18n";
 
 interface CompareMatchupClientProps {
   matchup: ComparisonMatchup;
@@ -10,6 +11,7 @@ interface CompareMatchupClientProps {
 
 export default function CompareMatchupClient({ matchup, lang }: CompareMatchupClientProps) {
   const langPrefix = lang && lang !== "en" ? `/${lang}` : "";
+  const t = getTranslations(lang || "en");
 
   return (
     <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
@@ -104,7 +106,7 @@ export default function CompareMatchupClient({ matchup, lang }: CompareMatchupCl
       {/* Target Tools Links */}
       <div className="space-y-6 pt-6 border-t border-border/40">
         <h2 className="text-xl font-bold tracking-tight text-ink text-center">
-          Launch Secure Alternatives Offline
+          {t.exploreAllTools || "Launch Secure Alternatives Offline"}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {matchup.targetTools.map((toolId) => {
@@ -132,7 +134,7 @@ export default function CompareMatchupClient({ matchup, lang }: CompareMatchupCl
       {matchup.faqs && matchup.faqs.length > 0 && (
         <div className="space-y-6 pt-8 border-t border-border/40">
           <h2 className="text-xl font-bold tracking-tight text-ink">
-            Frequently Asked Questions
+            {t.faqTitle || "Frequently Asked Questions"}
           </h2>
           <div className="space-y-4">
             {matchup.faqs.map((faq, idx) => (

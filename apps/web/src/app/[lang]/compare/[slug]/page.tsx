@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { COMPARISONS } from "@/lib/comparisons";
+import { getLocalizedComparison } from "@/lib/comparisons-i18n";
 import CompareMatchupClient from "@/components/CompareMatchupClient";
 
 interface MatchupPageProps {
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: MatchupPageProps): Promise<Metadata> {
   const { slug, lang } = await params;
-  const matchup = COMPARISONS.find((m) => m.slug === slug);
+  const matchup = getLocalizedComparison(slug, lang || "en") || COMPARISONS.find((m) => m.slug === slug);
   if (!matchup) return { title: "Matchup Not Found" };
 
   const canonicalUrl = `https://zerowebtools.com/${lang === "en" ? "" : lang + "/"}compare/${slug}`;
@@ -57,10 +58,10 @@ export async function generateMetadata({ params }: MatchupPageProps): Promise<Me
 
 export default async function CompareMatchupPage({ params }: MatchupPageProps) {
   const { slug, lang } = await params;
-  const matchup = COMPARISONS.find((m) => m.slug === slug);
+  const matchup = getLocalizedComparison(slug, lang || "en") || COMPARISONS.find((m) => m.slug === slug);
   if (!matchup) notFound();
 
-  // Generate Schemas
+  // Generate Breadcrumbs
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

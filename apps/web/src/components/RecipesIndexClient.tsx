@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { RECIPES } from "@/lib/recipes";
+import { getLocalizedRecipes } from "@/lib/recipes-i18n";
 import { getTranslations } from "@/lib/i18n";
 
 interface RecipesIndexClientProps {
@@ -9,6 +9,7 @@ interface RecipesIndexClientProps {
 export default function RecipesIndexClient({ lang }: RecipesIndexClientProps) {
   const langPrefix = lang && lang !== "en" ? `/${lang}` : "";
   const t = getTranslations(lang || "en");
+  const recipes = getLocalizedRecipes(lang || "en");
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 py-10 select-none">
@@ -25,7 +26,7 @@ export default function RecipesIndexClient({ lang }: RecipesIndexClientProps) {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {RECIPES.map((recipe) => (
+        {recipes.map((recipe) => (
           <Link
             key={recipe.slug}
             href={`${langPrefix}/recipes/${recipe.slug}`}
