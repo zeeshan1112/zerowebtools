@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { RECIPES } from "@/lib/recipes";
 import { getLocalizedRecipe } from "@/lib/recipes-i18n";
 import RecipeDetailClient from "@/components/RecipeDetailClient";
+import { ADSENSE_REVIEW_MODE } from "@/lib/config";
 
 interface RecipePageProps {
   params: Promise<{ slug: string; lang: string }>;
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }: RecipePageProps): Promise<Met
   return {
     title: pageTitle,
     description: recipe.metaDescription,
+    robots: ADSENSE_REVIEW_MODE ? { index: false, follow: false } : undefined,
     alternates: {
       canonical: canonicalUrl,
       languages: {

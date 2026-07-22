@@ -132,6 +132,13 @@ export default function RootLayout({
             `,
           }}
         />
+        {ADSENSE_CLIENT_ID && ADSENSE_CLIENT_ID !== "ca-pub-XXXXXXXXXXXXXXXX" && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+          />
+        )}
       </head>
       <body className="bg-surface text-ink font-sans min-h-screen flex transition-colors duration-200">
         {/* outer wrapper to reserve space on desktop and prevent layout jumping */}
@@ -145,13 +152,6 @@ export default function RootLayout({
           <Footer />
         </div>
 
-        {ADSENSE_CLIENT_ID && ADSENSE_CLIENT_ID !== "ca-pub-XXXXXXXXXXXXXXXX" && (
-          <Script
-            id="adsense-script"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
-            crossOrigin="anonymous"
-          />
-        )}
         <Analytics />
         <PWAInstallPrompt />
       </body>

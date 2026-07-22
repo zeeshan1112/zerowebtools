@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { COMPARISONS } from "@/lib/comparisons";
 import { getLocalizedComparison } from "@/lib/comparisons-i18n";
 import CompareMatchupClient from "@/components/CompareMatchupClient";
+import { ADSENSE_REVIEW_MODE } from "@/lib/config";
 
 interface MatchupPageProps {
   params: Promise<{ slug: string; lang: string }>;
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }: MatchupPageProps): Promise<Me
   return {
     title: pageTitle,
     description: matchup.metaDescription,
+    robots: ADSENSE_REVIEW_MODE ? { index: false, follow: false } : undefined,
     alternates: {
       canonical: canonicalUrl,
       languages: {
