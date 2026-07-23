@@ -7,6 +7,7 @@ import { COMPARISONS } from "@/lib/comparisons";
 import { RECIPES } from "@/lib/recipes";
 import { CONVERSIONS } from "@/lib/conversions";
 import { LOCALES_DATA } from "@/lib/locales";
+import { ADSENSE_REVIEW_MODE } from "@/lib/config";
 
 export const dynamic = "force-static";
 
@@ -183,9 +184,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages,
     ...toolPages,
     ...guidePages,
-    ...comparePages,
-    ...recipePages,
-    ...conversionPages,
-    ...programmaticPages,
+    ...(ADSENSE_REVIEW_MODE ? [] : comparePages),
+    ...(ADSENSE_REVIEW_MODE ? [] : recipePages),
+    ...(ADSENSE_REVIEW_MODE ? [] : conversionPages),
+    ...(ADSENSE_REVIEW_MODE ? [] : programmaticPages),
   ];
 }

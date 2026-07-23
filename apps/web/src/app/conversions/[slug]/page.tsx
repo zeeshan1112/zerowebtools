@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CONVERSIONS } from "@/lib/conversions";
 import ConversionPairingClient from "@/components/ConversionPairingClient";
+import { ADSENSE_REVIEW_MODE } from "@/lib/config";
 
 interface ConversionPageProps {
   params: Promise<{ slug: string }>;
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: ConversionPageProps): Promise
   return {
     title: pageTitle,
     description: pairing.metaDescription,
+    robots: ADSENSE_REVIEW_MODE ? { index: false, follow: false } : undefined,
     alternates: {
       canonical: canonicalUrl,
       languages: {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RECIPES } from "@/lib/recipes";
 import RecipeDetailClient from "@/components/RecipeDetailClient";
+import { ADSENSE_REVIEW_MODE } from "@/lib/config";
 
 interface RecipePageProps {
   params: Promise<{ slug: string }>;
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: RecipePageProps): Promise<Met
   return {
     title: pageTitle,
     description: recipe.metaDescription,
+    robots: ADSENSE_REVIEW_MODE ? { index: false, follow: false } : undefined,
     alternates: {
       canonical: canonicalUrl,
       languages: {

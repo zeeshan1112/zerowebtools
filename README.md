@@ -315,7 +315,26 @@ Execute the script using `tsx` (TypeScript executor) to automatically resolve dy
 npx tsx --env-file=.env scripts/social-listening.mjs
 ```
 
-For configuration guides, setting up your Reddit API client, or details on organic posting best practices, refer to the [Social Listening Playbook](file:///Users/zee/zeeshanahmad-io/zerowebtools/docs/SOCIAL_LISTENING_PLAYBOOK.md).
+---
+
+## 💰 Google AdSense Approval & Programmatic SEO Toggle
+
+To ensure 100% compliance with Google AdSense Policies and prevent "Low Value Content / Thin Content" rejections during review, the application contains a global review mode toggle in [apps/web/src/lib/config.ts](file:///Users/zee/zeeshanahmad-io/zerowebtools/apps/web/src/lib/config.ts):
+
+```typescript
+export const ADSENSE_REVIEW_MODE = true;
+```
+
+### What `ADSENSE_REVIEW_MODE = true` does:
+1. **Suppresses Programmatic SEO Pages**: Excludes ~2,000 thin, templated doorway pages (programmatic permutations, comparisons, recipes, conversions) from `sitemap.xml`.
+2. **Adds `noindex, nofollow` Meta Tags**: Injects robots headers onto all dynamic/templated subquery routes to prevent crawlers from indexing them during review.
+3. **Presents Clean High-Quality Footprint**: Trims the indexed site down to ~35–57 core tool pages, manual guides, and static policy pages.
+
+### How to Re-Enable Programmatic SEO After Approval:
+Once Google AdSense approves your domain and ads start rendering:
+1. Open `apps/web/src/lib/config.ts`.
+2. Change `export const ADSENSE_REVIEW_MODE = true;` to `false`.
+3. Commit and redeploy! All programmatic SEO routes will automatically reappear in `sitemap.xml` with indexable `robots` headers.
 
 ---
 

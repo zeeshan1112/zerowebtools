@@ -8,6 +8,7 @@ import ToolSidebar from "@/components/ToolSidebar";
 import MobileToolActions from "@/components/MobileToolActions";
 import TelemetryTracker from "@/components/TelemetryTracker";
 import { PROGRAMMATIC_SEO_DATA } from "@/lib/programmatic-seo-data";
+import { ADSENSE_REVIEW_MODE } from "@/lib/config";
 import { CATEGORIES,
   getToolById,
   getCategoryForTool,
@@ -52,6 +53,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   return {
     title: pageTitle,
     description: ogDescription,
+    robots: ADSENSE_REVIEW_MODE ? { index: false, follow: false } : undefined,
     alternates: {
       canonical: canonicalUrl,
       languages: getAlternateLanguages(`/tools/${toolId}/${subQuery}`),
